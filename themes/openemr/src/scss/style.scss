@@ -105,7 +105,7 @@ nav.main-header {
 .home-billboard {
     padding-bottom: 4rem;
     color: $white;
-    height: 100vh;
+    min-height: 100vh;
     background-color: color("gray");
     background-repeat: no-repeat;
     background-position: top center;
