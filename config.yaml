@@ -4,7 +4,7 @@ theme: openemr
 languageCode: en-us
 copyright: Robert Down
 disqusShortname: openemr
-# googleAnalytics: UA-8316288-11
+googleAnalytics: UA-8316288-11
 ignoreFiles:
   - _files%
   - _cache$
@@ -37,27 +37,7 @@ params:
   author:
     name: OpenEMR
     twitter: openemr
+  demoUrl: http://open-emr.org/wiki/index.php/OpenEMR_Demo
+  downloadUrl: http://open-emr.org/wiki/index.php/OpenEMR_Downloads
 permainks:
   post: /:filename/
-menu:
-  main:
-    - name: Features
-      url: /wiki/index.php/OpenEMR_Features
-    - name: Demo
-      url: /wiki/index.php/OpenEMR_Demo
-    - name: Downloads
-      url: /wiki/index.php/OpenMER_Downloads
-    - name: Wiki
-      url: /wiki
-    - name: Forum
-      url: https://community.open-emr.org
-    - name: Support
-      url: /support
-      # - name: Docs
-      #   url: http://open-emr.org/wiki/
-      # - name: Community
-      #   url: https://community.open-emr.org
-      # - name: Chat
-      #   url: https://chat.open-emr.org
-      # - name: open-emr.org
-      #   url: http://open-emr.org

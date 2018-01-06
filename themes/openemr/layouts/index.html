@@ -2,12 +2,12 @@
 
 {{ partial "navigation.html" . }}
 
-<section class="home-billboard" style="background-image: url('{{ .Site.BaseURL }}/img/jumbo2.jpg');">
+<section class="home-billboard" style="background-image: url('{{ .Site.BaseURL }}img/jumbo2.jpg');">
   <div>
     <div class="jumbotron">
       <div class="container">
         <h3 class="display-4">
-          Fully Open Source.<br>
+          Fully Open-Source.<br>
           Free, Always and Forever.<br>
           2014 ONC Complete EHR Certified.<br>
         </h3>
@@ -24,7 +24,7 @@
       <div class="card-holders">
         <div class="col-sm-12 col-md-4">
           <div class="card">
-            <a href="__demo__url__">
+            <a href="{{ .Site.Params.demoUrl }}">
               <div class="card-body">
                 <img class="img-fluid center" src="{{ .Site.BaseURL }}/img/monitor.png" alt="Card image cap" height="64" width="64">
                 <h4 class="card-title">Try Now</h4>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-sm-12 col-md-4">
           <div class="card">
-            <a href="__download__url">
+            <a href="{{ .Site.Params.downloadUrl }}">
               <div class="card-body">
                 <img class="img-fluid center" src="{{ .Site.BaseURL }}/img/download-arrow.png" alt="Card image cap" height="64" width="64">
                 <h4 class="card-title">Download a Free Copy</h4>
@@ -244,7 +244,7 @@
 </div>
 
 <div class="main-content">
-  {% include "includes/help-needed.html" %}
+  {{ partial "help-needed.html" . }}
 </div>
 
 <div class="parallax-container">
@@ -270,7 +270,7 @@
 
   <section class="osi">
     <div class="col-sm-12 col-md-6">
-      <h1 class="display-4">Open Source</h1>
+      <h1 class="display-4">Open-Source</h1>
       <p class="lead">
         Open source software has changed the world for the better. OpenEMR is a leader in healthcare open source software. Costly
         proprietary EMRs are no longer the only option. Learn how to start contributing today!
