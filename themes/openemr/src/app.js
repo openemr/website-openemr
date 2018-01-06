@@ -1,5 +1,6 @@
 require("./scss/style.scss");
-require("materialize-css/dist/js/materialize.min.js")
+require("materialize-css/dist/js/materialize.min.js");
+require("bootstrap/dist/js/bootstrap.bundle.js");
 
 $(document).ready(function(){
   $('.parallax').parallax();
