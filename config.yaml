@@ -1,0 +1,63 @@
+title: OpenEMR
+baseurl: https://www.open-emr.org/
+theme: openemr
+languageCode: en-us
+copyright: Robert Down
+disqusShortname: openemr
+# googleAnalytics: UA-8316288-11
+ignoreFiles:
+  - _files%
+  - _cache$
+taxonomies:
+  tag: tags
+  category: categories
+params:
+  # Required theme-specific variables
+  twitterImage: /images/test.jpg
+  coverImageStyle: standard
+  twitterCardType: summary
+  intro: "true"
+  headline: OpenEMR
+  description: Open source electronic medical record software
+  github: "https://github.com/openemr"
+  linkedin: ""
+  gplus: https://plus.google.com/106799034872780958301
+  twitter: openemr
+  facebook: https://www.facebook.com/OpenEMR-181315115284266
+  stackoverflow: ""
+  email: blog@oemr.org
+  opengraph: true
+  shareTwitter: true
+  shareFacebook: true
+  shareGooglePlus: true
+  shareLinkedIn: true
+  dateFormat: Mon, Jan 2, 2006
+  highlightJsUrl: ""
+  highlightJsLocalUrl: ""
+  author:
+    name: OpenEMR
+    twitter: openemr
+permainks:
+  post: /:filename/
+menu:
+  main:
+    - name: Features
+      url: /wiki/index.php/OpenEMR_Features
+    - name: Demo
+      url: /wiki/index.php/OpenEMR_Demo
+    - name: Downloads
+      url: /wiki/index.php/OpenMER_Downloads
+    - name: Wiki
+      url: /wiki
+    - name: Forum
+      url: https://community.open-emr.org
+    - name: Support
+      url: /support
+      # - name: Docs
+      #   url: http://open-emr.org/wiki/
+      # - name: Community
+      #   url: https://community.open-emr.org
+      # - name: Chat
+      #   url: https://chat.open-emr.org
+      # - name: open-emr.org
+      #   url: http://open-emr.org
