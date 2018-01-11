@@ -1,7 +1,6 @@
 ---
 title: "Year in Review"
 date: 2018-01-06T20:57:39-05:00
-draft: true
 layout: year-in-review
 url: year-in-review/
 ---
@@ -10,7 +9,7 @@ url: year-in-review/
 
 # By the Numbers
 
-## Git Commits <img src="/img/flow-merge.svg">
+## Git Commits 
 Commits
 Authors
 Pull Requests
