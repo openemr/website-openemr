@@ -1,0 +1,189 @@
+{{ define "main" }}
+<div class="cover-image d-flex justify-content-center" style="background-position: static; background-image: url('{{ .Site.BaseURL }}year_in_review_bg.jpg');">
+  <h1 class="align-self-center display-4 text-center">
+    <span class="year">2017</span> Year in Review
+  </h1>
+</div>
+<div class="container-fluid yir">
+  <div class="row numbers text-center">
+    <div class="col-12 text-center">
+      <h1>Noteworthy Numbers</h1>
+    </div>
+    <div class="col-xs-12 col-md-2 offset-md-2 text-center">
+        <h3 id="git_commit_number">1,061</h3>
+        <h2>Git Commits</h2>
+    </div>
+    <div class="col-xs-12 col-md-2">
+      <h3 id="git_authors">54</h3>
+      <h2>Contributors</h2>
+    </div>
+    <div class="col-xs-12 col-md-2">
+      <h3 id="pull-requests">32</h3>
+      <h2>Pull Requests</h2>
+    </div>
+    <div class="col-xs-12 col-md-2">
+      <h3>25,000*</h3>
+      <h2>Cups of Coffee</h2>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-12">
+      <h1>Mastering Meaningful Use</h1>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 offset-xl-2 text-right">
+      <p>
+        In MONTH of 2017 OpenEMR achieved full Meaningful Use 2 certification. 
+        This was a large step to ensuring the long-term viability of OpenEMR for
+        use inside the United States. Of course, such stringent specifications only
+        aid to improve our product globally, and we have seen positive outcomes
+        both within the U.S. as well as internationally after acheiving this goal.
+      </p>
+      <p>
+        Paragraph here of how many people contributed as well as the money raised
+        to acheive this goal.
+      </p>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 align-self-center">
+      <img src="{{ .Site.BaseURL }}onc.png" class="img-fluid" height="100">
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-12">
+      <h1>Deploy on Docker</h1>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 offset-xl-2 align-self-center">
+      <img src="{{ .Site.BaseURL }}docker.png" class="img-fluid">
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 text-left">
+      <p>
+        We know talking about containers and virtualization can be a bit dry, but
+        throughout 2017 the community spent <strong>a lot</strong> of time working and discussing
+        "dockerizing" OpenEMR - this process marks a significant departure from
+        traditional installation processes and offers users a significantly simpler
+        installation solution. This lowers the barrier to getting OpenEMR up and
+        running for "non-tech" users.
+      </p>
+      <p>
+        Ready to give the OpenEMR Docker a go? Head over to <a href="https://hub.docker.com/r/openemr/openemr/">
+        https://hub.docker.com/r/openemr/openemr/</a> for details, or just run<br>
+        <code>
+          $ docker pull openemr/openemr
+        </code>
+      </p>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-12">
+      <h1>OpenEMR Cloud on AWS Marketplace</h1>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 offset-xl-2 text-right">
+      <p>
+      This year, OpenEMR joined with industry-leading Amazon Web Services to
+      implement and deliver <a href="https://aws.amazon.com/marketplace/pp/B077G76DWN?qid=1515631968903&sr=0-1&ref_=srh_res_product_title">OpenEMR Cloud</a>, a cloud service version of OpenEMR available
+      to healthcare provider practices and institutions throughout the world. In a few simple steps, healthcare
+      providers can leverage the benefits of OpenEMR and AWS by deploying OpenEMR Cloud Full Stack.
+      </p>
+      <p>Cloud technologies have become a staple in technology and business over the past
+      decade, and the healthcare industry is no exception. As a web platform, OpenEMR
+      makes a seamless transition to the cloud, enabling many benefits including:
+      cutting-edge information security, zero on-site hardare and software, easy deployment, 
+      and robust backup and recovery solutions.
+      </p>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 align-self-center">
+      <img src="{{ .Site.BaseURL }}openemr_cloud_aws.jpg" class="img-fluid">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>WONCA SAR Presentation</h1>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 offset-xl-2 align-self-center embed-responsive embed-responsive-16by9">
+      <iframe id="ytplayer" type="text/html" width="480" height="270" src="https://www.youtube.com/embed/xrORhyf4ce0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4">
+      <p>
+        Matthew Vita, a software developer and project administrator for OpenEMR
+        and Dr. Andre Millet, a physician and medical officer for OpenEMR were pleased
+        to present “Improving Outpatient and Inpatient Care with the OpenEMR Platform”
+        at WONCA South Asia Region 2017.</p>
+      <p>
+        This Kathmandu, Nepal-based conference was primarily focused on General
+        Practitioners took place on the 25th and 26th of November. Mr. Vita and Dr. Millet’s
+        presentation was given during the oral lectures section. Highlights include
+        an overview of the volunteer approach to developing an EMR system, current
+        outpatient features and their clinical benefits, as well as development
+        plans to introduce more clinical features including inpatient support.
+        
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>HealthHacks at VCU</h1>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 offset-xl-2 text-right">
+      <p>
+        OpenEMR was proud to be a contributing sponsor of the 2017 HealthHacks at
+        VCU a 24-hour event at Virginia Commonwealth University involving engineering,
+        medical, and computer science students coming together to problem solve and
+        innovate on current unmet medical needs. OpenEMR was both a sponsor as well
+        as a mentor, sending Robert Down, a project administrator, to the event.
+      </p>
+      <p>
+        The decision to sponsor HealthHacks at VCU fell squarely in line with our
+        mission to provide high-quality medical solutions to the world. OpenEMR is
+        already a long-term, viable solution for low-resource clinics, and our hope
+        is to complement our software solutions with the innovations from this event.
+        It is our hope that we can continue to develop tools that meet the needs of low-resource
+        areas and developing countries to strengthen the healthcare industry throughout
+        the world.
+      </p>
+    </div>
+    <div class="col-xs-12 col-md-6 col-xl-4 align-self-center">
+      <img src="{{ .Site.BaseURL }}hh-vcu.jpg" alt="" class="img-fluid">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-xl-6 offset-xl-3">
+      <hr>
+      <p>
+        This is just a brief overview of the great things that happened around
+        OpenEMR in 2017 - there's <em>no</em> way we could possibly
+        showcase everything that happened in our community - it'd take an entire
+        year! OpenEMR continues to be a successful project because of our strong
+        community and passionate volunteers who give countless hours of their time
+        to a cause that hopes to improve global health care. To those volunteers,
+        we say <strong>thank you</strong> for everything. Here's to an even better 2018!
+        <br><span class="pull-right">&nbsp;The OpenEMR Project Admins</span>
+      </p>
+      <hr>
+      <small class="text-muted">
+        <em>*Coffee consumption calculation is not an accurate or scientific representation
+        of actual coffee consumed by anybody involved with the OpenEMR project. It is 
+        instead a rough estimate which may or may not be... but is probably most-definitely not
+        very accurate.</em>
+      </small>
+    </div>
+  </div>
+</div>
+<script>
+
+function counter(obj_id, start, end, duration) {
+  var obj = document.getElementById(obj_id);
+  var current = start;
+  var stepTime = Math.abs(Math.floor(duration / (end - start)));
+  var timer = setInterval(function(){
+    current += 1;
+    obj.innerHTML = current;
+    if (current == end) {
+      clearInterval(timer);
+    }
+  }, stepTime);
+}
+window.addEventListener("load", function(){
+  // counter("git_commit_number", 800, 1061, 1000);
+});
+
+</script>
+{{ end }}

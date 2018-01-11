@@ -1,0 +1,71 @@
+nav.main-header.home {
+  background-color: transparent;
+  transition: background-color 0.25s;
+  transform: scale (1);
+  margin-top: $nav-default-margin-top
+}
+
+nav.main-header.home.nav-colored {
+  background-color: rgba(theme-color("primary"), 0.90);
+  transition: background-color 0.25s;
+  transition: transform 0.10s;
+  transform: scale(1);
+  margin-top: 0;
+}
+
+nav.main-header.home.nav-transparent {
+  margin-top: $nav-default-margin-top;
+  background-color: transparent;
+  transition: background-color 0.25s;
+  transition: margin-top 0.25s;
+}
+
+@include media-breakpoint-up(xl) {
+  nav.main-header {
+    transform: scale(1.10);
+    margin-top: $nav-default-margin-top;
+  }
+}
+
+nav.main-header {
+    @extend .navbar;
+    @extend .navbar-expand-lg;
+    @extend .navbar-dark;
+    @extend .fixed-top; // @extend .bg-primary;
+    transition: transform 0.10s;
+    margin-top: 0px;
+    background-color: rgba(theme-color("primary"), 0.90);
+    .container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    a {
+        color: $white !important;
+        &:hover {
+            color: lighten($blue, 50) !important;
+        }
+    }
+}
+.nav-item {
+    color: $white;
+}
+#navbarSupportedContent {
+    @extend .collapse;
+    @extend .navbar-collapse;
+    @extend .justify-content-end;
+    ul {
+        @extend .navbar-nav;
+        li {
+            a {
+                @extend .nav-link;
+            }
+        }
+    }
+}
+.dropdown-menu {
+    background-color: $blue;
+    a:hover {
+        background-color: $blue;
+        color: darken($white, 30);
+    }
+}

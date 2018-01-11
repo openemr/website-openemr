@@ -1,0 +1,58 @@
+.home-billboard {
+    padding-bottom: 4rem;
+    color: $white;
+    min-height: 100vh;
+    background-color: color("gray");
+    background-repeat: no-repeat;
+    background-position: top center;
+    -webkit-background-size: cover;
+    background-size: cover;
+    @include media-breakpoint-down(sm) {
+        // background-image: none !important;
+        // background-color: $gray !important;
+    }
+    .jumbotron {
+        padding-top: 10rem;
+        color: $white;
+        background: none;
+        .display-4 {
+            text-shadow: 2px 2px 0 $black;
+            line-height: 1.35em;
+            font-family: $headings-font-family;
+            font-weight: 300 !important;
+        }
+        p.lead {
+            @include media-breakpoint-down(sm) {
+                display: none;
+            }
+        }
+    }
+    .banner-items {
+        @extend .container;
+        .card-holders {
+            @extend .row;
+            .card {
+                @extend .text-white;
+                @extend .text-center;
+                @extend .bg-primary;
+                background-color: rgba(46, 155, 214, 0.40) !important;
+                transition: background-color 0.25s;
+                &:hover {
+                    @include transition(0.25s);
+                    background-color: rgb(46, 155, 214) !important;
+                }
+                a {
+                    color: $white;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+                .card-body {
+                    img {
+                        padding-bottom: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
