@@ -169,7 +169,7 @@
 }
 
 .cover-image {
-  height: 570px;
+  height: 600px;
   width: 100%;
   background-position: cover;
   background-position: 50% 50%;
@@ -216,8 +216,14 @@
     color: theme-color("primary");
   }
 
+  h2 {
+    @extend .text-muted;
+  }
+
   h1 {
     color: $red;
+    padding-left: 40px;
+    padding-right: 40px;
     @include media-breakpoint-only(xl) {
       padding-bottom: 10px;
       margin-bottom: 25px;
