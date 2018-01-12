@@ -4,7 +4,7 @@ theme: openemr
 languageCode: en-us
 copyright: Robert Down
 disqusShortname: openemr
-googleAnalytics: UA-8316288-11
+googleAnalytics: UA-8316288-7
 enableGitInfo: true
 ignoreFiles:
   - _files%

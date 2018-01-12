@@ -7,21 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Robert Down</copyright>
-    <lastBuildDate>Sat, 06 Jan 2018 20:57:39 -0500</lastBuildDate>
     
 	<atom:link href="http://www.open-emr.org/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Year in Review</title>
-      <link>http://www.open-emr.org/year-in-review/</link>
-      <pubDate>Sat, 06 Jan 2018 20:57:39 -0500</pubDate>
-      
-      <guid>http://www.open-emr.org/year-in-review/</guid>
-      <description>2017 was a year of tremendous growth for OpenEMR - we became an ONC Certified HIT 2014 Edition Complete EHR product, improved our forums, website, and chat platforms, and sent represenatives throughout the world from Richmond, Virginia to Nepal! Our community contributed XXX number of commits to our codebase, growth of XX% from 2016.
-By the Numbers Git Commits Commits Authors Pull Requests Releases / Patches Discussion threads
-ONC Certification Docker AWS Marketplace Icons made by Stephen Hutchings from www.</description>
-    </item>
     
   </channel>
 </rss>
