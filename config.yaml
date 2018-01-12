@@ -1,10 +1,11 @@
 title: OpenEMR
-baseurl: http://www.open-emr.org/
+baseURL: http://www.open-emr.org/
 theme: openemr
 languageCode: en-us
 copyright: Robert Down
 disqusShortname: openemr
 googleAnalytics: UA-8316288-11
+enableGitInfo: true
 ignoreFiles:
   - _files%
   - _cache$
@@ -22,7 +23,7 @@ params:
   github: "https://github.com/openemr"
   linkedin: ""
   gplus: https://plus.google.com/106799034872780958301
-  twitter: openemr
+  twitter: https://twitter.com/openemr
   facebook: https://www.facebook.com/OpenEMR-181315115284266
   stackoverflow: ""
   email: blog@oemr.org
