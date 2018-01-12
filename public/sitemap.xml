@@ -3,29 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.open-emr.org/year-in-review/</loc>
+    <loc>http://www.open-emr.org/year-in-review/</loc>
     <lastmod>2018-01-06T20:57:39-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.open-emr.org/categories/</loc>
+    <loc>http://www.open-emr.org/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://www.open-emr.org/</loc>
-    <lastmod>2018-01-06T20:57:39-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.open-emr.org/page/</loc>
+    <loc>http://www.open-emr.org/</loc>
     <lastmod>2018-01-06T20:57:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://www.open-emr.org/tags/</loc>
+    <loc>http://www.open-emr.org/page/</loc>
+    <lastmod>2018-01-06T20:57:39-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.open-emr.org/tags/</loc>
     <priority>0</priority>
   </url>
   
