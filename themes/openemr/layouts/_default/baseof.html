@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html{{ if .Site.Params.opengraph }} prefix="og: http://ogp.me/ns#" {{ end }} lang="en">
 <head>
-  {{ block "header" . }}
-    {{ partial "header.html" . }}
-  {{ end }}
+  {{- block "header" . -}}{{- partial "header.html" . -}}{{- end -}}
 </head>
 <body>
-  {{ partial "navigation.html" . }}
+  {{- partial "navigation.html" . }}
   <main>
     {{ block "main" . }}
     {{ end }}
   </main>
-
-  
-  {{ block "footer" . }}
-    {{ partial "footer.html" . }}
-  {{ end }}
+  {{- block "footer" . -}}
+    {{- partial "footer.html" . -}}
+  {{- end -}}
 </body>
-{{ template "_internal/google_analytics.html" . }}
+{{- template "_internal/google_analytics.html" . -}}
 </html>
