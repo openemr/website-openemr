@@ -1,0 +1,29 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>{{ .Title }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="robots" content="index,follow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{- if .Site.Params.opengraph -}}
+{{- partial "opengraph.html" . -}}
+{{- end -}}
+<link rel="stylesheet" href="{{ .Site.BaseURL }}style.css?v=24">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{{- if .RSSLink -}}
+<link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml">
+{{- end -}}
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=vMO5ypXxXd">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=vMO5ypXxXd">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=vMO5ypXxXd">
+<link rel="manifest" href="/manifest.json?v=vMO5ypXxXd">
+<link rel="mask-icon" href="/safari-pinned-tab.svg?v=vMO5ypXxXd" color="#2d9bd6">
+<link rel="shortcut icon" href="/favicon.ico?v=vMO5ypXxXd">
+<meta name="apple-mobile-web-app-title" content="OpenEMR">
+<meta name="application-name" content="OpenEMR">
+<meta name="msapplication-TileColor" content="#2d9bd6">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=vMO5ypXxXd">
+<meta name="theme-color" content="#2d9bd6">
+<script src="{{ .Site.BaseURL }}bundle.js"></script>

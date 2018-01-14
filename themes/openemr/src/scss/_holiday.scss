@@ -1,0 +1,190 @@
+.give-link {
+    background-color: $holiday-red;
+    border-top: 1px solid $holiday-white;
+    display: block;
+    font-family: 'Crimson Text', serif;
+    font-size: 2.5em;
+    color: $holiday-white;
+
+    img {
+        vertical-align: top;
+        display: inline-block;
+        padding-right: 25px;
+    }
+}
+
+.homepage-banner {
+    min-height: 100%;
+    min-height: 100vh;
+    background-color: #000022;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: right top;
+    background-attachment: fixed;
+    border: none;
+    color: $white !important;
+    margin-bottom: 0;
+
+    @include media-breakpoint-up(md) {
+        background-position: left top;
+    }
+
+    .wrapper {
+        @extend .container;
+
+        @include media-breakpoint-only(md) {
+            .row:first-child() {
+                margin-bottom: 35px;
+            }
+        }
+
+        @include media-breakpoint-only(lg) {
+            .row:first-child() {
+                margin-top: 70px;
+            }
+        }
+
+        .header-text {
+            h1 {
+                font-family: 'Allura', cursive;
+                font-size: 4.2em;
+                color: $holiday-white;
+                text-align: center;
+
+                small {
+                    font-size: 0.8em;
+                }
+
+                @include media-breakpoint-up(md) {
+                    font-size: 7em;
+                    line-height: 0.75em;
+                    color: $holiday-blue;
+                    text-align: left;
+                    small {
+                        font-size: 0.7em;
+                    }
+                }
+
+                @include media-breakpoint-up(xl) {
+                    font-size: 10em;
+                    line-height: 0.75em;
+                    text-align: left;
+                    small {
+                        font-size: 0.8em;
+                    }
+                }
+            }
+        }
+
+        .details {
+            @include media-breakpoint-up(md) {
+                padding-top: 35px;
+            }
+        }
+
+        .donation-text {
+            font-size: 1.4em;
+            text-align: center;
+            font-family: 'Crimson Text', serif;
+            color: $holiday-white;
+
+            p {
+                padding: 0;
+                margin: 0;
+                line-height: 1.30em;
+                display: inline;
+
+                @include media-breakpoint-up(lg) {
+                    &:first-child {
+                        padding-top: 35px;
+                    }
+
+                    &:last-child {
+                        padding-bottom: 35px;
+                    }
+                }
+            }
+
+            @include media-breakpoint-up(md) {
+                font-size: 1.5em;
+            }
+
+            @include media-breakpoint-up(lg) {
+                font-size: 1.75em;
+                text-align: left;
+            }
+
+            @include media-breakpoint-up(xl) {
+                font-size: 2em;
+                text-align: left;
+
+                p:first-child {
+                    display: inline-block;
+                    margin-top: 20px;
+                }
+
+                p:last-child {
+                    display: inline-block;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
+        .donation-link {
+            @extend .give-link;
+            border-radius: 60px;
+            border: 1px solid $holiday-white;
+
+            @include media-breakpoint-up(lg) {
+                a {
+                    font-size: 2.5em;
+                    transition: transform 0.5s;
+                    transform: scale(1);
+                    span {
+                        padding-top: 30px;
+                        padding-bottom: 30px;
+                        padding-right: 50px;
+                        padding-left: 50px;
+                    }
+                    img {
+                        vertical-align: top;
+                        display: inline-block;
+                        padding-right: 35px;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                    }
+                    &:hover {
+                        transition: transform 0.5s;
+                        transform: scale(1.10);
+                    }
+                }
+            }
+        }
+    }
+
+    .small-give-link {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        a {
+            @extend .give-link;
+        }
+    }
+
+    // Darken the background on phones
+    @include media-breakpoint-down(xs) {
+        &:before {
+            background-color: rgba(0,0,0,0.35);
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            min-height: 100%;
+            min-height: 100vh;
+            width: 100%;
+        }
+    }
+}

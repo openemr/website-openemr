@@ -1,0 +1,190 @@
+/**
+ *
+ */
+
+@import "imports";
+
+.inline {
+    display: inline;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: $headings-font-family;
+}
+body {}
+.site-header {
+    @extend .container-fluid;
+    background-color: $blue;
+    color: $white;
+    .container {
+        padding-top: 35px;
+        nav {
+            // @extend .col-xs-12;
+            ul {
+                @extend .nav;
+                a.nav-link, a.nav-link:visited, a.nav-link:focus {
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+
+main {
+  .container {
+    // margin-top: 115px;
+  }
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid theme-color("primary");
+  position: absolute;
+  top: -10px;
+  left: 25px;
+}
+
+.highlighted-users {
+    @extend .container;
+    .col {
+        @extend .text-center;
+    }
+}
+.main-content {
+    @extend .container;
+    section {
+        @extend .row;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
+.onc {
+    @extend .row;
+}
+.platforms {
+    @extend .container
+}
+.osi-banner {
+    @extend .container-fluid;
+    background-color: $gray-900;
+    color: $white;
+}
+footer.site {
+    @extend .container-fluid;
+    background-color: rgba($gray-200, 1);
+    color: $gray-900;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    @include media-breakpoint-down(sm) {
+        .col-logo {
+            display: none;
+        }
+    }
+    @include media-breakpoint-up(md) {
+        .col-logo {
+            @include make-col(3);
+        }
+    }
+    a {
+        color: $gray-700;
+        &:hover {
+            color: $red;
+            text-decoration: none;
+        }
+    }
+    ul li ul {
+        list-style: none;
+    }
+}
+.features {
+  .card-holder {
+    @include make-col-ready();
+    @include media-breakpoint-down(sm) {
+      @include make-col(12);
+    }
+    @include media-breakpoint-only(md) {
+        @include make-col(6);
+    }
+    @include media-breakpoint-only(lg) {
+        @include make-col(4);
+    }
+    @include media-breakpoint-up(xl) {
+        @include make-col(3);
+    }
+    @include media-breakpoint-down(md) {
+        .card-title {
+            font-size: 1.5rem;
+        } 
+    }
+    @include transition(all 0.25s);
+    background-color: transparent;
+    &:hover {
+        @include transition(all 0.25s);
+        background-color: $gray-300;
+    }
+    .card {
+        @extend .m-4;
+        border: none;
+        background: none;
+        .card-title {
+            @extend .text-center;
+        }
+        img {
+            width: 64px;
+            display: flex;
+            align-content: center;
+            margin: 0 auto;
+        }
+    }
+  }
+}
+.deploy {
+    img {
+        height: 64px;
+        width: 64px;
+    }
+}
+footer.site {
+    a {
+        color: color("primary");
+    }
+}
+// Parallax
+.parallax-container {
+    position: relative;
+    overflow: hidden;
+    height: 450px;
+    .parallax {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        img {
+            display: none;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            transform: translate3d(0, 0, 0);
+            transform: translateX(-50%);
+        }
+    }
+}
+.btn-xl {
+    @include button-size($input-btn-padding-y-xl, $input-btn-padding-x-xl, $font-size-xl, $line-height-xl, $btn-border-radius-lg);
+}
+@include media-breakpoint-down(lg) {
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+@include media-breakpoint-only(sm) {
+    .display-4 {
+        font-size: 1.5rem;
+    }
+}
