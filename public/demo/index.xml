@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Demo on OpenEMR</title>
+    <link>http://www.open-emr.org/demo/</link>
+    <description>Recent content in Demo on OpenEMR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Robert Down</copyright>
+    <lastBuildDate>Sat, 06 Jan 2018 20:57:39 -0500</lastBuildDate>
+    
+	<atom:link href="http://www.open-emr.org/demo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
