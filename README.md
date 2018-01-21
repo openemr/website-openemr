@@ -5,11 +5,11 @@ theme to manage the main OpenEMR website.
 
 # Installation
 
-0. [Install ](http://gohugo.io/getting-started/installing/)
+0. [Install hugo](http://gohugo.io/getting-started/installing/)
 1. Clone this repo
 2. `cd` into the repo
 3. Run `hugo server` (or `hugo server -D` to include draft pages)
-4. Navigate to localhost:1313 in your browser
+4. Navigate to [localhost:1313](http://localhost:1313) in your browser
 
 # Submitting changes
 
