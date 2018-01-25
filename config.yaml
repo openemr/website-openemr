@@ -19,7 +19,11 @@ params:
   twitterCardType: summary
   intro: "true"
   headline: OpenEMR
+<<<<<<< HEAD
   description: Open source electronic medical record software
+=======
+  description: The world's leading open-source electronic medical record and practice management software.
+>>>>>>> master
   github: "https://github.com/openemr"
   linkedin: ""
   gplus: https://plus.google.com/106799034872780958301
@@ -38,7 +42,11 @@ params:
   author:
     name: OpenEMR
     twitter: openemr
+<<<<<<< HEAD
   demoUrl: http://open-emr.org/wiki/index.php/OpenEMR_Demo
+=======
+  demoUrl: demo
+>>>>>>> master
   downloadUrl: http://open-emr.org/wiki/index.php/OpenEMR_Downloads
 permainks:
   post: /:filename/
