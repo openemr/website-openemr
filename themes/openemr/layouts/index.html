@@ -1,5 +1,29 @@
 {{ define "main" }}
 
+<section class="home-billboard--year-in-review" style="background-image: url('{{ .Site.BaseURL }}year_in_review_bg.jpg');">
+  <div>
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 offset-md-3 col-lg-6 offset-lg-0">
+            <div class="display-1">
+              <span class="year">2017</span>
+              <span class="title">Year in Review</span>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-10 offset-md-1 col-lg-6 offset-lg-0">
+            <p class="description">
+              What a year for OpenEMR! Look back at some of our biggest accomplishments and see just how many cups of coffee it takes to power the world's leading open-source EMR.
+            </p>
+            <a class="look-back d-none d-lg-block" href="/year-in-review"><i class="fa fa-sm fa-undo"></i>&nbsp;Look back now</a>          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="look-back d-lg-none bottom" href="/year-in-review"><i class="fa fa-sm fa-undo"></i>&nbsp;Look back now</a>
+</section>
+
 <section class="home-billboard" style="background-image: url('{{ .Site.BaseURL }}img/jumbo2.jpg');">
   <div>
     <div class="jumbotron">
