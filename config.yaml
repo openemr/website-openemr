@@ -1,5 +1,5 @@
 title: OpenEMR
-baseURL: http://www.open-emr.org/
+baseURL: https://www.open-emr.org/
 theme: openemr
 languageCode: en-us
 copyright: Robert Down
@@ -10,8 +10,8 @@ ignoreFiles:
   - _files%
   - _cache$
 taxonomies:
-  tag: tags
-  category: categories
+  tag: ""
+  category: ""
 params:
   # Required theme-specific variables
   twitterImage: /images/test.jpg
@@ -39,6 +39,6 @@ params:
     name: OpenEMR
     twitter: openemr
   demoUrl: demo
-  downloadUrl: http://open-emr.org/wiki/index.php/OpenEMR_Downloads
+  downloadUrl: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
 permainks:
   post: /:filename/
