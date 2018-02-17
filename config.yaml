@@ -10,8 +10,8 @@ ignoreFiles:
   - _files%
   - _cache$
 taxonomies:
-  tag: tags
-  category: categories
+  tag: ""
+  category: ""
 params:
   # Required theme-specific variables
   twitterImage: /images/test.jpg
