@@ -84,7 +84,9 @@ OEMR is a non-profit organization formed to ensure that all people, regardless o
 * How to guides: https://www.open-emr.org/wiki/index.php/OpenEMR_5.0.0_Users_Guide
 * Old version of software, but still a great playlist
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9iOfFsMf7yY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/9iOfFsMf7yY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
 
 
 # Communications
