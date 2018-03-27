@@ -550,23 +550,23 @@ pre {
   max-height: 340px;
   overflow-y: scroll; }
 
-.container, .home-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
+.container, .home-billboard .banner-items, .welcome-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto; }
   @media (min-width: 576px) {
-    .container, .home-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
+    .container, .home-billboard .banner-items, .welcome-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
       max-width: 540px; } }
   @media (min-width: 768px) {
-    .container, .home-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
+    .container, .home-billboard .banner-items, .welcome-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
       max-width: 720px; } }
   @media (min-width: 992px) {
-    .container, .home-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
+    .container, .home-billboard .banner-items, .welcome-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
       max-width: 960px; } }
   @media (min-width: 1200px) {
-    .container, .home-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
+    .container, .home-billboard .banner-items, .welcome-billboard .banner-items, .home-billboard--year-in-review .banner-items, .highlighted-users, .main-content, .platforms {
       max-width: 1140px; } }
 
 .container-fluid, .site-header, .osi-banner, footer.site {
@@ -576,7 +576,7 @@ pre {
   margin-right: auto;
   margin-left: auto; }
 
-.row, .home-billboard .banner-items .card-holders, .home-billboard--year-in-review .banner-items .card-holders, .main-content section, .onc {
+.row, .home-billboard .banner-items .card-holders, .welcome-billboard .banner-items .card-holders, .home-billboard--year-in-review .banner-items .card-holders, .main-content section, .onc {
   display: flex;
   flex-wrap: wrap;
   margin-right: -15px;
@@ -2519,7 +2519,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
   .custom-file-control:lang(en)::before {
     content: "Browse"; }
 
-.nav, .site-header .container nav ul, .site-header .home-billboard .banner-items nav ul, .home-billboard .site-header .banner-items nav ul, .site-header .home-billboard--year-in-review .banner-items nav ul, .home-billboard--year-in-review .site-header .banner-items nav ul, .site-header .highlighted-users nav ul, .site-header .main-content nav ul, .site-header .platforms nav ul {
+.nav, .site-header .container nav ul, .site-header .home-billboard .banner-items nav ul, .home-billboard .site-header .banner-items nav ul, .site-header .welcome-billboard .banner-items nav ul, .welcome-billboard .site-header .banner-items nav ul, .site-header .home-billboard--year-in-review .banner-items nav ul, .home-billboard--year-in-review .site-header .banner-items nav ul, .site-header .highlighted-users nav ul, .site-header .main-content nav ul, .site-header .platforms nav ul {
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -2592,7 +2592,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem; }
-  .navbar > .container, nav.main-header > .container, .home-billboard .navbar > .banner-items, .home-billboard nav.main-header > .banner-items, .home-billboard--year-in-review .navbar > .banner-items, .home-billboard--year-in-review nav.main-header > .banner-items, .navbar > .highlighted-users, nav.main-header > .highlighted-users, .navbar > .main-content, nav.main-header > .main-content, .navbar > .platforms, nav.main-header > .platforms,
+  .navbar > .container, nav.main-header > .container, .home-billboard .navbar > .banner-items, .home-billboard nav.main-header > .banner-items, .welcome-billboard .navbar > .banner-items, .welcome-billboard nav.main-header > .banner-items, .home-billboard--year-in-review .navbar > .banner-items, .home-billboard--year-in-review nav.main-header > .banner-items, .navbar > .highlighted-users, nav.main-header > .highlighted-users, .navbar > .main-content, nav.main-header > .main-content, .navbar > .platforms, nav.main-header > .platforms,
   .navbar > .container-fluid, nav.main-header > .container-fluid,
   .navbar > .site-header, nav.main-header > .site-header,
   .navbar > .osi-banner, nav.main-header > .osi-banner,
@@ -2656,7 +2656,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
   background-size: 100% 100%; }
 
 @media (max-width: 575px) {
-  .navbar-expand-sm > .container, .home-billboard .navbar-expand-sm > .banner-items, .home-billboard--year-in-review .navbar-expand-sm > .banner-items, .navbar-expand-sm > .highlighted-users, .navbar-expand-sm > .main-content, .navbar-expand-sm > .platforms,
+  .navbar-expand-sm > .container, .home-billboard .navbar-expand-sm > .banner-items, .welcome-billboard .navbar-expand-sm > .banner-items, .home-billboard--year-in-review .navbar-expand-sm > .banner-items, .navbar-expand-sm > .highlighted-users, .navbar-expand-sm > .main-content, .navbar-expand-sm > .platforms,
   .navbar-expand-sm > .container-fluid,
   .navbar-expand-sm > .site-header,
   .navbar-expand-sm > .osi-banner,
@@ -2678,7 +2678,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
       .navbar-expand-sm .navbar-nav .nav-link, .navbar-expand-sm #navbarSupportedContent ul .nav-link, #navbarSupportedContent .navbar-expand-sm ul .nav-link, #navbarSupportedContent ul li .navbar-expand-sm .navbar-nav a, .navbar-expand-sm #navbarSupportedContent ul li a, #navbarSupportedContent .navbar-expand-sm ul li a {
         padding-right: .5rem;
         padding-left: .5rem; }
-    .navbar-expand-sm > .container, .home-billboard .navbar-expand-sm > .banner-items, .home-billboard--year-in-review .navbar-expand-sm > .banner-items, .navbar-expand-sm > .highlighted-users, .navbar-expand-sm > .main-content, .navbar-expand-sm > .platforms,
+    .navbar-expand-sm > .container, .home-billboard .navbar-expand-sm > .banner-items, .welcome-billboard .navbar-expand-sm > .banner-items, .home-billboard--year-in-review .navbar-expand-sm > .banner-items, .navbar-expand-sm > .highlighted-users, .navbar-expand-sm > .main-content, .navbar-expand-sm > .platforms,
     .navbar-expand-sm > .container-fluid,
     .navbar-expand-sm > .site-header,
     .navbar-expand-sm > .osi-banner,
@@ -2694,7 +2694,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
       bottom: 100%; } }
 
 @media (max-width: 767px) {
-  .navbar-expand-md > .container, .home-billboard .navbar-expand-md > .banner-items, .home-billboard--year-in-review .navbar-expand-md > .banner-items, .navbar-expand-md > .highlighted-users, .navbar-expand-md > .main-content, .navbar-expand-md > .platforms,
+  .navbar-expand-md > .container, .home-billboard .navbar-expand-md > .banner-items, .welcome-billboard .navbar-expand-md > .banner-items, .home-billboard--year-in-review .navbar-expand-md > .banner-items, .navbar-expand-md > .highlighted-users, .navbar-expand-md > .main-content, .navbar-expand-md > .platforms,
   .navbar-expand-md > .container-fluid,
   .navbar-expand-md > .site-header,
   .navbar-expand-md > .osi-banner,
@@ -2716,7 +2716,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
       .navbar-expand-md .navbar-nav .nav-link, .navbar-expand-md #navbarSupportedContent ul .nav-link, #navbarSupportedContent .navbar-expand-md ul .nav-link, #navbarSupportedContent ul li .navbar-expand-md .navbar-nav a, .navbar-expand-md #navbarSupportedContent ul li a, #navbarSupportedContent .navbar-expand-md ul li a {
         padding-right: .5rem;
         padding-left: .5rem; }
-    .navbar-expand-md > .container, .home-billboard .navbar-expand-md > .banner-items, .home-billboard--year-in-review .navbar-expand-md > .banner-items, .navbar-expand-md > .highlighted-users, .navbar-expand-md > .main-content, .navbar-expand-md > .platforms,
+    .navbar-expand-md > .container, .home-billboard .navbar-expand-md > .banner-items, .welcome-billboard .navbar-expand-md > .banner-items, .home-billboard--year-in-review .navbar-expand-md > .banner-items, .navbar-expand-md > .highlighted-users, .navbar-expand-md > .main-content, .navbar-expand-md > .platforms,
     .navbar-expand-md > .container-fluid,
     .navbar-expand-md > .site-header,
     .navbar-expand-md > .osi-banner,
@@ -2732,7 +2732,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
       bottom: 100%; } }
 
 @media (max-width: 991px) {
-  .navbar-expand-lg > .container, nav.main-header > .container, .home-billboard .navbar-expand-lg > .banner-items, .home-billboard nav.main-header > .banner-items, .home-billboard--year-in-review .navbar-expand-lg > .banner-items, .home-billboard--year-in-review nav.main-header > .banner-items, .navbar-expand-lg > .highlighted-users, nav.main-header > .highlighted-users, .navbar-expand-lg > .main-content, nav.main-header > .main-content, .navbar-expand-lg > .platforms, nav.main-header > .platforms,
+  .navbar-expand-lg > .container, nav.main-header > .container, .home-billboard .navbar-expand-lg > .banner-items, .home-billboard nav.main-header > .banner-items, .welcome-billboard .navbar-expand-lg > .banner-items, .welcome-billboard nav.main-header > .banner-items, .home-billboard--year-in-review .navbar-expand-lg > .banner-items, .home-billboard--year-in-review nav.main-header > .banner-items, .navbar-expand-lg > .highlighted-users, nav.main-header > .highlighted-users, .navbar-expand-lg > .main-content, nav.main-header > .main-content, .navbar-expand-lg > .platforms, nav.main-header > .platforms,
   .navbar-expand-lg > .container-fluid, nav.main-header > .container-fluid,
   .navbar-expand-lg > .site-header, nav.main-header > .site-header,
   .navbar-expand-lg > .osi-banner, nav.main-header > .osi-banner,
@@ -2754,7 +2754,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
       .navbar-expand-lg .navbar-nav .nav-link, nav.main-header .navbar-nav .nav-link, .navbar-expand-lg #navbarSupportedContent ul .nav-link, #navbarSupportedContent .navbar-expand-lg ul .nav-link, nav.main-header #navbarSupportedContent ul .nav-link, #navbarSupportedContent nav.main-header ul .nav-link, #navbarSupportedContent ul li .navbar-expand-lg .navbar-nav a, #navbarSupportedContent ul li nav.main-header .navbar-nav a, .navbar-expand-lg #navbarSupportedContent ul li a, #navbarSupportedContent .navbar-expand-lg ul li a, nav.main-header #navbarSupportedContent ul li a, #navbarSupportedContent nav.main-header ul li a {
         padding-right: .5rem;
         padding-left: .5rem; }
-    .navbar-expand-lg > .container, nav.main-header > .container, .home-billboard .navbar-expand-lg > .banner-items, .home-billboard nav.main-header > .banner-items, .home-billboard--year-in-review .navbar-expand-lg > .banner-items, .home-billboard--year-in-review nav.main-header > .banner-items, .navbar-expand-lg > .highlighted-users, nav.main-header > .highlighted-users, .navbar-expand-lg > .main-content, nav.main-header > .main-content, .navbar-expand-lg > .platforms, nav.main-header > .platforms,
+    .navbar-expand-lg > .container, nav.main-header > .container, .home-billboard .navbar-expand-lg > .banner-items, .home-billboard nav.main-header > .banner-items, .welcome-billboard .navbar-expand-lg > .banner-items, .welcome-billboard nav.main-header > .banner-items, .home-billboard--year-in-review .navbar-expand-lg > .banner-items, .home-billboard--year-in-review nav.main-header > .banner-items, .navbar-expand-lg > .highlighted-users, nav.main-header > .highlighted-users, .navbar-expand-lg > .main-content, nav.main-header > .main-content, .navbar-expand-lg > .platforms, nav.main-header > .platforms,
     .navbar-expand-lg > .container-fluid, nav.main-header > .container-fluid,
     .navbar-expand-lg > .site-header, nav.main-header > .site-header,
     .navbar-expand-lg > .osi-banner, nav.main-header > .osi-banner,
@@ -2770,7 +2770,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
       bottom: 100%; } }
 
 @media (max-width: 1199px) {
-  .navbar-expand-xl > .container, .home-billboard .navbar-expand-xl > .banner-items, .home-billboard--year-in-review .navbar-expand-xl > .banner-items, .navbar-expand-xl > .highlighted-users, .navbar-expand-xl > .main-content, .navbar-expand-xl > .platforms,
+  .navbar-expand-xl > .container, .home-billboard .navbar-expand-xl > .banner-items, .welcome-billboard .navbar-expand-xl > .banner-items, .home-billboard--year-in-review .navbar-expand-xl > .banner-items, .navbar-expand-xl > .highlighted-users, .navbar-expand-xl > .main-content, .navbar-expand-xl > .platforms,
   .navbar-expand-xl > .container-fluid,
   .navbar-expand-xl > .site-header,
   .navbar-expand-xl > .osi-banner,
@@ -2792,7 +2792,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
       .navbar-expand-xl .navbar-nav .nav-link, .navbar-expand-xl #navbarSupportedContent ul .nav-link, #navbarSupportedContent .navbar-expand-xl ul .nav-link, #navbarSupportedContent ul li .navbar-expand-xl .navbar-nav a, .navbar-expand-xl #navbarSupportedContent ul li a, #navbarSupportedContent .navbar-expand-xl ul li a {
         padding-right: .5rem;
         padding-left: .5rem; }
-    .navbar-expand-xl > .container, .home-billboard .navbar-expand-xl > .banner-items, .home-billboard--year-in-review .navbar-expand-xl > .banner-items, .navbar-expand-xl > .highlighted-users, .navbar-expand-xl > .main-content, .navbar-expand-xl > .platforms,
+    .navbar-expand-xl > .container, .home-billboard .navbar-expand-xl > .banner-items, .welcome-billboard .navbar-expand-xl > .banner-items, .home-billboard--year-in-review .navbar-expand-xl > .banner-items, .navbar-expand-xl > .highlighted-users, .navbar-expand-xl > .main-content, .navbar-expand-xl > .platforms,
     .navbar-expand-xl > .container-fluid,
     .navbar-expand-xl > .site-header,
     .navbar-expand-xl > .osi-banner,
@@ -2810,7 +2810,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
 .navbar-expand {
   flex-flow: row nowrap;
   justify-content: flex-start; }
-  .navbar-expand > .container, .home-billboard .navbar-expand > .banner-items, .home-billboard--year-in-review .navbar-expand > .banner-items, .navbar-expand > .highlighted-users, .navbar-expand > .main-content, .navbar-expand > .platforms,
+  .navbar-expand > .container, .home-billboard .navbar-expand > .banner-items, .welcome-billboard .navbar-expand > .banner-items, .home-billboard--year-in-review .navbar-expand > .banner-items, .navbar-expand > .highlighted-users, .navbar-expand > .main-content, .navbar-expand > .platforms,
   .navbar-expand > .container-fluid,
   .navbar-expand > .site-header,
   .navbar-expand > .osi-banner,
@@ -2827,7 +2827,7 @@ tbody.collapse.show, tbody.show#navbarSupportedContent {
     .navbar-expand .navbar-nav .nav-link, .navbar-expand #navbarSupportedContent ul .nav-link, #navbarSupportedContent .navbar-expand ul .nav-link, #navbarSupportedContent ul li .navbar-expand .navbar-nav a, .navbar-expand #navbarSupportedContent ul li a, #navbarSupportedContent .navbar-expand ul li a {
       padding-right: .5rem;
       padding-left: .5rem; }
-  .navbar-expand > .container, .home-billboard .navbar-expand > .banner-items, .home-billboard--year-in-review .navbar-expand > .banner-items, .navbar-expand > .highlighted-users, .navbar-expand > .main-content, .navbar-expand > .platforms,
+  .navbar-expand > .container, .home-billboard .navbar-expand > .banner-items, .welcome-billboard .navbar-expand > .banner-items, .home-billboard--year-in-review .navbar-expand > .banner-items, .navbar-expand > .highlighted-users, .navbar-expand > .main-content, .navbar-expand > .platforms,
   .navbar-expand > .container-fluid,
   .navbar-expand > .site-header,
   .navbar-expand > .osi-banner,
@@ -4102,10 +4102,10 @@ button.close {
 .align-text-top {
   vertical-align: text-top !important; }
 
-.bg-primary, .home-billboard .banner-items .card-holders .card, .home-billboard--year-in-review .banner-items .card-holders .card {
+.bg-primary, .home-billboard .banner-items .card-holders .card, .welcome-billboard .banner-items .card-holders .card, .home-billboard--year-in-review .banner-items .card-holders .card {
   background-color: #007bff !important; }
 
-a.bg-primary:focus, .home-billboard .banner-items .card-holders a.card:focus, .home-billboard--year-in-review .banner-items .card-holders a.card:focus, a.bg-primary:hover, .home-billboard .banner-items .card-holders a.card:hover, .home-billboard--year-in-review .banner-items .card-holders a.card:hover {
+a.bg-primary:focus, .home-billboard .banner-items .card-holders a.card:focus, .welcome-billboard .banner-items .card-holders a.card:focus, .home-billboard--year-in-review .banner-items .card-holders a.card:focus, a.bg-primary:hover, .home-billboard .banner-items .card-holders a.card:hover, .welcome-billboard .banner-items .card-holders a.card:hover, .home-billboard--year-in-review .banner-items .card-holders a.card:hover {
   background-color: #0062cc !important; }
 
 .bg-secondary {
@@ -5847,7 +5847,7 @@ a.bg-dark:focus, a.bg-dark:hover {
 .text-right {
   text-align: right !important; }
 
-.text-center, .home-billboard .banner-items .card-holders .card, .home-billboard--year-in-review .banner-items .card-holders .card, .highlighted-users .col, .features .card-holder .card .card-title {
+.text-center, .home-billboard .banner-items .card-holders .card, .welcome-billboard .banner-items .card-holders .card, .home-billboard--year-in-review .banner-items .card-holders .card, .highlighted-users .col, .features .card-holder .card .card-title {
   text-align: center !important; }
 
 @media (min-width: 576px) {
@@ -5903,7 +5903,7 @@ a.bg-dark:focus, a.bg-dark:hover {
 .font-italic {
   font-style: italic !important; }
 
-.text-white, .home-billboard .banner-items .card-holders .card, .home-billboard--year-in-review .banner-items .card-holders .card {
+.text-white, .home-billboard .banner-items .card-holders .card, .welcome-billboard .banner-items .card-holders .card, .home-billboard--year-in-review .banner-items .card-holders .card {
   color: #fff !important; }
 
 .text-primary {
@@ -5970,7 +5970,7 @@ a.text-dark:focus, a.text-dark:hover {
 .invisible {
   visibility: hidden !important; }
 
-.home-billboard, .home-billboard--year-in-review {
+.home-billboard, .welcome-billboard, .home-billboard--year-in-review {
   padding-bottom: 4rem;
   color: #fff;
   min-height: 100vh;
@@ -5978,30 +5978,37 @@ a.text-dark:focus, a.text-dark:hover {
   background-position: top center;
   -webkit-background-size: cover;
   background-size: cover; }
-  .home-billboard .jumbotron, .home-billboard--year-in-review .jumbotron {
+  .home-billboard .jumbotron, .welcome-billboard .jumbotron, .home-billboard--year-in-review .jumbotron {
     padding-top: 10rem;
     color: #fff;
     background: none; }
-    .home-billboard .jumbotron .display-4, .home-billboard--year-in-review .jumbotron .display-4 {
+    .home-billboard .jumbotron .display-4, .welcome-billboard .jumbotron .display-4, .home-billboard--year-in-review .jumbotron .display-4 {
       text-shadow: 2px 2px 0 #000;
       line-height: 1.35em;
       font-family: Aleo, Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
       font-weight: 300 !important; }
     @media (max-width: 767px) {
-      .home-billboard .jumbotron p.lead, .home-billboard--year-in-review .jumbotron p.lead {
+      .home-billboard .jumbotron p.lead, .welcome-billboard .jumbotron p.lead, .home-billboard--year-in-review .jumbotron p.lead {
         display: none; } }
-  .home-billboard .banner-items .card-holders .card, .home-billboard--year-in-review .banner-items .card-holders .card {
+  .home-billboard .banner-items .card-holders .card, .welcome-billboard .banner-items .card-holders .card, .home-billboard--year-in-review .banner-items .card-holders .card {
     background-color: rgba(46, 155, 214, 0.4) !important;
     transition: background-color 0.25s; }
-    .home-billboard .banner-items .card-holders .card:hover, .home-billboard--year-in-review .banner-items .card-holders .card:hover {
+    .home-billboard .banner-items .card-holders .card:hover, .welcome-billboard .banner-items .card-holders .card:hover, .home-billboard--year-in-review .banner-items .card-holders .card:hover {
       transition: 0.25s;
       background-color: #2e9bd6 !important; }
-    .home-billboard .banner-items .card-holders .card a, .home-billboard--year-in-review .banner-items .card-holders .card a {
+    .home-billboard .banner-items .card-holders .card a, .welcome-billboard .banner-items .card-holders .card a, .home-billboard--year-in-review .banner-items .card-holders .card a {
       color: #fff; }
-      .home-billboard .banner-items .card-holders .card a:hover, .home-billboard--year-in-review .banner-items .card-holders .card a:hover {
+      .home-billboard .banner-items .card-holders .card a:hover, .welcome-billboard .banner-items .card-holders .card a:hover, .home-billboard--year-in-review .banner-items .card-holders .card a:hover {
         text-decoration: none; }
-    .home-billboard .banner-items .card-holders .card .card-body img, .home-billboard--year-in-review .banner-items .card-holders .card .card-body img {
+    .home-billboard .banner-items .card-holders .card .card-body img, .welcome-billboard .banner-items .card-holders .card .card-body img, .home-billboard--year-in-review .banner-items .card-holders .card .card-body img {
       padding-bottom: 1rem; }
+
+.welcome-billboard {
+  margin-top: 98px;
+  height: 500px;
+  min-height: 500px;
+  -webkit-background-size: cover;
+  background-size: cover; }
 
 nav.main-header.home {
   background-color: transparent;
@@ -6031,7 +6038,7 @@ nav.main-header {
   transition: transform 0.10s;
   margin-top: 0px;
   background-color: rgba(45, 155, 214, 0.9); }
-  nav.main-header .container, nav.main-header .home-billboard .banner-items, .home-billboard nav.main-header .banner-items, nav.main-header .home-billboard--year-in-review .banner-items, .home-billboard--year-in-review nav.main-header .banner-items, nav.main-header .highlighted-users, nav.main-header .main-content, nav.main-header .platforms {
+  nav.main-header .container, nav.main-header .home-billboard .banner-items, .home-billboard nav.main-header .banner-items, nav.main-header .welcome-billboard .banner-items, .welcome-billboard nav.main-header .banner-items, nav.main-header .home-billboard--year-in-review .banner-items, .home-billboard--year-in-review nav.main-header .banner-items, nav.main-header .highlighted-users, nav.main-header .main-content, nav.main-header .platforms {
     padding-top: 1rem;
     padding-bottom: 1rem; }
   nav.main-header a {
@@ -6198,10 +6205,10 @@ nav.main-header {
       padding-bottom: 10px;
       margin-bottom: 25px; } }
 
-.yir .row, .yir .home-billboard .banner-items .card-holders, .home-billboard .banner-items .yir .card-holders, .yir .home-billboard--year-in-review .banner-items .card-holders, .home-billboard--year-in-review .banner-items .yir .card-holders, .yir .main-content section, .main-content .yir section, .yir .onc {
+.yir .row, .yir .home-billboard .banner-items .card-holders, .home-billboard .banner-items .yir .card-holders, .yir .welcome-billboard .banner-items .card-holders, .welcome-billboard .banner-items .yir .card-holders, .yir .home-billboard--year-in-review .banner-items .card-holders, .home-billboard--year-in-review .banner-items .yir .card-holders, .yir .main-content section, .main-content .yir section, .yir .onc {
   padding-top: 70px;
   padding-bottom: 35px; }
-  .yir .row img, .yir .home-billboard .banner-items .card-holders img, .home-billboard .banner-items .yir .card-holders img, .yir .home-billboard--year-in-review .banner-items .card-holders img, .home-billboard--year-in-review .banner-items .yir .card-holders img, .yir .main-content section img, .main-content .yir section img, .yir .onc img {
+  .yir .row img, .yir .home-billboard .banner-items .card-holders img, .home-billboard .banner-items .yir .card-holders img, .yir .welcome-billboard .banner-items .card-holders img, .welcome-billboard .banner-items .yir .card-holders img, .yir .home-billboard--year-in-review .banner-items .card-holders img, .home-billboard--year-in-review .banner-items .yir .card-holders img, .yir .main-content section img, .main-content .yir section img, .yir .onc img {
     padding: 10px 0px; }
 
 .yir code {
@@ -6220,10 +6227,13 @@ h1, h2, h3, h4, h5, h6 {
 .site-header {
   background-color: #2D9BD6;
   color: #fff; }
-  .site-header .container, .site-header .home-billboard .banner-items, .home-billboard .site-header .banner-items, .site-header .home-billboard--year-in-review .banner-items, .home-billboard--year-in-review .site-header .banner-items, .site-header .highlighted-users, .site-header .main-content, .site-header .platforms {
+  .site-header .container, .site-header .home-billboard .banner-items, .home-billboard .site-header .banner-items, .site-header .welcome-billboard .banner-items, .welcome-billboard .site-header .banner-items, .site-header .home-billboard--year-in-review .banner-items, .home-billboard--year-in-review .site-header .banner-items, .site-header .highlighted-users, .site-header .main-content, .site-header .platforms {
     padding-top: 35px; }
-    .site-header .container nav ul a.nav-link, .site-header .home-billboard .banner-items nav ul a.nav-link, .home-billboard .site-header .banner-items nav ul a.nav-link, .site-header .home-billboard--year-in-review .banner-items nav ul a.nav-link, .home-billboard--year-in-review .site-header .banner-items nav ul a.nav-link, .site-header .highlighted-users nav ul a.nav-link, .site-header .main-content nav ul a.nav-link, .site-header .platforms nav ul a.nav-link, .site-header .container nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .container nav ul li a, .site-header .home-billboard .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .home-billboard .banner-items nav ul li a, .home-billboard .site-header .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .home-billboard .site-header .banner-items nav ul li a, .site-header .home-billboard--year-in-review .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .home-billboard--year-in-review .banner-items nav ul li a, .home-billboard--year-in-review .site-header .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .home-billboard--year-in-review .site-header .banner-items nav ul li a, .site-header .highlighted-users nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .highlighted-users nav ul li a, .site-header .main-content nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .main-content nav ul li a, .site-header .platforms nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .platforms nav ul li a, .site-header .container nav ul a.nav-link:visited, .site-header .home-billboard .banner-items nav ul a.nav-link:visited, .home-billboard .site-header .banner-items nav ul a.nav-link:visited, .site-header .home-billboard--year-in-review .banner-items nav ul a.nav-link:visited, .home-billboard--year-in-review .site-header .banner-items nav ul a.nav-link:visited, .site-header .highlighted-users nav ul a.nav-link:visited, .site-header .main-content nav ul a.nav-link:visited, .site-header .platforms nav ul a.nav-link:visited, .site-header .container nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .container nav ul li a:visited, .site-header .home-billboard .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .home-billboard .banner-items nav ul li a:visited, .home-billboard .site-header .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .home-billboard .site-header .banner-items nav ul li a:visited, .site-header .home-billboard--year-in-review .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .home-billboard--year-in-review .banner-items nav ul li a:visited, .home-billboard--year-in-review .site-header .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .home-billboard--year-in-review .site-header .banner-items nav ul li a:visited, .site-header .highlighted-users nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .highlighted-users nav ul li a:visited, .site-header .main-content nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .main-content nav ul li a:visited, .site-header .platforms nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .platforms nav ul li a:visited, .site-header .container nav ul a.nav-link:focus, .site-header .home-billboard .banner-items nav ul a.nav-link:focus, .home-billboard .site-header .banner-items nav ul a.nav-link:focus, .site-header .home-billboard--year-in-review .banner-items nav ul a.nav-link:focus, .home-billboard--year-in-review .site-header .banner-items nav ul a.nav-link:focus, .site-header .highlighted-users nav ul a.nav-link:focus, .site-header .main-content nav ul a.nav-link:focus, .site-header .platforms nav ul a.nav-link:focus, .site-header .container nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .container nav ul li a:focus, .site-header .home-billboard .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .home-billboard .banner-items nav ul li a:focus, .home-billboard .site-header .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .home-billboard .site-header .banner-items nav ul li a:focus, .site-header .home-billboard--year-in-review .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .home-billboard--year-in-review .banner-items nav ul li a:focus, .home-billboard--year-in-review .site-header .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .home-billboard--year-in-review .site-header .banner-items nav ul li a:focus, .site-header .highlighted-users nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .highlighted-users nav ul li a:focus, .site-header .main-content nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .main-content nav ul li a:focus, .site-header .platforms nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .platforms nav ul li a:focus {
+    .site-header .container nav ul a.nav-link, .site-header .home-billboard .banner-items nav ul a.nav-link, .home-billboard .site-header .banner-items nav ul a.nav-link, .site-header .welcome-billboard .banner-items nav ul a.nav-link, .welcome-billboard .site-header .banner-items nav ul a.nav-link, .site-header .home-billboard--year-in-review .banner-items nav ul a.nav-link, .home-billboard--year-in-review .site-header .banner-items nav ul a.nav-link, .site-header .highlighted-users nav ul a.nav-link, .site-header .main-content nav ul a.nav-link, .site-header .platforms nav ul a.nav-link, .site-header .container nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .container nav ul li a, .site-header .home-billboard .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .home-billboard .banner-items nav ul li a, .home-billboard .site-header .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .home-billboard .site-header .banner-items nav ul li a, .site-header .welcome-billboard .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .welcome-billboard .banner-items nav ul li a, .welcome-billboard .site-header .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .welcome-billboard .site-header .banner-items nav ul li a, .site-header .home-billboard--year-in-review .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .home-billboard--year-in-review .banner-items nav ul li a, .home-billboard--year-in-review .site-header .banner-items nav #navbarSupportedContent ul li a, #navbarSupportedContent .home-billboard--year-in-review .site-header .banner-items nav ul li a, .site-header .highlighted-users nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .highlighted-users nav ul li a, .site-header .main-content nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .main-content nav ul li a, .site-header .platforms nav #navbarSupportedContent ul li a, #navbarSupportedContent .site-header .platforms nav ul li a, .site-header .container nav ul a.nav-link:visited, .site-header .home-billboard .banner-items nav ul a.nav-link:visited, .home-billboard .site-header .banner-items nav ul a.nav-link:visited, .site-header .welcome-billboard .banner-items nav ul a.nav-link:visited, .welcome-billboard .site-header .banner-items nav ul a.nav-link:visited, .site-header .home-billboard--year-in-review .banner-items nav ul a.nav-link:visited, .home-billboard--year-in-review .site-header .banner-items nav ul a.nav-link:visited, .site-header .highlighted-users nav ul a.nav-link:visited, .site-header .main-content nav ul a.nav-link:visited, .site-header .platforms nav ul a.nav-link:visited, .site-header .container nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .container nav ul li a:visited, .site-header .home-billboard .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .home-billboard .banner-items nav ul li a:visited, .home-billboard .site-header .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .home-billboard .site-header .banner-items nav ul li a:visited, .site-header .welcome-billboard .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .welcome-billboard .banner-items nav ul li a:visited, .welcome-billboard .site-header .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .welcome-billboard .site-header .banner-items nav ul li a:visited, .site-header .home-billboard--year-in-review .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .home-billboard--year-in-review .banner-items nav ul li a:visited, .home-billboard--year-in-review .site-header .banner-items nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .home-billboard--year-in-review .site-header .banner-items nav ul li a:visited, .site-header .highlighted-users nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .highlighted-users nav ul li a:visited, .site-header .main-content nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .main-content nav ul li a:visited, .site-header .platforms nav #navbarSupportedContent ul li a:visited, #navbarSupportedContent .site-header .platforms nav ul li a:visited, .site-header .container nav ul a.nav-link:focus, .site-header .home-billboard .banner-items nav ul a.nav-link:focus, .home-billboard .site-header .banner-items nav ul a.nav-link:focus, .site-header .welcome-billboard .banner-items nav ul a.nav-link:focus, .welcome-billboard .site-header .banner-items nav ul a.nav-link:focus, .site-header .home-billboard--year-in-review .banner-items nav ul a.nav-link:focus, .home-billboard--year-in-review .site-header .banner-items nav ul a.nav-link:focus, .site-header .highlighted-users nav ul a.nav-link:focus, .site-header .main-content nav ul a.nav-link:focus, .site-header .platforms nav ul a.nav-link:focus, .site-header .container nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .container nav ul li a:focus, .site-header .home-billboard .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .home-billboard .banner-items nav ul li a:focus, .home-billboard .site-header .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .home-billboard .site-header .banner-items nav ul li a:focus, .site-header .welcome-billboard .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .welcome-billboard .banner-items nav ul li a:focus, .welcome-billboard .site-header .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .welcome-billboard .site-header .banner-items nav ul li a:focus, .site-header .home-billboard--year-in-review .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .home-billboard--year-in-review .banner-items nav ul li a:focus, .home-billboard--year-in-review .site-header .banner-items nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .home-billboard--year-in-review .site-header .banner-items nav ul li a:focus, .site-header .highlighted-users nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .highlighted-users nav ul li a:focus, .site-header .main-content nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .main-content nav ul li a:focus, .site-header .platforms nav #navbarSupportedContent ul li a:focus, #navbarSupportedContent .site-header .platforms nav ul li a:focus {
       color: #fff; }
+
+main .container, main .home-billboard .banner-items, .home-billboard main .banner-items, main .welcome-billboard .banner-items, .welcome-billboard main .banner-items, main .home-billboard--year-in-review .banner-items, .home-billboard--year-in-review main .banner-items, main .highlighted-users, main .main-content, main .platforms {
+  margin-top: 115px; }
 
 .arrow-up {
   width: 0;

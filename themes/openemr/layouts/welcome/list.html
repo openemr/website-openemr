@@ -1,0 +1,15 @@
+{{ partial "header.html" . }}
+
+{{ partial "navigation.html" . }}
+
+<section class="welcome-billboard" style="background-image: url('{{ .Params.cover | absURL }}');"></section>
+
+<div class="main-content page">
+  <div class="row">
+    <div class="col-8 offset-2">
+      {{ .Content }}
+    </div>
+  </div>
+</div>
+
+{{ partial "footer.html" . }}
