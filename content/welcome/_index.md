@@ -10,14 +10,14 @@ OpenEMR is the most popular open source electronic health records and medical pr
 
 In the US, it has been estimated that there are more than 5,000 installations of OpenEMR in physician offices and other small healthcare facilities serving more than 30 million patients. Internationally, it has been estimated that OpenEMR is installed in over 15,000 healthcare facilities, translating into more than 45,000 practitioners using the system which are serving greater than 90 million patients. The Peace Corps plan to incorporate OpenEMR into their EHR system. Siaya District Hospital, a 220-bed hospital in rural Kenya, is using OpenEMR. HP India is planning to utilize OpenEMR for their Mobile Health Centre Project. There are also articles describing single clinician deployments and a free clinic deployment. Internationally, it is known that there are practitioners in Pakistan, Puerto Rico, Australia, Sweden, the Netherlands, Israel, India, Malaysia, Nepal, Indonesia, Bermuda, Armenia, Kenya, and Greece that are either testing or actively using OpenEMR for use as a free electronic medical records program in the respective languages.
 
-Rod Roark, a programmer, Dr. Brady Miller, Robert Down a nursing student, and Matthew Vita a programmer are the project's administrators. Everything is here: http://www.open-emr.org/
+Rod Roark, a programmer, Dr. Brady Miller, Robert Down a nursing student, and Matthew Vita a programmer are the project's administrators. Everything is here: https://www.open-emr.org/
 
 # Recent Successes
 
 * [OpenEMR Releases Medical Image Viewing Support](http://www.openhealthnews.com/content/openemr-releases-medical-image-viewing-support)
 * [OpenEMR Launches Easy Install Option for Amazon's Cloud Services](http://www.openhealthnews.com/content/openemr-launches-easy-install-option-amazons-cloud-services)
 * [OpenEMR Cloud Express Now Available on AWS Marketplace](https://www.emrandehrnews.com/2017/12/20/openemr-cloud-express-now-available-on-aws-marketplace/)
-* [OpenEMR 2017 Year in Review](http://www.open-emr.org/year-in-review/)
+* [OpenEMR 2017 Year in Review](https://www.open-emr.org/year-in-review/)
 * [Hurricane Maria, Puerto Rico, and the success of OpenEMR customers](https://openemr.blog/post/hurricane-maria-puerto-rico-openemr-success/)
 * [Embracing Docker](https://openemr.blog/post/embracing-docker/)
 * [Accepting Donations on OpenCollective](https://openemr.blog/post/accepting-donations-on-opencollective/)
@@ -66,22 +66,22 @@ Core Roadmap Projects:
 * Roberto Vasquez<br/><small>Engineer</small>
 * Jerry Padgett<br/><small>Engineer</small>
 * Daniel Ehrlich<br/><small>Cloud Engineer</small>
-* Sherwin Gaddis<br/><small>Vendor - very community focused</small>
-* Sena Palanisami<br/><small>Vendor - very community focused</small>
-* Jit Chawl<br/><small>Vendor - very community focused</small>
-* Lou Galterio<br/><small>Vendor - very community focused</small>
+* Sherwin Gaddis<br/><small>Vendor</small>
+* Sena Palanisami<br/><small>Vendor</small>
+* Jit Chawl<br/><small>Vendor</small>
+* Lou Galterio<br/><small>Vendor</small>
 
 # Vendors
 
-* http://www.open-emr.org/wiki/index.php/Professional_Support
+https://www.open-emr.org/wiki/index.php/Professional_Support
 
 # What is OEMR
 
-OEMR is a non-profit organization formed to ensure that all people, regardless of race, socioeconomic status or geographic location, have access to high-quality medical care through the donation of free, open source medical software and service relating to that software. OEMR has an open policy for membership and accepts donations. OEMR supports the OpenEMR project and uses OpenEMR software as an instrument to effect its goals.http://www.oemr.org/. Maybe check out the past few meetings here: http://www.open-emr.org/wiki/index.php/OEMR_wiki_page#Meetings (recorded)
+OEMR is a non-profit organization formed to ensure that all people, regardless of race, socioeconomic status or geographic location, have access to high-quality medical care through the donation of free, open source medical software and service relating to that software. OEMR has an open policy for membership and accepts donations. OEMR supports the OpenEMR project and uses OpenEMR software as an instrument to effect its goals.http://www.oemr.org/. Maybe check out the past few meetings here: https://www.open-emr.org/wiki/index.php/OEMR_wiki_page#Meetings (recorded)
 
 # Learning Videos/Resources
 
-* How to guides: http://www.open-emr.org/wiki/index.php/OpenEMR_5.0.0_Users_Guide
+* How to guides: https://www.open-emr.org/wiki/index.php/OpenEMR_5.0.0_Users_Guide
 * Old version of software, but still a great playlist
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9iOfFsMf7yY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
