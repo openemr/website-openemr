@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Privacy Policy on OpenEMR</title>
+    <link>https://www.open-emr.org/privacy/</link>
+    <description>Recent content in Privacy Policy on OpenEMR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Robert Down</copyright>
+    <lastBuildDate>Thu, 29 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.open-emr.org/privacy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
