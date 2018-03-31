@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Year in Review on OpenEMR</title>
+    <title>OpenEMR 2017 Year in Review on OpenEMR</title>
     <link>https://www.open-emr.org/year-in-review/</link>
-    <description>Recent content in Year in Review on OpenEMR</description>
+    <description>Recent content in OpenEMR 2017 Year in Review on OpenEMR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Robert Down</copyright>

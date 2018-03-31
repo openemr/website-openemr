@@ -1,5 +1,5 @@
 ---
-title: "Demo"
+title: "OpenEMR Demo"
 date: 2018-01-06T20:57:39-05:00
 url: demo
 ---

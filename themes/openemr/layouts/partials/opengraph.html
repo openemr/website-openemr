@@ -10,7 +10,9 @@
   <meta property="twitter:image:alt" content="{{ . }}">
   {{- end }}
   {{- else }}
-  <meta property="twitter:card" content="summary">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="{{ .Site.BaseURL }}img/full_mark.png">
+  <meta property="og:image" content="{{ .Site.BaseURL }}img/full_mark.png">
   {{- end }}
   <meta property="twitter:site" content="{{ $.Param "twitter" }}">
   <meta property="twitter:creator" content="@{{ $.Param "author.twitter" }}">

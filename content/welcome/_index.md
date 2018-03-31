@@ -2,6 +2,8 @@
 title: "Welcome to OpenEMR"
 date: 2018-03-25
 cover: welcome/mat.jpg
+images:
+  - welcome/mat.jpg
 ---
 
 # What is OpenEMR?
