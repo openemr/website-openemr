@@ -18,33 +18,33 @@
   </url>
   
   <url>
+    <loc>https://www.open-emr.org/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.open-emr.org/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.open-emr.org/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.open-emr.org/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.open-emr.org/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://www.open-emr.org/demo/</loc>
     <lastmod>2018-03-31T08:38:14-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.open-emr.org/</loc>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.open-emr.org/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://www.open-emr.org/</loc>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.open-emr.org/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://www.open-emr.org/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>
