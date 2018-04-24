@@ -44,9 +44,9 @@ We offer 3 fully functional demo installations for you to try out. Some simple c
 
 | | |
 |---------------------------|----------------------------------------------------------------------------------------------------|
-| OpenEMR 5.0.1 Portal Demo | [https://demo.openemr.io/c/openemr/patients](https://demo.openemr.io/c/openemr/portal/index.php) |
-| Alternate Demo            | [https://demo.openemr.io/d/openemr/patients](https://demo.openemr.io/d/openemr/portal/index.php) |
-| Another Alternate Demo    | [https://demo.openemr.io/e/openemr/patients](https://demo.openemr.io/e/openemr/portal/index.php) |
+| OpenEMR 5.0.1 Portal Demo | [https://demo.openemr.io/c/openemr/portal](https://demo.openemr.io/c/openemr/portal/index.php) |
+| Alternate Demo            | [https://demo.openemr.io/d/openemr/portal](https://demo.openemr.io/d/openemr/portal/index.php) |
+| Another Alternate Demo    | [https://demo.openemr.io/e/openemr/portal](https://demo.openemr.io/e/openemr/portal/index.php) |
 
 ---
 
