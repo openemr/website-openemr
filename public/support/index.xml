@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenEMR Costs and Support Options on OpenEMR</title>
+    <link>https://www.open-emr.org/support/</link>
+    <description>Recent content in OpenEMR Costs and Support Options on OpenEMR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Robert Down</copyright>
+    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.open-emr.org/support/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
