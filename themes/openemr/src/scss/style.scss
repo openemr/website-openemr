@@ -10,7 +10,14 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: $headings-font-family;
 }
-body {}
+
+body {
+    font-family: $font-family-sans-serif;
+    background-color: $off-white;
+    color: $gray-900;
+    line-height: 145%;
+}
+
 .site-header {
     @extend .container-fluid;
     background-color: $blue;

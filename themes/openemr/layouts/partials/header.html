@@ -6,24 +6,31 @@
 <meta name="MobileOptimized" content="320">
 <meta name="robots" content="index,follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 {{- if .Site.Params.opengraph -}}
-{{- partial "opengraph.html" . -}}
+  {{- partial "opengraph.html" . -}}
 {{- end -}}
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,700,700i|Source+Sans+Pro:400,400i" rel="stylesheet">
+<link href="{{ "fonts/cooper_hewitt/cooper_hewitt.css" | absURL }}" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ .Site.BaseURL }}style.css?v=27">
+<link rel="stylesheet" href="{{ .Site.BaseURL }}style.css?v=28">
+
 {{- if .RSSLink -}}
-<link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml">
+  <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml">
 {{- end -}}
+
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=pgq70jawxe">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=pgq70jawxe">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=pgq70jawxe">
 <link rel="manifest" href="/site.webmanifest?v=pgq70jawxe">
 <link rel="mask-icon" href="/safari-pinned-tab.svg?v=pgq70jawxe" color="#2e9bd6">
 <link rel="shortcut icon" href="/favicon.ico?v=pgq70jawxe">
+
 <meta name="apple-mobile-web-app-title" content="OpenEMR">
 <meta name="application-name" content="OpenEMR">
 <meta name="msapplication-TileColor" content="#2d89ef">
 <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=pgq70jawxe">
 <meta name="theme-color" content="#2d9bd6">
+
 <script src="{{ .Site.BaseURL }}bundle.js"></script>

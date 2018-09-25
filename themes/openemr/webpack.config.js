@@ -1,13 +1,9 @@
 'use strict';
 
 const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== 'production';
 const path = require("path");
-
-const extractSass = new ExtractTextPlugin({
-  filename: "style.css",
-  disable: process.env.NODE_ENV === "development"
-});
 
 module.exports = {
   entry: './src/app.js',
@@ -18,15 +14,22 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          use: ["css-loader", "sass-loader"]
-        })
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
       }
-    ],
+    ]
   },
   plugins: [
-    extractSass,
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"

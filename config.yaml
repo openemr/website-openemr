@@ -2,7 +2,7 @@ title: OpenEMR
 baseURL: https://www.open-emr.org/
 theme: openemr
 languageCode: en-us
-copyright: Robert Down
+copyright: OpenEMR Foundation, Inc
 disqusShortname: openemr
 googleAnalytics: UA-8316288-7
 enableGitInfo: true

@@ -12,7 +12,7 @@ OpenEMR is the most popular open source electronic health records and medical pr
 
 In the US, it has been estimated that there are more than 5,000 installations of OpenEMR in physician offices and other small healthcare facilities serving more than 30 million patients. Internationally, it has been estimated that OpenEMR is installed in over 15,000 healthcare facilities, translating into more than 45,000 practitioners using the system which are serving greater than 90 million patients. The Peace Corps plan to incorporate OpenEMR into their EHR system. Siaya District Hospital, a 220-bed hospital in rural Kenya, is using OpenEMR. HP India is planning to utilize OpenEMR for their Mobile Health Centre Project. There are also articles describing single clinician deployments and a free clinic deployment. Internationally, it is known that there are practitioners in Pakistan, Puerto Rico, Australia, Sweden, the Netherlands, Israel, India, Malaysia, Nepal, Indonesia, Bermuda, Armenia, Kenya, and Greece that are either testing or actively using OpenEMR for use as a free electronic medical records program in the respective languages.
 
-Rod Roark, a programmer, Dr. Brady Miller, Robert Down a nursing student, and Matthew Vita a programmer are the project's administrators. Everything is here: https://www.open-emr.org/
+Rod Roark, a programmer; Dr. Brady Miller; Robert Down, BSN, RN; and Matthew Vita, a programmer, are the project's administrators. Everything is here: https://www.open-emr.org/
 
 # Recent Successes
 
@@ -57,13 +57,11 @@ Core Roadmap Projects:
 * Stephen Waite<br/><small>Chief Financial Officer</small>
 * Dr. Andre Millet<br/><small>Chief Medical Officer</small>
 * Matthew Vita<br/><small>Chief Technology Officer</small>
-* Robert Down<br/><small>Chief Information Officer</small>
-* John Williams<br/><small>Chief Data Scientist</small>
-* John Williams<br/><small>Cloud Services Program Manager</small>
+* Robert Down, BSN, RN<br/><small>Chief Information Officer</small>
 * Asher Densmore-Lynn<br/><small>Cloud Engineer</small>
 * Daniel Ehrlich<br/><small>Cloud Engineer</small>
 * Jason Oettinger<br/><small>Software Engineer</small>
-* Dr. Joyce Boyd<br/><small>Educator, Nurse practitioner </small>
+* Joyce Boyd, DNP, NP<br/><small>Educator, Nurse practitioner </small>
 * Dani S<br/><small>User Experience</small>
 * Roberto Vasquez<br/><small>Engineer</small>
 * Jerry Padgett<br/><small>Engineer</small>

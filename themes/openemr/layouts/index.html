@@ -20,35 +20,46 @@
     </div>
     <div class="banner-items">
       <div class="card-holders">
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-3">
           <div class="card">
             <a href="{{ .Site.Params.demoUrl }}">
               <div class="card-body">
                 <img class="img-fluid center" src="{{ .Site.BaseURL }}img/monitor.png" alt="Card image cap" height="64" width="64">
                 <h4 class="card-title">Try Now</h4>
-                <p class="card-text">Login to a fully functioning demo of the latest version of OpenEMR</p>
+                <p class="card-text">Login to a fully functioning demo of OpenEMR</p>
               </div>
             </a>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-3">
           <div class="card">
             <a href="{{ .Site.Params.downloadUrl }}">
               <div class="card-body">
                 <img class="img-fluid center" src="{{ .Site.BaseURL }}img/download-arrow.png" alt="Card image cap" height="64" width="64">
-                <h4 class="card-title">Download a Free Copy</h4>
-                <p class="card-text">Download our latest version for your platform</p>
+                <h4 class="card-title">Download for Free</h4>
+                <p class="card-text">Download our latest version for Windows, macOS, or Linux</p>
               </div>
             </a>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-3">
           <div class="card">
             <a href="/wiki/index.php/Support">
               <div class="card-body">
                 <img class="img-fluid center" src="{{ .Site.BaseURL }}img/info.png" alt="Card image cap" height="64" width="64">
                 <h4 class="card-title">Find Support</h4>
-                <p class="card-text">Use our vibrant community to get help with your OpenEMR questions</p>
+                <p class="card-text">Free, community-driven support to support you</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <div class="card donation">
+            <a href="{{ "donate" | absURL }}">
+              <div class="card-body">
+                <img class="img-fluid center" src="{{ .Site.BaseURL }}img/money.png" alt="Card image cap" height="64">
+                <h4 class="card-title">Donate Today</h4>
+                <p class="card-text">We depend on financial donations to thrive</p>
               </div>
             </a>
           </div>

@@ -13,11 +13,12 @@
       <ul>
         <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/wiki/index.php/OpenEMR_Features">Features</a></li>
         <li class="site-nav-item"><a class="nav-link" href="{{ .Site.Params.demoURL | absURL }}">Demo</a></li>
-        <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads">Downloads</a></li>
+        <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads">Download</a></li>
         <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/blog">Blog</a></li>
-        <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/wiki">Wiki</a></li>
+        <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/wiki">Docs</a></li>
         <li class="site-nav-item"><a class="nav-link" href="https://community.open-emr.org/">Forum</a></li>
         <li class="site-nav-item"><a class="nav-link" href="https://chat.open-emr.org/">Chat</a></li>
+        <li class="site-nav-item"><a class="nav-link" href="{{ "donate" | absURL }}">Donate</a></li>
         <li class="nav-item dropdown">
           <a href="" class="nav-link dropdown-toggle" id="supportDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Support</a>
           <div class="dropdown-menu" aria-labelledby="supportDropdownMenuLink">
@@ -29,20 +30,6 @@
             <a class="dropdown-item" href="/wiki/index.php/OpenEMR_5.0.1_Users_Guide">How-to Guides</a>
           </div>
         </li>
-        {{ with .Site.Params.facebook }}
-        <li>
-          <a class="nav-item" href="{{ . }}">
-            <i class="fa fa-facebook"></i>
-          </a>
-        </li>
-        {{ end }}
-        {{ with .Site.Params.twitter }}
-        <li>
-          <a class="nav-item" href="{{ . }}">
-            <i class="fa fa-twitter"></i>
-          </a>
-        </li>
-        {{ end }}
         {{ with .Site.Params.github }}
         <li>
           <a class="nav-item" href="{{ . }}">
