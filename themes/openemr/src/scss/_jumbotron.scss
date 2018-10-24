@@ -22,8 +22,8 @@
             font-weight: 300 !important;
         }
         p.lead {
-            text-align: justify;
             hyphens: all;
+            font-weight: 400;
 
             @include media-breakpoint-down(sm) {
                 display: none;

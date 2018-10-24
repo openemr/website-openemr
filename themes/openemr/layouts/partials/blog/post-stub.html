@@ -1,0 +1,16 @@
+<li class="media post-stub mb-5" itemprop="blogPost" itemscope="" itemtype="https://schema.org/BlogPosting">
+    {{ if .Params.coverImage }}
+        <img class="mr-2" src="{{ .Site.BaseURL }}{{ $.Params.coverImage }}" width="200" alt="Card image cap">
+    {{ else }}
+        <div class="mr-2" style="width:200px">&nbsp;</div>
+    {{ end }}
+    <div class="media-body">
+        <h5>
+            <a href="{{ .URL }}" itemprop="url" title="Go to post detail">{{ .Title }}</a>
+        </h5>
+        {{ .Summary }}
+        {{ with .Param "featured"}}
+        <span class="badge badge-primary"><i class="fa fa-start"></i>Featured</span>
+        {{ end }}
+    </div>
+</li>

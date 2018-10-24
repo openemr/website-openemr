@@ -42,6 +42,12 @@ main {
   }
 }
 
+p {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
 .arrow-up {
   width: 0;
   height: 0;
@@ -105,6 +111,32 @@ footer.site {
         list-style: none;
     }
 }
+
+.section-title {
+    @extend .container-fluid;
+    padding-top: 99px;
+    padding-bottom: 40px;
+    background-color: theme-color('primary');
+
+    h1 {
+        @extend .text-center;
+        color: #ffffff;
+        font-weight: 400;
+    }
+
+    h5 {
+        @extend .text-center;
+        color: #fff;
+        font-family: $font-family-sans-serif;
+    }
+
+    img {
+        @extend .mx-auto;
+        @extend .d-block;
+        @extend .img-fluid;
+    }
+}
+
 .features {
   .card-holder {
     @include make-col-ready();
@@ -212,28 +244,9 @@ footer.site {
 }
 
 .page {
-  // h3 {
-  //   font-weight: 300;
-  //   margin-top: 2rem;
-  // }
   h1, h2, h4, h5, h6 {
-    @extend .pt-3;
-    @extend .mb-3;
     font-weight: 500;
     color: #000;
-
-    &::after {
-      background-color: $red;
-      bottom: 0;
-      text-align: left;
-      content: '';
-      display: block;
-      height: 1px;
-      left: 0;
-      top: 5px;
-      position: relative;
-      width: 3rem;
-    }
   }
 
   a {
@@ -246,10 +259,4 @@ footer.site {
   h4 { font-size: 1.3rem; }
   h5 { font-size: 1.2rem; }
   h6 { font-size: 1.1rem; }
-
-  // h2 { font-size: 3rem; }
-  // h3 { font-size: 1.8rem; }
-  // h4 { font-size: 1.6rem; }
-  // h5 { font-size: 1.4rem; }
-  // h6 { font-size: 1.2rem; }
 }

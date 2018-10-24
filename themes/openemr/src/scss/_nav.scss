@@ -48,6 +48,7 @@ nav.main-header {
 }
 .nav-item {
     color: $white;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 #navbarSupportedContent {
     @extend .collapse;
@@ -58,6 +59,11 @@ nav.main-header {
         li {
             a {
                 @extend .nav-link;
+                font-size: 0.9rem !important;
+            }
+
+            a.github {
+              font-size: 1.4rem;
             }
         }
     }

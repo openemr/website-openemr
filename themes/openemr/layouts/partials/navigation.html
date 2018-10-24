@@ -11,11 +11,11 @@
     </button>
     <div id="navbarSupportedContent">
       <ul>
-        <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/wiki/index.php/OpenEMR_Features">Features</a></li>
+        <li class="site-nav-item"><a class="nav-link" href="{{ "wiki/index.php/OpenEMR_Features" | absURL }}">Features</a></li>
         <li class="site-nav-item"><a class="nav-link" href="{{ .Site.Params.demoURL | absURL }}">Demo</a></li>
-        <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads">Download</a></li>
-        <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/blog">Blog</a></li>
-        <li class="site-nav-item"><a class="nav-link" href="https://www.open-emr.org/wiki">Docs</a></li>
+        <li class="site-nav-item"><a class="nav-link" href="{{ "wiki/index.php/OpenEMR_Downloads" | absURL }}">Download</a></li>
+        <li class="site-nav-item"><a class="nav-link" href="{{ "blog" | absURL }}">Blog</a></li>
+        <li class="site-nav-item"><a class="nav-link" href="{{ "wiki" | absURL}}">Docs</a></li>
         <li class="site-nav-item"><a class="nav-link" href="https://community.open-emr.org/">Forum</a></li>
         <li class="site-nav-item"><a class="nav-link" href="https://chat.open-emr.org/">Chat</a></li>
         <li class="site-nav-item"><a class="nav-link" href="{{ "donate" | absURL }}">Donate</a></li>
@@ -32,7 +32,7 @@
         </li>
         {{ with .Site.Params.github }}
         <li>
-          <a class="nav-item" href="{{ . }}">
+          <a class="nav-item github" href="{{ . }}">
             <i class="fa fa-github"></i>
           </a>
         </li>
