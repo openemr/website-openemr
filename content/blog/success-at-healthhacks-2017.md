@@ -28,7 +28,7 @@ community have been working on items from hardware integration to data analytics
 to academia; the HealthHacks event was the stepping stone to begin connecting
 all of these ideas into well-rounded solutions.
 
-![Robert Down Explaining Challenge](/blog/images/robert-down-presenting-challenge.jpg)
+![Robert Down Explaining Challenge](/images/robert-down-presenting-challenge.jpg)
 
 This year's themes were Global Health and Pediatrics. OpenEMR presented two
 challenges to students whose backgrounds include computer science, biology,
@@ -47,7 +47,7 @@ EKG (the electrical rhythm of the heart).
 Again, we wanted to see this data pushed to a central server for the hospital to
 be able to monitor and analyze the data.
 
-![Team working on deploying OpenEMR on a Dragonboard](/blog/images/group_dragon.jpg)
+![Team working on deploying OpenEMR on a Dragonboard](/images/group_dragon.jpg)
 
 Throughout the event I was continually in awe of the way these students
 approached various problems. I was able to see groups build rapid prototype
@@ -63,7 +63,7 @@ what makes the open-source community vibrant and strong. This is why I love
 giving countless hours of my time to the open-source community at large, and
 specifically OpenEMR.
 
-![Group working on sepsis infection algorithm](/blog/images/group_sepsis.jpg)
+![Group working on sepsis infection algorithm](/images/group_sepsis.jpg)
 
 So did these students meet our challenges? Yes! Several groups took on our
 challenges either directly or used it as a base. One group successfully captured
@@ -78,7 +78,7 @@ out how to capture and emit vital sign information; and second, generate some
 previously mentioned biometric hardware) and run their analysis, pushing the
 results into OpenEMR.
 
-![Group working on a watch-type device to measure vital signs](/blog/images/group_watch.jpg)
+![Group working on a watch-type device to measure vital signs](/images/group_watch.jpg)
 
 A third group began the work of taking biometric-equipped
 smartphones and emitting the data from specific health APIs into a server

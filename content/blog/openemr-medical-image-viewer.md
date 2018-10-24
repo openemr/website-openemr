@@ -19,7 +19,7 @@ A team of software engineers within our community recently built the first major
 
 By using a capable open-source, web-based DICOM image viewer, OpenEMR provides clinicians a quick, secure, and robust view into patient images with windowing, panning, zooming, and filtering support. The underlying technology is based on the DICOM Web Viewer (DWV) open-source project led by Yves Martelli, a software engineer and medical imaging expert. "I'm happy to be helping out other open projects in the healthcare space," Martelli noted. "Working with and supporting the OpenEMR team during this development has been a positive experience, I hope it brings visibility to the potential of the technique." 
 
-<center>![](/blog/images/dicom-web-viewer.png)</center>
+<center>![](/images/dicom-web-viewer.png)</center>
 
 "With this release, we are taking the first steps in addressing the gap between imaging systems and the EMR experience," stated Victor Kofia, an OpenEMR volunteer and software engineer.
 

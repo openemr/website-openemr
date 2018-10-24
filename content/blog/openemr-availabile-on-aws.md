@@ -38,7 +38,7 @@ demand, computational resources are automatically dedicated for optimal delivery
 of healthcare by OpenEMR Cloud Full Stack. During non-peak hours, computational
 resources are automatically relaxed, resulting in minimized costs.
 
-<center>![](/blog/images/openemrCloud.png)</center>
+<center>![](/images/openemrCloud.png)</center>
 
 #### Cutting-edge Information Security
 

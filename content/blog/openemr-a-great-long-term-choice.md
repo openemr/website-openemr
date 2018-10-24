@@ -20,7 +20,7 @@ To get started, feel free to explore [our live demo](https://www.open-emr.org/de
 
 As a ONC Complete EHR Certified product, we support common clinical data imports via our [Care Coordination Module](https://www.open-emr.org/wiki/index.php/Use_the_Carecoordination_module#Import_external_CCDA_file). 
 
-<center>![](/blog/images/demographics-feature.png)</center>
+<center>![](/images/demographics-feature.png)</center>
 
 There is a robust [self-help](https://community.open-emr.org/) with [live help as well](https://chat.open-emr.org/home). 
 
