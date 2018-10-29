@@ -12,14 +12,19 @@
         // background-color: $gray !important;
     }
     .jumbotron {
-        padding-top: 10rem;
-        padding-bottom: 0;
+        padding-top: 100px;
+        @include media-breakpoint-up(md) {
+            padding-top: 10rem;
+        }
         color: $white;
         background: none;
-        .display-4 {
+        .display-1 {
             text-shadow: 2px 2px 0 $black;
             font-family: $headings-font-family;
-            font-weight: 300 !important;
+
+            @include media-breakpoint-down(md) {
+                font-size: 1.75rem;
+            }
         }
         p.lead {
             hyphens: all;
@@ -73,9 +78,8 @@
 
 .welcome-billboard {
   @extend .home-billboard;
-  margin-top: 93px;
   height: 500px;
   min-height: 500px;
   -webkit-background-size: cover;
-    background-size: cover;
+  background-size: cover;
 }

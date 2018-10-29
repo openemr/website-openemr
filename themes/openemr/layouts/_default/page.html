@@ -1,0 +1,42 @@
+{{ define "main" }}
+
+<main class="page">
+    {{ if isset .Params "cover" }}
+        {{ $smallCover := $.Param "smallCover" }}
+        {{ $titleOnCover := $.Param "titleOnCover" }}
+        {{ $titlePush := $.Param "titlePush" }}
+    
+        {{ if eq $smallCover true }}
+        <section class="hero container">
+            <div class="row">
+                <div class="col-sm-10">
+                    <img src="{{ $.Param "cover" | absURL }}" height="350" alt="">
+                    {{ if eq $titleOnCover true }}
+                        {{ if eq $titlePush "center"}}
+                        <h1 class="text-center">{{ .Title }}</h1>
+                        {{ else if eq $titlePush "right"}}
+                        <h1 class="text-right">{{ .Title }}</h1>
+                        {{ else }}
+                        <h1>{{ .Title }}</h1>
+                        {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+        {{ else }}
+        <section class="hero full container-fluid" style="background-image: url('{{ $.Param "cover" | absURL}}');">
+        {{ end }}
+        </section>
+    {{ end }}
+    <article class="main">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 offset-md-3">
+                {{ .Content }}
+            </div>
+        </div>
+    </article>
+    <section class="footer">
+        
+    </section>
+</main>
+
+{{ end }}

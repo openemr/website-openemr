@@ -8,11 +8,13 @@ $(document).ready(function(){
 
 window.addEventListener('scroll', function (e) {
   var nav = document.getElementById("main-navigation");
-  if (document.documentElement.scrollTop || document.body.scrollTop > window.innerHeight) {
-    nav.classList.add('nav-colored');
-    nav.classList.remove('nav-transparent');
-  } else {
-    nav.classList.add('nav-transparent');
-    nav.classList.remove('nav-colored');
+  if (nav.classList.contains("home") == true) {
+    if (document.documentElement.scrollTop || document.body.scrollTop > window.innerHeight) {
+      nav.classList.add('default-state');
+      nav.classList.remove('armed-state');
+    } else {
+      nav.classList.add('armed-state');
+      nav.classList.remove('default-state');
+    }
   }
 });

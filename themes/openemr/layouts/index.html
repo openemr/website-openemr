@@ -1,6 +1,6 @@
 {{ define "main" }}
 
-<section class="home-billboard" style="background-image: url('{{ .Site.BaseURL }}img/jumbo2.jpg');">
+<section class="home-billboard" style="background-image: url('{{ "img/jumbo2.jpg" | absURL }}');">
   <div>
     <div class="jumbotron">
       <div class="container">
@@ -20,7 +20,7 @@
     </div>
     <div class="banner-items">
       <div class="card-holders">
-        <div class="col-sm-12 col-md-3">
+        <div class="col-sm-6 col-md-3">
           <div class="card">
             <a href="{{ .Site.Params.demoUrl }}">
               <div class="card-body">
@@ -31,7 +31,7 @@
             </a>
           </div>
         </div>
-        <div class="col-sm-12 col-md-3">
+        <div class="col-sm-6 col-md-3">
           <div class="card">
             <a href="{{ .Site.Params.downloadUrl }}">
               <div class="card-body">
@@ -42,7 +42,7 @@
             </a>
           </div>
         </div>
-        <div class="col-sm-12 col-md-3">
+        <div class="col-sm-6 col-md-3">
           <div class="card">
             <a href="/wiki/index.php/Support">
               <div class="card-body">
@@ -53,7 +53,7 @@
             </a>
           </div>
         </div>
-        <div class="col-sm-12 col-md-3">
+        <div class="col-sm-6 col-md-3">
           <div class="card donation">
             <a href="{{ "donate" | absURL }}">
               <div class="card-body">

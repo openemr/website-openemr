@@ -1,19 +1,17 @@
 ---
-title: "Donate to OpenEMR"
+title: "Generosity Drives Quality Healthcare"
 date: 2018-09-23
 url: donate
+cover: "images/donate2.jpg"
+smallCover: true
+titleOnCover: true
+titlePush: right
 ---
-
-# Donate to OpenEMR
 
 OpenEMR depends on donations from users, developers, and philanthropists to
 continue moving the project forward. Please consider a donation today. We have
 two ways you can make a financial donation.
 
-### PayPal
+## Multiple ways to give
 
-* <a href="http://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V6EVVTYYK264C" rel="external" target="_blank">Donate using PayPal</a>
-
-### OpenCollective
-
-* <a href="https://opencollective.com/openemr" rel="external" target="_blank">Donate using OpenCollective</a>
+You can support OpenEMR by contributing a financial donation using Paypal or OpenCollective. You can read more about OpenCollective in [this blog post](blog/accepting-donations-on-opencollective).

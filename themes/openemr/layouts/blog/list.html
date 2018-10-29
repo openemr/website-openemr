@@ -3,19 +3,15 @@
     <h1>The Technology Typist</h1>
     <h5>an OpenEMR Blog</h5>
 </div>
-<div id="post-index" class="main-content page blog-list" itemscope="" itemtype="https://schema.org/Blog">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-10">
-            <ul class="unstyled">
-            {{ range .Paginator.Pages }}
-                    {{ partial "blog/post-stub.html" . }}
-            {{ end }}
-            </ul>
-            <div class="">
-                {{ partial "pagination.html" . }}
-            </div>
+<main id="post-index" class="page container blog-list" itemscope="" itemtype="https://schema.org/Blog">
+    <div class="row align-items-center">
+        {{ range .Paginator.Pages }}
+            {{ partial "blog/post-stub.html" . }}
+        {{ end }}
+        <div class="">
+            {{ partial "pagination.html" . }}
         </div>
     </div>
-</div>
+</main>
 {{ end }}
 

@@ -2,6 +2,7 @@
 title: "OpenEMR Demo"
 date: 2018-22-06T20:57:39-05:00
 url: demo
+layout: page
 ---
 
 # Full Working OpenEMR 5.0.1 Demo

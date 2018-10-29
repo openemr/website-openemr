@@ -1,45 +1,18 @@
-/**
- *
- */
+// See _type.scss for all typography styling
+// See _colors.scss for all color-related styling
+// See _blog.scss ALL blog related content, type and colors included
 
 @import "imports";
 
 .inline {
     display: inline;
 }
-h1, h2, h3, h4, h5, h6 {
-    font-family: $headings-font-family;
-}
-
-body {
-    font-family: $font-family-sans-serif;
-    background-color: $off-white;
-    color: $gray-900;
-    line-height: 145%;
-}
 
 .site-header {
     @extend .container-fluid;
-    background-color: $blue;
-    color: $white;
     .container {
         padding-top: 35px;
-        nav {
-            // @extend .col-xs-12;
-            ul {
-                @extend .nav;
-                a.nav-link, a.nav-link:visited, a.nav-link:focus {
-                    color: $white;
-                }
-            }
-        }
     }
-}
-
-main {
-  .container {
-    // margin-top: 115px;
-  }
 }
 
 p {
@@ -77,17 +50,13 @@ p {
     @extend .row;
 }
 .platforms {
-    @extend .container
+    @extend .container;
 }
 .osi-banner {
     @extend .container-fluid;
-    background-color: $gray-900;
-    color: $white;
 }
 footer.site {
     @extend .container-fluid;
-    background-color: rgba($gray-200, 1);
-    color: $gray-900;
     padding-top: 2rem;
     padding-bottom: 2rem;
     @include media-breakpoint-down(sm) {
@@ -100,13 +69,6 @@ footer.site {
             @include make-col(3);
         }
     }
-    a {
-        color: $gray-700;
-        &:hover {
-            color: $red;
-            text-decoration: none;
-        }
-    }
     ul li ul {
         list-style: none;
     }
@@ -116,18 +78,19 @@ footer.site {
     @extend .container-fluid;
     padding-top: 99px;
     padding-bottom: 40px;
-    background-color: theme-color('primary');
+
+    @include media-breakpoint-down(sm) {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        margin-top: 51px;
+    }
 
     h1 {
         @extend .text-center;
-        color: #ffffff;
-        font-weight: 400;
     }
 
     h5 {
         @extend .text-center;
-        color: #fff;
-        font-family: $font-family-sans-serif;
     }
 
     img {
@@ -152,23 +115,15 @@ footer.site {
     @include media-breakpoint-up(xl) {
         @include make-col(3);
     }
-    @include media-breakpoint-down(md) {
-        .card-title {
-            font-size: 1.5rem;
-        } 
-    }
+    
     @include transition(all 0.25s);
-    background-color: transparent;
     &:hover {
         @include transition(all 0.25s);
-        background-color: $gray-300;
         border-radius: 20px;
     }
     .card {
         @extend .m-4;
-        border: none;
         border-radius: 20px;
-        background: none;
         .card-title {
             @extend .text-center;
         }
@@ -182,29 +137,13 @@ footer.site {
   }
 }
 
-.display-1 {
-    // font-family: "cooper_hewitt";
-    font-weight: 200;
-    font-size: 3.5rem;
-}
-
-.display-3 {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: theme-color("primary");
-}
-
 .deploy {
     img {
         height: 64px;
         width: 64px;
     }
 }
-footer.site {
-    a {
-        color: color("primary");
-    }
-}
+
 // Parallax
 .parallax-container {
     position: relative;
@@ -232,31 +171,104 @@ footer.site {
 .btn-xl {
     @include button-size($input-btn-padding-y-xl, $input-btn-padding-x-xl, $font-size-xl, $line-height-xl, $btn-border-radius-lg);
 }
-@include media-breakpoint-down(lg) {
-    .display-4 {
-        font-size: 2rem;
+
+main.page {
+    @include media-breakpoint-down(sm) {
+        margin-top: 52px;
+    }
+    @include media-breakpoint-up(md) {
+        margin-top: 58px;
+    }
+
+    section.hero {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        height: 350px;
+
+        &.full {
+            @include media-breakpoint-up(md) {
+                height: 500px;
+            }
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        h1 {
+            @extend .mt-4;
+            @extend .mr-4;
+            @extend .display-1;
+        }
+    }
+
+    article.main {
+        @extend .container;
+
+        p {
+            font-size: 1.15rem;
+        }
     }
 }
-@include media-breakpoint-only(sm) {
-    .display-4 {
-        font-size: 1.5rem;
-    }
+
+table tr td {
+padding: 2px 8px;
+}
+table tr td,
+table tr th {
+padding-right: 15px;
+}
+table tr td:first-child {
+text-align: right;
 }
 
-.page {
-  h1, h2, h4, h5, h6 {
-    font-weight: 500;
-    color: #000;
-  }
+.page.donate {
+    
+    .hero {
+        @include media-breakpoint-up(sm) {
+            height: 500px;
+        }
+        background-size: cover;
 
-  a {
-    text-decoration: underline;
-  }
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 3;
+            @include linear-gradient(rgba(255,255,255,0), 0%, rgba(0,0,0,0.75), 100%);
+        }
 
-  h1 { font-size: 2rem; font-weight: 400; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.4rem; font-weight: 500; }
-  h4 { font-size: 1.3rem; }
-  h5 { font-size: 1.2rem; }
-  h6 { font-size: 1.1rem; }
+        img {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: 0;
+        }
+    }
+
+    h1 {
+        font-weight: 300;
+
+        @include media-breakpoint-up(lg) {
+            font-size: 5rem !important;
+        }
+
+        @include media-breakpoint-down(sm) {
+            font-size: 1.75rem !important;
+            text-align: right;
+        }
+        @include media-breakpoint-only(md) {
+            font-size: 3.5rem;
+        }
+        color: $white;
+        z-index: 5;
+    }
 }
