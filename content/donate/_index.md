@@ -14,4 +14,4 @@ two ways you can make a financial donation.
 
 ## Multiple ways to give
 
-You can support OpenEMR by contributing a financial donation using Paypal or OpenCollective. You can read more about OpenCollective in [this blog post](blog/accepting-donations-on-opencollective).
+You can support OpenEMR by contributing a financial donation using Paypal or OpenCollective. You can read more about OpenCollective in [this blog post](/blog/accepting-donations-on-opencollective).
