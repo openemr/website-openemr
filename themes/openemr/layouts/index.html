@@ -1,73 +1,69 @@
 {{ define "main" }}
 
-<section class="home-billboard" style="background-image: url('{{ "img/jumbo2.jpg" | absURL }}');">
-  <div>
-    <div class="jumbotron">
-      <div class="container">
-        <h3 class="display-1">
-          Fully Open-Source.<br>
-          Free, Always and Forever.<br>
-          2014 ONC Complete EHR Certified.<br>
-        </h3>
-        <p class="lead">
-          OpenEMR is the most popular open source electronic health records and medical practice management
-          solution. ONC certified with international usage, OpenEMR's goal is a superior alternative to its
-          proprietary counterparts. With passionate volunteers and contributors dedicated to guarding
-          OpenEMR's status as a free, open source software solution for medical practices with a commitment to
-          openness, kindness and cooperation.
-        </p>
-      </div>
-    </div>
-    <div class="banner-items">
-      <div class="card-holders">
-        <div class="col-sm-6 col-md-3">
-          <div class="card">
-            <a href="{{ .Site.Params.demoUrl }}">
-              <div class="card-body">
-                <img class="img-fluid center" src="{{ .Site.BaseURL }}img/monitor.png" alt="Card image cap" height="64" width="64">
-                <h4 class="card-title">Try Now</h4>
-                <p class="card-text">Login to a fully functioning demo of OpenEMR</p>
-              </div>
-            </a>
+<section class="billboard billboard__home" style="background-image: url('{{ "images/stethoscope.jpg" | absURL }}');">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="content">
+        <div class="row">
+          <div class="col-sm-12 col-lg-7">
+            <h3 class="display-1">
+              Fully Open-Source.<br>
+              Free, Always and Forever.<br>
+              ONC Complete EHR Certified.<br>
+            </h3>
+            <p class="lead pt-3">OpenEMR is the most popular open source electronic health records and medical practice management solution. ONC certified with international usage, OpenEMR's goal is a superior alternative to its proprietary counterparts. With passionate volunteers and contributors dedicated to guarding OpenEMR's status as a free, open source software solution for medical practices with a commitment to openness, kindness and cooperation.</p>
           </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-          <div class="card">
-            <a href="{{ .Site.Params.downloadUrl }}">
-              <div class="card-body">
-                <img class="img-fluid center" src="{{ .Site.BaseURL }}img/download-arrow.png" alt="Card image cap" height="64" width="64">
-                <h4 class="card-title">Download for Free</h4>
-                <p class="card-text">Get the latest version for Windows, macOS, or Linux</p>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-          <div class="card">
-            <a href="/wiki/index.php/Support">
-              <div class="card-body">
-                <img class="img-fluid center" src="{{ .Site.BaseURL }}img/info.png" alt="Card image cap" height="64" width="64">
-                <h4 class="card-title">Find Support</h4>
-                <p class="card-text">Free, community-driven support to support you</p>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-          <div class="card donation">
-            <a href="{{ "donate" | absURL }}">
-              <div class="card-body">
-                <img class="img-fluid center" src="{{ .Site.BaseURL }}img/money.png" alt="Card image cap" height="64">
-                <h4 class="card-title">Donate Today</h4>
-                <p class="card-text">We depend on financial donations to succeed.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
+          <div class="target_nav col-sm-12 col-md-12 col-lg-5 pb-3 card-holders">
+            <div class="card mb-1 d-none d-xl-flex">
+              <a href="{{ .Site.Params.demoUrl }}">
+                <div class="card-body">
+                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/monitor.png" alt="Card image cap" height="64" width="64">
+                  <h4 class="card-title">Try Now</h4>
+                  <p class="card-text">Login to a fully functioning demo of OpenEMR</p>
+                </div>
+              </a>
+            </div>  <!-- end card -->
+            <div class="card mb-1">
+              <a href="/wiki/index.php/Support">
+                <div class="card-body">
+                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/info.png" alt="Card image cap" height="64" width="64">
+                  <h4 class="card-title">Find Support</h4>
+                  <p class="card-text">Free, community-driven support to assist you</p>
+                </div>
+              </a>
+            </div> <!-- end .card -->
+            <div class="card mb-1 d-none d-xl-flex">
+              <a href="{{ .Site.Params.downloadUrl }}">
+                <div class="card-body">
+                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/download-arrow.png" alt="Card image cap" height="64" width="64">
+                  <h4 class="card-title">Download for Free</h4>
+                  <p class="card-text">Get the latest version for Windows, macOS, or Linux</p>
+                </div>
+              </a>
+            </div> <!-- end .card -->
+            <div class="card mb-1 newsletter">
+              <a href="http://eepurl.com/diEAnr" target="_blank">
+                <div class="card-body">
+                  <img src="{{ "images/mail.png" | absURL}}" class="img-fluid float-left mr-4" width="64" alt="">
+                  <h4 class="card-title">Signup for <span class="d-none d-md-inline">our</span> Newsletter</h4>
+                  <p class="card-text">Receive quarterly updates and security infomation</p>
+                </div>
+              </a>
+            </div>
+            <div class="card donation">
+              <a href="{{ "donate" | absURL }}">
+                <div class="card-body">
+                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/money.png" alt="Card image cap" height="64">
+                  <h4 class="card-title">Donate Today</h4>
+                  <p class="card-text">We depend on financial donations to succeed.</p>
+                </div>
+              </a>
+            </div> <!-- end .card -->
+          </div>  <!-- end .target_nav -->
+        </div> <!-- end .row -->
+      </div> <!-- end .content -->
+    </div> <!-- end .col-sm-12 -->
+  </div> <!-- end .row -->
 </section>
 
 <div class="main-content">
