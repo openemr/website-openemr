@@ -1,6 +1,9 @@
-// See _type.scss for all typography styling
-// See _colors.scss for all color-related styling
-// See _blog.scss ALL blog related content, type and colors included
+/*!
+ * Main stylesheet
+ * See _type.scss for all typography styling
+ * See _colors.scss for all color-related styling
+ * See _blog.scss ALL blog related content, type and colors included
+ */
 
 @import "imports";
 
@@ -72,6 +75,13 @@ footer.site {
     ul li ul {
         list-style: none;
     }
+
+    h5 {
+        font-size: 0.9rem;
+    }
+
+    font-size: 0.85rem;
+
 }
 
 .section-title {
