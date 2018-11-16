@@ -14,12 +14,12 @@
 <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,700,700i|IBM+Plex+Sans+Condensed|IBM+Plex+Sans:200,200i,300,300i,400,400i,500,500i,700,700i" rel="stylesheet"> 
 <link href="{{ "fonts/cooper_hewitt/cooper_hewitt.css" | absURL }}" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ "main.a0e02fafabf9cee63bdb.css" | absURL }}">
-
+{{ $options := (dict "targetPath" "style.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+{{ $style := resources.Get "scss/style.scss" | toCSS $options | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
 {{- if .RSSLink -}}
 <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml">
 {{- end -}}
-
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=pgq70jawxe">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=pgq70jawxe">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=pgq70jawxe">
@@ -33,4 +33,8 @@
 <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=pgq70jawxe">
 <meta name="theme-color" content="#2d9bd6">
 
-<script src="{{ "main.js" | absURL }}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-parallax.js@1.5.0/parallax.min.js" integrity="sha256-cNb9ArVGKhXkedowZK9xRxCpr6qqck5JvCAsuMzJlPw=" crossorigin="anonymous"></script>
+<script src="{{ "app.js" | absURL }}"></script>
