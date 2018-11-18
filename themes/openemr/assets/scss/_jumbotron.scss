@@ -27,7 +27,11 @@
     background-size: cover;
 
     &__home {
-        padding-top: 100px;
+        padding-top: 65px;
+
+        @include media-breakpoint-up(lg) {
+            padding-top: 150px;
+        }
 
         .content {
             max-width: 1280px;
