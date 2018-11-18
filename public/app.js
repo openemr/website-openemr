@@ -1,9 +1,13 @@
-require("./scss/style.scss");
-require("materialize-css/dist/js/materialize.min.js");
-require("bootstrap/dist/js/bootstrap.bundle.js");
+/**!
+ * OpenEMR Template
+ */
 
 $(document).ready(function(){
   $('.parallax').parallax();
+  var nav = document.getElementById('main-navigation');
+  if (nav.classList.contains('home') == true) {
+    nav.classList.remove('default-state');
+  }
 });
 
 window.addEventListener('scroll', function (e) {

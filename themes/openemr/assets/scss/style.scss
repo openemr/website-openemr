@@ -1,4 +1,4 @@
-/*!
+/*
  * Main stylesheet
  * See _type.scss for all typography styling
  * See _colors.scss for all color-related styling
@@ -156,27 +156,7 @@ footer.site {
 
 // Parallax
 .parallax-container {
-    position: relative;
-    overflow: hidden;
     height: 450px;
-    .parallax {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-        img {
-            display: none;
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            transform: translate3d(0, 0, 0);
-            transform: translateX(-50%);
-        }
-    }
 }
 .btn-xl {
     @include button-size($input-btn-padding-y-xl, $input-btn-padding-x-xl, $font-size-xl, $line-height-xl, $btn-border-radius-lg);
@@ -187,8 +167,15 @@ main.page {
         margin-top: 52px;
     }
     @include media-breakpoint-up(md) {
-        margin-top: 58px;
+        margin-top: 55px;
     }
+
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.8rem; }
+    h4 { font-size: 1.6rem; }
+    h5 { font-size: 1.4rem; }
+    h6 { font-size: 1.2rem; }
 
     section.hero {
         background-size: cover;
