@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /wiki/index.php?
+Disallow: /wiki/index.php/Help:
+Disallow: /wiki/index.php/MediaWiki:
+Disallow: /wiki/index.php/Special:
+Disallow: /wiki/index.php/Template:
+Disallow: /wiki/skins/
