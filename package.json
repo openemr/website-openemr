@@ -1,0 +1,21 @@
+{
+  "name": "openemr_website",
+  "version": "1.0.0",
+  "description": "Hugo-build website for OpenEMR",
+  "main": "index.js",
+  "scripts": {
+    "setup": "cd themes/openemr/ && npm install",
+    "dev": "hugo server -D --baseUrl=localhost:1313",
+    "build": "hugo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openemr/website-openemr-hugo.git"
+  },
+  "author": "Robert Down <robertdown@live.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/openemr/website-openemr-hugo/issues"
+  },
+  "homepage": "https://github.com/openemr/website-openemr-hugo#readme"
+}
