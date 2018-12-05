@@ -1,7 +1,9 @@
 ---
-title: "Generosity Drives Quality Healthcare"
+title: "Generosity Driven Healthcare"
 date: 2018-09-23
 url: donate
+aliases:
+  - give
 cover: "images/donate2.jpg"
 smallCover: true
 titleOnCover: true
