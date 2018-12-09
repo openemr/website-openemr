@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html {{ if .Site.Params.opengraph }}prefix="og: http://ogp.me/ns#"{{ end }}lang="en">
+    <head>
+        {{- block "header" . -}}{{- partial "header.html" . -}}{{- end -}}
+    </head>
+    <body>
+        {{/* Include the navigation */}}
+        {{- partial "navigation.html" . }}
+
+        {{/* Include the main content of the page */}}
+        {{ block "main" . }}
+            {{/* Override content into here by defining main in a template */}}
+        {{ end }}
+
+        {{/* Include the footer */}}
+        {{- block "footer" . -}}
+            {{- partial "footer.html" . -}}
+        {{- end -}}
+    </body>
+    {{- template "_internal/google_analytics.html" . -}}
+</html>

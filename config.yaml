@@ -1,0 +1,44 @@
+title: OpenEMR
+baseURL: https://www.open-emr.org/
+theme: openemr
+languageCode: en-us
+copyright: OpenEMR Foundation, Inc
+disqusShortname: openemr
+googleAnalytics: UA-8316288-7
+enableGitInfo: true
+ignoreFiles:
+  - _files%
+  - _cache$
+taxonomies:
+  tag: ""
+  category: ""
+params:
+  # Required theme-specific variables
+  twitterImage: /images/test.jpg
+  coverImageStyle: standard
+  twitterCardType: summary
+  intro: "true"
+  headline: OpenEMR
+  description: The world's leading open-source electronic medical record and practice management software.
+  github: "https://github.com/openemr"
+  linkedin: ""
+  gplus: https://plus.google.com/106799034872780958301
+  twitter: https://twitter.com/openemr
+  facebook: https://www.facebook.com/OpenEMR-181315115284266
+  stackoverflow: ""
+  email: blog@oemr.org
+  opengraph: true
+  shareTwitter: true
+  shareFacebook: true
+  shareGooglePlus: true
+  shareLinkedIn: true
+  dateFormat: Mon, Jan 2, 2006
+  highlightJsUrl: ""
+  highlightJsLocalUrl: ""
+  author:
+    name: OpenEMR
+    twitter: openemr
+  demoUrl: demo
+  downloadUrl: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
+permainks:
+  post: /:filename/

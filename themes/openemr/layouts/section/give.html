@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+<section class="billboard billboard__give" style="background-image: url('{{ "images/give_page.jpg" | absURL }}');">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="display-1 text-center">{{ .Title }}</h1>
+      </div>
+      <article class="col-xs-12 col-lg-6">
+        <p>{{ .Content }}</p>
+      </article>
+      <article class="col-xs-12 col-lg-6 mb-5">
+        <a href="http://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V6EVVTYYK264C" target="_blank" class="btn btn-outline-light d-block p-5 mb-5"><h3>Give via PayPal</h3></a>
+        <a href="https://opencollective.com/openemr" target="_blank" class="btn btn-outline-light d-block p-5 mt-5"><h3>Give via OpenCollective</h3></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+{{ end }}

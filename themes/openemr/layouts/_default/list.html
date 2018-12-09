@@ -1,0 +1,16 @@
+{{ partial "header.html" . }}
+
+{{ partial "navigation.html" . }}
+
+<div style="margin-top: 98px">
+  
+  <div class="container page">
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+        <p>{{ .Content }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ partial "footer.html" . }}

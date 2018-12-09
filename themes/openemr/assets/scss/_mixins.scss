@@ -1,0 +1,17 @@
+@mixin center-column {
+    @include make-col-ready();
+
+    @include media-breakpoint-up(xs) {
+        @include make-col(12);
+    }
+    
+    @include media-breakpoint-up(lg) {
+        @include make-col(6);
+    }
+}
+
+@mixin linear-gradient($gradient...) {
+    background: -moz-linear-gradient($gradient); /* FF3.6-15 */
+    background: -webkit-linear-gradient($gradient); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient($gradient); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}

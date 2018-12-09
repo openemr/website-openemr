@@ -1,0 +1,24 @@
+{{ define "main"}}
+<div style="margin-top: 98px; margin-bottom: 50px">
+
+    <div class="container page">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 offset-md-2">
+                <p>{{ .Content }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    table tr td {
+        padding: 2px 8px;
+    }
+    table tr td,
+    table tr th {
+        padding-right: 15px;
+    }
+    table tr td:first-child {
+        text-align: right;
+    }
+</style>
+{{ end}}

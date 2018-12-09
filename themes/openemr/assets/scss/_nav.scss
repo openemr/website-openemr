@@ -1,0 +1,68 @@
+.main-header.home {
+  @extend .armed-state;
+}
+
+.default-state {
+  background-color: rgba(theme-color("primary"), 0.90) !important;
+  @include media-breakpoint-down(md) {
+    background-color: theme-color("primary") !important;
+  }
+}
+
+.armed-state {
+  background-color: transparent;
+  @include media-breakpoint-down(md) {
+    background-color: theme-color("primary") !important;
+  }
+}
+
+.main-header {
+    @extend .navbar;
+    @extend .navbar-expand-lg;
+    @extend .navbar-dark;
+    @extend .fixed-top; // @extend .bg-primary;
+    
+    margin-top: 0 !important;
+
+    .container {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    a {
+        color: $white !important;
+        &:hover {
+            color: lighten($blue, 50) !important;
+        }
+    }
+}
+
+a.nav-link {
+    color: $white;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+}
+#navbarSupportedContent {
+    @extend .collapse;
+    @extend .navbar-collapse;
+    @extend .justify-content-end;
+    
+    ul {
+        @extend .navbar-nav;
+        li {
+          a {
+              @extend .nav-link;
+          }
+
+          a.github {
+            font-size: 1.4rem;
+          }
+        }
+    }
+}
+.dropdown-menu {
+    background-color: $blue;
+    a:hover {
+        background-color: $blue;
+        color: darken($white, 30);
+    }
+}

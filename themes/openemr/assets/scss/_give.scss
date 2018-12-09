@@ -1,0 +1,41 @@
+.billboard {
+  &__give {
+    &::before {
+      $from: rgba(0,0,0,0.65);
+      $to: rgba(0,0,0,0.35);
+      @include linear-gradient(to bottom, $from, $from 50%, $to 100%);
+      content: "";
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+    }
+
+    padding-top: 130px;
+
+    @include media-breakpoint-down(sm) {
+      background-image: none !important;
+      background-color: theme-color('primary') !important;
+    }
+
+    color: $white;
+    font-size: 20px;
+
+    h1.display-1 {
+      @include media-breakpoint-up(lg) {
+        font-size: 6rem;
+      }
+
+      color: $white;
+      font-family: 'Sheila';
+      font-weight: 700;
+    }
+
+    article {
+      padding-top: 1.5rem;
+    }
+  }
+}

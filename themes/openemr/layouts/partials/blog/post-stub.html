@@ -1,0 +1,34 @@
+<div class="col-sm-12 col-md-6 mb-4" 
+     itemprop="blogPost" 
+     itemscope="" 
+     itemtype="https://schema.org/BlogPosting">
+    <div class="post-stub">
+        <a href="{{ .URL }}" title="{{ .Title }}" class="image-link">
+            <span class="image-gradient"></span>
+            <img src="{{ $.Params.coverImage | absURL }}" alt="{{ .Title }}">
+        </a>
+        <div class="title-link">
+            <a href="{{ .URL }}" itemprop="url" title="Go to {{ .Title }}">
+                <h5>{{ .Title }}</h5>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- <li class="media hidden post-stub mb-5" itemprop="blogPost" itemscope="" itemtype="https://schema.org/BlogPosting">
+    {{ if .Params.coverImage }}
+        <img class="mr-2" src="{{ .Site.BaseURL }}{{ $.Params.coverImage }}" width="200" alt="Card image cap">
+    {{ else }}
+        <div class="mr-2" style="width:200px">&nbsp;</div>
+    {{ end }}
+    <div class="media-body">
+        <h5>
+            <a href="{{ .URL }}" itemprop="url" title="Go to post detail">{{ .Title }}</a>
+        </h5>
+        {{ .Summary }}
+        {{ with .Param "featured"}}
+        <span class="badge badge-primary"><i class="fa fa-start"></i>Featured</span>
+        {{ end }}
+    </div>
+</li>
+ -->
