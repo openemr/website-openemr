@@ -222,6 +222,20 @@ table tr td:first-child {
 text-align: right;
 }
 
+.page {
+    .hero {
+        @include media-breakpoint-up(sm) {
+            height: 500px;
+        }
+
+        img {
+            
+        }
+    }
+
+    background-size: cover;
+}
+
 .page.donate {
     
     .hero {
