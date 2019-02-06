@@ -6,7 +6,7 @@ cover: "images/gsoc_banner.png"
 smallCover: true
 ---
 
-# Google Summer of Code
+# Google Summer of Code - Ideas List
 
 ## FHIR Integration
 
@@ -14,30 +14,6 @@ Fast Healthcare Interoperability Resources (FHIR) is a standard for exchanging h
 
 * Mentors: Jerry Padgett, Brady Miller
 * Tags: New Feature
-
-
-## PACS Server Integration
-
-Picture Archiving and Communication System (PACS) is a system that allows storing and viewing of patient imaging, such as Xrays, CT scans, and ultrasounds. Goal is it integrate a PACS server with OpenEMR to allow the viewing and storage of patient imaging.
-
-* Mentors: Matthew Vita, Asher Densmore-Lynn
-* Tags: New Feature 
-
-
-## cTakes Integration
-
-Apache cTAKES is a natural language processing system for extraction of information from electronic medical record clinical free-text. Goal is to integrate cTAKES with OpenEMR to allow extraction of information(such as diagnosis code, billing codes, and other standard coding) from unstructured clinical notes.
-
-* Mentors: Asher Densmore-Lynn, Matthew Vita
-* Tags: New Feature 
-
-
-## Quality Reporting
-
-Quality reporting and collection of clinical metrics are a valuable tool for clinics. It allows self-assessment, quality improvement projects, and reporting of metrics to regulation entities. Goal is to integrate quality reporting into OpenEMR. Note this project will involve both choosing of which clinical metrics to assess and then developing these in OpenEMR.
-
-* Mentors: Ray Magauran, Stephen Waite
-* Tags: New Feature 
 
 
 ## Standardized Patient Data
@@ -48,12 +24,12 @@ Goal is to develop a mechanism to create large datasets of standardized patient 
 * Tags: New Feature 
 
 
-## User Interface and Bootstrap Standardize
+## Quality Reporting
 
-The OpenEMR project began to improve the application user interface several months ago by implementing bootstrap. The goal of this project is to extend this user interface improvement throughout the entire codebase.
+Quality reporting and collection of clinical metrics are a valuable tool for clinics. It allows self-assessment, quality improvement projects, and reporting of metrics to regulation entities. Goal is to integrate quality reporting into OpenEMR. Note this project will involve both choosing of which clinical metrics to assess and then developing these in OpenEMR.
 
-* Mentors: Sherwin Gaddis, Jerry Padgett
-* Tags: Modernization 
+* Mentors: Ray Magauran, Stephen Waite
+* Tags: New Feature
 
 
 ## Modernize Javascript Assets
@@ -61,14 +37,6 @@ The OpenEMR project began to improve the application user interface several mont
 There are currently many different version of jquery in addition to other legacy javascript assets. Goal is to standardize all of the codebase to use the same modern version of these javascript assets.
 
 * Mentors: Brady Miller, Jerry Padgett
-* Tags: Modernization 
-
-
-## Upgrade Codebase to Use Services
-
-Since OpenEMR began in 2002, there are parts of the codebase that are crying out for modernization. The goal of this project is to lead a modernization effort that focuses on modern use of classes and services.
-
-* Mentors: Robert Down, Matthew Vita
 * Tags: Modernization 
 
 
@@ -84,8 +52,24 @@ A minor, albeit critical part of the codebase uses Smarty. The goal of this proj
 
 OpenEMR currently uses several different PDF tools and libraries, which complicates code development. Goal is to standardize all PDF output from a common PDF library.
 
-* Mentors: Roberto Vasquez, Brady Miller
+* Mentors: Roberto Vasquez, Jerry Padgett
 * Tags: Optimization 
+
+
+## PACS Server Integration
+
+Picture Archiving and Communication System (PACS) is a system that allows storing and viewing of patient imaging, such as Xrays, CT scans, and ultrasounds. Goal is it integrate a PACS server with OpenEMR to allow the viewing and storage of patient imaging.
+
+* Mentors: Robert Down, Asher Densmore-Lynn
+* Tags: New Feature 
+
+
+## Upgrade Codebase to Use Services
+
+Since OpenEMR began in 2002, there are parts of the codebase that are crying out for modernization. The goal of this project is to lead a modernization effort that focuses on modern use of classes and services.
+
+* Mentors: Robert Down, Jerry Padgett
+* Tags: Modernization 
 
 
 ## Support MAR
@@ -100,12 +84,13 @@ A Medication Administration Record (MAR) is a record of all medications that are
 
 Telehealth is increasingly being used in healthcare and while OpenEMR does support a patient portal and communication with physicians via secure messaging or chat, OpenEMR does not yet support Telehealth. The goal is to support telehealth in OpenEMR.
 
-* Mentors: Jason Oettinger, Sherwin Gaddis
+* Mentors: Jerry Padgett, Jason Oettinger
 * Tags: New Feature 
+
 
 ## Custom proposal
 
-The community is also very open to custom proposals. Check out the OpenEMR Project Roadmap for some more ideas, and highly recommend discussing your ideas on the OpenEMR forum or chat and/or contacting a mentor directly. 
+The community is also very open to custom proposals. Check out the [OpenEMR Project Roadmap](https://www.open-emr.org/wiki/index.php/Roadmaps#OpenEMR_Project_Roadmap) and [Issue in Github](https://github.com/openemr/openemr/issues) for some more ideas, and highly recommend discussing your ideas on the [OpenEMR forum](https://community.open-emr.org/) or [OpenEMR chat](https://chat.open-emr.org/) and/or contacting a mentor directly. 
 
 
 ## Mentors
@@ -119,7 +104,6 @@ The community is also very open to custom proposals. Check out the OpenEMR Proje
 * Ray Magauran 
 * Roberto Vasquez 
 * Robert Down 
-* Rod Roark 
 * Sherwin Gaddis 
 * Stephen Waite 
 
