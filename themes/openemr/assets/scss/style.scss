@@ -170,12 +170,12 @@ main.page {
         margin-top: 55px;
     }
 
-    h1 { font-size: 2.2rem; }
-    h2 { font-size: 2rem; }
-    h3 { font-size: 1.8rem; }
-    h4 { font-size: 1.6rem; }
-    h5 { font-size: 1.4rem; }
-    h6 { font-size: 1.2rem; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1.2rem; }
+    h4 { font-size: 1.15rem; }
+    h5 { font-size: 1.1rem; }
+    h6 { font-size: 1.05rem; }
 
     section.hero {
         background-size: cover;
@@ -220,6 +220,35 @@ padding-right: 15px;
 }
 table tr td:first-child {
 text-align: right;
+}
+
+.page {
+    .hero {
+        @include media-breakpoint-up(sm) {
+            height: 500px;
+        }
+
+        // display: flex;
+        // justify-content: center;
+
+        img {
+            height: auto;
+            width: auto;
+            // display: flex;
+        }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 1.5em;
+    }
+
+    background-size: cover;
+
+    h1 {
+        border-bottom: 1px solid theme-color('primary');
+        padding-bottom: 0.25em;
+        margin-bottom: 1em;
+    }
 }
 
 .page.donate {
