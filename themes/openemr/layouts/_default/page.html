@@ -7,10 +7,11 @@
         {{ $titlePush := $.Param "titlePush" }}
     
         {{ if eq $smallCover true }}
-            <section class="hero container">
+            <section class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <img src="{{ $.Param "cover" | absURL }}" class="mx-auto d-block" height="350" alt="">
+                        <img src="{{ $.Param "cover" | absURL }}" class="mx-auto d-block" alt="">
+                        <div class="clearfix"></div>
                         {{ if eq $titleOnCover true }}
                             {{ if eq $titlePush "center"}}
                             <h1 class="text-center">{{ .Title }}</h1>
