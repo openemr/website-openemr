@@ -1,9 +1,12 @@
 ---
 title: OpenEMR, A Great Long Term Choice
+author:
+  name: OpenEMR
+  twitter: openemr
 date: '2018-03-30'
 slug: great-long-term-choice
 aliases:
-    - /blog/post/great-long-term-choice
+  - /blog/post/great-long-term-choice
 images:
   - images/openemr_long_term_web.png
 coverImage: images/openemr_long_term_web.png

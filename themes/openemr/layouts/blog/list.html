@@ -1,17 +1,8 @@
 {{ define "main" }}
-<div class="section-title">
-    <h1>The Technology Typist</h1>
-    <h5>an OpenEMR Blog</h5>
-</div>
-<main id="post-index" class="page container blog-list" itemscope="" itemtype="https://schema.org/Blog">
-    <div class="row align-items-center">
-        {{ range .Paginator.Pages }}
-            {{ partial "blog/post-stub.html" . }}
-        {{ end }}
-        <div class="">
-            {{ partial "pagination.html" . }}
-        </div>
-    </div>
+<main class="blog-list">
+    {{ range .Pages }}
+        {{ partial "blog/post-stub.html" .}}
+    {{ end }}
 </main>
 {{ end }}
 

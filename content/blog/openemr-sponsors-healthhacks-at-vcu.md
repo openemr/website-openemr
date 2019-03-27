@@ -6,9 +6,9 @@ author:
 date: '2017-10-19'
 slug: healthhacks-at-vcu-2017
 aliases:
-    - /blog/post/healthhacks-at-vcu-2017
+  - /blog/post/healthhacks-at-vcu-2017
 images:
-    - images/healthhacks-vcu.jpg
+  - images/healthhacks-vcu.jpg
 coverImage: images/healthhacks-vcu.jpg
 coverImageStyle: full
 ---

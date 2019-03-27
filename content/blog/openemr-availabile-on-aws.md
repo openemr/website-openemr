@@ -6,7 +6,7 @@ author:
 date: '2017-08-15'
 slug: openemr-announces-initial-availability-of-openemr-cloud-on-aws
 aliases:
-    - /blog/post/openemr-announces-initial-availability-of-openemr-cloud-on-aws
+  - /blog/post/openemr-announces-initial-availability-of-openemr-cloud-on-aws
 images:
   - images/OpenEMR_Cloud.png
 coverImage: images/OpenEMR_Cloud.png

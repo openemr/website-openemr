@@ -6,7 +6,7 @@ author:
 date: '2018-09-08'
 slug: 7-features-to-look-for-in-your-medical-practice-management-software
 aliases:
-    - /blog/post/7-features-to-look-for-in-your-medical-practice-management-software
+  - /blog/post/7-features-to-look-for-in-your-medical-practice-management-software
 images:
   - images/emrpic.jpg
 coverImage: images/emrpic.jpg

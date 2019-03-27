@@ -6,7 +6,7 @@ author:
 date: '2017-12-18'
 slug: success-at-healthhacks-2017
 aliases:
-    - /blog/post/success-at-healthhacks-2017
+  - /blog/post/success-at-healthhacks-2017
 images:
   - images/healthhacks-follow-up-cover.jpg
   - images/healthhacks_fu_share.jpg

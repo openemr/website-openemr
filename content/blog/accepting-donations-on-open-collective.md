@@ -6,7 +6,7 @@ author:
 date: '2017-12-18'
 slug: accepting-donations-on-opencollective
 aliases:
-    - /blog/post/accepting-donations-on-opencollective
+  - /blog/post/accepting-donations-on-opencollective
 images:
   - images/collective-sharing.jpg
 coverImage: images/collective-sharing.jpg

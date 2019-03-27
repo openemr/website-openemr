@@ -6,7 +6,7 @@ author:
 date: '2017-11-22'
 slug: openemr-at-wonca-2017
 aliases:
-    - /blog/post/openemr-at-wonca-2017
+  - /blog/post/openemr-at-wonca-2017
 images:
   - images/wonca_vita.jpg
 coverImage: images/wonca_thumb.jpg

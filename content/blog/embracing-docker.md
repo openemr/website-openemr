@@ -6,11 +6,12 @@ author:
 date: '2018-01-22'
 slug: embracing-docker
 aliases:
-    - /blog/post/embracing-docker
+  - /blog/post/embracing-docker
 images:
   - images/embracing_docker_thumb.jpg
 coverImage: images/embracing_docker_thumb.jpg
 coverImageStyle: full
+display: wide
 ---
 OpenEMR remains in the midst of its Docker revolution with big plans for the future, including utilizing docker images to support medical record interoperability with Fast Healthcare Interoperability Resources, patient data analytics with Shiny R, and patient imaging picture archiving and communication system integration with an Orthanc Digital Imaging and Communications in Medicine (DICOM) server.
 <!--more-->

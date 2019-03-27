@@ -1,9 +1,12 @@
 ---
 title: "OpenEMR Cloud Standard Edition Now Available in AWS Marketplace"
+author:
+  name: OpenEMR
+  twitter: openemr
 date: '2018-05-09'
 slug: openemr-cloud-standard-edition-now-available-in-aws-marketplace
 aliases:
-    - /blog/post/openemr-cloud-standard-edition-now-available-in-aws-marketplace
+  - /blog/post/openemr-cloud-standard-edition-now-available-in-aws-marketplace
 images:
   - images/OpenEMR_Cloud.png
 coverImage: images/OpenEMR_Cloud.png

@@ -2,13 +2,12 @@
   "name": "openemr",
   "version": "0.0.1",
   "description": "OpenEMR Website",
-  "main": "index.js",
   "scripts": {
     "start": "webpack",
     "dev": "set NODE_ENV=production && webpack --mode=production --watch"
   },
   "author": "Robert Down <robertdown@live.com>",
-  "private": "true",
+  "private": true,
   "devDependencies": {},
   "dependencies": {
     "bootstrap": "^4.1.3",

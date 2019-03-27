@@ -1,7 +1,65 @@
 // ALL blog related styles are here, type and colors included
 
+main.blog-list {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-bottom: 2em;
+  padding: 0.45rem;
+  box-sizing: border-box;
+  margin-top: 75px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 25px;
+  grid-auto-flow: row dense;
+
+  post-stub {
+    grid-column: span 1;
+  }
+}
+
+@media (min-width: 576px) {
+  main.blog-list {
+      grid-template-columns: repeat(2, 1fr);
+
+      .post-stub:first-child,
+      .post-stub.featured,
+      .post-stub.wide {
+        grid-column: span 2;
+      }
+  }
+}
+
+@media (min-width: 768px) {
+  main.blog-list  {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  main.blog-list  {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1920px) {
+  main.blog-list  {
+    max-width: 1800px;
+    grid-template-columns: repeat(4, 1fr);
+
+    .post-stub:first-child {
+      grid-column: span 3;
+      grid-row: span 2;
+    }
+
+    .post-stub:nth-child(2) {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+}
+
 .blog-list {
-  margin-top: 25px;
   .media {
     h5 {
       margin-top: 0 !important;
@@ -18,208 +76,189 @@
 }
 
 .post-stub {
-  display: inline-block;
-  overflow: hidden;
-  max-height: 400px;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  top: 0;
+
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.30);
+  background: $white;
 
   a.image-link {
-    width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     display: block;
+    position: relative;
 
-    &:hover {
-      &::before {
-        background-color: transparent;
-      }
-    }
-
-        // Darken the image by default
-        &::before {
-          background-color: rgba(0,0,0, 0.20);
-          content: "";
-          display: block;
-          height: 100%;
-          left: 0;
-          position: absolute;
-          top: 0;
-          width: 100%;
-          z-index: 2;
-
-            // For hover transition
-            -webkit-transition: background-color .15s ease-out;
-            -moz-transition: background-color .15s ease-out;
-            transition: background-color .15s ease-out;
-          }
-
-        // Add a gradient to ensure readability of title
-        .image-gradient {
-          $from: rgba(0,0,0,0.65);
-          $to: rgba(0,0,0,0);
-          @include linear-gradient(to top, $from, $to);
-          display: block;
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          height: 60%;
-          width: 100%;
-          z-index: 3;
-        }
-
-        img {
-          @extend .img-fluid;
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-        }
-      }
-
-      .title-link {
-
-        a {
-          text-decoration: none;
-
-          h5 {
-            color: $white !important;
-          }
-        }
-        
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        padding: 15px;
-        z-index: 5;
-      }
-    }
-
-    .blog .standard {
-      header h1 {
-        font-weight: 300;
-        color: $black;
-      }
-    }
-
-    article.post-container {
-      @include make-col(9);
-    }
-
-    section.sidebar {
-      @include make-col(3);
-    }
-
-    .center-row {
-      @include make-row();
-      @extend .justify-content-center;
-    }
-
-    .post-header {
-      @include center-column();
-      @extend .text-center;
-      @extend .my-5;
-
-      h1 {
-        color: $white;
-      }
-    }
-    .cover {
-      @extend .align-items-center;
-
-      @include media-breakpoint-down(md) {
-        margin-bottom: 0 !important;
-      }
-
-      @include media-breakpoint-up(md) {
-        height: 375px;
-      }
-      @extend .mb-3;
-
-      color: $white;
+    img {
       position: relative;
-      background-position: 50% 50%;
-      background-size: cover;
+      width: 100%;
+    }
+  }
 
-      &::before {
-        display: block;
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
+  p {
+    padding: .45rem;
+  }
+
+  h5 {
+    margin-top: 0.5em;
+    width: 90%;
+    line-height: 1.6;
+    font-weight: 300;
+    font-size: 1.3em;
+    padding: 2px 0;
+
+    a {
+      display: inline;
+      padding: 0.20rem 0.45rem;
+      color: #fff;
+      background-color: $blue;
+      /* Needs prefixing */
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+
+      &:hover {
+        text-decoration: none;
+        background-color: darken($blue, 0.5);
+      }
+    }
+  }
+
+  .title-link {
+
+    a {
+      text-decoration: none;
+
+      h5 {
+        color: $white !important;
+      }
+    }
+    
+    padding: 15px;
+    z-index: 5;
+  }
+}
+
+.blog .standard {
+  header h1 {
+    font-weight: 300;
+    color: $black;
+  }
+}
+
+article.post-container {
+  @include make-col(9);
+}
+
+section.sidebar {
+  @include make-col(3);
+}
+
+.center-row {
+  @include make-row();
+  @extend .justify-content-center;
+}
+
+.post-header {
+  @include center-column();
+  @extend .text-center;
+  @extend .my-5;
+
+  h1 {
+    color: $white;
+  }
+}
+.cover {
+  @extend .align-items-center;
+
+  @include media-breakpoint-down(md) {
+    margin-bottom: 0 !important;
+  }
+
+  @include media-breakpoint-up(md) {
+    height: 375px;
+  }
+  @extend .mb-3;
+
+  color: $white;
+  position: relative;
+  background-position: 50% 50%;
+  background-size: cover;
+
+  &::before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.55);
+    z-index: 0;
+  }
+
+  header.post-header {
+    @include center-column();
+    @extend .justify-content-start;
+    @extend .align-middle;
+    z-index: 2;
+
+    h1 {
+      @include media-breakpoint-down(md) {
+        font-size: 1.75rem;
+      }
+      @extend .d-block;
+      text-align: left;
+      font-size: 2.25rem;
+      font-weight: 300;
+    }
+  }
+
+  & &__image{
+    img {
+      display: none;
+        // display: table-cell;
+        // vertical-align: middle;
+      }
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 425px;
+      overflow: hidden;
+
+      img {
         width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.55);
-        z-index: 0;
       }
+    }
+  }
 
-      header.post-header {
-        @include center-column();
-        @extend .justify-content-start;
-        @extend .align-middle;
-        z-index: 2;
+  img.featured {
+    @extend .img-fluid;
+  }
 
-        h1 {
-          @include media-breakpoint-down(md) {
-            font-size: 1.75rem;
-          }
-          @extend .d-block;
-          text-align: left;
-          font-size: 2.25rem;
-          font-weight: 300;
-        }
-      }
+  .post-meta {
+    @include center-column();
+    @extend .mb-3;
+    @extend .text-muted;
+    font-size: $font-size-sm;
+  }
 
-      & &__image{
-        img {
-          display: none;
-            // display: table-cell;
-            // vertical-align: middle;
-          }
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 425px;
-          overflow: hidden;
+  .post-content {
+    @include center-column();
 
-          img {
-            width: 100%;
-          }
-        }
-      }
 
-      img.featured {
-        @extend .img-fluid;
-      }
+    h1, h2, h3, h4, h5, h6 {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
 
-      .post-meta {
-        @include center-column();
-        @extend .mb-3;
-        @extend .text-muted;
-        font-size: $font-size-sm;
-      }
+    img:not(.floating) {
+      @extend .img-fluid;
+    }
+  }
 
-      .post-content {
-        @include center-column();
+  .post-footer {
+    @extend .col-6;
+    @extend .mb-5;
+  }
 
-        h1, h2, h3, h4, h5, h6 {
-          padding: 0 !important;
-          margin: 0 !important;
-        }
-
-        img:not(.floating) {
-          @extend .img-fluid;
-        }
-      }
-
-      .post-footer {
-        @extend .col-6;
-        @extend .mb-5;
-      }
-
-      .comments {
-        @include center-column();
-      }
+  .comments {
+    @include center-column();
+  }

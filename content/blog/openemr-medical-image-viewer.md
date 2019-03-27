@@ -6,7 +6,7 @@ author:
 date: '2018-03-29'
 slug: medical-image-viewer
 aliases:
-    - /blog/post/medical-image-viewer
+  - /blog/post/medical-image-viewer
 images:
   - images/doctor-reviewing-pt-chart.jpg
 coverImage: images/doctor-reviewing-pt-chart.jpg

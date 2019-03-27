@@ -6,7 +6,7 @@ author:
 date: '2018-04-26'
 slug: openemr-version-501-released-ushers-in-golden-age-for-openemr
 aliases:
-    - /blog/post/openemr-version-501-released-ushers-in-golden-age-for-openemr
+  - /blog/post/openemr-version-501-released-ushers-in-golden-age-for-openemr
 images:
   - images/release-501.jpg
 coverImage: images/release-501.jpg

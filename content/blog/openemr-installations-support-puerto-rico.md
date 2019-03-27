@@ -1,11 +1,14 @@
 ---
 title: Hurricane Maria, Puerto Rico, and the success of OpenEMR customers
+author:
+    name: OpenEMR
+    twitter: openemr
 date: '2017-11-02'
 slug: hurricane-maria-puerto-rico-openemr-success
 aliases:
-    - /blog/post/hurricane-maria-puerto-rico-openemr-success
+  - /blog/post/hurricane-maria-puerto-rico-openemr-success
 images:
-    - images/maria-puerto-rico.jpg
+  - images/maria-puerto-rico.jpg
 coverImage: images/maria-puerto-rico.jpg
 coverImageStyle: full
 ---

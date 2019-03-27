@@ -1,9 +1,11 @@
 ---
 title: "OpenEMR Offers a Panel of Turn-Key Solutions with Amazon's Cloud Services"
+author:
+  name: OpenEMR
 date: '2018-06-01'
 slug: openemr-offers-panel-of-turn-key-solutions-with-amazons-cloud-services
 aliases:
-    - /blog/post/openemr-offers-panel-of-turn-key-solutions-with-amazons-cloud-services
+  - /blog/post/openemr-offers-panel-of-turn-key-solutions-with-amazons-cloud-services
 images:
   - images/OpenEMR_Cloud_AWS_Offerings.png
 coverImage: images/OpenEMR_Cloud_AWS_Offerings.png
