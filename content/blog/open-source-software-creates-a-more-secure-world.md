@@ -3,7 +3,7 @@ title: "Open Source Software Creates a More Secure World"
 author:
   name: OpenEMR
   twitter: openemr
-date: 2019-02-18T01:32:18-05:00
+date: 2019-03-27T01:32:18-05:00
 draft: true
 slug: open-source-creates-secure-world
 images:
