@@ -4,7 +4,7 @@ author:
   name: OpenEMR
   twitter: openemr
 date: 2019-03-27T01:32:18-05:00
-draft: true
+draft: false
 slug: open-source-creates-secure-world
 images:
   - images/cyber.jpg
