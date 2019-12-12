@@ -25,6 +25,6 @@ two ways you can make a financial donation.
 
 ## Give via OpenCollective
 
-<script src="https://opencollective.com/openemr/donate/button.js" color="blue"></script>
+<a href="https://opencollective.com/openemr" class="btn btn-lg btn-primary" style="text-decoration: none;"><i class="fa fa-heart"></i>Donate on OpenCollective</a>
 
 You can support OpenEMR by contributing a financial donation using Paypal or OpenCollective. You can read more about OpenCollective in [this blog post](/blog/accepting-donations-on-opencollective).
