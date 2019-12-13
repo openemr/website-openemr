@@ -5,10 +5,9 @@ url: donate
 aliases:
   - give
 cover: "images/donate2.jpg"
-layout: page
 smallCover: true
 titleOnCover: true
-titlePush: center
+titlePush: right
 ---
 
 OpenEMR depends on donations from users, developers, and philanthropists to
