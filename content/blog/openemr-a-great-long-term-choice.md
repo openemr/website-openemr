@@ -25,6 +25,6 @@ As a ONC Complete EHR Certified product, we support common clinical data imports
 
 <center>![](/images/demographics-feature.png)</center>
 
-There is a robust [self-help](https://community.open-emr.org/) with [live help as well](https://chat.open-emr.org/home). 
+There is a robust [self-help](https://community.open-emr.org/) with [live help as well](https://www.open-emr.org/chat). 
 
 But sometimes you need a pro. We have [certified companies](https://open-emr.org/wiki/index.php/Professional_Support) to handle anything and everything you need to make using OpenEMR successful in your office.  

@@ -93,7 +93,7 @@ OEMR is a non-profit organization formed to ensure that all people, regardless o
 # Communications
 
 * Forums and support: https://community.open-emr.org/
-* Chat and support: https://chat.open-emr.org/
+* Chat and support: https://www.open-emr.org/chat
 * Code repository: https://github.com/openemr (project mgmt. happens here as well)
 * Please join the Saturday calls, you can read about the latest ones here: https://community.open-emr.org/t/weekly-conference-call
 * We use email a lot too

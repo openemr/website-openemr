@@ -29,7 +29,7 @@ Depending on your comfort level, the options for support include:
 The mechanisms of free support by the community include the tools found on this
 [website](https://www.open-emr.org). These tools include the extensive documentation
 found in the [OpenEMR Project Wiki](https://www.open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page),
-the [forums](https://community.open-emr.org/), and the [chat](https://chat.open-emr.org/).
+the [forums](https://community.open-emr.org/), and the [chat](https://www.open-emr.org/chat).
 There are clinics that have gone this route successfully, however, this does require IT
 knowledge to ensure security, reliability and adequate backing up of OpenEMR. A real life
 documented example of this can be found at the [OpenEMR Complete Installation Tutorial](https://www.open-emr.org/wiki/index.php/OpenEMR_Complete_Installation_Tutorial).
