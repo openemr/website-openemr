@@ -1,6 +1,6 @@
 ---
 title: "Summer of Code"
-date: 2019-02-04T21:14:19-05:00
+date: 2020-02-02T21:14:19-05:00
 layout: page
 cover: "images/gsoc_banner.png"
 smallCover: true
@@ -12,15 +12,15 @@ smallCover: true
 
 Fast Healthcare Interoperability Resources (FHIR) is a standard for exchanging healthcare information electronically. Goal is to integrate a FHIR server and client with OpenEMR to allow importing and exporting of patient data.
 
-* Mentors: Jerry Padgett, Brady Miller
+* Mentors: Jerry Padgett, Stephen Nielson
 * Tags: New Feature
 
 
 ## Standardized Patient Data
 
-Goal is to develop a mechanism to create large datasets of standardized patient data. This is a high impact project that would then markedly improve instructional use of OpenEMR and markedly improve OpenEMR's use in the data analytics field.
+Goal is to develop a mechanism to create and import large datasets of standardized patient data. This is a high impact project that would then markedly improve instructional use of OpenEMR and markedly improve OpenEMR's use in the data analytics field.
 
-* Mentors: Robert Down, Jason Oettinger
+* Mentors: Robert Down, Brady Miller
 * Tags: New Feature 
 
 
@@ -30,14 +30,6 @@ Quality reporting and collection of clinical metrics are a valuable tool for cli
 
 * Mentors: Ray Magauran, Stephen Waite
 * Tags: New Feature
-
-
-## Modernize Javascript Assets
-
-There are currently many different version of jquery in addition to other legacy javascript assets. Goal is to standardize all of the codebase to use the same modern version of these javascript assets.
-
-* Mentors: Brady Miller, Jerry Padgett
-* Tags: Modernization 
 
 
 ## Upgrade Smarty2 to Smarty3
@@ -68,7 +60,7 @@ Picture Archiving and Communication System (PACS) is a system that allows storin
 
 Since OpenEMR began in 2002, there are parts of the codebase that are crying out for modernization. The goal of this project is to lead a modernization effort that focuses on modern use of classes and services.
 
-* Mentors: Robert Down, Jerry Padgett
+* Mentors: Robert Down, Rod Roark
 * Tags: Modernization 
 
 
@@ -84,7 +76,7 @@ A Medication Administration Record (MAR) is a record of all medications that are
 
 Telehealth is increasingly being used in healthcare and while OpenEMR does support a patient portal and communication with physicians via secure messaging or chat, OpenEMR does not yet support Telehealth. The goal is to support telehealth in OpenEMR.
 
-* Mentors: Jerry Padgett, Jason Oettinger
+* Mentors: Jerry Padgett, Stephen Nielson
 * Tags: New Feature 
 
 
@@ -95,21 +87,20 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 
 ## Mentors
 
-* Asher Densmore-Lynn 
-* Brady Miller 
-* Daniel Ehrlich 
-* Daniel Sandoval 
-* Jason Oettinger 
-* Jerry Padgett 
-* Ray Magauran 
-* Roberto Vasquez 
-* Robert Down 
-* Sherwin Gaddis 
-* Stephen Waite 
+* [Asher Densmore-Lynn](https://github.com/jesdynf) 
+* [Brady Miller](https://github.com/bradymiller) 
+* [Jerry Padgett](https://github.com/sjpadgett)
+* [Roberto Vasquez](https://github.com/robertogagliotta) 
+* [Robert Down](https://github.com/robertdown) 
+* [Rod Roark](https://github.com/sunsetsystems)
+* [Sherwin Gaddis](https://github.com/juggernautsei)
+* [Stephen Nielson](https://github.com/adunsulag)
+* [Stephen Waite](https://github.com/stephenwaite)
 
 ## Organization Administrators
 
-* Brady Miller, MD
-* Robert Down, BSN, RN
-* Rod Roark
-* Stephen Waite
+* [Brady Miller](https://github.com/bradymiller)
+* [Jerry Padgett](https://github.com/sjpadgett)
+* [Robert Down](https://github.com/robertdown) 
+* [Rod Roark](https://github.com/sunsetsystems)
+* [Stephen Waite](https://github.com/stephenwaite)
