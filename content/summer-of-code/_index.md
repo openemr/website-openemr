@@ -101,6 +101,5 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 
 * [Brady Miller](https://github.com/bradymiller)
 * [Jerry Padgett](https://github.com/sjpadgett)
-* [Robert Down](https://github.com/robertdown) 
 * [Rod Roark](https://github.com/sunsetsystems)
 * [Stephen Waite](https://github.com/stephenwaite)
