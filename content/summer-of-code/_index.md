@@ -14,7 +14,7 @@ OpenEMR is a open source EMR (electronic medical record) software suite primaril
 
 Below is a list of project ideas (click on the project title to go to the Forum thread).
 
-## [FHIR Integration](https://community.open-emr.org/t/gsoc-project-fhir-integration/13701)
+## [FHIR Integration](https://community.open-emr.org/t/project-fhir-integration/13701)
 
 Fast Healthcare Interoperability Resources (FHIR) is a standard for exchanging healthcare information electronically. Goal is to integrate a FHIR server and client with OpenEMR to allow importing and exporting of patient data.
 
@@ -22,7 +22,7 @@ Fast Healthcare Interoperability Resources (FHIR) is a standard for exchanging h
 * Tags: New Feature
 
 
-## [Standardized Patient Data](https://community.open-emr.org/t/gsoc-project-standardized-patient-data/13702)
+## [Standardized Patient Data](https://community.open-emr.org/t/project-standardized-patient-data/13702)
 
 Goal is to develop a mechanism to create and import large datasets of standardized patient data. This is a high impact project that would then markedly improve instructional use of OpenEMR and markedly improve OpenEMR's use in the data analytics field.
 
@@ -30,7 +30,7 @@ Goal is to develop a mechanism to create and import large datasets of standardiz
 * Tags: New Feature 
 
 
-## [Quality Reporting](https://community.open-emr.org/t/gsoc-project-quality-reporting/13703)
+## [Quality Reporting](https://community.open-emr.org/t/project-quality-reporting/13703)
 
 Quality reporting and collection of clinical metrics are a valuable tool for clinics. It allows self-assessment, quality improvement projects, and reporting of metrics to regulation entities. Goal is to integrate quality reporting into OpenEMR. Note this project will involve both choosing of which clinical metrics to assess and then developing these in OpenEMR.
 
@@ -38,7 +38,7 @@ Quality reporting and collection of clinical metrics are a valuable tool for cli
 * Tags: New Feature
 
 
-## [Upgrade Smarty2 to Smarty3](https://community.open-emr.org/t/gsoc-project-upgrade-smarty2-to-smarty3/13704)
+## [Upgrade Smarty2 to Smarty3](https://community.open-emr.org/t/project-upgrade-smarty2-to-smarty3/13704)
 
 A minor, albeit critical part of the codebase uses Smarty. The goal of this project is to migrate this code from using Smarty version 2 to Smarty version 3. This is critical for "future proofing" of OpenEMR's codebase since Smarty version 2 will be deprecated in the future.
 
@@ -46,7 +46,7 @@ A minor, albeit critical part of the codebase uses Smarty. The goal of this proj
 * Tags: Modernization 
 
 
-## [Standardize PDF Tools](https://community.open-emr.org/t/gsoc-project-standardize-pdf-tools/13705)
+## [Standardize PDF Tools](https://community.open-emr.org/t/project-standardize-pdf-tools/13705)
 
 OpenEMR currently uses several different PDF tools and libraries, which complicates code development. Goal is to standardize all PDF output from a common PDF library.
 
@@ -54,23 +54,23 @@ OpenEMR currently uses several different PDF tools and libraries, which complica
 * Tags: Optimization 
 
 
-## [PACS Server Integration](https://community.open-emr.org/t/gsoc-project-pacs-server-integration/13706)
+## [PACS Server Integration](https://community.open-emr.org/t/project-pacs-server-integration/13706)
 
 Picture Archiving and Communication System (PACS) is a system that allows storing and viewing of patient imaging, such as Xrays, CT scans, and ultrasounds. Goal is it integrate a PACS server with OpenEMR to allow the viewing and storage of patient imaging.
 
-* Mentors: Brady Miller, Asher Densmore-Lynn
+* Mentors: Brady Miller, Asher Densmore-Lynn, Stephen Waite
 * Tags: New Feature 
 
 
-## [Upgrade Codebase to Use Services](https://community.open-emr.org/t/gsoc-project-upgrade-codebase-to-use-services/13707)
+## [Upgrade Codebase to Use Services](https://community.open-emr.org/t/project-upgrade-codebase-to-use-services/13707)
 
 Since OpenEMR began in 2002, there are parts of the codebase that are crying out for modernization. The goal of this project is to lead a modernization effort that focuses on modern use of classes and services.
 
-* Mentors: Sherwin Gaddis, Jerry Padgett
+* Mentors: Sherwin Gaddis, Jerry Padgett, Brady Miller, Stephen Nielson, Tyler Wrenn
 * Tags: Modernization 
 
 
-## [Support MAR](https://community.open-emr.org/t/gsoc-project-support-mar/13708)
+## [Support MAR](https://community.open-emr.org/t/project-support-mar/13708)
 
 A Medication Administration Record (MAR) is a record of all medications that are given to a patient while they are in a hospital or nursing home facility. OpenEMR currently supports a medication list and writing prescriptions, however, OpenEMR does not support a MAR. Goal is to implement a MAR in OpenEMR.
 
@@ -78,7 +78,7 @@ A Medication Administration Record (MAR) is a record of all medications that are
 * Tags: New Feature 
 
 
-## [Integrate Telehealth](https://community.open-emr.org/t/gsoc-project-integrate-telehealth/13709)
+## [Integrate Telehealth](https://community.open-emr.org/t/project-integrate-telehealth/13709)
 
 Telehealth is increasingly being used in healthcare and while OpenEMR does support a patient portal and communication with physicians via secure messaging or chat, OpenEMR does not yet support Telehealth. The goal is to support telehealth in OpenEMR.
 
@@ -102,6 +102,7 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 * [Sherwin Gaddis](https://github.com/juggernautsei)
 * [Stephen Nielson](https://github.com/adunsulag)
 * [Stephen Waite](https://github.com/stephenwaite)
+* [Tyler Wrenn](https://github.com/tywrenn)
 
 ## Organization Administrators
 
