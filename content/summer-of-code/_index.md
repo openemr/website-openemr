@@ -86,6 +86,14 @@ Telehealth is increasingly being used in healthcare and while OpenEMR does suppo
 * Tags: New Feature 
 
 
+## [Modernize Styling and User Interface](https://community.open-emr.org/t/project-modernize-styling-and-user-interface/13777)
+
+OpenEMR recently completed a [very large code refactor to support Bootstrap 4 (BS4)](https://github.com/openemr/openemr/pull/2832). There is still much to do including replacing as much CSS/SASS with BS4 as possible, removing unneeded CSS/SASS, decreasing reliance on the !important tag, migrating the navbar to BS4, migrating inline stylesheets to external stylesheets, improving responsive behavior of the gui, ironing out bugs in the current themes, and improving the current themes and the overall gui experience.
+
+* Mentors: Tyler Wrenn, Robert Down
+* Tags: Modernization
+
+
 ## Custom proposal
 
 The community is also very open to custom proposals. Check out the [OpenEMR Project Roadmap](https://www.open-emr.org/wiki/index.php/Roadmaps#OpenEMR_Project_Roadmap) and [Issue in Github](https://github.com/openemr/openemr/issues) for some more ideas, and highly recommend discussing your ideas on the [OpenEMR forum](https://community.open-emr.org/) or [OpenEMR chat](https://www.open-emr.org/chat) and/or contacting a mentor directly. 
