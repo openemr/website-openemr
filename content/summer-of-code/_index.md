@@ -94,6 +94,14 @@ OpenEMR recently completed a [very large code refactor to support Bootstrap 4 (B
 * Tags: Modernization
 
 
+## [Automated Testing](https://community.open-emr.org/t/project-automated-testing/13778)
+
+OpenEMR currently has a initial framework for automated testing which uses travis to run testing on all PHP versions, all MySQL versions, and all MariaDB versions. What is missing is the actual tests. Currently there are a couple unit tests and a couple e2e (functional) tests and no api tests. We are waiting for somebody to come along to pick and implement testing frameworks and design extensive automated unit, functional, and api testing.
+
+* Mentors: Brady Miller, (additional mentor(s) pending)
+* Tags: Modernization
+
+
 ## Custom proposal
 
 The community is also very open to custom proposals. Check out the [OpenEMR Project Roadmap](https://www.open-emr.org/wiki/index.php/Roadmaps#OpenEMR_Project_Roadmap) and [Issue in Github](https://github.com/openemr/openemr/issues) for some more ideas, and highly recommend discussing your ideas on the [OpenEMR forum](https://community.open-emr.org/) or [OpenEMR chat](https://www.open-emr.org/chat) and/or contacting a mentor directly. 
