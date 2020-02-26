@@ -58,7 +58,7 @@ OpenEMR currently uses several different PDF tools and libraries, which complica
 
 Picture Archiving and Communication System (PACS) is a system that allows storing and viewing of patient imaging, such as Xrays, CT scans, and ultrasounds. Goal is it integrate a PACS server with OpenEMR to allow the viewing and storage of patient imaging.
 
-* Mentors: Brady Miller, Asher Densmore-Lynn, Stephen Waite
+* Mentors: Brady Miller, Asher Densmore-Lynn, Stephen Waite, Victor Kofia
 * Tags: New Feature 
 
 
@@ -111,6 +111,7 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 * [Stephen Nielson](https://github.com/adunsulag)
 * [Stephen Waite](https://github.com/stephenwaite)
 * [Tyler Wrenn](https://github.com/tywrenn)
+* [Victor Kofia](https://github.com/kofiav)
 
 ## Organization Administrators
 
