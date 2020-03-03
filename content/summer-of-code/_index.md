@@ -102,6 +102,14 @@ OpenEMR currently has a initial framework for automated testing which uses travi
 * Tags: Modernization
 
 
+## [Project - Modernize Database](https://community.open-emr.org/t/project-modernize-database/13829)
+
+The OpenEMR database has been waiting patiently for a student to modernize it. At this time, OpenEMR overrides the sql_mode settings (sets it to empty) in order to ensure compatibility with MariaDB and MySQL and issues are beginning to arise because of this. Goal would be for OpenEMR's database to support the default sql_mode settings in [MariaDB](https://mariadb.com/kb/en/sql-mode/) and [MySQL8](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html) (note mysql8 has more by default). Goal of this modernization is to also support it for folks that are upgrading OpenEMR from prior versions. Another thing to consider is support for utf8mb4 encoding. After completing this, the student would then be in a good position to plan and begin development on a mechanism to support offsite use of OpenEMR; see here for thoughts and even a prelim PR on this using UUID's: https://github.com/openemr/openemr/pull/2360 .
+
+* Mentors: Brady Miller, Jerry Padgett
+* Tags: Modernization
+
+
 ## Custom proposal
 
 The community is also very open to custom proposals. Check out the [OpenEMR Project Roadmap](https://www.open-emr.org/wiki/index.php/Roadmaps#OpenEMR_Project_Roadmap) and [Issue in Github](https://github.com/openemr/openemr/issues) for some more ideas, and highly recommend discussing your ideas on the [OpenEMR forum](https://community.open-emr.org/) or [OpenEMR chat](https://www.open-emr.org/chat) and/or contacting a mentor directly. 
