@@ -62,6 +62,7 @@ footer.site {
     @extend .container-fluid;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    margin-top: 2rem;
     @include media-breakpoint-down(sm) {
         .col-logo {
             display: none;
@@ -216,12 +217,22 @@ padding: 2px 8px;
 }
 table tr td,
 table tr th {
-padding-right: 15px;
+padding-right: 10px;
+padding-left: 10px;
 }
 table tr td:first-child {
 text-align: right;
 }
+table th, table td {
+    border: 2px solid #eee;
+}
 
+@media only screen and (max-width: 420px) {
+    table tr td,
+    table tr th {
+        font-size: 0.8rem;
+    }
+}
 .page {
     .hero {
         @include media-breakpoint-up(sm) {
