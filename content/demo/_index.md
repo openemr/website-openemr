@@ -24,7 +24,7 @@ We offer 3 fully functional demo installations for you to try out. Some simple c
 | receptionist | receptionist | Front desk receptionist                |
 
 ### Links
-| | |
+|Demo |Link |
 |---------------------------|----------------------------------------------------------------------------------|
 | OpenEMR 5.0.2 Main Demo   | [https://demo.openemr.io/openemr](https://demo.openemr.io/openemr/index.php) |
 | Alternate Demo            | [https://demo.openemr.io/a/openemr](https://demo.openemr.io/a/openemr/index.php) |
@@ -43,7 +43,7 @@ We offer 3 fully functional demo installations for you to try out. Some simple c
 
 ### Links
 
-| | |
+|Demo |Link |
 |---------------------------|----------------------------------------------------------------------------------------------------|
 | OpenEMR 5.0.2 Portal Demo | [https://demo.openemr.io/openemr/portal](https://demo.openemr.io/openemr/portal/index.php) |
 | Alternate Demo            | [https://demo.openemr.io/a/openemr/portal](https://demo.openemr.io/a/openemr/portal/index.php) |
@@ -59,7 +59,7 @@ Not needed. You can register an account to test it.
 
 ### Links
 
-| | |
+|Demo |Link |
 |---------------------------|------------------------------------|
 | OpenEMR 5.0.2 Portal Demo | http://demo.openemr.io/wordpress |
 | Alternate Demo            | http://demo.openemr.io/a/wordpress |
