@@ -98,7 +98,7 @@ OpenEMR recently completed a [very large code refactor to support Bootstrap 4 (B
 
 OpenEMR currently has a initial framework for automated testing which uses travis to run testing on all PHP versions, all MySQL versions, and all MariaDB versions. What is missing is the actual tests. Currently there are a couple unit tests and a couple e2e (functional) tests and no api tests. We are waiting for somebody to come along to pick and implement testing frameworks and design extensive automated unit, functional, and api testing.
 
-* Mentors: Brady Miller, (additional mentor(s) pending)
+* Mentors: Brady Miller
 * Tags: Modernization
 
 
@@ -106,7 +106,7 @@ OpenEMR currently has a initial framework for automated testing which uses travi
 
 The OpenEMR database has been waiting patiently for a student to modernize it. At this time, OpenEMR overrides the sql_mode settings (sets it to empty) in order to ensure compatibility with MariaDB and MySQL and issues are beginning to arise because of this. Goal would be for OpenEMR's database to support the default sql_mode settings in [MariaDB](https://mariadb.com/kb/en/sql-mode/) and [MySQL8](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html) (note mysql8 has more by default). Goal of this modernization is to also support it for folks that are upgrading OpenEMR from prior versions. Another thing to consider is support for utf8mb4 encoding. After completing this, the student would then be in a good position to plan and begin development on a mechanism to support offsite use of OpenEMR; see here for thoughts and even a prelim PR on this using UUID's: https://github.com/openemr/openemr/pull/2360 .
 
-* Mentors: Brady Miller, Jerry Padgett
+* Mentors: Brady Miller, Jerry Padgett, Julie Buurman
 * Tags: Modernization
 
 
