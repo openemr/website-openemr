@@ -1,18 +1,23 @@
   {{- with .Params.images }}
-  <meta property="twitter:card" content="summary_large_image">
-  {{- range first 1 . }}
-  <meta property="twitter:image" content="{{ . | absURL }}">
-  {{- end }}
-  {{- range first 6 . }}
-  <meta property="og:image" content="{{ . | absURL }}">
-  {{- end }}
-  {{- with $.Params.imageAltText }}
-  <meta property="twitter:image:alt" content="{{ . }}">
-  {{- end }}
+    <meta property="twitter:card" content="summary_large_image">
+    {{- with $.Params.twitterCardImageURL }}
+      <meta property="twitter:image" content="{{ . | absURL }}">
+    {{- else }}
+      {{- range first 1 . }}
+        <meta property="twitter:image" content="{{ . | absURL }}">
+      {{- end }}
+    {{- end }}
+    
+    {{- range first 6 . }}
+    <meta property="og:image" content="{{ . | absURL }}">
+    {{- end }}
+    {{- with $.Params.imageAltText }}
+    <meta property="twitter:image:alt" content="{{ . }}">
+    {{- end }}
   {{- else }}
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:image" content="{{ .Site.BaseURL }}img/full_mark.png">
-  <meta property="og:image" content="{{ .Site.BaseURL }}img/full_mark.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="{{ .Site.BaseURL }}img/full_mark.png">
+    <meta property="og:image" content="{{ .Site.BaseURL }}img/full_mark.png">
   {{- end }}
   <meta property="twitter:site" content="{{ $.Param "twitter" }}">
   <meta property="twitter:creator" content="@{{ $.Param "author.twitter" }}">
