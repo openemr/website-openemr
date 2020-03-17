@@ -14,6 +14,15 @@
           </div>
           <div class="target_nav col-sm-12 col-md-12 col-lg-5 pb-3 card-holders">
             <div class="card mb-1 d-none d-xl-flex">
+              <a href="{{ .Site.BaseURL }}covid19">
+                <div class="card-body">
+                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/covid19-icon.png" alt="Card image cap" height="64" width="64">
+                  <h4 class="card-title">COVID-19 Updates</h4>
+                  <p class="card-text">Read about OpenEMR's response</p>
+                </div>
+              </a>
+            </div>  <!-- end card -->
+            <div class="card mb-1 d-none d-xl-flex">
               <a href="{{ .Site.Params.demoUrl }}">
                 <div class="card-body">
                   <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/monitor.png" alt="Card image cap" height="64" width="64">
