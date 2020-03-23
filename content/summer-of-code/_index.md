@@ -90,7 +90,7 @@ Telehealth is increasingly being used in healthcare and while OpenEMR does suppo
 
 OpenEMR recently completed a [very large code refactor to support Bootstrap 4 (BS4)](https://github.com/openemr/openemr/pull/2832). There is still much to do including replacing as much CSS/SASS with BS4 as possible, removing unneeded CSS/SASS, decreasing reliance on the !important tag, migrating the navbar to BS4, migrating inline stylesheets to external stylesheets, improving responsive behavior of the gui, ironing out bugs in the current themes, and improving the current themes and the overall gui experience.
 
-* Mentors: Tyler Wrenn, Robert Down
+* Mentors: Tyler Wrenn, Jerry Padgett, Brady Miller, Robert Down
 * Tags: Modernization
 
 
@@ -98,7 +98,7 @@ OpenEMR recently completed a [very large code refactor to support Bootstrap 4 (B
 
 OpenEMR currently has a initial framework for automated testing which uses travis to run testing on all PHP versions, all MySQL versions, and all MariaDB versions. What is missing is the actual tests. Currently there are a couple unit tests and a couple e2e (functional) tests and no api tests. We are waiting for somebody to come along to pick and implement testing frameworks and design extensive automated unit, functional, and api testing.
 
-* Mentors: Brady Miller
+* Mentors: Brady Miller, Stephen Waite
 * Tags: Modernization
 
 
