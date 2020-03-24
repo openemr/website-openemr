@@ -74,7 +74,7 @@ Since OpenEMR began in 2002, there are parts of the codebase that are crying out
 
 A Medication Administration Record (MAR) is a record of all medications that are given to a patient while they are in a hospital or nursing home facility. OpenEMR currently supports a medication list and writing prescriptions, however, OpenEMR does not support a MAR. Goal is to implement a MAR in OpenEMR.
 
-* Mentors: Robert Down, Stephen Waite, David Vu, Ken Chapple, Brady Miller
+* Mentors: Robert Down, Stephen Waite, David Vu, Ken Chapple, Brady Miller, Arnab Naha
 * Tags: New Feature 
 
 
@@ -82,7 +82,7 @@ A Medication Administration Record (MAR) is a record of all medications that are
 
 Telehealth is increasingly being used in healthcare and while OpenEMR does support a patient portal and communication with physicians via secure messaging or chat, OpenEMR does not yet support Telehealth. The goal is to support telehealth in OpenEMR.
 
-* Mentors: Jerry Padgett, Stephen Nielson, Ken Chapple, Nilesh Hake
+* Mentors: Jerry Padgett, Stephen Nielson, Ken Chapple, Nilesh Hake, Arnab Naha
 * Tags: New Feature 
 
 
@@ -117,6 +117,7 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 
 ## Mentors
 
+* [Arnab Naha](https://github.com/arnabnaha)
 * [Asher Densmore-Lynn](https://github.com/jesdynf) 
 * [Brady Miller](https://github.com/bradymiller)
 * [Daniel Pflieger](https://github.com/growlingflea)
