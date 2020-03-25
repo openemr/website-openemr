@@ -2,7 +2,7 @@
 title: "Summer of Code"
 date: 2020-02-02T21:14:19-05:00
 layout: page
-cover: "images/gsoc_banner.png"
+cover: "images/gsoc_logo.png"
 smallCover: true
 ---
 
