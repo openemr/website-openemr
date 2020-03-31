@@ -5,6 +5,7 @@ author:
   twitter: openemr
 date: '2020-03-16'
 slug: covid19
+featured: "yes"
 aliases:
   - /covid19
 images:
