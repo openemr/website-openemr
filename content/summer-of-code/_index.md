@@ -18,7 +18,7 @@ Below is a list of project ideas (click on the project title to go to the Forum 
 
 Fast Healthcare Interoperability Resources (FHIR) is a standard for exchanging healthcare information electronically. Goal is to integrate a FHIR server and client with OpenEMR to allow importing and exporting of patient data.
 
-* Mentors: Stephen Nielson, Jerry Padgett, Robert Hausam
+* Mentors: Jerry Padgett, Robert Hausam
 * Tags: New Feature
 
 
@@ -66,7 +66,7 @@ Picture Archiving and Communication System (PACS) is a system that allows storin
 
 Since OpenEMR began in 2002, there are parts of the codebase that are crying out for modernization. The goal of this project is to lead a modernization effort that focuses on modern use of classes and services.
 
-* Mentors: Sherwin Gaddis, Jerry Padgett, Brady Miller, Stephen Nielson, Tyler Wrenn
+* Mentors: Sherwin Gaddis, Jerry Padgett, Brady Miller, Tyler Wrenn
 * Tags: Modernization 
 
 
@@ -82,7 +82,7 @@ A Medication Administration Record (MAR) is a record of all medications that are
 
 Telehealth is increasingly being used in healthcare and while OpenEMR does support a patient portal and communication with physicians via secure messaging or chat, OpenEMR does not yet support Telehealth. The goal is to support telehealth in OpenEMR.
 
-* Mentors: Jerry Padgett, Stephen Nielson, Ken Chapple, Nilesh Hake, Arnab Naha
+* Mentors: Jerry Padgett, Ken Chapple, Nilesh Hake, Arnab Naha
 * Tags: New Feature 
 
 
@@ -132,7 +132,6 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 * [Robert Hausam](https://community.open-emr.org/u/rhausam)
 * [Rod Roark](https://github.com/sunsetsystems)
 * [Sherwin Gaddis](https://github.com/juggernautsei)
-* [Stephen Nielson](https://github.com/adunsulag)
 * [Stephen Waite](https://github.com/stephenwaite)
 * [Tyler Wrenn](https://github.com/tywrenn)
 * [Victor Kofia](https://github.com/kofiav)
