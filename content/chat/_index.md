@@ -9,20 +9,16 @@ url: chat
 Note that the questions may not be answered immediately. If unable to get support, then recommend using the [OpenEMR Forums](https://community.open-emr.org/).
 
 ---
-## Official OpenEMR Slack Chat
+## OpenEMR Slack Chat
 
-The Official OpenEMR Chat can be found at: https://openemr.slack.com/
+The OpenEMR Slack Chat can be found at: https://openemr.slack.com/
 
 New users can get account/access to the Official OpenEMR chat here: https://openemr.herokuapp.com/
 
 ---
+## OpenEMR Telegram Chat
 
-<br>
-
----
-## Unofficial OpenEMR Telegram Chat
-
-There is a unofficial OpenEMR chat on Telegram at: https://t.me/openemr
+The OpenEMR chat on Telegram can be found at: https://t.me/openemr
 
 ---
 
