@@ -50,7 +50,7 @@ A minor, albeit critical part of the codebase uses Smarty. The goal of this proj
 
 OpenEMR currently uses several different PDF tools and libraries, which complicates code development. Goal is to standardize all PDF output from a common PDF library.
 
-* Mentors: Brady Miller, Jerry Padgett
+* Mentors: Brady Miller, Jerry Padgett, Sandra Gutierrez
 * Tags: Optimization 
 
 
@@ -58,7 +58,7 @@ OpenEMR currently uses several different PDF tools and libraries, which complica
 
 Picture Archiving and Communication System (PACS) is a system that allows storing and viewing of patient imaging, such as Xrays, CT scans, and ultrasounds. Goal is it integrate a PACS server with OpenEMR to allow the viewing and storage of patient imaging.
 
-* Mentors: Brady Miller, Asher Densmore-Lynn, Stephen Waite, Victor Kofia
+* Mentors: Brady Miller, Asher Densmore-Lynn, Stephen Waite, Victor Kofia, Sandra Gutierrez
 * Tags: New Feature 
 
 
@@ -82,7 +82,7 @@ A Medication Administration Record (MAR) is a record of all medications that are
 
 Telehealth is increasingly being used in healthcare and while OpenEMR does support a patient portal and communication with physicians via secure messaging or chat, OpenEMR does not yet support Telehealth. The goal is to support telehealth in OpenEMR.
 
-* Mentors: Jerry Padgett, Ken Chapple, Nilesh Hake, Arnab Naha
+* Mentors: Jerry Padgett, Ken Chapple, Nilesh Hake, Arnab Naha, Sandra Gutierrez
 * Tags: New Feature 
 
 
@@ -131,6 +131,7 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 * [Robert Down](https://github.com/robertdown) 
 * [Robert Hausam](https://community.open-emr.org/u/rhausam)
 * [Rod Roark](https://github.com/sunsetsystems)
+* [Sandra Gutierrez](https://github.com/gutiersa)
 * [Sherwin Gaddis](https://github.com/juggernautsei)
 * [Stephen Waite](https://github.com/stephenwaite)
 * [Tyler Wrenn](https://github.com/tywrenn)
