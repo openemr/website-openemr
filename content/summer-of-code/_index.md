@@ -12,15 +12,40 @@ Welcome to the OpenEMR project!
 
 OpenEMR is a open source EMR (electronic medical record) software suite primarily developed in PHP, MySQL/MariaDB, Javascript, CSS, and HTML.
 
-Below is a list of project ideas (click on the project title to go to the Forum thread).
+---
+
+Congratulations to all the students whom have participated in the OpenEMR community and submitted a project proposal for GSOC 2020! There was a large number of strong proposals, of which we felt there were many that merited selection to participate in GSOC. However, we could only select 3 proposals from the large pool of very strong proposals. If you were not selected, please note you are still a highly valued member of the OpenEMR community and hopefully you will continue to participate in the OpenEMR community. **Directly below is a list of the 3 projects that were selected for GSOC 2020 (click on the project title to go to the Forum thread)**.
+
+## [Hybrid App with Image Processing](https://community.open-emr.org/t/project-hybrid-app-with-image-processing/13758)
+
+This project aims to develop a platform independent application for OpenEMR supporting image processing and telehealth. It will ease the operation which require camera or image related operation, e.g. code scanner, medical info reader.
+
+* Selected Student: **Amit Kumar Meena**
+* Mentors: Brady Miller(primary), Stephen Waite, Rachel Ellison, Asher Densmore-Lynn, David Vu
+* Tags: New Feature
+
+
+## [Modernize Styling and User Interface](https://community.open-emr.org/t/project-modernize-styling-and-user-interface/13777)
+
+OpenEMR recently completed a [very large code refactor to support Bootstrap 4 (BS4)](https://github.com/openemr/openemr/pull/2832). There is still much to do including replacing as much CSS/SASS with BS4 as possible, removing unneeded CSS/SASS, decreasing reliance on the !important tag, migrating the navbar to BS4, migrating inline stylesheets to external stylesheets, improving responsive behavior of the gui, ironing out bugs in the current themes, and improving the current themes and the overall gui experience.
+
+* Selected Student: **GuanWu Su**
+* Mentors: Tyler Wrenn(primary), Robert Down, Brady Miller
+* Tags: Modernization
+
 
 ## [FHIR Integration](https://community.open-emr.org/t/project-fhir-integration/13701)
 
 Fast Healthcare Interoperability Resources (FHIR) is a standard for exchanging healthcare information electronically. Goal is to integrate a FHIR server and client with OpenEMR to allow importing and exporting of patient data.
 
-* Mentors: Jerry Padgett, Robert Hausam
+* Selected Student: **Yash Raj Bothra**
+* Mentors: Brady Miller(primary), Jerry Padgett, Dixon Whitmire, Robert Hausam, Ken Chapple
 * Tags: New Feature
 
+
+---
+
+**Below is a list of other project ideas (click on the project title to go to the Forum thread).**
 
 ## [Standardized Patient Data](https://community.open-emr.org/t/project-standardized-patient-data/13702)
 
@@ -86,14 +111,6 @@ Telehealth is increasingly being used in healthcare and while OpenEMR does suppo
 * Tags: New Feature 
 
 
-## [Modernize Styling and User Interface](https://community.open-emr.org/t/project-modernize-styling-and-user-interface/13777)
-
-OpenEMR recently completed a [very large code refactor to support Bootstrap 4 (BS4)](https://github.com/openemr/openemr/pull/2832). There is still much to do including replacing as much CSS/SASS with BS4 as possible, removing unneeded CSS/SASS, decreasing reliance on the !important tag, migrating the navbar to BS4, migrating inline stylesheets to external stylesheets, improving responsive behavior of the gui, ironing out bugs in the current themes, and improving the current themes and the overall gui experience.
-
-* Mentors: Tyler Wrenn, Jerry Padgett, Brady Miller, Robert Down
-* Tags: Modernization
-
-
 ## [Automated Testing](https://community.open-emr.org/t/project-automated-testing/13778)
 
 OpenEMR currently has a initial framework for automated testing which uses travis to run testing on all PHP versions, all MySQL versions, and all MariaDB versions. What is missing is the actual tests. Currently there are a couple unit tests and a couple e2e (functional) tests and no api tests. We are waiting for somebody to come along to pick and implement testing frameworks and design extensive automated unit, functional, and api testing.
@@ -122,6 +139,7 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 * [Brady Miller](https://github.com/bradymiller)
 * [Daniel Pflieger](https://github.com/growlingflea)
 * [David Vu](https://community.open-emr.org/u/david.vu)
+* [Dixon Whitmire](https://github.com/dixonwhitmire)
 * [Jerry Padgett](https://github.com/sjpadgett)
 * [Julie Buurman](https://github.com/boxlady)
 * [Ken Chapple](https://github.com/kchapple)
