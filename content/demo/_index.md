@@ -48,19 +48,3 @@ We offer 3 fully functional demo installations for you to try out. Some simple c
 | OpenEMR 5.0.2 Portal Demo | [https://demo.openemr.io/openemr/portal](https://demo.openemr.io/openemr/portal/index.php) |
 | Alternate Demo            | [https://demo.openemr.io/a/openemr/portal](https://demo.openemr.io/a/openemr/portal/index.php) |
 | Another Alternate Demo    | [https://demo.openemr.io/b/openemr/portal](https://demo.openemr.io/b/openemr/portal/index.php) |
-
----
-
-## Wordpress Patient Portal Demo
-
-### Credentials
-
-Not needed. You can register an account to test it.
-
-### Links
-
-|Demo |Link |
-|---------------------------|------------------------------------|
-| OpenEMR 5.0.2 Portal Demo | http://demo.openemr.io/wordpress |
-| Alternate Demo            | http://demo.openemr.io/a/wordpress |
-| Another Alternate Demo    | http://demo.openemr.io/b/wordpress |
