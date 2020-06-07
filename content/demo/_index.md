@@ -7,7 +7,7 @@ layout: page
 
 # Full Working OpenEMR 5.0.2 Demo
 
-We offer 3 fully functional demo installations for you to try out. Some simple configuration has been added for clearer demonstration of OpenEMR, medical billing, accounting, access controls and patient portals. Each demo is reset overnight (midnight PST) so no data is persistent. Note there are 3 identical demos ('Main', 'Alternate', 'Another Alternate') offered in case a demo is down or has been modified. We also offer a [OpenEMR 5.0.2 demo with the most recent patch](https://www.open-emr.org/wiki/index.php/Development_5.0.2_Demo) and [Development Demos](https://www.open-emr.org/wiki/index.php/Development_Demo) (these are demos that are rebuilt daily from most recent development code) where you can test out new features.
+We offer 3 fully functional demo installations for you to try out. Some simple configuration has been added for clearer demonstration of OpenEMR, medical billing, accounting, access controls and patient portal. Each demo is reset overnight (midnight PST) so no data is persistent. Note there are 3 identical demos ('Main', 'Alternate', 'Another Alternate') offered in case a demo is down or has been modified. We also offer a [OpenEMR 5.0.2 demo with the most recent patch](https://www.open-emr.org/wiki/index.php/Development_5.0.2_Demo) and [Development Demos](https://www.open-emr.org/wiki/index.php/Development_Demo) (these are demos that are rebuilt daily from most recent development code) where you can test out new features.
 
 ---
 
