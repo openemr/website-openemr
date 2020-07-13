@@ -1,6 +1,6 @@
 ---
 title: "Welcome to OpenEMR"
-date: 2018-03-25
+date: 2020-07-13
 cover: welcome/mat.jpg
 layout: page
 images:
@@ -13,7 +13,7 @@ OpenEMR is the most popular open source electronic health records and medical pr
 
 In the US, it has been estimated that there are more than 5,000 installations of OpenEMR in physician offices and other small healthcare facilities serving more than 30 million patients. Internationally, it has been estimated that OpenEMR is installed in over 15,000 healthcare facilities, translating into more than 45,000 practitioners using the system which are serving greater than 90 million patients. The Peace Corps plan to incorporate OpenEMR into their EHR system. Siaya District Hospital, a 220-bed hospital in rural Kenya, is using OpenEMR. HP India is planning to utilize OpenEMR for their Mobile Health Centre Project. There are also articles describing single clinician deployments and a free clinic deployment. Internationally, it is known that there are practitioners in Pakistan, Puerto Rico, Australia, Sweden, the Netherlands, Israel, India, Malaysia, Nepal, Indonesia, Bermuda, Armenia, Kenya, and Greece that are either testing or actively using OpenEMR for use as a free electronic medical records program in the respective languages.
 
-Rod Roark, a programmer; Dr. Brady Miller; Robert Down, BSN, RN; and Matthew Vita, a programmer, are the project's administrators. Everything is here: https://www.open-emr.org/
+Rod Roark, a programmer; Dr. Brady Miller; Robert Down, BSN, RN; Jerry Padgett, engineer and programmer; and Stephen Waite, are the project's administrators. Everything is here: https://www.open-emr.org/
 
 # Recent Successes
 

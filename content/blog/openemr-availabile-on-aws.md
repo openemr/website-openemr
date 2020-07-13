@@ -123,10 +123,7 @@ Guide](https://github.com/openemr/openemr-devops/tree/master/packages/full_stack
 
 #### About OpenEMR
 
-OpenEMR is [Certified as a Complete
-EHR](http://www.open-emr.org/wiki/images/0/04/OpenEMR_Complete_EHR_2014_Edition_Cert.pdf)
-by the United States' Department of Health and Human Services, supporting a
-broad feature set of patient demographics, records, appointments, prescriptions,
+OpenEMR supports a broad feature set of patient demographics, records, appointments, prescriptions,
 billing, reports, clinical decision support, lab integration, analytics and
 clinical intelligence. For United States providers, OpenEMR Cloud is designed
 for HIPAA & HITECH compliance. AWS performs the HIPAA Business Associate role

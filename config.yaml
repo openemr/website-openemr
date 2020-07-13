@@ -40,5 +40,5 @@ params:
     twitter: openemr
   demoUrl: demo
   downloadUrl: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
-permainks:
+permalinks:
   post: /:filename/
