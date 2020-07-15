@@ -7,11 +7,7 @@ url: support
 # OpenEMR Costs and Support Options
 
 ## Overview
-OpenEMR is open source, which means you are free to download, use, and customize it to your heart's content.
-OpenEMR is a Free product, however, there are several caveats. The first is that, as discussed below, IT
-knowledge is required to maintain your OpenEMR installation, which can require professional support.
-The second is that Meaningful Use certification does require several third party modules that do require
-fees; more details on this can be [found here](https://www.open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#2014_ONC_Ambulatory_EHR_Certification).
+OpenEMR is free software and open source, which means you are free to download, use, and customize it to your heart's content!
 
 A huge advantage of open source software is the ability to choose whom will provide you support.
 You are NOT locked into one vendor when you choose OpenEMR, and if you don't like your current
