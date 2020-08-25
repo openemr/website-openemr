@@ -3,8 +3,7 @@ title: "GSoC 2020: Hybrid Mobile App"
 author:
   name: Amit Meena
   twitter: im_amyth
-date: 2020-08-25T00:00:00+05:30
-draft: false
+date: 2020-08-25T11:30:00-08:00
 slug: gsoc-2020-hybrid-app
 images:
   - images/flutter.jpg

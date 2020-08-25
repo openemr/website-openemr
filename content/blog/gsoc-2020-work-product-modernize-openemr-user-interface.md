@@ -3,7 +3,7 @@ title: "GSoC 2020 Work Product: Modernize OpenEMR’s User Interface"
 author:
   name: Guan-Wu Su
   twitter: none
-date: '2020-08-25'
+date: 2020-08-25T11:00:00-08:00
 slug: gsoc-2020-work-product-modernize-openemr-user-interface
 images:
   - images/laptop-person.jpg
