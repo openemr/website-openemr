@@ -6,7 +6,7 @@ author:
 date: '2020-08-25'
 slug: gsoc-2020-work-product-modernize-openemr-user-interface
 images:
-  - images/gsoc-openemr-logo.jpg
+  - images/laptop-person.jpg
 coverImage: images/laptop-person.jpg
 coverImageStyle: full
 ---
