@@ -55,7 +55,7 @@ The commits are as follows:
   - Firebase was first introduced for telehealth in the [commit#chat system using firebase](https://github.com/openemr/app-flutter-openemr/commit/e6273b11b4b1faf47d40672369a481b06dc5dc1a).
   - Prototype for `ML Kit` can be found in the [commit#apply ml kit on home page](https://github.com/openemr/app-flutter-openemr/commit/8b7d27dffc875d5e85fa952e22ca63d8844cb2a4), it was further removed and only a part of it used for OCR.
   - Other commits include different experiments done before finalizing a perfect one for the use.
-
+<br><br>
 - openemr/app-golang-openemr
   - An endpoint for OCR has been added in [commit:initial commit](https://github.com/openemr/app-golang-openemr/commit/2d4dfcc43156e7bae09eb0bf103a529ad9d0d1d1) which uses `tesseract-ocr`.
 
@@ -82,6 +82,7 @@ The commits are as follows:
   - `openemr/app-golang-openemr` repo was added as submodule under [commit#added submodule](https://github.com/openemr/app-flutter-openemr/commit/c32895dab4d0fa357719ef0d886ce2ed0e17b908) which is used by Video calling feature introduced in [commit#Added calling feature along with text recognition](https://github.com/openemr/app-flutter-openemr/commit/93d99d224197422bdf8ac9f96f813ad70c7008dc).
   - [commit#New API support](https://github.com/openemr/app-flutter-openemr/commit/2e11c298593a176e6965dee8c1adf74a502173c5) added the support for API for new OpenEMR.
   - Finally, under [commit#Minor Improvements](https://github.com/openemr/app-flutter-openemr/commit/509a535cb0713c89e8742c7a1de64ddce2a1a2bf), the code was cleared and the error message has been improved.
+<br><br>
 - openemr/app-golang-openemr
   - `WebRTC server` has been added in [commit#webrtc added](https://github.com/openemr/app-golang-openemr/commit/c6930bb8f84e572234daaa071add316334a247f5) which acts as a back-end for calling feature in the OpenEMR app.
 
