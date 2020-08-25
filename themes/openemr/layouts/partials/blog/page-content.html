@@ -1,7 +1,9 @@
 <div class="row justify-content-center">
     <div class="post-meta">
         {{ $.Param "author.name" }}&nbsp;
-        {{- with $.Param "author.twitter"}}(<a href="https://twitter.com/{{ . }}" target="_blank">@{{ . }})</a>{{- end }}
+        {{ if not (eq (.Param "author.twitter") "none")}}
+          {{- with $.Param "author.twitter"}}(<a href="https://twitter.com/{{ . }}" target="_blank">@{{ . }})</a>{{- end }}
+        {{ end }}
         on {{ dateFormat "Monday, Jan 2, 2006" .Date }}
     </div>
 </div>
