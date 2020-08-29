@@ -62,10 +62,11 @@ Initially, it was difficult to refactor the existing implementation and process 
 
 **Pending Work**
 
+* Still there is scope to add more and more FHIR resources.
 * Most of the targeted resources are achieved as planned in the GSoC. Improving the test coverage and adding more operations are the areas that can be further enhanced.
 
 **Experience**
 
-GSoC 2020 is my first contribution to an open source software project. It was really amazing, and I gained massive experience. I saw firsthand how an open source community builds an open source project and developed an appreciation for open source culture. Over these past few months I have improved myself in programming skills, communication skills and several other skills. I would like to thank my mentor Brady Miller and all the other mentors for their guidance and support. I would like to thank the OpenEMR community for accepting me and helping me. Finally, I would like to thank Google for organizing the GSoC.
+GSoC 2020 is my first contribution to an open source software project. It was really amazing, and I gained massive experience. I saw firsthand how an open source community builds an open source project and developed an appreciation for open source culture. Over these past few months I have improved myself in programming skills, communication skills and several other skills. I would like to thank my mentor Brady Miller and all the other mentors for their guidance and support. I would like to thank the OpenEMR community for accepting me and helping me. Finally, I would like to thank Google for organizing the GSoC program.
 <br>
 <br>
