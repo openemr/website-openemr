@@ -8,6 +8,7 @@ slug: gsoc-2020-work-product-fhir-integration-in-openemr
 images:
   - images/gsoc-fhir.png
 coverImage: images/gsoc-fhir.png
+coverImageStyle: full
 ---
 GSoC is about to finish. It was a very successful journey with OpenEMR and I’m very happy that I selected OpenEMR as my GSoC organization. First I should thank my mentors for providing me the guidance to successfully complete the GSoC project. Additionally, I am very thankful to all members of the OpenEMR community.
 <!--more-->
