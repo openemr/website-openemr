@@ -1,0 +1,40 @@
+.billboard__home--giving-tuesday  {
+    
+    .display-1 {
+        font-family: 'IBM Plex Sans';
+        font-weight: 300;
+        font-size: 3em;
+    }
+
+    @include media-breakpoint-up(md) {
+        .display-1 {
+            font-size:5em;
+        }
+    }
+
+    p strong {
+        font-weight: bold;
+    }
+
+    background-color: #00509D;
+    background-color: hsl(217, 100, 21);
+
+    .donation {
+        // background-color: hsl(47, 100, 50);
+        background-color: hsl(76, 91, 38) !important;
+        // background-color: red;
+        @include transition(0.25s);
+
+        &:hover {
+            transform: scale(1.015);
+            background-color: hsl(76, 91, 50);
+        }
+
+        a {
+            color: hsl(0, 100, 100);
+            &:hover {
+                text-decoration: none !important;
+            }
+        }
+    }
+}

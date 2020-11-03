@@ -1,27 +1,26 @@
 {{ define "main" }}
 
-<section class="billboard billboard__home" style="background-image: url('{{ "images/stethoscope.jpg" | absURL }}');">
+<section class="billboard billboard__home billboard__home--giving-tuesday">
   <div class="row">
-    <div class="col-sm-12">
-      <div class="content">
-        <div class="row">
-          <div class="col-sm-12 col-lg-7">
-            <h3 class="display-1">
-              Fully Open-Source.<br>
-              Free Software, Always and Forever.<br>
-            </h3>
-            <p class="lead pt-3">OpenEMR is the most popular open source electronic health records and medical practice management solution. OpenEMR's goal is a superior alternative to its proprietary counterparts with passionate volunteers and contributors dedicated to guarding OpenEMR's status as a free, open source software solution for medical practices with a commitment to openness, kindness and cooperation.</p>
-          </div>
-          <div class="target_nav col-sm-12 col-md-12 col-lg-5 pb-3 card-holders">
-            <div class="card mb-1 d-none d-xl-flex">
-              <a href="{{ .Site.BaseURL }}covid19">
+    <div class="content">
+      <div class="row">
+        <div class="col-sm-12 col-lg-7">
+          <h2 class="display-1 mb-4">Save the Date!</h2>
+          <img src="{{ "images/GT_logo_white.png" | absURL }}" alt="" class="img-fluid mt-4" width="250">
+          <p class="lead pt-3 mb-5">
+            GivingTuesday is a global day of generosity that will take place on <strong>December&nbsp;1,&nbsp;2020</strong>. A global generosity movement, GivingTuesday unleashes the power of people and organizations to transform their communities and the world. GivingTuesday strives to build a world in which the catalytic power of generosity is at the heart of the society we build together, unlocking dignity, opportunity, and equity around the globe.
+          </p>
+          <div class="card donation">
+              <a href="{{ "donate" | absURL }}">
                 <div class="card-body">
-                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/covid19-icon.png" alt="Card image cap" height="64" width="64">
-                  <h4 class="card-title">COVID-19 Updates</h4>
-                  <p class="card-text">Read about OpenEMR's response</p>
+                  <i class="fa fa-heart fa-4x float-left mr-4"></i>
+                  <h4 class="card-title">Donate Now</h4>
+                  <p class="card-text">It's never too early to give.</p>
                 </div>
               </a>
-            </div>  <!-- end card -->
+            </div> <!-- end .card -->
+        </div>
+        <div class="target_nav col-sm-12 col-md-5 col-lg-5 pb-3 card-holders">
             <div class="card mb-1 d-none d-xl-flex">
               <a href="{{ .Site.Params.demoUrl }}">
                 <div class="card-body">
@@ -58,26 +57,27 @@
                 </div>
               </a>
             </div>
-            <div class="card donation">
-              <a href="{{ "donate" | absURL }}">
-                <div class="card-body">
-                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/money.png" alt="Card image cap" height="64">
-                  <h4 class="card-title">Donate Today</h4>
-                  <p class="card-text">We depend on financial donations to succeed.</p>
-                </div>
-              </a>
-            </div> <!-- end .card -->
           </div>  <!-- end .target_nav -->
-        </div> <!-- end .row -->
-      </div> <!-- end .content -->
-    </div> <!-- end .col-sm-12 -->
-  </div> <!-- end .row -->
+      </div>
+    </div>
+  </div>
 </section>
+<div class="main-content container-fluid">
+  <section>
+    <div class="col-sm-12">
+            <h1 class="display-3 text-center">
+              Fully Open-Source.
+              Free Software, Always and Forever.<br>
+            </h1>
+            <p class="lead pt-3">OpenEMR is the most popular open source electronic health records and medical practice management solution. OpenEMR's goal is a superior alternative to its proprietary counterparts with passionate volunteers and contributors dedicated to guarding OpenEMR's status as a free, open source software solution for medical practices with a commitment to openness, kindness and cooperation.</p>
+          </div>
+        </div> <!-- end .row -->
+  </div> <!-- end .row -->
+  </section>
+</div>
 
 <div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/stethoscope.jpg" | absURL }}"></div>
-
 <div class="main-content container-fluid">
-
   <section class="features" id="features">
     <div class="col-xs-12">
       <h1 class="display-3 text-center">A feature-rich solution</h1>
