@@ -1,79 +1,105 @@
 {{ define "main" }}
 
 <section class="billboard billboard__home billboard__home--giving-tuesday">
-  <div class="row">
-    <div class="content">
-      <div class="row">
-        <div class="col-sm-12 col-lg-7">
-          <h2 class="display-1 mb-4">Save the Date!</h2>
-          <img src="{{ "images/GT_logo_white.png" | absURL }}" alt="" class="img-fluid mt-4" width="250">
-          <p class="lead pt-3 mb-5">
-            GivingTuesday is a global day of generosity that will take place on <strong>December&nbsp;1,&nbsp;2020</strong>. A global generosity movement, GivingTuesday unleashes the power of people and organizations to transform their communities and the world. GivingTuesday strives to build a world in which the catalytic power of generosity is at the heart of the society we build together, unlocking dignity, opportunity, and equity around the globe.
-          </p>
-          <div class="card donation">
-              <a href="{{ "donate" | absURL }}">
-                <div class="card-body">
-                  <i class="fa fa-heart fa-4x float-left mr-4"></i>
-                  <h4 class="card-title">Donate Now</h4>
-                  <p class="card-text">It's never too early to give.</p>
+    <div class="row">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="display-1 mb-4">Save the Date!</h2>
                 </div>
-              </a>
-            </div> <!-- end .card -->
-        </div>
-        <div class="target_nav col-sm-12 col-md-5 col-lg-5 pb-3 card-holders">
-            <div class="card mb-1 d-none d-xl-flex">
-              <a href="{{ .Site.Params.demoUrl }}">
-                <div class="card-body">
-                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/monitor.png" alt="Card image cap" height="64" width="64">
-                  <h4 class="card-title">Try Now</h4>
-                  <p class="card-text">Login to a fully functioning demo of OpenEMR</p>
+                <div class="col-sm-12 col-lg-7">
+                    <img src="{{ "images/GT_logo_white.png" | absURL }}" alt="" class="img-fluid mt-4" width="250">
+                    <p class="lead pt-3 mb-5">
+                        GivingTuesday is a global day of generosity that will take place on <strong>December&nbsp;1,&nbsp;2020</strong>. A global generosity movement, GivingTuesday unleashes the power of people and organizations to transform their communities and the world. GivingTuesday strives to build a world in which the catalytic power of generosity is at the heart of the society we build together, unlocking dignity, opportunity, and equity around the globe.
+                    </p>
+                    <div class="card donation">
+                        <a href="{{ "donate" | absURL }}">
+                            <div class="card-body">
+                                <i class="fa fa-heart fa-4x float-left mr-4"></i>
+                                <h4 class="card-title">Donate Now</h4>
+                                <p class="card-text">It's never too early to give.</p>
+                            </div>
+                        </a>
+                    </div> <!-- end .card -->
+                    <h4 class="mt-5">Keep up with GivingTuesday - signup for our newsletter</h4>
+                    <form action="https://open-emr.us16.list-manage.com/subscribe/post?u=6d7e993ba4e35e92c898704f2&amp;id=cd514c2d82" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            <div class="form-group">
+                                <label for="mce-EMAIL">Email Address (Required) </label>
+                                <input type="email" value="" placeholder="email@example.com" name="EMAIL" class="required form-control email" id="mce-EMAIL">
+                            </div>
+                            <div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock form-group">
+                                <div class="content__gdpr">
+                                    <p><strong>Permissions</strong><br>Please select all the ways you would like to hear from OpenEMR</p>
+                                    <div class="form-check">
+                                        <input type="checkbox" id="gdpr_13773" name="gdpr[13773]" value="Y" class="av-checkbox gdpr form-check-input">
+                                        <label class="checkbox subfield form-check-label" for="gdpr_13773">Email Newsletter</label><br>
+                                        <input type="checkbox" id="gdpr_16333" name="gdpr[16333]" value="Y" class="av-checkbox gdpr form-check-input">
+                                        <label class="checkbox subfield form-check-label" for="gdpr_16333">Security Related Updates</label>
+                                    </div>
+                                </div>
+                                <div class="content__gdprLegal">
+                                    <small>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit <a href="https://www.iubenda.com/privacy-policy/54578274" target="_blank">our privacy policy</a>. We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></small>
+                                </div>
+                            </div>
+                            <div id="mce-responses" class="clear">
+                                <div class="response" id="mce-error-response" style="display:none"></div>
+                                <div class="response" id="mce-success-response" style="display:none"></div>
+                            </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6d7e993ba4e35e92c898704f2_cd514c2d82" tabindex="-1" value=""></div>
+                            <div class="clear"><button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;Subscribe</button></div>
+                    </form>
+                    <style type="text/css">
+                        #mc-embedded-subscribe-form input[type=checkbox]{display: inline; width: auto;margin-right: 10px;}
+                        #mergeRow-gdpr {margin-top: 20px;}
+                        #mergeRow-gdpr fieldset label {font-weight: normal;}
+                        #mc-embedded-subscribe-form .mc_fieldset{border:none;min-height: 0px;padding-bottom:0px;}
+                    </style>
                 </div>
-              </a>
-            </div>  <!-- end card -->
-            <div class="card mb-1">
-              <a href="{{ "support" | absURL }}">
-                <div class="card-body">
-                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/info.png" alt="Card image cap" height="64" width="64">
-                  <h4 class="card-title">Find Support</h4>
-                  <p class="card-text">Free, community-driven support to assist you</p>
-                </div>
-              </a>
-            </div> <!-- end .card -->
-            <div class="card mb-1 d-none d-xl-flex">
-              <a href="{{ .Site.Params.downloadUrl }}">
-                <div class="card-body">
-                  <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/download-arrow.png" alt="Card image cap" height="64" width="64">
-                  <h4 class="card-title">Download for Free</h4>
-                  <p class="card-text">Get the latest version for Windows, macOS, or Linux</p>
-                </div>
-              </a>
-            </div> <!-- end .card -->
-            <div class="card mb-1 newsletter">
-              <a href="http://eepurl.com/diEAnr" target="_blank">
-                <div class="card-body">
-                  <img src="{{ "images/mail.png" | absURL}}" class="img-fluid float-left mr-4" width="64" alt="">
-                  <h4 class="card-title">Signup for <span class="d-none d-md-inline">our</span> Newsletter</h4>
-                  <p class="card-text">Receive quarterly updates and security infomation</p>
-                </div>
-              </a>
+                <div class="target_nav col-sm-12 col-md-5 col-lg-5 pb-3 card-holders">
+                    <div class="card mb-1 d-none d-xl-flex">
+                        <a href="{{ .Site.Params.demoUrl }}">
+                            <div class="card-body">
+                                <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/monitor.png" alt="Card image cap" height="64" width="64">
+                                <h4 class="card-title">Try Now</h4>
+                                <p class="card-text">Login to a fully functioning demo of OpenEMR</p>
+                            </div>
+                        </a>
+                    </div>  <!-- end card -->
+                    <div class="card mb-1">
+                        <a href="{{ "support" | absURL }}">
+                            <div class="card-body">
+                                <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/info.png" alt="Card image cap" height="64" width="64">
+                                <h4 class="card-title">Find Support</h4>
+                                <p class="card-text">Free, community-driven support to assist you</p>
+                            </div>
+                        </a>
+                    </div> <!-- end .card -->
+                    <div class="card mb-1 d-none d-xl-flex">
+                        <a href="{{ .Site.Params.downloadUrl }}">
+                            <div class="card-body">
+                                <img class="img-fluid float-left mr-4" src="{{ .Site.BaseURL }}img/download-arrow.png" alt="Card image cap" height="64" width="64">
+                                <h4 class="card-title">Download for Free</h4>
+                                <p class="card-text">Get the latest version for Windows, macOS, or Linux</p>
+                            </div>
+                        </a>
+                    </div> <!-- end .card -->
+                </div>  <!-- end .target_nav -->
             </div>
-          </div>  <!-- end .target_nav -->
-      </div>
+        </div>
     </div>
-  </div>
 </section>
 <div class="main-content container-fluid">
   <section>
     <div class="col-sm-12">
-            <h1 class="display-3 text-center">
-              Fully Open-Source.
-              Free Software, Always and Forever.<br>
-            </h1>
-            <p class="lead pt-3">OpenEMR is the most popular open source electronic health records and medical practice management solution. OpenEMR's goal is a superior alternative to its proprietary counterparts with passionate volunteers and contributors dedicated to guarding OpenEMR's status as a free, open source software solution for medical practices with a commitment to openness, kindness and cooperation.</p>
-          </div>
-        </div> <!-- end .row -->
-  </div> <!-- end .row -->
-  </section>
+        <h1 class="display-3 text-center">
+          Fully Open-Source.
+          Free Software, Always and Forever.<br>
+      </h1>
+      <p class="lead pt-3">OpenEMR is the most popular open source electronic health records and medical practice management solution. OpenEMR's goal is a superior alternative to its proprietary counterparts with passionate volunteers and contributors dedicated to guarding OpenEMR's status as a free, open source software solution for medical practices with a commitment to openness, kindness and cooperation.</p>
+  </div>
+</div> <!-- end .row -->
+</div> <!-- end .row -->
+</section>
 </div>
 
 <div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/stethoscope.jpg" | absURL }}"></div>
@@ -87,107 +113,107 @@
         many customizations, and full data ownership, OpenEMR's features shine. On top of this, users in need of
         support can take advantage of our <a class="underline" href="https://community.open-emr.org">volunteer support network</a>
         as well as over <a class="underline" href="{{ .Site.BaseURL }}wiki/index.php/OpenEMR_Professional_Support">30 vendors in over 10 countries.</a>
-      </p>
-    </div>
-    <div class="card-holder">
-      <div class="card">
-        <img class="card-img-top" src="{{ .Site.BaseURL }}img/calendar.svg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Scheduling</h4>
-          <p class="card-text">
-            Advanced scheduling allows clinics to create repeating
-            events, automated-workflows triggered by check-in,
-            and patient reminds.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="card-holder">
-      <div class="card">
-        <img class="card-img-top" src="{{ .Site.BaseURL }}img/prescription.svg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">e-Prescribing</h4>
-          <p class="card-text">
-            Enter a prescription into an encounter and have it
-            electronically sent to the patient's pharmacy.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="card-holder">
-      <div class="card">
-        <img class="card-img-top" src="{{ .Site.BaseURL }}img/invoice.svg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Medical Billing</h4>
-          <p class="card-text">
-            Integrated billing supporting HIPAA ASC X12 Version 5010 Transaction and Code Set Standards.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="card-holder">
-      <div class="card">
-        <img class="card-img-top" src="{{ .Site.BaseURL }}img/medical-report.svg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">CMS Reporting</h4>
-          <p class="card-text">
-            Generate reports with just a few clicks
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="card-holder">
-      <div class="card">
-        <img class="card-img-top" src="{{ .Site.BaseURL }}img/vaccine.svg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Lab Integration</h4>
-          <p class="card-text">
-            Have lab orders automatically sent to a lab and
-            integrate the results into a patient's chart
-            automatically
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="card-holder">
-      <div class="card">
-        <img class="card-img-top" src="{{ .Site.BaseURL }}img/flowchart.svg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Clinical Decision Rules</h4>
-          <p class="card-text">
-            Navigate complex patient algorithms using the
-            clinical decision rules engine to ensure the highest
-            quality of care for patients.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="card-holder">
-      <div class="card">
-        <img class="card-img-top" src="{{ .Site.BaseURL }}img/padlock.svg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Advanced Security</h4>
-          <p class="card-text">
-            HIPAA-friendly, fine-grained access control objects,
-            and industry-standard password hashing helps to
-            protect your practice from intrusion
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="card-holder">
-      <div class="card">
-        <img class="card-img-top" src="{{ .Site.BaseURL }}img/earth.svg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title">Multilingual Support</h4>
-          <p class="card-text">
-            Available in over 30 languages, and customizable to
-            add more.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </p>
+</div>
+<div class="card-holder">
+  <div class="card">
+    <img class="card-img-top" src="{{ .Site.BaseURL }}img/calendar.svg" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">Scheduling</h4>
+      <p class="card-text">
+        Advanced scheduling allows clinics to create repeating
+        events, automated-workflows triggered by check-in,
+        and patient reminds.
+    </p>
+</div>
+</div>
+</div>
+<div class="card-holder">
+  <div class="card">
+    <img class="card-img-top" src="{{ .Site.BaseURL }}img/prescription.svg" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">e-Prescribing</h4>
+      <p class="card-text">
+        Enter a prescription into an encounter and have it
+        electronically sent to the patient's pharmacy.
+    </p>
+</div>
+</div>
+</div>
+<div class="card-holder">
+  <div class="card">
+    <img class="card-img-top" src="{{ .Site.BaseURL }}img/invoice.svg" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">Medical Billing</h4>
+      <p class="card-text">
+        Integrated billing supporting HIPAA ASC X12 Version 5010 Transaction and Code Set Standards.
+    </p>
+</div>
+</div>
+</div>
+<div class="card-holder">
+  <div class="card">
+    <img class="card-img-top" src="{{ .Site.BaseURL }}img/medical-report.svg" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">CMS Reporting</h4>
+      <p class="card-text">
+        Generate reports with just a few clicks
+    </p>
+</div>
+</div>
+</div>
+<div class="card-holder">
+  <div class="card">
+    <img class="card-img-top" src="{{ .Site.BaseURL }}img/vaccine.svg" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">Lab Integration</h4>
+      <p class="card-text">
+        Have lab orders automatically sent to a lab and
+        integrate the results into a patient's chart
+        automatically
+    </p>
+</div>
+</div>
+</div>
+<div class="card-holder">
+  <div class="card">
+    <img class="card-img-top" src="{{ .Site.BaseURL }}img/flowchart.svg" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">Clinical Decision Rules</h4>
+      <p class="card-text">
+        Navigate complex patient algorithms using the
+        clinical decision rules engine to ensure the highest
+        quality of care for patients.
+    </p>
+</div>
+</div>
+</div>
+<div class="card-holder">
+  <div class="card">
+    <img class="card-img-top" src="{{ .Site.BaseURL }}img/padlock.svg" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">Advanced Security</h4>
+      <p class="card-text">
+        HIPAA-friendly, fine-grained access control objects,
+        and industry-standard password hashing helps to
+        protect your practice from intrusion
+    </p>
+</div>
+</div>
+</div>
+<div class="card-holder">
+  <div class="card">
+    <img class="card-img-top" src="{{ .Site.BaseURL }}img/earth.svg" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">Multilingual Support</h4>
+      <p class="card-text">
+        Available in over 30 languages, and customizable to
+        add more.
+    </p>
+</div>
+</div>
+</div>
+</section>
 </div>
 
 <div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/hospital.jpg" | absURL }}"></div>
@@ -196,19 +222,19 @@
   <section>
     <div class="col text-center">
       <h1 class="display-3">Who uses OpenEMR?</h1>
-    </div>
-  </section>
-  <section class="highlighted-users">
+  </div>
+</section>
+<section class="highlighted-users">
     <div class="col">
       <img src="{{ .Site.BaseURL }}img/IPPF-full-logo.png" alt="" height="70" class="">
-    </div>
-    <div class="col">
+  </div>
+  <div class="col">
       <img src="{{ .Site.BaseURL }}img/peace-corps.png" alt="" height="70" class="">
-    </div>
-    <div class="col">
+  </div>
+  <div class="col">
       <img src="{{ .Site.BaseURL }}img/siaya-district-hospital.jpg" alt="" height="70" class="">
-    </div>
-  </section>
+  </div>
+</section>
 </div>
 
 <div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/md-with-ipad.jpg" | absURL }}"></div>
@@ -225,24 +251,24 @@
       <img src="{{ .Site.BaseURL }}img/server.svg" alt="" height="128">
       <h2 class="display-4">On-Premise</h2>
       <p>Run OpenEMR on your own servers on location</p>
-    </div>
-    <div class="col text-center">
+  </div>
+  <div class="col text-center">
       <img src="{{ .Site.BaseURL }}img/cloud.svg" alt="" height="128">
       <h2 class="display-4">Cloud-based</h2>
       <p>Deploy OpenEMR to the cloud</p>
-    </div>
-  </section>
-  <section class="osi">
+  </div>
+</section>
+<section class="osi">
     <div class="col-sm-12 col-md-6">
       <h1 class="display-4">Open-Source</h1>
       <p class="lead">
         Open source software has changed the world for the better. OpenEMR is a leader in healthcare open source software. Costly
         proprietary EMRs are no longer the only option. Learn how to start contributing today!
-      </p>
-    </div>
-    <div class="col text-center">
-      <img src="{{ .Site.BaseURL }}img/osi-certified.png" alt="" class="img-fluid">
-    </div>
-  </section>
+    </p>
+</div>
+<div class="col text-center">
+  <img src="{{ .Site.BaseURL }}img/osi-certified.png" alt="" class="img-fluid">
+</div>
+</section>
 </div>
 {{ end }}
