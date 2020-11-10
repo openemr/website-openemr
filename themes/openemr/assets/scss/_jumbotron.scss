@@ -30,7 +30,7 @@
         padding-top: 65px;
 
         @include media-breakpoint-up(lg) {
-            padding-top: 150px;
+            padding-top: 100px;
         }
 
         .content {
@@ -62,6 +62,7 @@
                     @extend .text-white;
                     @extend .text-left;
                     @extend .bg-primary;
+                    @extend .mb-2;
                     //background-color: rgba(46, 155, 214, 0.40) !important;
                     background-color: rgba(255, 255, 255, 0.20) !important;
                     transition: background-color 0.25s;
