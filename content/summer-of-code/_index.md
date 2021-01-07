@@ -34,13 +34,6 @@ OpenEMR currently has a mobile app based on Flutter. This is a flexible project 
 
 Goal is to develop a mechanism to create and import large datasets of standardized patient data. This is a high impact project that would then markedly improve instructional use of OpenEMR and markedly improve OpenEMR's use in the data analytics field.
 
-* Tags: New Feature 
-
-
-## [Quality Reporting](https://community.open-emr.org/t/project-quality-reporting/13703)
-
-Quality reporting and collection of clinical metrics are a valuable tool for clinics. It allows self-assessment, quality improvement projects, and reporting of metrics to regulation entities. Goal is to integrate quality reporting into OpenEMR. Note this project will involve both choosing of which clinical metrics to assess and then developing these in OpenEMR.
-
 * Tags: New Feature
 
 
