@@ -16,14 +16,14 @@ OpenEMR is a open source EMR (electronic medical record) software suite primaril
 
 **Below is a list of project ideas.**
 
-## [API Improvements](https://community.open-emr.org/t/project-fhir-integration/13701)
+## API Improvements
 
 OpenEMR has an API, which is the backbone of support for Fast Healthcare Interoperability Resources (FHIR) and SMART on FHIR applications. Goal is to improve the API in order to increase breadth of support for SMART on FHIR applications.
 
 * Tags: New Feature
 
 
-## [Mobile App](https://community.open-emr.org/t/project-standardized-patient-data/13702)
+## Mobile App
 
 OpenEMR currently has a mobile app based on Flutter. This is a flexible project to design a mobile app (can leverage the current flutter app or build another app) that integrates with OpenEMR to solve a focused problem.
 
