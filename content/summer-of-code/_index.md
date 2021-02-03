@@ -16,13 +16,6 @@ OpenEMR is a open source EMR (electronic medical record) software suite primaril
 
 **Below is a list of project ideas.**
 
-## API Improvements
-
-OpenEMR has an API, which is the backbone of support for Fast Healthcare Interoperability Resources (FHIR) and SMART on FHIR applications. Goal is to improve the API in order to increase breadth of support for SMART on FHIR applications.
-
-* Tags: New Feature
-
-
 ## Mobile App
 
 OpenEMR currently has a mobile app based on Flutter. This is a flexible project to design a mobile app (can leverage the current flutter app or build another app) that integrates with OpenEMR to solve a focused problem.
@@ -30,65 +23,72 @@ OpenEMR currently has a mobile app based on Flutter. This is a flexible project 
 * Tags: New Feature
 
 
-## [Standardized Patient Data](https://community.open-emr.org/t/project-standardized-patient-data/13702)
+## API Improvements
+
+OpenEMR has an API, which is also the backbone of support for Fast Healthcare Interoperability Resources (FHIR) and SMART on FHIR applications. Goal is to improve the API and also increase breadth of support for SMART on FHIR applications.
+
+* Tags: New Feature
+
+
+## Standardized Patient Data
 
 Goal is to develop a mechanism to create and import large datasets of standardized patient data. This is a high impact project that would then markedly improve instructional use of OpenEMR and markedly improve OpenEMR's use in the data analytics field.
 
 * Tags: New Feature
 
 
-## [Upgrade Smarty2 to Smarty3](https://community.open-emr.org/t/project-upgrade-smarty2-to-smarty3/13704)
+## Upgrade Smarty2 to Smarty3
 
 A minor, albeit critical part of the codebase uses Smarty. The goal of this project is to migrate this code from using Smarty version 2 to Smarty version 3. This is critical for "future proofing" of OpenEMR's codebase since Smarty version 2 will be deprecated in the future.
 
 * Tags: Modernization 
 
 
-## [Standardize PDF Tools](https://community.open-emr.org/t/project-standardize-pdf-tools/13705)
+## Standardize PDF Tools
 
 OpenEMR currently uses several different PDF tools and libraries, which complicates code development. Goal is to standardize all PDF output from a common PDF library.
 
 * Tags: Optimization 
 
 
-## [PACS Server Integration](https://community.open-emr.org/t/project-pacs-server-integration/13706)
+## PACS Server Integration
 
 Picture Archiving and Communication System (PACS) is a system that allows storing and viewing of patient imaging, such as Xrays, CT scans, and ultrasounds. Goal is it integrate a PACS server with OpenEMR to allow the viewing and storage of patient imaging.
 
 * Tags: New Feature 
 
 
-## [Upgrade Codebase to Use Services](https://community.open-emr.org/t/project-upgrade-codebase-to-use-services/13707)
+## Upgrade Codebase to Use Services
 
 Since OpenEMR began in 2002, there are parts of the codebase that are crying out for modernization. The goal of this project is to lead a modernization effort that focuses on modern use of classes and services.
 
 * Tags: Modernization 
 
 
-## [Support MAR](https://community.open-emr.org/t/project-support-mar/13708)
+## Support MAR
 
 A Medication Administration Record (MAR) is a record of all medications that are given to a patient while they are in a hospital or nursing home facility. OpenEMR currently supports a medication list and writing prescriptions, however, OpenEMR does not support a MAR. Goal is to implement a MAR in OpenEMR.
 
 * Tags: New Feature 
 
 
-## [Integrate Telehealth](https://community.open-emr.org/t/project-integrate-telehealth/13709)
+## Integrate Telehealth
 
 Telehealth is increasingly being used in healthcare and while OpenEMR does support a patient portal and communication with physicians via secure messaging or chat, OpenEMR does not yet support Telehealth. The goal is to support telehealth in OpenEMR.
 
 * Tags: New Feature 
 
 
-## [Automated Testing](https://community.open-emr.org/t/project-automated-testing/13778)
+## Automated Testing
 
 OpenEMR currently has a initial framework for automated testing which uses Github Actions to run testing on all PHP versions, all MySQL versions, and all MariaDB versions. Currently there are several unit tests, api test, e2e (functional) tests. We are waiting for somebody to come along and markedly expand the automated testing.
 
 * Tags: Modernization
 
 
-## [Modernize Database](https://community.open-emr.org/t/project-modernize-database/13829)
+## Modernize Database
 
-The OpenEMR database has been waiting patiently for a student to modernize it. At this time, OpenEMR overrides the sql_mode settings (sets it to empty) in order to ensure compatibility with MariaDB and MySQL and issues are beginning to arise because of this. Goal would be for OpenEMR's database to support the default sql_mode settings in [MariaDB](https://mariadb.com/kb/en/sql-mode/) and [MySQL8](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html) (note mysql8 has more by default). Goal of this modernization is to also support it for folks that are upgrading OpenEMR from prior versions. Another thing to consider is support for utf8mb4 encoding. After completing this, the student would then be in a good position to plan and begin development on a mechanism to support offsite use of OpenEMR; see here for thoughts and even a prelim PR on this using UUID's: https://github.com/openemr/openemr/pull/2360 .
+The OpenEMR database has been waiting patiently for a student to modernize it. At this time, OpenEMR overrides the sql_mode settings (sets it to empty) in order to ensure compatibility with MariaDB and MySQL and issues are beginning to arise because of this. Goal would be for OpenEMR's database to support the default sql_mode settings in [MariaDB](https://mariadb.com/kb/en/sql-mode/) and [MySQL8](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html) (note mysql8 has more by default). Goal of this modernization is to also support it for folks that are upgrading OpenEMR from prior versions.
 
 * Tags: Modernization
 
@@ -98,7 +98,7 @@ The OpenEMR database has been waiting patiently for a student to modernize it. A
 The community is also very open to custom proposals. Check out the [OpenEMR Project Roadmap](https://www.open-emr.org/wiki/index.php/Roadmaps#OpenEMR_Project_Roadmap) and [Issue in Github](https://github.com/openemr/openemr/issues) for some more ideas, and highly recommend discussing your ideas on the [OpenEMR forum](https://community.open-emr.org/) or [OpenEMR chat](https://www.open-emr.org/chat) and/or contacting a mentor directly. 
 
 
-## Mentors (preliminary)
+## Mentors
 
 * [Arnab Naha](https://github.com/arnabnaha)
 * [Asher Densmore-Lynn](https://github.com/jesdynf) 
@@ -111,8 +111,7 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 * [Ken Chapple](https://github.com/kchapple)
 * [Nilesh Hake](https://community.open-emr.org/u/nilesh_hake)
 * [Rachel Ellison](https://community.open-emr.org/u/rachel_ellison)
-* [Roberto Vasquez](https://github.com/robertogagliotta) 
-* [Robert Down](https://github.com/robertdown) 
+* [Roberto Vasquez](https://github.com/robertogagliotta)
 * [Robert Hausam](https://community.open-emr.org/u/rhausam)
 * [Rod Roark](https://github.com/sunsetsystems)
 * [Sandra Gutierrez](https://github.com/gutiersa)
