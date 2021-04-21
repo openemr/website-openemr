@@ -10,9 +10,15 @@ titleOnCover: true
 titlePush: right
 ---
 
+<br>
+
 OpenEMR depends on donations from users, developers, and philanthropists to
-continue moving the project forward. Please consider a donation today. We have
-two ways you can make a financial donation.
+continue moving the project forward. Please consider a donation today. 
+Donations go to the OpenEMR Foundation, which is a 501(c)(3) nonprofit
+organization that exists to support the OpenEMR project. We have four
+ways you can make a financial donation.
+
+---
 
 ## Give via PayPal
 
@@ -23,8 +29,27 @@ two ways you can make a financial donation.
 <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
 </form>
 
+---
+
 ## Give via OpenCollective
 
 <a href="https://opencollective.com/openemr" class="btn btn-lg btn-primary" style="text-decoration: none;"><i class="fa fa-heart"></i>Donate on OpenCollective</a>
 
-You can support OpenEMR by contributing a financial donation using Paypal or OpenCollective. You can read more about OpenCollective in [this blog post](/blog/accepting-donations-on-opencollective).
+You can read more about OpenCollective in [this blog post](/blog/accepting-donations-on-opencollective).
+
+---
+
+## Give via Bitcoin
+
+Address: 3GCNLbiZmHP26fA77NkLgY4tKdEts3ADQg
+
+---
+
+## Give via Ethereum (and ERC20 tokens)
+
+Address: 0xcD7542b2DcF41072aC7783C7cbc31B0f1E257E80
+
+---
+
+<br>
+<br>
