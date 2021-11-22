@@ -1,0 +1,29 @@
+{{ define "main" }}
+<main class="page container lectures-list">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+        <h1>OpenEMR Lecture Series</h1>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="col-xs-12 col-md-8 offset-md-2 list-unstyled">
+      {{ range .Pages }}
+      <li>
+        <h2>
+          <a href="{{ .Params.recording_url }}" target="_blank">{{ .Title }}</a>
+        </h2>
+        <div class="d-block">{{ .Params.presenter }}</div>
+        <div class="d-block">{{ .PublishDate.Format "Monday, January 2, 2006" }}</div>
+        <div class="d-block pt-2">
+          <p class="lead">{{ .Summary }}</p>
+        </div>
+        <div class="d-block">
+          <a href="{{ .Params.recording_url }}" target="_blank"><img src="{{ .Params.image | absURL }}" class="img-fluid w-50" alt=""></a>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</main>
+{{ end }}
+
