@@ -1,0 +1,62 @@
+{{ define "main" }}
+<main class="page container lectures-list">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+        <h1>OpenEMR Lecture Series</h1>
+        <p>
+          The OpenEMR Development Lecture Series is a once monthly lecture on a OpenEMR Development topic on the second Saturday of every month. Anyone interested in listening and participating is welcome. 
+        </p>
+        <dl>
+          <dt><strong>The Day</strong></dt>
+          <dd>The second Saturday of every month</dd>
+        </dl>
+        <dl>
+          <dt>The Time</dt>
+          <dd>2:00pm Eastern / 11:00 am Pacific</dd>
+        </dl>
+        <h2>Zoom Call in Details</h2>
+        <ul>
+          <li>The call passcode is <strong>989410</strong></li>
+          <li>Join from Telephone
+            <ul>
+              <li>Dial: (646) 558-8656 or (408) 638-0968</li>
+              <li>Meeting ID: 567 231 500</li>
+              <li>International Numbers Available: <a href="https://zoom.us/zoomconference">https://zoom.us/zoomconference</a></li>
+            </ul>
+          </li>
+          <li>Join from PC, Mac, Linux, iOS or Android
+            <ul>
+              <li><a href="https://zoom.us/j/567231500">https://zoom.us/j/567231500</a></li>
+            </ul>
+          </li>
+          <li>Join from iPhone one-tap
+            <ul>
+              <li>16465588656,567231500#</li>
+              <li>14086380968,567231500#</li>
+            </ul>
+          </li>
+        </ul>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="col-xs-12 col-md-8 offset-md-2 list-unstyled">
+      {{ range .Pages }}
+      <li class="border-bottom">
+        <h2>
+          <a href="{{ .Params.recording_url }}" target="_blank">{{ .Title }}</a>
+        </h2>
+        <div class="d-block">{{ .Params.presenter }}</div>
+        <div class="d-block">{{ .PublishDate.Format "Monday, January 2, 2006" }}</div>
+        <div class="d-block pt-2">
+          <p class="lead">{{ .Summary }}</p>
+        </div>
+        <div class="d-block">
+          <a href="{{ .Params.recording_url }}" target="_blank"><img src="{{ .Params.image | absURL }}" class="img-fluid w-50" alt=""></a>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</main>
+{{ end }}
+
