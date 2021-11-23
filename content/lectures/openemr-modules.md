@@ -7,4 +7,4 @@ image: images/lectures/modules.png
 ---
 
 Stephen Nielson describes how to effectively develop OpenEMR modules
-<!--more-->
+<!--more -->
