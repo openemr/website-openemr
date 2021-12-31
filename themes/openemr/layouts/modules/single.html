@@ -1,0 +1,22 @@
+{{ define "main" }}
+<main class="page container lectures-list">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+        <h1>{{ .Title }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+      <p class="p-0 m-0 text-secondary">
+        <span class="fw-bolder">Categories:&nbsp;</span>
+        {{ range .Params.categories }}
+        <span class="badge badge-primary rounded-pill">{{ . }}</span>
+        {{ end }}
+      </p>
+      <p class="text p-0 m-0 text-secondary">Requires OpenEMR version &ge; {{ .Params.minimum_version }}</p>
+      <p class="lead p-0">{{ .Summary }}</p>
+    </div>
+  </div>
+</main>
+{{ end }}
+
