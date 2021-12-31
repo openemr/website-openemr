@@ -21,7 +21,7 @@ Our group has recently noticed an uptick in cost-sensitive clinicians moving fro
 
 To get started, feel free to explore [our live demo](https://www.open-emr.org/demo/), extensive [documentation](https://www.open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page), and install [options](https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads) (including your own [cloud](https://www.open-emr.org/wiki/index.php/AWS_Cloud_Packages_Comparison)).
 
-As a ONC Complete EHR Certified product, we support common clinical data imports via our [Care Coordination Module](https://www.open-emr.org/wiki/index.php/Use_the_Carecoordination_module#Import_external_CCDA_file). 
+We support common clinical data imports via our [Care Coordination Module](https://www.open-emr.org/wiki/index.php/Use_the_Carecoordination_module#Import_external_CCDA_file). 
 
 <center>![](/images/demographics-feature.png)</center>
 
