@@ -43,7 +43,7 @@
       {{ range .Pages }}
       <li class="border-bottom">
         <h2>
-          <a href="{{ .Params.recording_url }}" target="_blank">{{ .Title }}</a>
+          <a id="{{ .Params.anchor_id }}" href="{{ .Params.recording_url }}" target="_blank">{{ .Title }}</a>
         </h2>
         <div class="d-block">{{ .Params.presenter }}</div>
         <div class="d-block">{{ .PublishDate.Format "Monday, January 2, 2006" }}</div>
