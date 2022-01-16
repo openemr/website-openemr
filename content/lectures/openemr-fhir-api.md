@@ -1,6 +1,6 @@
 ---
-title: "OpenEMR FHIR API"
-anchor_id: openemr-fhir-api
+title: "OpenEMR FHIR Lecture Series: Lecture 1 - Overview and Use of FHIR in OpenEMR"
+anchor_id: openemr-fhir-api-1
 date: 2022-01-08
 presenter: Stephen Nielson
 recording_url: https://youtu.be/LQHNRBgg6Q8

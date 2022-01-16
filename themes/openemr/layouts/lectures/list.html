@@ -1,7 +1,7 @@
 {{ define "main" }}
 <main class="page container lectures-list">
   <div class="row">
-    <div class="col-xs-12 col-md-8 offset-md-2">
+    <div class="col-xs-12 col-md-8 offset-md-2 mb-2">
         <h1>OpenEMR Lecture Series</h1>
         <p>
           The OpenEMR Development Lecture Series is a once monthly lecture on a OpenEMR Development topic on the second Saturday of every month. Anyone interested in listening and participating is welcome. 
@@ -41,9 +41,9 @@
   <div class="row">
     <ul class="col-xs-12 col-md-8 offset-md-2 list-unstyled">
       {{ range .Pages }}
-      <li class="border-bottom">
+      <li id="{{ .Params.anchor_id }}" class="border-bottom border-top pt-4 pb-2">
         <h2>
-          <a id="{{ .Params.anchor_id }}" href="{{ .Params.recording_url }}" target="_blank">{{ .Title }}</a>
+          <a href="{{ .Params.recording_url }}" target="_blank">{{ .Title }}</a>
         </h2>
         <div class="d-block">{{ .Params.presenter }}</div>
         <div class="d-block">{{ .PublishDate.Format "Monday, January 2, 2006" }}</div>
