@@ -34,7 +34,7 @@ h1 {
 }
 
 .section-title {
-    background-color: theme-color("primary");
+    background-color: map-get($theme-colors, "primary");
 
     h1 {
         color: $white;
@@ -46,7 +46,7 @@ h1 {
 }
 
 .display-3 {
-    color: theme-color("primary");
+    color: map-get($theme-colors, "primary");
 }
 
 .features {

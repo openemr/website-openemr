@@ -119,7 +119,7 @@ $theme-colors: (
 );
 
 // Set a specific jump point for requesting color jumps
-$theme-color-interval: 8%;
+$theme-colors-interval: 8%;
 
 
 // Nav users
@@ -175,7 +175,7 @@ $body-color:    $gray-900;
 //
 // Style anchor elements.
 
-$link-color:            theme-color("primary");
+$link-color:            map-get($theme-colors, "primary");
 $link-decoration:       none;
 $link-hover-color:      darken($link-color, 15%);
 $link-hover-decoration: none;
@@ -239,7 +239,7 @@ $border-radius-lg:       .3rem;
 $border-radius-sm:       .2rem;
 
 $component-active-color: $white;
-$component-active-bg:    theme-color("primary");
+$component-active-bg:    map-get($theme-colors, "primary");
 
 $caret-width:            .3em;
 
@@ -365,7 +365,7 @@ $input-btn-line-height-xl:  1.75;
 
 $btn-font-weight:                $font-weight-normal;
 $btn-box-shadow:                 inset 0 1px 0 rgba($white,.15), 0 1px 1px rgba($black,.075);
-$btn-focus-box-shadow:           0 0 0 3px rgba(theme-color("primary"), .25);
+$btn-focus-box-shadow:           0 0 0 3px rgba(map-get($theme-colors, "primary"), .25);
 $btn-active-box-shadow:          inset 0 3px 5px rgba($black,.125);
 
 $btn-link-disabled-color:        $gray-600;
@@ -395,7 +395,7 @@ $input-border-radius-lg:         $border-radius-lg;
 $input-border-radius-sm:         $border-radius-sm;
 
 $input-focus-bg:                 $input-bg;
-$input-focus-border-color:       lighten(theme-color("primary"), 25%);
+$input-focus-border-color:       lighten(map-get($theme-colors, "primary"), 25%);
 $input-focus-box-shadow:         $input-box-shadow, $btn-focus-box-shadow;
 $input-focus-color:              $input-color;
 
@@ -443,19 +443,19 @@ $custom-control-indicator-disabled-bg:       $gray-200;
 $custom-control-description-disabled-color:  $gray-600;
 
 $custom-control-indicator-checked-color:      $white;
-$custom-control-indicator-checked-bg:         theme-color("primary");
+$custom-control-indicator-checked-bg:         map-get($theme-colors, "primary");
 $custom-control-indicator-checked-box-shadow: none;
 
-$custom-control-indicator-focus-box-shadow: 0 0 0 1px $body-bg, 0 0 0 3px theme-color("primary");
+$custom-control-indicator-focus-box-shadow: 0 0 0 1px $body-bg, 0 0 0 3px map-get($theme-colors, "primary");
 
 $custom-control-indicator-active-color:      $white;
-$custom-control-indicator-active-bg:         lighten(theme-color("primary"), 35%);
+$custom-control-indicator-active-bg:         lighten(map-get($theme-colors, "primary"), 35%);
 $custom-control-indicator-active-box-shadow: none;
 
 $custom-checkbox-indicator-border-radius: $border-radius;
 $custom-checkbox-indicator-icon-checked: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='#{$custom-control-indicator-checked-color}' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E"), "#", "%23");
 
-$custom-checkbox-indicator-indeterminate-bg: theme-color("primary");
+$custom-checkbox-indicator-indeterminate-bg: map-get($theme-colors, "primary");
 $custom-checkbox-indicator-indeterminate-color: $custom-control-indicator-checked-color;
 $custom-checkbox-indicator-icon-indeterminate: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='#{$custom-checkbox-indicator-indeterminate-color}' d='M0 2h4'/%3E%3C/svg%3E"), "#", "%23");
 $custom-checkbox-indicator-indeterminate-box-shadow: none;
@@ -479,7 +479,7 @@ $custom-select-border-width:  $input-btn-border-width;
 $custom-select-border-color:  $input-border-color;
 $custom-select-border-radius: $border-radius;
 
-$custom-select-focus-border-color: lighten(theme-color("primary"), 25%);
+$custom-select-focus-border-color: lighten(map-get($theme-colors, "primary"), 25%);
 $custom-select-focus-box-shadow:   inset 0 1px 2px rgba($black, .075), 0 0 5px rgba($custom-select-focus-border-color, .5);
 
 $custom-select-font-size-sm:  75%;
@@ -487,7 +487,7 @@ $custom-select-height-sm: $input-height-sm;
 
 $custom-file-height:           $input-height;
 $custom-file-width:            14rem;
-$custom-file-focus-box-shadow: 0 0 0 .075rem $white, 0 0 0 .2rem theme-color("primary");
+$custom-file-focus-box-shadow: 0 0 0 .075rem $white, 0 0 0 .2rem map-get($theme-colors, "primary");
 
 $custom-file-padding-y:     $input-btn-padding-y;
 $custom-file-padding-x:     $input-btn-padding-x;
@@ -511,8 +511,8 @@ $custom-file-text: (
 
 
 // Form validation
-$form-feedback-valid-color:   theme-color("success");
-$form-feedback-invalid-color: theme-color("danger");
+$form-feedback-valid-color:   map-get($theme-colors, "success");
+$form-feedback-invalid-color: map-get($theme-colors, "danger");
 
 
 // Dropdowns
@@ -624,8 +624,8 @@ $pagination-hover-bg:                  $gray-200;
 $pagination-hover-border-color:        #ddd;
 
 $pagination-active-color:              $white;
-$pagination-active-bg:                 theme-color("primary");
-$pagination-active-border-color:       theme-color("primary");
+$pagination-active-bg:                 map-get($theme-colors, "primary");
+$pagination-active-border-color:       map-get($theme-colors, "primary");
 
 $pagination-disabled-color:            $gray-600;
 $pagination-disabled-bg:               $white;
@@ -765,7 +765,7 @@ $progress-bg:                   $gray-200;
 $progress-border-radius:        $border-radius;
 $progress-box-shadow:           inset 0 .1rem .1rem rgba($black,.1);
 $progress-bar-color:            $white;
-$progress-bar-bg:               theme-color("primary");
+$progress-bar-bg:               map-get($theme-colors, "primary");
 $progress-bar-animation-timing: 1s linear infinite;
 $progress-bar-transition:       width .6s ease;
 

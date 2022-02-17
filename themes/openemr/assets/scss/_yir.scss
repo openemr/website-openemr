@@ -213,7 +213,7 @@
 
   h3 {
     font-size: 4em;
-    color: theme-color("primary");
+    color: map-get($theme-colors, "primary");
   }
 
   h2 {
@@ -229,7 +229,7 @@
       margin-bottom: 25px;
     }
     display: inline-block;
-    border-bottom: 1px solid rgba(theme-color("secondary"), 0.5);
+    border-bottom: 1px solid rgba(map-get($theme-colors, "secondary"), 0.5);
   }
 
   .row {
