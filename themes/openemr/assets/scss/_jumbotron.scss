@@ -60,7 +60,7 @@
             .target_nav {
                 .card {
                     @extend .text-white;
-                    @extend .text-left;
+                    @extend .text-start;
                     @extend .bg-primary;
                     @extend .mb-2;
                     //background-color: rgba(46, 155, 214, 0.40) !important;
@@ -157,7 +157,7 @@
             .card {
                 @extend .text-white;
                 // @extend .text-center;
-                @extend .text-left;
+                @extend .text-start;
                 @extend .bg-primary;
                 // border-radius: 20px;
                 //background-color: rgba(46, 155, 214, 0.40) !important;

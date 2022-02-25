@@ -29,7 +29,7 @@ p {
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid theme-color("primary");
+  border-bottom: 10px solid map-get($theme-colors, "primary");
   position: absolute;
   top: -10px;
   left: 25px;
@@ -160,7 +160,7 @@ footer.site {
     height: 450px;
 }
 .btn-xl {
-    @include button-size($input-btn-padding-y-xl, $input-btn-padding-x-xl, $font-size-xl, $line-height-xl, $btn-border-radius-lg);
+    @include button-size($input-btn-padding-y-xl, $input-btn-padding-x-xl, $font-size-xl, $btn-border-radius-lg);
 }
 
 main.page {
@@ -198,7 +198,7 @@ main.page {
 
         h1 {
             @extend .mt-4;
-            @extend .mr-4;
+            @extend .me-4;
             @extend .display-1;
         }
     }
