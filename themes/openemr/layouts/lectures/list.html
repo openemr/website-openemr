@@ -1,60 +1,62 @@
 {{ define "main" }}
-<main class="page container lectures-list">
+<main class="page container-fluid lectures-list" title="Lecture Series">
   <div class="row">
     <div class="col-xs-12 col-md-8 offset-md-2 mb-2">
-        <h1>OpenEMR Lecture Series</h1>
-        <p>
+        <h1 class="pb-2 mb-0">OpenEMR Lecture Series</h1>
+        <p class="lead">
           The OpenEMR Development Lecture Series is a once monthly lecture on a OpenEMR Development topic on the second Saturday of every month. Anyone interested in listening and participating is welcome. 
         </p>
-        <dl>
-          <dt><strong>The Day</strong></dt>
-          <dd>The second Saturday of every month</dd>
-        </dl>
-        <dl>
-          <dt>The Time</dt>
-          <dd>2:00pm Eastern / 11:00 am Pacific</dd>
-        </dl>
-        <h2>Zoom Call in Details</h2>
-        <ul>
-          <li>The call passcode is <strong>989410</strong></li>
-          <li>Join from PC, Mac, Linux, iOS or Android
-            <ul>
-              <li><a href="https://zoom.us/j/567231500">https://zoom.us/j/567231500</a></li>
-            </ul>
-          </li>
-          <li>Join from Telephone
-            <ul>
-              <li>Meeting ID: 567 231 500</li>
-              <li>Dial by your location</li>
-                <ul>
-                  <li>253 215 8782 US (Tacoma)</li>
-                  <li>346 248 7799 US (Houston)</li>
-                  <li>669 900 6833 US (San Jose)</li>
-                  <li>312 626 6799 US (Chicago)</li>
-                  <li>646 876 9923 US (New York)</li>
-                  <li>301 715 8592 US (Washington DC)</li>
-              </ul>
-              <li>International Numbers Available: <a href="https://zoom.us/zoomconference">https://zoom.us/zoomconference</a></li>
-            </ul>
-          </li>
-          <li>Join from iPhone one-tap
-            <ul>
-              <li>16468769923,567231500#</li>
-              <li>13462487799,567231500#</li>
-            </ul>
-          </li>
-        </ul>
+        <div class="row">
+          <div class="col-sm-12 col-md pb-4 pb-sm-0">
+            <dl>
+              <dt><strong>The Day</strong></dt>
+              <dd>The second Saturday of every month</dd>
+            </dl>
+            <dl>
+              <dt>The Time</dt>
+              <dd>2:00pm Eastern / 11:00 am Pacific</dd>
+            </dl>
+            <dl>
+              <dt>The Meeting ID</dt>
+              <dd>567-231-500</dd>
+            </dl>
+            <dl>
+              <dt>The Passcode</dt>
+              <dd>989410</dd>
+            </dl>
+            <a href="https://zoom.us/zoomconference">International Numbers Available</a>
+          </div>
+          <div class="col-sm-12 col-md">
+            <div class="d-grid gap-1"><a href="https://zoom.us/j/567231500" target="_blank" class="btn btn-outline-primary">Launch Zoom Meeting</a></div>
+            <div class="text-center pt-3 text-muted"><i class="fa fa-phone"></i>&nbsp;Auto Join by Location</div>
+            <div class="d-grid gap-1"><a href="tel:2532158782,567231500#,,#,989410#" class="btn m-1 text-start btn-outline-dark">(253) 215-8782 Tacoma, WA, USA</a></div>
+            <div class="d-grid gap-1"><a href="tel:3462487799,567231500#,,#,989410#" class="btn m-1 text-start btn-outline-dark">(346) 248-7799 Houston, TX, USA</a></div>
+            <div class="d-grid gap-1"><a href="tel:6999006833,567231500#,,#,989410#" class="btn m-1 text-start btn-outline-dark">(669) 900-6833 San Jose, CA, USA</a></div>
+            <div class="d-grid gap-1"><a href="tel:3126266799,567231500#,,#,989410#" class="btn m-1 text-start btn-outline-dark">(312) 626-6799 Chicago, IL, USA</a></div>
+            <div class="d-grid gap-1"><a href="tel:6468769923,567231500#,,#,989410#" class="btn m-1 text-start btn-outline-dark">(646) 876-9923 New York, NY, USA</a></div>
+            <div class="d-grid gap-1"><a href="tel:3017158592,567231500#,,#,989410#" class="btn m-1 text-start btn-outline-dark">(301) 715-8592 Washington DC, USA</a></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
     <ul class="col-xs-12 col-md-8 offset-md-2 list-unstyled">
       {{ range .Pages }}
-      <li id="{{ .Params.anchor_id }}" class="border-bottom border-top pt-4 pb-2">
+      <li id="{{ anchorize .Title }}" class="border-bottom border-top pt-4 pb-2">
         <h2>
-          <a href="{{ .Params.recording_url }}" target="_blank">{{ .Title }}</a>
+          {{ .Scratch.Set "lectureDate" (cond (isset .Params "publishDate") .Params.publishDate .Params.date) }}
+          {{ if gt (.Scratch.Get "lectureDate" | time.AsTime) now }}
+            <small class="badge radius-none py-1 px-2 bg-primary text-white text-opacity-75">Upcoming</small>
+          {{ end }}
+          {{ if (isset .Params "recording_url") }}
+            <a href="{{ .Params.recording_url }}" target="_blank">{{ .Title }}</a>
+          {{ else }}
+            {{ .Title }}
+          {{ end }}
         </h2>
         <div class="d-block">{{ .Params.presenter }}</div>
-        <div class="d-block">{{ .PublishDate.Format "Monday, January 2, 2006" }}</div>
+        <div class="d-block">{{ .Scratch.Get "lectureDate" | time.Format "Monday, January 2, 2006" }}</div>
         <div class="d-block pt-2">
           <p class="lead">{{ .Summary }}</p>
         </div>
