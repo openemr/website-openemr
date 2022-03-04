@@ -17,7 +17,7 @@
           <p class="p-0 m-0 text-secondary">
             <span class="fw-bolder">Categories:&nbsp;</span>
             {{ range .Params.categories }}
-            <span class="badge badge-primary rounded-pill">{{ . }}</span>
+            <span class="badge bg-primary rounded-pill">{{ . }}</span>
           {{ end}}
           </p>
           <p class="text p-0 m-0 text-secondary">Requires OpenEMR version &ge; {{ .Params.minimum_version }}</p>
