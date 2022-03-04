@@ -45,7 +45,7 @@
       {{ range .Pages }}
       <li id="{{ anchorize .Title }}" class="border-bottom border-top pt-4 pb-2">
         <h2>
-          {{ .Scratch.Set "lectureDate" (cond (isset .Params "presentationdate") .Params.presentationDate .Params.date) }}
+          {{ .Scratch.Set "lectureDate" (cond (isset .Params "publishDate") .Params.publishDate .Params.date) }}
           {{ if gt (.Scratch.Get "lectureDate" | time.AsTime) now }}
             <small class="badge radius-none py-1 px-2 bg-primary text-white text-opacity-75">Upcoming</small>
           {{ end }}

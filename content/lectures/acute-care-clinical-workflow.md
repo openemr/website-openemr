@@ -1,7 +1,8 @@
 ---
 title: "Acute Care Clinical Workflow"
 anchor_id: acute-care-clinical-workflow
-date: 2022-03-04
+date: 2022-03-05
+publishDate: 2022-03-04
 presentationDate: 2022-03-05
 presenter: Robert Down, RN
 ---
