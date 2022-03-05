@@ -16,7 +16,7 @@ menu:
   main:
     - identifier: features
       name: Features
-      url: http://localhost:1313/wiki/index.php/OpenEMR_Features
+      url: /wiki/index.php/OpenEMR_Features
       weight: 1
     - identifier: demo
       name: Demo
@@ -24,7 +24,7 @@ menu:
       weight: 2
     - identifier: download
       name: Download
-      url: http://localhost:1313/wiki/index.php/OpenEMR_Downloads
+      url: /wiki/index.php/OpenEMR_Downloads
       weight: 3
     - identifier: module
       name: Modules
@@ -44,7 +44,7 @@ menu:
       weight: 7
     - identifier: chat
       name: Chat
-      url: http://localhost:1313/chat
+      url: /chat
       weight: 8
     - identifier: support
       name: Support
@@ -62,7 +62,7 @@ menu:
     - identifier: chat_support
       parent: support
       name: Chat
-      url: http://localhost:1313/chat
+      url: /chat
       weight: 3
     - identifier: psv
       parent: support
@@ -111,3 +111,7 @@ params:
   downloadUrl: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
 permalinks:
   post: /:filename/
+module:
+  # replacements: "github.com/providencehealthtech/hugo-hero-theme -> ../../hugo-hero-theme"
+  # imports:
+    # - path: github.com/google/docsy
