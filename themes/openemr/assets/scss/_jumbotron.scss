@@ -9,7 +9,7 @@
             left: 0;
             height: 100%;
             width: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.3);
         }
     }
 
@@ -63,8 +63,7 @@
                     @extend .text-start;
                     @extend .bg-primary;
                     @extend .mb-2;
-                    //background-color: rgba(46, 155, 214, 0.40) !important;
-                    background-color: rgba(255, 255, 255, 0.20) !important;
+                    background-color: #335489 !important;
                     transition: background-color 0.25s;
 
                     h4 {
@@ -81,7 +80,7 @@
 
                     &:hover {
                         @include transition(0.25s);
-                        background-color: rgb(46, 155, 214) !important;
+                        background-color: #4975BC !important;
                     }
                     a {
                         color: $white;
@@ -196,6 +195,9 @@
     }
 }
 
+i.fa-heart {
+    color: white;
+}
 
 .welcome-billboard {
   @extend .home-billboard;
