@@ -8,6 +8,8 @@ url: foundation
 
 The OpenEMR Foundation, Inc. is a 501&#40;c&#41;&#40;3&#41; nonprofit organization that exists to support the open-source OpenEMR project. This includes managing various cloud-based infrastructure for OpenEMR websites, the acceptance of tax-exempt donations, legal maintenance of assets and certifications, as well as other miscellaneous services required to ensure long-term viability of the software.
 
+More details can be found on the [organization's wiki page](https://www.open-emr.org/wiki/index.php/OpenEMR_Foundation_wiki_page).
+
 ## Vision
 A world where every health care provider has access to high-quality health care information technology.
 
