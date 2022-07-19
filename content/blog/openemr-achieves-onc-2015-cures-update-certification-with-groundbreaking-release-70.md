@@ -3,7 +3,7 @@ title: OpenEMR Achieves ONC 2015 Cures Update Certification with Groundbreaking 
 author:
   name: OpenEMR
   twitter: openemr
-date: '2022-07-13'
+date: '2022-07-19'
 slug: openemr-achieves-onc-2015-cures-update-certification-with-groundbreaking-release-70
 images:
   - images/openemr-blue-logo.png 
