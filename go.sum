@@ -1,0 +1,4 @@
+github.com/google/docsy v0.1.0 h1:CFlYmjOf9Wz86cgmXYK701KePcuYMHBnk+Ud4X2QIyo=
+github.com/google/docsy v0.1.0/go.mod h1:alhAPKceHP14eqO+nJEhYehHeNcPKV8QnduoauTBZhs=
+github.com/robertdown/timer-hugo v0.0.0-20220125175941-e88a8095b14e h1:BWJIzdaJmEg4Md+aZhMljfOSyEEwkTya+bbPxXx2fF8=
+github.com/robertdown/timer-hugo v0.0.0-20220125175941-e88a8095b14e/go.mod h1:waGt/Smmp8iRWT4/NOcbnbSh7dh6p+X0eWj1mmSflLk=

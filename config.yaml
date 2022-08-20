@@ -1,4 +1,8 @@
 title: OpenEMR
+archetypeDir: ./src/archetypes
+assetsDir: ./src/static
+contentDir: ./src/content
+themesDir: ./src/themes
 baseURL: https://www.open-emr.org/
 theme: openemr
 languageCode: en-us

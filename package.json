@@ -4,9 +4,7 @@
   "description": "Hugo-build website for OpenEMR",
   "main": "index.js",
   "scripts": {
-    "setup": "cd themes/openemr/ && npm install",
-    "dev": "hugo server -D --baseUrl=localhost:1313",
-    "build": "hugo"
+    "setup": "cd src/themes/openemr/ && npm install",
   },
   "repository": {
     "type": "git",

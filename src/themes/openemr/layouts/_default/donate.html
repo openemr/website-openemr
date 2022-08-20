@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+<main class="page donate">
+    <div class="container-fluid">
+        <div class="row hero align-items-center" style="background-image: url('{{ .Param "cover" | absURL }}')">
+            <div class="col-sm-7 offset-sm-5">
+                <h1>{{ .Title }}</h1>
+            </div>
+        </div>
+    </div>
+    <article class="main mt-3">
+        <div class="row">
+            <div class="col-md-12 col-lg-6 offset-lg-3">
+                {{ .Content }}
+            </div>
+        </div>
+    </article>
+</main>
+
+{{ end }}

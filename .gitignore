@@ -14,8 +14,8 @@ jsconfig.json
 hugo*
 
 # Generated files at default location
-/public/
-/resources/_gen
+src/public/
+src/resources/_gen
 
 ### Node ###
 # Logs
@@ -129,7 +129,7 @@ GitHub.sublime-settings
 
 # End of https://www.gitignore.io/api/hugo,code,node,sublimetext
 
-resources/
-/public
+src/resources/
+src/public
 
 .idea/

@@ -1,0 +1,28 @@
+  {{- with .Params.images }}
+    <meta property="twitter:card" content="summary_large_image">
+    {{- with $.Params.twitterCardImageURL }}
+      <meta property="twitter:image" content="{{ . | absURL }}">
+    {{- else }}
+      {{- range first 1 . }}
+        <meta property="twitter:image" content="{{ . | absURL }}">
+      {{- end }}
+    {{- end }}
+    
+    {{- range first 6 . }}
+    <meta property="og:image" content="{{ . | absURL }}">
+    {{- end }}
+    {{- with $.Params.imageAltText }}
+    <meta property="twitter:image:alt" content="{{ . }}">
+    {{- end }}
+  {{- else }}
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="{{ .Site.BaseURL }}img/full_mark.png">
+    <meta property="og:image" content="{{ .Site.BaseURL }}img/full_mark.png">
+  {{- end }}
+  <meta property="twitter:site" content="{{ $.Param "twitter" }}">
+  <meta property="twitter:creator" content="@{{ $.Param "author.twitter" }}">
+  <meta property="fb:app_id" content="291996261297487">
+  <meta property="og:title" content="{{ .Title }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">

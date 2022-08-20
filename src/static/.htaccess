@@ -1,0 +1,16 @@
+# 2 HOURS cache
+<FilesMatch "\.(html|htm|shtml)$">
+Header set Cache-Control "max-age=7200, must-revalidate"
+</FilesMatch>
+<FilesMatch "(screenstyle.css|header.txt|footer.txt)$">
+Header set Cache-Control "max-age=7200, must-revalidate"
+</FilesMatch>
+
+# kill the facebook fb_xd_fragment and sms_ss bug
+RewriteEngine On
+RewriteCond %{QUERY_STRING} ^fb_xd_fragment
+RewriteRule ^(.*)$ http://www.open-emr.org\/$1? [R=301,L]
+RewriteCond %{QUERY_STRING} ^sms_ss
+RewriteRule ^(.*)$ http://www.open-emr.org\/$1? [R=301,L]
+
+ErrorDocument 404 /404.html
