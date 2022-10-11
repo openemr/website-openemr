@@ -14,7 +14,7 @@
     }
 
     @include media-breakpoint-up(lg) {
-        min-height: 100vh;
+        min-height: 85vh;
     }
 
     background-color: color("primary");
