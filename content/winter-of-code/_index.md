@@ -51,6 +51,7 @@ The community is also very open to custom proposals. Check out the [OpenEMR Proj
 (In progress of recruiting mentors (there will likely be about 5)
 
 * [Brady Miller](https://github.com/bradymiller)
+* [Robert Down](https://github.com/robertdown)
 * [Stephen Waite](https://github.com/stephenwaite)
 <!-- * [Arnab Naha](https://github.com/arnabnaha) -->
 <!-- * [Asher Densmore-Lynn](https://github.com/jesdynf) -->
