@@ -5,6 +5,8 @@ date: 2023-01-14
 publishDate: 2023-01-14
 presentationDate: 2023-01-14
 presenter: Jerry Padgett
+recording_url: https://youtu.be/G-nk730ZItI
+image: images/lectures/ccda-lecture.png
 ---
 
 Jerry Padgett discusses everything you need to know about C-CDA (Consolidated Clinical Document Architecture) for OpenEMR.
