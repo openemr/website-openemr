@@ -14,8 +14,8 @@ jsconfig.json
 hugo*
 
 # Generated files at default location
-src/public/
-src/resources/_gen
+public/
+resources/_gen
 
 ### Node ###
 # Logs
