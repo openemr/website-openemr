@@ -8,3 +8,7 @@ services:
       - 1313:1313
     volumes:
       - .:/src
+      - ./public:/public
+
+volumes:
+  public: {}
