@@ -1,17 +1,35 @@
 # OpenEMR Website
 
-This static-site is generated via [hugo](http://gohugo.io) version 0.52 and uses a custom
-theme to manage the main OpenEMR website.
+The OpenEMR Website is build using [Hugo](https://gohugo.io), a static-site
+generator. This repo manages the main marketing OpenEMR, the wiki is managed
+elsewhere. The recommended approach is to use `manage.sh` to leverage the docker
+version of hugo which will ensure builds are stable across dev and production
+environments.
 
 # Installation
 
-0. [Install hugo(extended version)](http://gohugo.io/getting-started/installing/) version 0.52 and install npm
 1. Clone this repo
 2. `cd` into the themes/openemr directory
 3. Run `npm install`
 4. `cd` into base directory of the repo
-5. Run `hugo server -F` (need the -F parameter to include future entries, for example, for future lectures) (or `hugo server -F -D` to include draft pages)
-6. Navigate to [localhost:1313](http://localhost:1313) in your browser
+
+# Building the Site
+From the root directory:
+1. Run `manage.sh`
+2. Site is built under `public/` on the host machine
+3. Docker container is automatically removed once build completes
+
+# Development
+From the root directory>
+1. Run `manage.sh serve`
+2. Navigate to [localhost:1313](http://localhost:1313)
+3. Docker container is started in interactive mode with a TTY window and can be 
+removed by Ctrl+C
+
+*Note*
+You can pass any number of arguments through `manage.sh` to the docker command
+that triggers `hugo`, allowing you to specify `manage.sh server -d -f` for draft
+and future posts to be built. If no arguments are passed, hugo attempts to build.
 
 # Submitting changes
 
