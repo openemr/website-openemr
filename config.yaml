@@ -1,6 +1,5 @@
 title: OpenEMR
 baseURL: https://www.open-emr.org/
-theme: openemr
 languageCode: en-us
 copyright: OpenEMR Foundation, Inc
 disqusShortname: openemr
@@ -42,3 +41,6 @@ params:
   downloadUrl: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
 permalinks:
   post: /:filename/
+module:
+  imports:
+    - path: github.com/openemr/website-theme

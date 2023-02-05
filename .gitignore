@@ -15,7 +15,7 @@ hugo*
 
 # Generated files at default location
 /public/
-/resources/_gen
+/resources/
 
 ### Node ###
 # Logs
