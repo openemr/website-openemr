@@ -29,7 +29,7 @@
         }
 
         a {
-            color: hsl(0, 100, 100);
+            color: $gray-900;
             &:hover {
                 text-decoration: none !important;
             }

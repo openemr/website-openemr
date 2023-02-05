@@ -11,8 +11,11 @@ coverImage: images/telehealth.png
 twitterCardImageURL: images/telehealth.png
 ---
 
-"OpenEMR is the electronic health record of choice for more than 100,000 medical providers globally, through which over 100 million patients receive care," said Joshua Fischburg, CEO of [Lifemesh](https://lifemesh.ai) Corp. "With our seamless Telehealth integration, Lifemesh and OpenEMR can now provide improved access to care for patients everywhere, in a matter of minutes." Joshua continued, "We are thrilled to partner with OpenEMR and support the global intensification of Digital Health adoption."
+OpenEMR is proud to announce seamless support for Telehealth.
+
 <!--more-->
+
+"OpenEMR is the electronic health record of choice for more than 100,000 medical providers globally, through which over 100 million patients receive care," said Joshua Fischburg, CEO of [Lifemesh](https://lifemesh.ai) Corp. "With our seamless Telehealth integration, Lifemesh and OpenEMR can now provide improved access to care for patients everywhere, in a matter of minutes." Joshua continued, "We are thrilled to partner with OpenEMR and support the global intensification of Digital Health adoption."
 
 “We leveraged modern module tools in OpenEMR to deliver a telehealth product that is intuitive to use for both the provider and patient while also being very easy to install and maintain,“ said Sherwin Gaddis, the lead OpenEMR Developer.
 
