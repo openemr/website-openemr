@@ -16,7 +16,7 @@ menu:
   main:
     - identifier: features
       name: Features
-      url: /wiki/index.php/OpenEMR_Features
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Features
       weight: 1
     - identifier: demo
       name: Demo
@@ -24,7 +24,7 @@ menu:
       weight: 2
     - identifier: download
       name: Download
-      url: /wiki/index.php/OpenEMR_Downloads
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Downloads
       weight: 3
     - identifier: module
       name: Modules
@@ -67,12 +67,12 @@ menu:
     - identifier: psv
       parent: support
       name: Professional Support Vendors
-      url: /wiki/index.php/Professional_Support
+      url: https://open-emr.org/wiki/index.php/Professional_Support
       weight: 4
     - identifier: howto
       parent: support
       name: How-To Guides
-      url: /wiki/index.php/OpenEMR_5.0.1_Users_Guide
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#User_Manuals
       weight: 5
     - identifier: donate
       name: Donate
@@ -111,7 +111,3 @@ params:
   downloadUrl: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
 permalinks:
   post: /:filename/
-module:
-  # replacements: "github.com/providencehealthtech/hugo-hero-theme -> ../../hugo-hero-theme"
-  # imports:
-    # - path: github.com/google/docsy
