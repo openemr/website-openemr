@@ -12,6 +12,75 @@ ignoreFiles:
 taxonomies:
   tag: ""
   category: ""
+menu:
+  main:
+    - identifier: features
+      name: Features
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Features
+      weight: 1
+    - identifier: demo
+      name: Demo
+      url: /demo
+      weight: 2
+    - identifier: download
+      name: Download
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Downloads
+      weight: 3
+    - identifier: module
+      name: Modules
+      url: /modules
+      weight: 4
+    - identifier: blog
+      name: Blog
+      url: /blog
+      weight: 5
+    - identifier: wiki
+      name: Docs
+      url: https://open-emr.org/wiki
+      weight: 6
+    - identifier: forum
+      name: Forum
+      url: https://community.open-emr.org/
+      weight: 7
+    - identifier: chat
+      name: Chat
+      url: /chat
+      weight: 8
+    - identifier: support
+      name: Support
+      weight: 9
+    - identifier: cost_and_support
+      parent: support
+      name: Costs and Support Options
+      url: /support
+      weight: 1
+    - identifier: community_support
+      parent: support
+      name: Community Support
+      weight: 2
+      url: https://community.open-emr.org
+    - identifier: chat_support
+      parent: support
+      name: Chat
+      url: /chat
+      weight: 3
+    - identifier: psv
+      parent: support
+      name: Professional Support Vendors
+      url: https://open-emr.org/wiki/index.php/Professional_Support
+      weight: 4
+    - identifier: howto
+      parent: support
+      name: How-To Guides
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#User_Manuals
+      weight: 5
+    - identifier: donate
+      name: Donate
+      weight: 10
+      url: /give
+      pre: '<i class="fa fa-heart fa-sm"></i>&nbsp;'
+      params:
+        anchorClass: 'btn btn-danger btn-sm mx-4'
 params:
   # Required theme-specific variables
   twitterImage: /images/test.jpg
