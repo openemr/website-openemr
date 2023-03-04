@@ -5,7 +5,7 @@ date: 2022-03-05
 publishDate: 2022-03-04
 presentationDate: 2022-03-05
 presenter: Robert Down, RN
-recording_url: https://youtu.be/sHLG_cuH_n0
+youtube_id: sHLG_cuH_n0
 image: images/lectures/acute-care-clinician-workflows.png
 ---
 

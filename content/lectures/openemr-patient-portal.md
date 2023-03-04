@@ -3,7 +3,7 @@ title: "OpenEMR Patient Portal Presentation: New Features - Patient Form Templat
 anchor_id: openemr-patient-portal
 date: 2022-02-12
 presenter: Jerry Padgett
-recording_url: https://youtu.be/UnYBr0wlAZk
+youtube_id: UnYBr0wlAZk
 image: images/lectures/patient-portal.png
 ---
 

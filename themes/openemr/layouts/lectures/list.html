@@ -61,7 +61,14 @@
           <p class="lead">{{ .Content }}</p>
         </div>
         <div class="d-block">
-          <a href="{{ .Params.recording_url }}" target="_blank"><img src="{{ .Params.image | absURL }}" class="img-fluid w-50" alt=""></a>
+          {{ if isset .Params "youtube_id" }}
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+              <iframe src="https://www.youtube.com/embed/{{ .Params.youtube_id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube Video"></iframe>
+            </div>
+          {{ end }}
+          {{ if isset .Params "zoom_url" }}
+            <a href="{{ .Params.zoom_url }}" target="_blank"><img src="{{ .Params.image | absURL }}" class="img-fluid w-50" alt=""></a>
+          {{ end }}
         </div>
       </li>
       {{ end }}
