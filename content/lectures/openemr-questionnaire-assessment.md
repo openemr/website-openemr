@@ -5,7 +5,7 @@ date: 2022-11-12
 publishDate: 2022-11-01
 presentationDate: 2022-11-12
 presenter: Jerry Padgett
-recording_url: https://us02web.zoom.us/rec/share/Sh_V4omnghoB37e4By6NMhLRfF1m5uGn6F77nINBRLZd3c3jTYKFjKuVdrX54ntG.W2855w7SViRh0C-a
+zoom_url: https://us02web.zoom.us/rec/share/Sh_V4omnghoB37e4By6NMhLRfF1m5uGn6F77nINBRLZd3c3jTYKFjKuVdrX54ntG.W2855w7SViRh0C-a
 image: images/lectures/new-forms-lecture.png
 ---
 

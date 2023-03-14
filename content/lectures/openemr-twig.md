@@ -5,6 +5,8 @@ date: 2023-02-18
 publishDate: 2023-02-18
 presentationDate: 2023-02-18
 presenter: Robert Down
+youtube_id: RDDEfckd01g
+image: images/lectures/twig.png
 ---
 
 Robert Down discusses how to streamline your OpenEMR developement with twig, macros, and partials.

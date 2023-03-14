@@ -5,7 +5,7 @@ date: 2022-04-09
 publishDate: 2022-04-03
 presentationDate: 2022-04-09
 presenter: Sandra Gutierrez, MD
-recording_url: https://youtu.be/Kkbq4O60dW0
+youtube_id: Kkbq4O60dW0
 image: images/lectures/layout-based-forms-2.png
 ---
 

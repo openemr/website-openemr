@@ -5,7 +5,7 @@ date: 2022-12-10
 publishDate: 2023-01-02
 presentationDate: 2022-12-10
 presenter: John Purdy from Omega Systems Group, Inc.
-recording_url: https://youtu.be/WlbxTgFWhPw
+youtube_id: WlbxTgFWhPw
 image: images/lectures/vehr.png
 ---
 

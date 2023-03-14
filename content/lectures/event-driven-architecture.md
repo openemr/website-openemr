@@ -3,7 +3,7 @@ title: "Event Driven Architecture"
 anchor_id: event-driven-architecture
 date: 2021-11-13
 presenter: Robert Down, BSN, RN
-recording_url: https://youtu.be/TeugaN8YOIY
+youtube_id: TeugaN8YOIY
 image: images/lectures/eda.png
 ---
 
