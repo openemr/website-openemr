@@ -24,7 +24,7 @@ OpenEMR’s fully integrated Telehealth solution provides the perfect opportunit
 This upgraded module provides winning functionalities not limited to its OpenEMR integration.  It also allows flexible launch options, gives the ability to minimize the session screen, offers screen sharing, third party invitations and support for multiple types of devices.
 
 ## Notable features:
-- Very affordable price: the current fee is $16/mo for unlimited Telehealth sessions. Contact vendor Sherwin Gaddis ( sherwin@affordablecustomehr.com ) for details
+- Very affordable price: the current fee is $16/mo for unlimited Telehealth sessions with a free 7 day free trial. Contact vendor Sherwin Gaddis ( sherwin@affordablecustomehr.com ) for details
 - Providers may invite a 3rd party participant to join the session in progress
 - Screen sharing for both patient and provider
 - Complete OpenEMR integration: just navigate to the Modules screen (Main menu: Modules/ Manage Modules) and register like any other module
@@ -39,8 +39,7 @@ This upgraded module provides winning functionalities not limited to its OpenEMR
 
 ## How to get it:
 
-The module comes bundled inside of OpenEMR, accessible directly from your modules page.  Sign up is done through the module configuration.  For support, pricing, and feature inquires you can contact 
-
+The module comes bundled inside of OpenEMR, accessible directly from your modules page.  You can signup for a free 7 day trial through the module configuration.  For support, pricing, and feature inquires you can contact 
 
 Sherwin Gaddis, Juggernaut Systems Express
 - 505 Independance Pkwy, Chesapeake, VA 23320
