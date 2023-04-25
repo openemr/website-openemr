@@ -1,7 +1,7 @@
 ---
-title: "Comlink"
-date: 2022-11-30
-wiki: 'https://www.open-emr.org/wiki/index.php/OpenEMR_Modules#Comlink_Telehealth_Module'
+title: "Comlink Telehealth"
+date: 2023-04-24
+wiki: 'https://www.open-emr.org/wiki/index.php/Comlink_Telehealth'
 minimum_version: '7.0.0 (2)'
 categories:
   - telehealth
