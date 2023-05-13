@@ -27,4 +27,11 @@ New users can get account/access to the OpenEMR Slack Chat here: https://openemr
 
 ---
 
+## OpenEMR Quiet Chat
+
+The OpenEMR Quite Chat is a really cool new open source decentralized (ie. serverless) team chat engine that leverages the tor network. It is still in beta stage of development, but is functional. Although it will likely be highly secure in the future, would treat it as an insecure product at this point (since in beta phase of development). Can find more information at [https://tryquiet.org/](https://tryquiet.org/).
+
+New users can get account/access to the OpenEMR Quiet Chat by clicking on this link: https://tryquiet.org/join#3ybkjxx2gattpgratdpwlx5fhyv6ju2jgcaepdqrgujfacledx4tbbyd
+
+---
 <br><br>
