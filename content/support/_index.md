@@ -27,8 +27,7 @@ The mechanisms of free support by the community include the tools found on this
 found in the [OpenEMR Project Wiki](https://www.open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page),
 the [forums](https://community.open-emr.org/), and the [chat](https://www.open-emr.org/chat).
 There are clinics that have gone this route successfully, however, this does require IT
-knowledge to ensure security, reliability and adequate backing up of OpenEMR. A real life
-documented example of this can be found at the [OpenEMR Complete Installation Tutorial](https://www.open-emr.org/wiki/index.php/OpenEMR_Complete_Installation_Tutorial).
+knowledge to ensure security, reliability and adequate backing up of OpenEMR.
 
 ---
 
@@ -38,7 +37,7 @@ and you are always free to hire (and fire) whomever you want to support your Ope
 For example, if you do not like the rates or customer service of your current vendor, then you
 can simply fire them and hire another vendor to support your current OpenEMR installation. As a
 consumer, this gives you a huge amount of leverage when working with your vendor. The rates that
-professionals charge are varied; for example, some charge hourly (usually ranging from $40-$120 per hour depending
+professionals charge are varied; for example, some charge hourly (usually ranging from $50-$150 per hour depending
 on expertise required) and some charge monthly.
 
 ### How do I choose a vendor?
@@ -47,8 +46,7 @@ to support OpenEMR. Ensure the vendor/developer has experience with OpenEMR. We 
 [vendors/developers that specifically support OpenEMR](https://www.open-emr.org/wiki/index.php/Professional_Support).
 If you are planning to customize the software (which is very common and another huge advantage of
 open source software), then recommend ensuring the vendor/developer has demonstrated competence
-in developing code for OpenEMR. We maintain a list of [vendors/developers that are 'Certified OpenEMR Contributors'](https://www.open-emr.org/wiki/index.php/Category:Certified_OpenEMR_Contributor),
-whom have demonstrated an ongoing competence in OpenEMR development.
+in developing code for OpenEMR.
 
 ---
 
