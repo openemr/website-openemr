@@ -49,25 +49,25 @@ menu:
     - identifier: support
       name: Support
       weight: 9
+    - identifier: psv
+      parent: support
+      name: Professional Support Vendors
+      url: https://open-emr.org/wiki/index.php/Professional_Support
+      weight: 1
     - identifier: cost_and_support
       parent: support
       name: Costs and Support Options
       url: /support
-      weight: 1
+      weight: 2
     - identifier: community_support
       parent: support
       name: Community Support
-      weight: 2
+      weight: 3
       url: https://community.open-emr.org
     - identifier: chat_support
       parent: support
       name: Chat
       url: /chat
-      weight: 3
-    - identifier: psv
-      parent: support
-      name: Professional Support Vendors
-      url: https://open-emr.org/wiki/index.php/Professional_Support
       weight: 4
     - identifier: howto
       parent: support
