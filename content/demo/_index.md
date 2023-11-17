@@ -5,9 +5,9 @@ url: demo
 layout: page
 ---
 
-# Fully Working OpenEMR 7.0.1 Demo
+# Fully Working OpenEMR 7.0.2 Demo
 
-We offer 3 fully functional demo installations for you to try out. Some simple configuration has been added for clearer demonstration of OpenEMR, medical billing, accounting, access controls and patient portal. Each demo is reset overnight (8:00 am UTC time) so no data is persistent. Note there are 3 identical demos ('Main', 'Alternate', 'Another Alternate') offered in case a demo is down or has been modified. We also offer a [OpenEMR 7.0.1 demo with the most recent patch](https://www.open-emr.org/wiki/index.php/Development_7.0.1_Demo) and [Development Demos](https://www.open-emr.org/wiki/index.php/Development_Demo) (these are demos that are rebuilt daily from most recent development code) where you can test out new features.
+We offer 3 fully functional demo installations for you to try out. Some simple configuration has been added for clearer demonstration of OpenEMR, medical billing, accounting, access controls and patient portal. Each demo is reset overnight (8:00 am UTC time) so no data is persistent. Note there are 3 identical demos ('Main', 'Alternate', 'Another Alternate') offered in case a demo is down or has been modified. We also offer other [OpenEMR 7.0.2 demos with the latest patch or code for the next patch](https://www.open-emr.org/wiki/index.php/Development_7.0.2_Demo) and [Development Demos](https://www.open-emr.org/wiki/index.php/Development_Demo) (these are demos that are rebuilt daily from most recent development code) where you can test out new features.
 
 ---
 
@@ -26,7 +26,7 @@ We offer 3 fully functional demo installations for you to try out. Some simple c
 ### Links
 | Demo                    |Link |
 |-------------------------|----------------------------------------------------------------------------------|
-| OpenEMR 7.0.1 Main Demo | [https://demo.openemr.io/openemr](https://demo.openemr.io/openemr/index.php) |
+| OpenEMR 7.0.2 Main Demo | [https://demo.openemr.io/openemr](https://demo.openemr.io/openemr/index.php) |
 | Alternate Demo          | [https://demo.openemr.io/a/openemr](https://demo.openemr.io/a/openemr/index.php) |
 | Another Alternate Demo  | [https://demo.openemr.io/b/openemr](https://demo.openemr.io/b/openemr/index.php) |
 
@@ -45,6 +45,6 @@ We offer 3 fully functional demo installations for you to try out. Some simple c
 
 | Demo                      |Link |
 |---------------------------|----------------------------------------------------------------------------------------------------|
-| OpenEMR 7.0.1 Portal Demo | [https://demo.openemr.io/openemr/portal](https://demo.openemr.io/openemr/portal/index.php) |
+| OpenEMR 7.0.2 Portal Demo | [https://demo.openemr.io/openemr/portal](https://demo.openemr.io/openemr/portal/index.php) |
 | Alternate Demo            | [https://demo.openemr.io/a/openemr/portal](https://demo.openemr.io/a/openemr/portal/index.php) |
 | Another Alternate Demo    | [https://demo.openemr.io/b/openemr/portal](https://demo.openemr.io/b/openemr/portal/index.php) |
