@@ -81,6 +81,92 @@ menu:
       pre: '<i class="fa fa-heart fa-sm"></i>&nbsp;'
       params:
         anchorClass: 'btn btn-danger btn-sm mx-4'
+  footer_one:
+    - identifier: features
+      name: Features
+      weight: 10
+      url: /wiki/index.php/OpenEMR_Features
+    - identifier: demo
+      name: Demo
+      weight: 20
+      url: demo
+    - identifier: download 
+      name: Download
+      weight: 30
+      url: /wiki/index.php/OpenEMR_Downloads
+    - identifier: modules
+      name: Modules
+      weight: 40
+      url: /wiki/index.php/OpenEMR_Modules
+    - identifier: blog
+      name: Blog
+      weight: 50
+      url: blog
+    - identifier: docs
+      name: Docs
+      weight: 60
+      url: /wiki
+    - identifier: forum
+      name: Forum
+      weight: 70
+      url: https://community.open-emr.org/
+    - identifier: chat
+      name: Chat
+      weight: 80
+      url: chat
+    - identifier: donate
+      name: Donate
+      weight: 90
+      url: donate
+    - identifier: support
+      name: Support
+      weight: 100
+      url: support
+  footer_two:
+    - identifier: faq
+      name: FAQ
+      weight: 10
+      url: /wiki/index.php/FAQ
+    - identifier: forum
+      name: Forum
+      weight: 20
+      url: https://community.open-emr.org/
+    - identifier: user_manuals
+      name: User Manuals
+      weight: 30
+      url: /wiki/index.php/OpenEMR_Wiki_Home_Page#User_Manual
+    - identifier: support_guide
+      name: Support Guide
+      weight: 40
+      url: /support
+    - identifier: professional_support
+      name: Professional Support
+      weight: 50
+      url: /wiki/index.php/OpenEMR_Professional_Support
+    - identifier: onc
+      name: Certification
+      weight: 60
+      url: /wiki/index.php/OpenEMR_Wiki_Home_Page#ONC_Ambulatory_EHR_Certification
+    - identifier: ack
+      name: Acknowledgments
+      weight: 70
+      url: /wiki/index.php/OpenEMR_Acknowledgments
+  footer_three:
+    - identifier: dev_guide
+      name: Developer Manuals
+      weight: 10
+      pre: '<i class="fa fa-book"></i>&nbsp;'
+      url: /wiki/index.php/OpenEMR_Development
+    - identifier: issues
+      name: Issues
+      weight: 20
+      pre: '<i class="fa fa-bug"></i>&nbsp;'
+      url: https://github.com/openemr/issues
+    - identifier: github
+      name: GitHub
+      weight: 40
+      pre: '<i class="fa fa-github"></i>&nbsp;'
+      url: "https://github.com/openemr"
 params:
   # Required theme-specific variables
   twitterImage: /images/test.jpg
@@ -112,5 +198,8 @@ params:
     twitter: openemr
   demoUrl: demo
   downloadUrl: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
+  footer_one_title: Main Project Links
+  footer_two_title: Help & Support Links
+  footer_three_title: Developer Links
 permalinks:
   post: /:filename/
