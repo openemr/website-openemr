@@ -85,7 +85,7 @@ menu:
     - identifier: features
       name: Features
       weight: 10
-      url: /wiki/index.php/OpenEMR_Features
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Features
     - identifier: demo
       name: Demo
       weight: 20
@@ -93,11 +93,11 @@ menu:
     - identifier: download 
       name: Download
       weight: 30
-      url: /wiki/index.php/OpenEMR_Downloads
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Downloads
     - identifier: modules
       name: Modules
       weight: 40
-      url: /wiki/index.php/OpenEMR_Modules
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Modules
     - identifier: blog
       name: Blog
       weight: 50
@@ -105,7 +105,7 @@ menu:
     - identifier: docs
       name: Docs
       weight: 60
-      url: /wiki
+      url: https://open-emr.org/wiki
     - identifier: forum
       name: Forum
       weight: 70
@@ -126,7 +126,7 @@ menu:
     - identifier: faq
       name: FAQ
       weight: 10
-      url: /wiki/index.php/FAQ
+      url: https://open-emr.org/wiki/index.php/FAQ
     - identifier: forum
       name: Forum
       weight: 20
@@ -134,7 +134,7 @@ menu:
     - identifier: user_manuals
       name: User Manuals
       weight: 30
-      url: /wiki/index.php/OpenEMR_Wiki_Home_Page#User_Manual
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#User_Manual
     - identifier: support_guide
       name: Support Guide
       weight: 40
@@ -142,26 +142,26 @@ menu:
     - identifier: professional_support
       name: Professional Support
       weight: 50
-      url: /wiki/index.php/OpenEMR_Professional_Support
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Professional_Support
     - identifier: onc
       name: Certification
       weight: 60
-      url: /wiki/index.php/OpenEMR_Wiki_Home_Page#ONC_Ambulatory_EHR_Certification
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#ONC_Ambulatory_EHR_Certification
     - identifier: ack
       name: Acknowledgments
       weight: 70
-      url: /wiki/index.php/OpenEMR_Acknowledgments
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Acknowledgments
   footer_three:
     - identifier: dev_guide
       name: Developer Manuals
       weight: 10
       pre: '<i class="fa fa-book"></i>&nbsp;'
-      url: /wiki/index.php/OpenEMR_Development
+      url: https://open-emr.org/wiki/index.php/OpenEMR_Development
     - identifier: issues
       name: Issues
       weight: 20
       pre: '<i class="fa fa-bug"></i>&nbsp;'
-      url: https://github.com/openemr/issues
+      url: https://github.com/openemr/openemr/issues
     - identifier: github
       name: GitHub
       weight: 40
