@@ -9,15 +9,15 @@
       </div>
       <div class="col-xs-12 col-sm-4 col-md-2">
         <h5 class="title nowiki">{{ .Site.Params.footer_one_title | default "Links" }}</h5>
-        {{ partial "menu.html" (dict "menuID" "footer_one" "page" . "listClass" "list-unstyled") }}
+        {{ partial "menu.html" (dict "menuID" "footer_one" "page" . "ulClass" "list-unstyled") }}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-2">
         <h5 class="title nowiki">{{ .Site.Params.footer_two_title | default "Links" }}</h5>
-        {{ partial "menu.html" (dict "menuID" "footer_two" "page" . "listClass" "list-unstyled") }}
+        {{ partial "menu.html" (dict "menuID" "footer_two" "page" . "ulClass" "list-unstyled") }}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-2">
         <h5 class="title nowiki">{{ .Site.Params.footer_three_title | default "Links" }}</h5>
-        {{ partial "menu.html" (dict "menuID" "footer_three" "page" . "listClass" "list-unstyled") }}
+        {{ partial "menu.html" (dict "menuID" "footer_three" "page" . "ulClass" "list-unstyled") }}
       </ul>
     </div>
   </div>
