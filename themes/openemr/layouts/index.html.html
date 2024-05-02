@@ -56,11 +56,29 @@
         </div>
     </div>
 </section>
+
 {{- $homepages := (.Site.GetPage "homepage").Pages -}}
+
+{{/*  
+1. Featured homepages - done
+2. Feature List
+3. Users
+4. Regular homepages  
+  
+*/}}
+
 
 {{/*  Render all featured pages sorted by weight  */}}
 {{- range where $homepages.ByWeight "Params.featured" true -}}
+  {{- with .Params.parallax.before -}}
+    {{ partial "parallax" . }}
+  {{- end -}}
+
   {{ partial (.Params.layout | default "homepage/feature.html") . -}}
+  
+  {{- with .Params.parallax.after -}}
+    {{ partial "parallax" . }}
+  {{- end -}}
 {{- end -}}
 
 
@@ -85,7 +103,6 @@
 </div>
 {{- end -}}
 
-<div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/stethoscope.jpg" | absURL }}"></div>
 <div class="main-content container-fluid">
   <section class="features" id="features">
     <div class="col-xs-12">
@@ -220,13 +237,18 @@
 </section>
 </div>
 
-<div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/md-with-ipad.jpg" | absURL }}"></div>
+{{/*  Render all featured pages sorted by weight  */}}
+{{- range (where $homepages "Params.featured" "ne" true).ByWeight -}}
+  {{- with .Params.parallax.before -}}
+    {{ partial "parallax" . }}
+  {{- end -}}
 
-<div class="main-content">
-  {{ partial "help-needed.html" . }}
-</div>
-
-<div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/screen.jpg" | absURL }}"></div>
+  {{ partial (.Params.layout | default "homepage/feature.html") . -}}
+  
+  {{- with .Params.parallax.after -}}
+    {{ partial "parallax" . }}
+  {{- end -}}
+{{- end -}}
 
 <div class="main-content">
   <section class="deploy">
@@ -234,24 +256,12 @@
       <img src="{{ .Site.BaseURL }}img/server.svg" alt="" height="128">
       <h2 class="display-4">On-Premise</h2>
       <p>Run OpenEMR on your own servers on location</p>
-  </div>
-  <div class="col text-center">
+    </div>
+    <div class="col text-center">
       <img src="{{ .Site.BaseURL }}img/cloud.svg" alt="" height="128">
       <h2 class="display-4">Cloud-based</h2>
       <p>Deploy OpenEMR to the cloud</p>
-  </div>
-</section>
-<section class="osi">
-    <div class="col-sm-12 col-md-6">
-      <h1 class="display-4">Open-Source</h1>
-      <p class="lead">
-        Open source software has changed the world for the better. OpenEMR is a leader in healthcare open source software. Costly
-        proprietary EMRs are no longer the only option. Learn how to start contributing today!
-    </p>
-</div>
-<div class="col text-center">
-  <img src="{{ .Site.BaseURL }}img/osi-certified.png" alt="" class="img-fluid">
-</div>
-</section>
+    </div>
+  </section>
 </div>
 {{ end }}
