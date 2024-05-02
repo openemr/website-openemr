@@ -148,7 +148,7 @@ menu:
       weight: 60
       url: https://open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#ONC_Ambulatory_EHR_Certification
     - identifier: ack
-      name: Acknowledgments
+      name: Acknowledgements
       weight: 70
       url: https://open-emr.org/wiki/index.php/OpenEMR_Acknowledgments
   footer_three:
