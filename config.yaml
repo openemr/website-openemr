@@ -9,9 +9,9 @@ enableGitInfo: true
 ignoreFiles:
   - _files%
   - _cache$
-taxonomies:
-  tag: ""
-  category: ""
+disableKinds:
+  - taxonomy
+  - term
 menu:
   main:
     - identifier: features
