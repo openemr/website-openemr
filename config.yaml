@@ -82,11 +82,6 @@ menu:
       params:
         anchorClass: 'btn btn-danger btn-sm mx-4'
 params:
-  # Confirmed params in theme
-  homepage:
-    show_recent_blogs: false
-    show_recent_lectures: false
-  # End Confirmed
   # Required theme-specific variables
   twitterImage: /images/test.jpg
   coverImageStyle: standard
