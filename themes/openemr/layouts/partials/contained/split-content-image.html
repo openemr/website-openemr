@@ -1,0 +1,19 @@
+
+{{- $fluid_classes := delimit (index .Params "fluid_classes" | default (slice "container-fluid")) " " -}}
+{{- $container_classes := delimit (index .Params "container_classes" | default (slice "container")) " " -}}
+{{- $title_classes := delimit (index .Params "title_class" | default (slice "display-3")) " " -}}
+{{- $content_classes := delimit (index .Params "content_class" | default (slice "lead")) " " -}}
+{{- $image_order := (index .Params "image_order") | default "order-2" -}}
+<div class="{{ $fluid_classes }}">
+  <section class="{{ $container_classes}}">
+    <div class="row">
+      <div class="col-6 pr-2">
+        <h1 class="{{ $title_classes}}">{{ .Title }}</h1>
+        <span class="{{ $content_classes}}">{{ .Content }}</span>
+      </div>
+      <div class="col-6 pl-2 {{ $image_order }}">
+        <img src="{{ .Params.image | absURL }}" class="img-fluid" alt="{{ .Params.image_alt_text | default "" }}">
+      </div>
+    </div>
+  </section>
+</div>

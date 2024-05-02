@@ -56,28 +56,34 @@
         </div>
     </div>
 </section>
-<div class="main-content container-fluid">
-  <section>
-    <div class="col-sm-12">
-      <h1 class="display-3 text-center">
-        Fully Open-Source.
-        Free Software, Always and Forever.<br>
-      </h1>
-      <p class="lead pt-3">OpenEMR is the most popular open source electronic health records and medical practice management solution. OpenEMR's goal is a superior alternative to its proprietary counterparts with passionate volunteers and contributors dedicated to guarding OpenEMR's status as a free, open source software solution for medical practices with a commitment to openness, kindness and cooperation.</p>
-      <br>
-      <h1 class="display-3 text-center">
-        ONC Certified!<br>
-      </h1>
-      <p class="lead pt-3 pb-2">OpenEMR is ONC Certified! More details on how the OpenEMR community completed this feat can be <a href="{{ .Site.BaseURL }}blog/openemr-achieves-onc-2015-cures-update-certification-with-groundbreaking-release-70/">found on our blog article</a>. The ONC Certification Transparency and Disclosure Requirements for OpenEMR can <a href="{{ .Site.BaseURL }}wiki/index.php/OpenEMR_Wiki_Home_Page#2015_ONC_Ambulatory_EHR_Certification">be viewed here</a>. Additional costs may apply and the additional costs disclosure can <a href="{{ .Site.BaseURL }}wiki/index.php/OpenEMR_Wiki_Home_Page#additional-costs-disclosure">be viewed here</a>.</p>
-      <div class="col text-center">
-          <img class="img-fluid" style="max-height: 300px;" src="{{ .Site.BaseURL }}img/ONC-CertHIT_horizontal-logo.jpg" alt="">
-          <img class="img-fluid" style="max-height: 160px;" src="{{ .Site.BaseURL }}img/SLI_Certification_Mark_2017-01.png" alt="">
-      </div>
+{{- $homepages := (.Site.GetPage "homepage").Pages -}}
+
+{{/*  Render all featured pages sorted by weight  */}}
+{{- range where $homepages.ByWeight "Params.featured" true -}}
+  {{ partial (.Params.layout | default "homepage/feature.html") . -}}
+{{- end -}}
+
+
+{{/*  Render the latest lecture series and blog post  */}}
+{{- $show_blogs := .Site.Params.homepage.show_recent_blogs | default true -}}
+{{- $show_lectures := .Site.Params.homepage.show_recent_lectures | default true -}}
+{{- $cols := cond (and $show_blogs $show_lectures) "col-xs-12 col-md-6" "col-xs-12" -}}
+{{- if  (or $show_blogs $show_lectures) -}}
+<div class="container my-3">
+  <div class="row">
+    {{- if $show_lectures -}}
+    <div class="{{ $cols }}">
+      {{ partial "homepage/recent_lecture.html" . }}
     </div>
-</div> <!-- end .row -->
-</div> <!-- end .row -->
-</section>
+    {{- end -}}
+    {{- if $show_blogs -}}
+    <div class="{{ $cols }}">
+      {{ partial "homepage/recent_blog.html" . }}
+    </div>
+    {{- end -}}
+  </div>
 </div>
+{{- end -}}
 
 <div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/stethoscope.jpg" | absURL }}"></div>
 <div class="main-content container-fluid">

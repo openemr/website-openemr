@@ -1,0 +1,31 @@
+{{- $num_recent_blogs := .Site.Params.homepage.recent_blog_count | default 3 -}}
+<div class="d-flex">
+  <h2 class="flex-fill">Latest Blogs</h2>
+  <a href="blog" class="">View All&nbsp;<i class="fa fa-arrow-right"></i></a>
+</div>
+{{- $blogs := (.Site.GetPage "blog").Pages -}}
+{{- $featured_blogs := where $blogs "Params.featured" true -}}
+{{- $unfeatured_blogs := (where $blogs "Params.featured" "ne" true).ByDate.Reverse -}}
+{{- range (union $featured_blogs $unfeatured_blogs).Limit $num_recent_blogs -}}
+  <div class="card mb-2" style="width: 100%;">
+    <div class="card-body">
+      <h5 class="card-title d-flex"><a href="{{ .Permalink }}" class="flex-fill">{{ .Title }}</a>{{- if .Params.featured -}}<span class="badge py-2 px-3 bg-primary">Featured</span>{{- end -}}</h5>
+      <span class="card-subtitle text-muted">{{ .Date.Format "Jan 2, 2006" }}</span>&nbsp;
+      <span class="card-text">{{ .Summary }}</span>
+      <div class="d-flex pt-3">
+        <div class="flex-fill">
+          <a href="{{ .Permalink }}" class="">Read More...</a>
+        </div>
+        {{- with .Params.tags -}}
+          <div>
+            {{- range . -}}
+            <span class="mr-2">
+              <a href="{{ printf "/tags/%s" . | relURL }}" class="badge bg-light text-dark">{{ . }}</a>
+            </span>
+            {{- end -}}
+          </div>
+        {{- end -}}
+      </div>
+    </div>
+  </div>
+{{ end }}

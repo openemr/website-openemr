@@ -1,0 +1,8 @@
+{{ $fluid_classes := delimit (index .Params "fluid_classes" | default (slice "py-5" "my-5")) " "}}
+{{ $title_classes := delimit (index .Params "title_class" | default (slice "display-3")) " " }}
+<div class="container-fluid {{ $fluid_classes }}">
+  <section class="container">
+    <h1 class="{{ $title_classes }} text-center">{{ .Title }}</h1>
+    <span class="lead">{{ .Content }}</span>
+  </section>
+</div>
