@@ -8,52 +8,16 @@
         </a>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-2">
-        <h5 class="title nowiki">Main Project Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="/wiki/index.php/OpenEMR_Features">Features</a></li>
-          <li><a href="/demo">Demo</a></li>
-          <li><a href="/wiki/index.php/OpenEMR_Downloads">Download</a></li>
-          <li><a href="/wiki/index.php/OpenEMR_Modules">Modules</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/wiki">Docs</a></li>
-          <li><a href="https://community.open-emr.org/">Forum</a></li>
-          <li><a href="/chat">Chat</a></li>
-          <li><a href="/donate">Donate</a></li>
-          <li><a href="/support">Support</a></li>
-        </ul>
+        <h5 class="title nowiki">{{ .Site.Params.footer_one_title | default "Links" }}</h5>
+        {{ partial "menu.html" (dict "menuID" "footer_one" "page" . "ulClass" "list-unstyled") }}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-2">
-        <h5 class="title nowiki">Help & Support Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="/wiki/index.php/FAQ">FAQs</a></li>
-          <li><a href="https://community.open-emr.org/">Forum</a></li>
-          <li><a href="/wiki/index.php/OpenEMR_Wiki_Home_Page#User_Manuals">User Manuals</a></li>
-          <li><a href="/support">Support Guide</a></li>
-          <li><a href="/wiki/index.php/OpenEMR_Professional_Support">Professional Support</a></li>
-          <li><a href="/wiki/index.php/OpenEMR_Wiki_Home_Page#ONC_Ambulatory_EHR_Certification">Certification</a></li>
-          <li><a href="/wiki/index.php/OpenEMR_Acknowledgments">Acknowledgements</a></li>
-        </ul>
+        <h5 class="title nowiki">{{ .Site.Params.footer_two_title | default "Links" }}</h5>
+        {{ partial "menu.html" (dict "menuID" "footer_two" "page" . "ulClass" "list-unstyled") }}
       </div>
       <div class="col-xs-12 col-sm-4 col-md-2">
-        <!-- TODO: replace `&nbsp;` nesting solution with something more elegant -->
-        <!-- TODO: map inactive roots (e.x.: `Main Repository`) use a p tag -->
-        <h5 class="title nowiki">Developer Links</h5>
-        <ul class="list-unstyled">
-          <li>
-            <a href="/wiki/index.php/OpenEMR_Wiki_Home_Page#Developer_Manuals">
-              <i class="fa fa-book fa-fw fa-lg"></i>&nbsp;Developer Manuals
-            </a>
-          </li>
-          <li>
-            <a href="http://github.com/openemr/openemr/issues">
-              <i class="fa fa-bug fa-fw fa-lg"></i>&nbsp;Issues
-            </a>
-          </li>
-          <li>
-            <a href="http://github.com/openemr/openemr">
-              <i class="fa fa-github fa-fw fa-lg"></i>&nbsp;Github
-            </a>
-          </li>
+        <h5 class="title nowiki">{{ .Site.Params.footer_three_title | default "Links" }}</h5>
+        {{ partial "menu.html" (dict "menuID" "footer_three" "page" . "ulClass" "list-unstyled") }}
       </ul>
     </div>
   </div>

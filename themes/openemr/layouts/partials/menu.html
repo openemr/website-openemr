@@ -1,0 +1,56 @@
+{{/*  
+ * Render a menu as a nested list.
+ * 
+ * This partial is intended to be used with the `menu` shortcode and is based
+  * on the `menu/walk.html` partial from the Hugo docs. It is extended to allow
+  * ulClass and navClass dicts to be passed in to allow for custom classes to be
+  * added to the ul and nav elements.
+  * 
+  * Usage example: {{ partial "menu.html" (dict "menuID" "main" "page" . "ulClass" "list-unstyled" "navClass" "navbar-nav") }}
+*/}}
+{{- $page := .page }}
+{{- $menuID := .menuID }}
+{{- $ulClass := .ulClass }}
+{{- $navClass := .navClass }}
+
+
+{{- with index site.Menus $menuID }}
+  <nav{{ with $navClass }} class="{{ . }}"{{ end }}>
+    <ul {{ with $ulClass }}class="{{ . }}"{{ end }}>
+      {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+    </ul>
+  </nav>
+{{- end }}
+
+{{- define "partials/inline/menu/walk.html" }}
+  {{- $page := .page }}
+  {{- range .menuEntries }}
+    {{- $attrs := dict "href" .URL }}
+    {{- if $page.IsMenuCurrent .Menu . }}
+      {{- $attrs = merge $attrs (dict "class" "active" "aria-current" "page") }}
+    {{- else if $page.HasMenuCurrent .Menu .}}
+      {{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") }}
+    {{- end }}
+    {{- $name := .Name }}
+    {{- with .Identifier }}
+      {{- with T . }}
+        {{- $name = . }}
+      {{- end }}
+    {{- end }}
+    <li>
+      <a
+        {{- range $k, $v := $attrs }}
+          {{- with $v }}
+            {{- printf " %s=%q" $k $v | safeHTMLAttr }}
+          {{- end }}
+        {{- end -}}
+      >{{ .Pre }}{{ $name }}{{ .Post }}</a>
+      {{- with .Children }}
+        <ul>
+          {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+        </ul>
+      {{- end }}
+    </li>
+  {{- end }}
+{{- end }}
+
