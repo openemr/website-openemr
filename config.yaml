@@ -97,7 +97,7 @@ menu:
     - identifier: modules
       name: Modules
       weight: 40
-      url: https://open-emr.org/wiki/index.php/OpenEMR_Modules
+      url: modules
     - identifier: blog
       name: Blog
       weight: 50
@@ -146,7 +146,7 @@ menu:
     - identifier: onc
       name: Certification
       weight: 60
-      url: https://open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#ONC_Ambulatory_EHR_Certification
+      url: https://www.open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#Current_ONC_Ambulatory_EHR_Certification
     - identifier: ack
       name: Acknowledgements
       weight: 70
