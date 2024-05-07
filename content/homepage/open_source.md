@@ -1,8 +1,10 @@
 ---
 title: Open-Source
-layout: contained/split-content-image
+layout: split-content-image
 image: img/osi-certified.png
 classes:
+  fluid:
+    - py-5
   title:
     - text-left
     - display-4

@@ -4,7 +4,7 @@ cta_class: btn-outline-danger
 cta_href: donate
 cta_text: '<i class="fa fa-heart"></i>&nbsp;Donate Now'
 weight: 5
-layout: contained/text-left-cta
+layout: text-left-cta
 classes:
   fluid:
     - container-fluid

@@ -1,0 +1,13 @@
+{{ $deploy := .Site.GetPage "deployment_choices"}}
+
+<div class="main-content">
+  <section class="deploy">
+    {{ range $deploy.Pages.ByWeight }}
+    <div class="col text-center">
+      <img src="{{ .Params.image | absURL}}" alt="" height="128">
+      <h2 class="display-4">{{ .Title }}</h2>
+      <span class="lead">{{ .Content }}</span>
+    </div>
+    {{ end }}
+  </section>
+</div>

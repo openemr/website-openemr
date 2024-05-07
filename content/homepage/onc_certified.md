@@ -4,12 +4,18 @@ image: "img/ONC-CertHIT_horizontal-logo.jpg"
 image_alt_text: The ONC logo with a vertical pipe and the phrase 'Certified HealthIT' to the right
 image_order: left
 weight: 2
-layout: contained/split-content-image
+layout: split-content-image
 featured: true
-fluid_classes:
-  - bg-white
-  - py-5
-  - my-3
+classes:
+  fluid:
+    - bg-white
+    - py-5
+    - my-3
+  image_container:
+    - col-sm-12
+    - col-md-6
+    - text-center
+    - align-items-center
 parallax:
   after: "img/stethoscope.jpg"
 ---

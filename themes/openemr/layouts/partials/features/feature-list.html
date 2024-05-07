@@ -1,0 +1,13 @@
+{{ with .Params.parallax.before }} {{ partial "parallax" . }} {{ end }}
+<div class="main-content container-fluid">
+  <section id="features" class="features">
+    <div class="col-12">
+      <h2 class="display-3 text-center">{{ .Title }}</h2>
+      <span class="lead">{{ .Content }}</span>
+    </div>
+    {{- range .Pages.ByWeight -}}
+    {{- partial "features/feature-stub" . -}}
+    {{- end -}}
+  </section>
+</div>
+{{ with .Params.parallax.after }} {{ partial "parallax" . }} {{ end }}

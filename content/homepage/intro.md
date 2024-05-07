@@ -1,6 +1,6 @@
 ---
 title: Fully Open-Source. Free Software, Always and Forever.
-layout: contained/single-content-center
+layout: single-content-center
 featured: true
 weight: 1
 ---

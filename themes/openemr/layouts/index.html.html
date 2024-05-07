@@ -58,35 +58,17 @@
 
 {{- $homepages := (.Site.GetPage "homepage").Pages -}}
 
-{{/*  
-1. Featured homepages - done
-2. Feature List
-3. Users
-4. Regular homepages  
-  
-*/}}
-
-
 {{/*  Render all featured pages sorted by weight  */}}
 {{- range where $homepages.ByWeight "Params.featured" true -}}
-  {{- with .Params.parallax.before -}}
-    {{ partial "parallax" . }}
-  {{- end -}}
-
-  {{ partial (.Params.layout | default "homepage/feature.html") . -}}
-  
-  {{- with .Params.parallax.after -}}
-    {{ partial "parallax" . }}
-  {{- end -}}
+  {{ partial "page_section_parallax" . }}
 {{- end -}}
 
-
-{{/*  Render the latest lecture series and blog post  */}}
+{{/*  Render the latest lecture series and blog posts  */}}
 {{- $show_blogs := .Site.Params.homepage.show_recent_blogs | default true -}}
 {{- $show_lectures := .Site.Params.homepage.show_recent_lectures | default true -}}
-{{- $cols := cond (and $show_blogs $show_lectures) "col-xs-12 col-md-6" "col-xs-12" -}}
+{{- $cols := cond (and $show_blogs $show_lectures) "col-xs-12 col-lg-6" "col-xs-12" -}}
 {{- if  (or $show_blogs $show_lectures) -}}
-<div class="container my-3">
+<div class="container py-5">
   <div class="row">
     {{- if $show_lectures -}}
     <div class="{{ $cols }}">
@@ -102,165 +84,16 @@
 </div>
 {{- end -}}
 
-<div class="main-content container-fluid">
-  <section class="features" id="features">
-    <div class="col-xs-12">
-      <h1 class="display-3 text-center">A feature-rich solution</h1>
-      <p class="lead">
-        Our vibrant community of volunteers and contributors have maintained critical OpenEMR features for over a decade. With over
-        <a class="underline" href="{{ .Site.BaseURL }}wiki/index.php/OpenEMR_Features#Multilanguage_Support">30 supported languages</a>,
-        many customizations, and full data ownership, OpenEMR's features shine. On top of this, users in need of
-        support can take advantage of our <a class="underline" href="https://community.open-emr.org">volunteer support network</a>
-        as well as over <a class="underline" href="{{ .Site.BaseURL }}wiki/index.php/OpenEMR_Professional_Support">30 vendors in over 10 countries.</a>
-    </p>
-</div>
-<div class="card-holder">
-  <div class="card">
-    <img class="card-img-top" src="{{ .Site.BaseURL }}img/calendar.svg" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">Scheduling</h4>
-      <p class="card-text">
-        Advanced scheduling allows clinics to create repeating
-        events, automated-workflows triggered by check-in,
-        and patient reminds.
-    </p>
-</div>
-</div>
-</div>
-<div class="card-holder">
-  <div class="card">
-    <img class="card-img-top" src="{{ .Site.BaseURL }}img/prescription.svg" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">e-Prescribing</h4>
-      <p class="card-text">
-        Enter a prescription into an encounter and have it
-        electronically sent to the patient's pharmacy.
-    </p>
-</div>
-</div>
-</div>
-<div class="card-holder">
-  <div class="card">
-    <img class="card-img-top" src="{{ .Site.BaseURL }}img/invoice.svg" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">Medical Billing</h4>
-      <p class="card-text">
-        Integrated billing supporting HIPAA ASC X12 Version 5010 Transaction and Code Set Standards.
-    </p>
-</div>
-</div>
-</div>
-<div class="card-holder">
-  <div class="card">
-    <img class="card-img-top" src="{{ .Site.BaseURL }}img/medical-report.svg" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">CMS Reporting</h4>
-      <p class="card-text">
-        Generate reports with just a few clicks
-    </p>
-</div>
-</div>
-</div>
-<div class="card-holder">
-  <div class="card">
-    <img class="card-img-top" src="{{ .Site.BaseURL }}img/vaccine.svg" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">Lab Integration</h4>
-      <p class="card-text">
-        Have lab orders automatically sent to a lab and
-        integrate the results into a patient's chart
-        automatically
-    </p>
-</div>
-</div>
-</div>
-<div class="card-holder">
-  <div class="card">
-    <img class="card-img-top" src="{{ .Site.BaseURL }}img/flowchart.svg" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">Clinical Decision Rules</h4>
-      <p class="card-text">
-        Navigate complex patient algorithms using the
-        clinical decision rules engine to ensure the highest
-        quality of care for patients.
-    </p>
-</div>
-</div>
-</div>
-<div class="card-holder">
-  <div class="card">
-    <img class="card-img-top" src="{{ .Site.BaseURL }}img/padlock.svg" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">Advanced Security</h4>
-      <p class="card-text">
-        HIPAA-friendly, fine-grained access control objects,
-        and industry-standard password hashing helps to
-        protect your practice from intrusion
-    </p>
-</div>
-</div>
-</div>
-<div class="card-holder">
-  <div class="card">
-    <img class="card-img-top" src="{{ .Site.BaseURL }}img/earth.svg" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">Multilingual Support</h4>
-      <p class="card-text">
-        Available in over 30 languages, and customizable to
-        add more.
-    </p>
-</div>
-</div>
-</div>
-</section>
-</div>
+{{ partial "features/feature-list" (.Site.GetPage "features") }}
 
-<div class="parallax-container" data-parallax="scroll" data-image-src="{{ "img/hospital.jpg" | absURL }}"></div>
-
-<div class="main-content">
-  <section>
-    <div class="col text-center">
-      <h1 class="display-3">Who uses OpenEMR?</h1>
-  </div>
-</section>
-<section class="highlighted-users">
-    <div class="col">
-      <img src="{{ .Site.BaseURL }}img/IPPF-full-logo.png" alt="" height="70" class="">
-  </div>
-  <div class="col">
-      <img src="{{ .Site.BaseURL }}img/peace-corps.png" alt="" height="70" class="">
-  </div>
-  <div class="col">
-      <img src="{{ .Site.BaseURL }}img/siaya-district-hospital.jpg" alt="" height="70" class="">
-  </div>
-</section>
-</div>
+{{ partial "highlighted_users" . }}
 
 {{/*  Render all featured pages sorted by weight  */}}
 {{- range (where $homepages "Params.featured" "ne" true).ByWeight -}}
-  {{- with .Params.parallax.before -}}
-    {{ partial "parallax" . }}
-  {{- end -}}
-
-  {{ partial (.Params.layout | default "homepage/feature.html") . -}}
-  
-  {{- with .Params.parallax.after -}}
-    {{ partial "parallax" . }}
-  {{- end -}}
+  {{- partial "page_section_parallax" . -}}
 {{- end -}}
 
-<div class="main-content">
-  <section class="deploy">
-    <div class="col text-center">
-      <img src="{{ .Site.BaseURL }}img/server.svg" alt="" height="128">
-      <h2 class="display-4">On-Premise</h2>
-      <p>Run OpenEMR on your own servers on location</p>
-    </div>
-    <div class="col text-center">
-      <img src="{{ .Site.BaseURL }}img/cloud.svg" alt="" height="128">
-      <h2 class="display-4">Cloud-based</h2>
-      <p>Deploy OpenEMR to the cloud</p>
-    </div>
-  </section>
-</div>
-{{ end }}
+
+{{- partial "split-content" . -}}
+
+{{- end -}} {{/* end main block definition */}}

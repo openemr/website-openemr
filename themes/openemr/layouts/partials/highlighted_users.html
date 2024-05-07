@@ -1,0 +1,16 @@
+<section class="main-content highlighted-users py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 pb-5 text-center">
+        <h2 class="display-3">Who uses {{ .Site.Title }}</h2>
+      </div>
+    </div>
+    <div class="row">
+      {{- range .Site.Data.users -}}
+      <div class="col">
+        <img src="{{ .logo | absURL }}" alt="" height="70">
+      </div>
+      {{- end -}}
+    </div>
+  </div>
+</section>
