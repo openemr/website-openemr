@@ -9,9 +9,6 @@ enableGitInfo: true
 ignoreFiles:
   - _files%
   - _cache$
-disableKinds:
-  - taxonomy
-  - term
 menu:
   main:
     - identifier: features
@@ -185,7 +182,6 @@ params:
   opengraph: true
   shareTwitter: true
   shareFacebook: true
-  shareGooglePlus: true
   shareLinkedIn: true
   dateFormat: Mon, Jan 2, 2006
   highlightJsUrl: ""

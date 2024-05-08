@@ -1,11 +1,21 @@
-<div class="{{ $.Params.display }}" itemprop="blogPost" 
+<div class="{{ $.Params.display }} card mb-4 h-100"
+     itemprop="blogPost" 
      itemscope="" 
      itemtype="https://schema.org/BlogPosting">
-    <a href="{{ .Permalink }}" title="{{ .Title }}" class="image-link">
-        <img src="{{ $.Params.coverImage | absURL }}" class="img-fluid w-100 h-auto" alt="{{ .Title }}">
-    </a>
-    <h5>
+  <img src="{{ $.Params.coverImage | absURL }}" class="card-img-top rounded-top-3" alt="{{ .Title }}">
+  <div class="card-body">
+    <div class="d-flex">
+      <small class="text-muted flex-fill"><i class="fa fa-calendar"></i>&nbsp;{{ .Date.Format "January 1, 2006" }}</small>
+      <small class="text-muted">{{ .ReadingTime }} minute read.</small>
+    </div>
+    <h5 class="card-title mt-2">
         <a href="{{ .Permalink }}">{{ .Title }}</a>
     </h5>
-    <p>By {{ $.Params.author.name }}, a {{ .ReadingTime }} minute read. <br>{{ .Summary }}</p>
+    {{ if ne .Params.featured true }}
+    <small class="text-muted">{{ .Summary }}</small>
+    {{ end }}
+  </div>
+  <div class="card-footer bg-white border-0 pb-3">
+    <a href="{{ .Permalink }}" class="btn btn-primary rounded-pill px-4">Read More&nbsp;<i class="fa fa-chevron-right ps-2"></i></a>
+  </div>
 </div>

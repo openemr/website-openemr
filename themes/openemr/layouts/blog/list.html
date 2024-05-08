@@ -1,27 +1,43 @@
 {{ define "main" }}
-<main class="mt-5 pt-5 container">
-  {{ if gt (len (where .Pages "Params.featured" true)) 0 }}
-  <div class="row">
-    <div class="col-12">
-      <h2>Featured blog posts</h2>
+<main class="page">
+  <div class="w-100 billboard__home--giving-tuesday mb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col pb-5">
+          {{ $blog_rss := .OutputFormats.Get "rss"}}
+          <h1 class="text-white mb-0">{{ .Title }}&nbsp;<a href="{{ $blog_rss.Permalink }}" class="text-white text-underline"><span class="sr-only">RSS Feed</span><i class="fa fa-rss"></i></a></h1>
+          <span class="lead text-white">{{ .Params.subtitle }}</span>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row">
-    {{ range where .Pages "Params.featured" true }}
-    <div class="col-3">
-      {{ partial "blog/post-stub.html" . }}
+  <div class="container">
+    {{ $featured_posts := .Site.GetPage "blog" }}
+    {{ if gt (len (where $featured_posts.Pages "Params.featured" true)) 0 }}
+    <div class="row">
+      <div class="col">
+        <h2 class="mt-2 mb-4 text-primary"><i class="fa fa-star"></i>&nbsp;Featured Blog Posts</h2>
+      </div>
     </div>
-    {{ end }}
-  </div>
-  <hr>
-  {{ end }}
-  afsa;fasf
-  <div class="row">
-    {{ range where .Pages "Params.featured" "ne" "true" }}
-    <div class="col-4">
-      {{ partial "blog/post-stub.html" .}}
+    <div class="row row-cols-1 row-cols-md-4 g-2 mb-4">
+        {{ range where $featured_posts.Pages "Params.featured" true }}
+          <div class="col">{{ partial "blog/post-stub" . }}</div>
+        {{ end }}
     </div>
-    {{ end }}
+    <div class="row">
+      <div class="col">
+        <hr>
+        <div class="h2 mt-2 mb-4 text-primary">Blog Posts</div>
+      </div>
+    </div>
+    {{- end -}} {{/*  end if showing featured posts  */}}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {{ range (where .Pages "Params.featured" "ne" true) }}
+      <div class="col">
+        {{ partial "blog/post-stub.html" .}}
+      </div>
+      {{ end }}
+    </div>
   </div>
 </main>
 {{ end }}
