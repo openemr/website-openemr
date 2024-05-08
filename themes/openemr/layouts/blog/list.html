@@ -1,11 +1,28 @@
 {{ define "main" }}
-<main class="blog-list">
-    {{ range where .Pages "Params.featured" "yes" }}
-        {{ partial "blog/post-stub.html" . }}
+<main class="mt-5 pt-5 container">
+  {{ if gt (len (where .Pages "Params.featured" true)) 0 }}
+  <div class="row">
+    <div class="col-12">
+      <h2>Featured blog posts</h2>
+    </div>
+  </div>
+  <div class="row">
+    {{ range where .Pages "Params.featured" true }}
+    <div class="col-3">
+      {{ partial "blog/post-stub.html" . }}
+    </div>
     {{ end }}
-    {{ range where .Pages "Params.featured" "ne" "yes" }}
-        {{ partial "blog/post-stub.html" .}}
+  </div>
+  <hr>
+  {{ end }}
+  afsa;fasf
+  <div class="row">
+    {{ range where .Pages "Params.featured" "ne" "true" }}
+    <div class="col-4">
+      {{ partial "blog/post-stub.html" .}}
+    </div>
     {{ end }}
+  </div>
 </main>
 {{ end }}
 

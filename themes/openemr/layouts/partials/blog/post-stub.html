@@ -1,8 +1,8 @@
-<div class="post-stub {{ $.Params.display }}" itemprop="blogPost" 
+<div class="{{ $.Params.display }}" itemprop="blogPost" 
      itemscope="" 
      itemtype="https://schema.org/BlogPosting">
     <a href="{{ .Permalink }}" title="{{ .Title }}" class="image-link">
-        <img src="{{ $.Params.coverImage | absURL }}" alt="{{ .Title }}">
+        <img src="{{ $.Params.coverImage | absURL }}" class="img-fluid w-100 h-auto" alt="{{ .Title }}">
     </a>
     <h5>
         <a href="{{ .Permalink }}">{{ .Title }}</a>
