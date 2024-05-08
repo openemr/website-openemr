@@ -1,0 +1,13 @@
+
+{{- $content_container_classes := delimit (index .Params.classes "content_container" | default (slice "col-sm-12" "col-md-6")) " " -}}
+{{- $title_classes := delimit (index .Params.classes "title" | default (slice "display-3")) " " -}}
+{{- $content_classes := delimit (index .Params.classes "content" | default (slice "lead")) " " -}}
+{{- $image_container_classes := delimit (index .Params.classes "image_container" | default (slice "col-sm-12" "col-md-6" "text-center")) " " -}}
+{{- $image_classes := (index .Params.classes "image") | default "img-fluid" -}}
+<div class="{{ $content_container_classes }}">
+  <h2 class="{{ $title_classes}}">{{ .Title }}</h2>
+  <span class="{{ $content_classes}}">{{ .Content }}</span>
+</div>
+<div class="{{ $image_container_classes }}">
+  <img src="{{ .Params.image | absURL }}" class="img-fluid" alt="{{ .Params.image_alt_text | default "" }}">
+</div>

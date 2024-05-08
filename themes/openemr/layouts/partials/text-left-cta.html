@@ -1,0 +1,13 @@
+{{- $title_classes := delimit (index .Params.classes "title" | default (slice "display-3")) " " -}}
+{{- $content_classes := delimit (index .Params.classes "content" | default (slice "lead")) " " -}}
+<div class="col-sm-12">
+  <h2 class="{{ $title_classes }}">{{ .Title }}</h2>
+</div>
+<div class="col-sm-12">
+  <span class="lead">{{ .Content }}</span>
+  <div class="col text-center">
+    <a class="btn btn-xl {{ .Params.cta_class }}" href="{{ .Params.cta_href | absURL }}">
+      {{ .Params.cta_text | safeHTML}}
+    </a>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+# README
+
+## Configuration
+
+### Homepage
+
+The homepage can be customized using a variety of parameters in Params.homepage
+
+show_recent_blogs
+: Show or hide the Recent Blogs block. Defaults to true
+
+recent_blog_count
+: Number of recent blog posts to render. Defaults to 3. Any `featured: true`
+post will automatically be included at top of list.
+
+## Layout Helpers
+
+There are several helpful partials that can be used to customize content that 
+has specific requirements (such as a section in the homepage). These helpers
+are used by designers in specific layouts, not necessarily content writers.
+
+The main benefit of the helpers are to provide layout-based customizations to
+the markdown file, allowing flexible separation of content from design. Classes
+can be defined in the front matter of the page.
+
+### Contained Split Content Image
+
+Found in `partials/contained/split-content-image.html` this partial allows the
+markdown content to be rendered in (by default) a horizontal 50/50 split with 
+an image. This partial requires Page.Params.image be set.
+
+Snippet of front matter:
+
+```yml
+layout: contained/split-content-image
+classes:
+  fluid: // Content is wrapped by a fluid container to allow for full-width background
+    - container-fluid
+  container: // The actual container
+    - container
+  content_container: // The content column
+    - col-sm-12
+    - col-md-6
+  title: // The <h2> rendering .Title
+    - display-3
+  content: // The <span> rendering .Content
+    - lead
+  image_container: // The image column
+    - col-sm-12
+    - col-md-6
+  image: // The <img> rendering .Params.image
+    - img-fluid
+```

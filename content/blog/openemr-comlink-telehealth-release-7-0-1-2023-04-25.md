@@ -11,6 +11,10 @@ coverImage: images/telehealth.png
 twitterCardImageURL: images/telehealth.png
 ---
 
+Comlink announces the release of their upgraded Telehealth module for OpenEMR 7.0.1.
+
+<!--more-->
+
 [Comlink](https://www.comlinkinc.com/) proudly announces the release of their newly upgraded Telehealth module for OpenEMR 7.0.1. Included in the latest OpenEMR release is a fully integrated Telemedicine solution loaded with well-designed features that make it easy to use and very flexible for both providers and patients.
 
 Comlink has been a leader for over 20 years in providing expertise networked application platforms which they have drawn on to create this Telemedicine offering.  Building on their reputation for secure, scalable enterprise solutions, they now contribute to Free and Open Source Healthcare by providing this remarkable module to the OpenEMR community.

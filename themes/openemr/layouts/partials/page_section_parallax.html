@@ -1,0 +1,9 @@
+{{- with .Params.parallax.before -}}
+  {{ partial "parallax" . }}
+{{- end -}}
+
+{{ partial "page_section" . -}}
+
+{{- with .Params.parallax.after -}}
+  {{ partial "parallax" . }}
+{{- end -}}

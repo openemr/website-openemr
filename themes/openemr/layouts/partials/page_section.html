@@ -1,0 +1,9 @@
+{{- $fluid_classes := delimit (index .Params.classes "fluid" | default (slice "")) " " -}}
+{{- $container_classes := delimit (index .Params.classes "container" | default (slice "container")) " " -}}
+<div class="container-fluid {{ $fluid_classes}}">
+  <section class="container {{ $container_classes }}">
+    <div class="row">
+      {{ partial (.Params.layout | default "homepage/feature.html") . }}
+    </div>
+  </section>
+</div>

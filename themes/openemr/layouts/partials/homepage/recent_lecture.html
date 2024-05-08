@@ -1,0 +1,28 @@
+{{- $num_recent_lecture := .Site.Params.homepage.recent_lectures_count | default 1 -}}
+<div class="d-flex">
+  <h2 class="flex-fill">Latest Lecture</h2>
+  <a href="lecture" class="">View All&nbsp;<i class="fa fa-arrow-right"></i></a>
+</div>
+{{- $lectures := (.Site.GetPage "lectures").Pages -}}
+{{- $featured_lectures := where $lectures "Params.featured" true -}}
+{{- $unfeatured_lectures := (where $lectures "Params.featured" "ne" true).ByDate.Reverse -}}
+{{- range (union $featured_lectures $unfeatured_lectures).Limit $num_recent_lecture -}}
+  <div class="card mb-2" style="width: 100%;">
+    <div class="card-body">
+      <h5 class="card-title d-flex"><a href="{{ .Permalink }}" class="flex-fill">{{ .Title }}</a>{{- if .Params.featured -}}<span class="badge py-2 px-3 bg-primary">Featured</span>{{- end -}}</h5>
+      <span class="card-subtitle text-muted">{{ .Date.Format "Saturday Jan 2, 2006" }}</span>&nbsp;
+      <span class="card-text">{{ .Summary }}</span>
+      <div class="d-block">{{ .Params.presenter }}</div>
+      <div class="d-block">
+        {{ if isset .Params "youtube_id" }}
+          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <iframe src="https://www.youtube.com/embed/{{ .Params.youtube_id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube Video"></iframe>
+          </div>
+        {{ end }}
+        {{ if isset .Params "zoom_url" }}
+          <a href="{{ .Params.zoom_url }}" target="_blank"><img src="{{ .Params.image | absURL }}" class="img-fluid w-50" alt=""></a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+{{ end }}
