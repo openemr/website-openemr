@@ -6,6 +6,7 @@ billboard:
     - url: donate
       title: Give Now
       content: Help support ongoing development of OpenEMR.
+      image: images/heart.svg
       classes:
         card: donation
     - url: demo

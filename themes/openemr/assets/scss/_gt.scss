@@ -18,21 +18,4 @@
 
     background-color: #00509D;
     background-color: hsl(217, 100, 21);
-
-    .donation {
-        background-color: hsl(76, 91, 38) !important;
-        @include transition(0.25s);
-
-        &:hover {
-            transform: scale(1.015);
-            background-color: hsl(76, 91, 35) !important;
-        }
-
-        a {
-            color: $gray-900;
-            &:hover {
-                text-decoration: none !important;
-            }
-        }
-    }
 }

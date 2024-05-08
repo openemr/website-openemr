@@ -1,3 +1,14 @@
+@keyframes introduce_text {
+  0% { opacity: 0; transform: translateY(25px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.introduce_text {
+  animation-name: introduce_text;
+  animation-duration: 0.55s;
+  animation-iteration-count: 1;
+}
+
 .billboard {
     @extend .container-fluid;
 
@@ -14,7 +25,7 @@
     }
 
     @include media-breakpoint-up(lg) {
-        min-height: 85vh;
+        // min-height: 85vh;
     }
 
     background-color: color("primary");
@@ -61,21 +72,11 @@
                 .card {
                     @extend .text-white;
                     @extend .text-start;
-                    @extend .bg-primary;
                     @extend .mb-2;
-                    background-color: #335489 !important;
-                    transition: background-color 0.25s;
+                    background-color: transparent;
 
                     h4 {
                         margin-bottom: 0;
-                    }
-
-                    &.donation {
-                        background-color: rgba(255, 26, 47, 0.8) !important;
-
-                        &:hover {
-                            background-color: rgb(255, 26, 46) !important;
-                        }
                     }
 
                     &:hover {
@@ -165,14 +166,6 @@
 
                 h4 {
                     margin-bottom: 0;
-                }
-
-                &.donation {
-                    background-color: rgba(255, 26, 47, 0.8) !important;
-
-                    &:hover {
-                        background-color: rgb(255, 26, 46) !important;
-                    }
                 }
 
                 &:hover {
