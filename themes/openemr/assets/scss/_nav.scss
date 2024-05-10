@@ -1,26 +1,10 @@
-.main-header.home {
-  @extend .armed-state;
-}
-
-.default-state {
-  background-color: rgba(map-get($theme-colors, "primary"), 0.90) !important;
-  @include media-breakpoint-down(md) {
-    background-color: map-get($theme-colors, "primary") !important;
-  }
-}
-
-.armed-state {
-  background-color: transparent;
-  @include media-breakpoint-down(md) {
-    background-color: map-get($theme-colors, "primary") !important;
-  }
-}
-
 .main-header {
     @extend .navbar;
     @extend .navbar-expand-lg;
     @extend .navbar-dark;
     @extend .fixed-top; // @extend .bg-primary;
+    
+    background-color: map-get($theme-colors, "primary");
     
     margin-top: 0 !important;
 

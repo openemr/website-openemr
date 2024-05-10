@@ -1,0 +1,13 @@
+<div class="target_nav col pb-3 card-holders">
+  <div class="card h-100 {{ .classes.card }}">
+    <a href="{{ .url }}">
+      <span class="card-body text-center d-flex flex-column">
+        {{ with .image }}<img src="{{ . }}" width="64" class="mx-auto" alt="">{{ end }}
+        <div>
+          <h4>{{ .title }}</h4>
+          <span>{{ .content }}</span>
+        </div>
+      </span>
+    </a>
+  </div>
+</div>  <!-- end .target_nav -->
