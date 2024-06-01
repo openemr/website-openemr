@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-12">
+    <h2><i class="fa fa-star text-primary"></i>&nbsp;Featured blog posts</h2>
+  </div>
+</div>
+<div class="row">
+  {{ range where .Pages "Params.featured" true }}
+  <div class="col-3">
+    {{ partial "blog/post-stub" . }}
+  </div>
+  {{ end }}
+</div>
+<hr>
