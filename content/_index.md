@@ -17,7 +17,7 @@ billboard:
       title: Find Support
       content: Find community-based or professional help.
       image: img/info.png
-    - url: download
+    - url: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
       title: Download for Free
       content: Get the latest version for Windows, macOS, or Linux.
       image: img/download-arrow.png

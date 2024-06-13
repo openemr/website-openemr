@@ -1,7 +1,7 @@
 {{- $num_recent_lecture := .Site.Params.homepage.recent_lectures_count | default 1 -}}
 <div class="d-flex">
   <h2 class="flex-fill">Latest Lecture</h2>
-  <a href="lecture" class="">View All&nbsp;<i class="fa fa-arrow-right"></i></a>
+  <a href="lectures" class="">View All&nbsp;<i class="fa fa-arrow-right"></i></a>
 </div>
 {{- $lectures := (.Site.GetPage "lectures").Pages -}}
 {{- $featured_lectures := where $lectures "Params.featured" true -}}
