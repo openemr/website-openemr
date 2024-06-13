@@ -1,17 +1,17 @@
 ---
-title: OpenEMR Achieves ONC 2015 Cures Update Certification with Groundbreaking Release 7.0
+title: OpenEMR Achieves ONC Certification with Groundbreaking Release 7.0
 author:
   name: OpenEMR
   twitter: openemr
 date: '2022-07-19'
-slug: openemr-achieves-onc-2015-cures-update-certification-with-groundbreaking-release-70
+slug: openemr-achieves-onc-certification-with-groundbreaking-release-70
 images:
   - images/openemr-blue-logo.png 
 coverImage: images/openemr-blue-logo.png
 twitterCardImageURL: images/openemr-blue-logo.png
 ---
 
-OpenEMR version 7.0 has achieved [ONC 2015 Cures Update Certification](https://chpl.healthit.gov/#/listing/10938) through the SLI Compliance Certification Body. This certification is vital for medical practices in the United States.
+OpenEMR version 7.0 has achieved [ONC Certification](https://chpl.healthit.gov/#/listing/10938) through the SLI Compliance Certification Body. This certification is vital for medical practices in the United States.
 <!--more-->
 
 The ONC 2015 Certification was the result of a coordinated, community effort that spanned several years. There were more than forty direct contributors to this monumental effort which included Arnab Naha, Brady Miller, Brent Boecking, Care Management Solutions, Columbia University HIT Program, Comlink, Community Behavioral Health, David Eschelbacher, David Zhang, EMR Direct, Jerry Padgett, Jocelyn Valenzuela, Katy Dovgala, Ken Chapple, Kenn Vincent Kongyingyong, Kenneth Newman, Lawrence Lo, Mariam Mohsin, Michael J. Blaho, Niru Jani, Oak Street Health, OpenEMR Foundation, Paul Montenegro, Rachel Ellison, Salina Chan, Samta Jain, Sandra Gutierrez, Sherron Andrews, Stephen Nielson, Stephen Waite, Sushma Jani, Tamara Brantley, Theresa Haywood, Thuyet Tran, Tiffany Fludd, Vikram Reddy, Virginia Lorenzi, Vishnu Yarmaneni, Willy Liu, and Yash Raj Bothra.
