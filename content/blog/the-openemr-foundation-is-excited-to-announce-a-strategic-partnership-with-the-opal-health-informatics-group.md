@@ -6,7 +6,7 @@ author:
 date: '2025-04-13'
 slug: the-openemr-foundation-is-excited-to-announce-a-strategic-partnership-with-the-opal-health-informatics-group
 images:
-  - images/telehealth.png 
+  - images/opal-openemr.png
 coverImage: images/opal-openemr.png
 twitterCardImageURL: images/opal-openemr.png
 ---
