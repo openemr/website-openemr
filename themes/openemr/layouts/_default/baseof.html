@@ -4,9 +4,12 @@
         {{- block "header" . -}}{{- partial "header.html" . -}}{{- end -}}
     </head>
     <body>
-        {{/* Include the navigation */}}
-        {{- partial "navigation.html" . }}
-
+        <div class="sticky-top">
+          {{/* Announcement Bar */}}
+          {{- partial "homepage-announcement-bar.html" . -}}
+          {{/* Include the navigation */}}
+          {{- partial "navigation.html" . }}
+        </div>
         {{/* Include the main content of the page */}}
         {{ block "main" . }}
             {{/* Override content into here by defining main in a template */}}

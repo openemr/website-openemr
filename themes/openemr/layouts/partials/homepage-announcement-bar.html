@@ -1,0 +1,13 @@
+{{- if .IsHome -}}
+<div id="site-announcement" class="w-100 bg-primary text-white text-center py-2">
+  {{ $data := .Site.Data.announcements }}
+  {{ $first := index $data 0 }}
+  {{ $first.title | safeHTML }}
+  <a href="{{ $first.url | absURL }}" class="text-white text-underline font-weight-bold">
+    {{- if $first.icon -}}
+      <i class="{{ $first.icon }}">&nbsp;</i>
+    {{- end -}}
+    {{ $first.linkText }}
+  </a>
+</div>
+{{- end -}}

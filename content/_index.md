@@ -11,7 +11,7 @@ billboard:
         card: donation
     - url: demo
       title: Try Now
-      content: Login to a fully functioning demo of OpenEMR.
+      content: Try the demo or launch your own free, hosted OpenEMR now.
       image: img/monitor.png
     - url: support
       title: Find Support

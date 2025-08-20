@@ -2,7 +2,6 @@
     @extend .navbar;
     @extend .navbar-expand-lg;
     @extend .navbar-dark;
-    @extend .fixed-top; // @extend .bg-primary;
     
     background-color: map-get($theme-colors, "primary");
     
