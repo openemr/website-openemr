@@ -13,7 +13,7 @@ We offer 3 fully functional demo installations for you to try out. Some simple c
 
 ## Ready to get started?
 
-Ready to get started? OpenCoreEMR offers a free, hosted version of OpenEMR for U.S.-based healthcare providers. [Get Started](https://opencoreemr.com/?tab=pricing&utm_source=openemr_org&utm_medium=referral&utm_campaign=demo_page_promo&utm_content=callout_box)
+Ready to get started? OpenCoreEMR offers a free, hosted version of OpenEMR for U.S.-based healthcare providers. [Get Started](https://www.opencoreemr.com?utm_source=referral&utm_medium=banner&utm_campaign=openemr_launch)
 
 Part of our mission is making OpenEMR accessible to everyone, regardless of technical resources. We're proud to highlight this free, hosted edition from OpenCoreEMR, a key contributor to the OpenEMR project. Their service allows you to start a professionally managed EMR immediately, supporting a vital partner in our ecosystem as you do.
 
