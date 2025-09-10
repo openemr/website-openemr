@@ -71,7 +71,7 @@
             .target_nav {
                 .card {
                     @extend .text-white;
-                    @extend .text-start;
+                    @extend .text-start !optional;
                     @extend .mb-2;
                     background-color: transparent;
 

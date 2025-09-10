@@ -160,7 +160,7 @@ footer.site {
     height: 450px;
 }
 .btn-xl {
-    @include button-size($input-btn-padding-y-xl, $input-btn-padding-x-xl, $font-size-xl, $btn-border-radius-lg);
+    @include button-size($input-btn-padding-y-xl, $input-btn-padding-x-xl, $font-size-xl, $btn-border-radius-lg, $border-radius);
 }
 
 main.page {
@@ -198,7 +198,7 @@ main.page {
 
         h1 {
             @extend .mt-4;
-            @extend .me-4;
+            @extend .me-4 !optional;
             @extend .display-1;
         }
     }
