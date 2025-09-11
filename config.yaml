@@ -199,3 +199,7 @@ params:
   footer_three_title: Developer Links
 permalinks:
   post: /:filename/
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
