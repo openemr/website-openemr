@@ -198,7 +198,7 @@ params:
   footer_two_title: Help & Support Links
   footer_three_title: Developer Links
 permalinks:
-  post: /:filename/
+  post: /:contentbasename/
 markup:
   goldmark:
     renderer:
