@@ -1,7 +1,6 @@
 # OpenEMR Website
 
-This static-site is generated via [hugo](http://gohugo.io) version 0.52 and uses a custom
-theme to manage the main OpenEMR website.
+This static-site is generated via [hugo](http://gohugo.io) and uses a custom theme to manage the main OpenEMR website.
 
 # Installation
 
