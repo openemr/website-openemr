@@ -10,6 +10,9 @@ images:
 coverImage: images/certification-campaign.png
 twitterCardImageURL: images/certification-campaign.png
 ---
+
+<!--more-->
+
 ![image info](../../images/certification-campaign.png)
 
 # Introducing: Support • Empower • Innovate
