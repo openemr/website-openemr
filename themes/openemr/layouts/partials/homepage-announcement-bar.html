@@ -1,13 +1,158 @@
 {{- if .IsHome -}}
-<div id="site-announcement" class="w-100 bg-primary text-white text-center py-2">
-  {{ $data := .Site.Data.announcements }}
-  {{ $first := index $data 0 }}
-  {{ $first.title | safeHTML }}
-  <a href="{{ $first.url | absURL }}" class="text-white text-underline font-weight-bold">
-    {{- if $first.icon -}}
-      <i class="{{ $first.icon }}">&nbsp;</i>
-    {{- end -}}
-    {{ $first.linkText }}
-  </a>
+{{ $data := .Site.Data.announcements }}
+{{ if gt (len $data) 0 }}
+<div id="site-announcement" class="w-100 bg-primary text-white text-center py-2 position-relative">
+  <div id="announcement-carousel" class="announcement-wrapper">
+    {{ range $index, $announcement := $data }}
+    <div class="announcement-item {{ if eq $index 0 }}active{{ end }}" data-index="{{ $index }}">
+      {{ $announcement.title | safeHTML }}
+      <a href="{{ $announcement.url | absURL }}" class="text-white text-underline font-weight-bold">
+        {{- if $announcement.icon -}}
+          <i class="{{ $announcement.icon }}">&nbsp;</i>
+        {{- end -}}
+        {{ $announcement.linkText }}
+      </a>
+    </div>
+    {{ end }}
+  </div>
+  
+  {{ if gt (len $data) 1 }}
+  <div class="announcement-controls">
+    <button class="announcement-prev" aria-label="Previous announcement">&lsaquo;</button>
+    <div class="announcement-dots">
+      {{ range $index, $announcement := $data }}
+      <span class="dot {{ if eq $index 0 }}active{{ end }}" data-index="{{ $index }}"></span>
+      {{ end }}
+    </div>
+    <button class="announcement-next" aria-label="Next announcement">&rsaquo;</button>
+  </div>
+  {{ end }}
 </div>
+
+<style>
+.announcement-wrapper {
+  min-height: 2rem;
+}
+
+.announcement-item {
+  display: none;
+}
+
+.announcement-item.active {
+  display: block;
+}
+
+.announcement-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.announcement-prev,
+.announcement-next {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.announcement-prev:hover,
+.announcement-next:hover {
+  opacity: 1;
+}
+
+.announcement-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.announcement-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.announcement-dots .dot.active {
+  background-color: white;
+}
+</style>
+
+<script>
+(function() {
+  const announcements = document.querySelectorAll('.announcement-item');
+  const dots = document.querySelectorAll('.announcement-dots .dot');
+  const prevBtn = document.querySelector('.announcement-prev');
+  const nextBtn = document.querySelector('.announcement-next');
+  let currentIndex = 0;
+  let autoRotateInterval;
+
+  if (announcements.length <= 1) return;
+
+  function showAnnouncement(index) {
+    announcements.forEach(item => item.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    announcements[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentIndex = index;
+  }
+
+  function nextAnnouncement() {
+    const next = (currentIndex + 1) % announcements.length;
+    showAnnouncement(next);
+  }
+
+  function prevAnnouncement() {
+    const prev = (currentIndex - 1 + announcements.length) % announcements.length;
+    showAnnouncement(prev);
+  }
+
+  function startAutoRotate() {
+    autoRotateInterval = setInterval(nextAnnouncement, 5000);
+  }
+
+  function stopAutoRotate() {
+    clearInterval(autoRotateInterval);
+  }
+
+  // Event listeners
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    stopAutoRotate();
+    nextAnnouncement();
+    startAutoRotate();
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    stopAutoRotate();
+    prevAnnouncement();
+    startAutoRotate();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      stopAutoRotate();
+      showAnnouncement(index);
+      startAutoRotate();
+    });
+  });
+
+  // Start auto-rotation
+  startAutoRotate();
+
+  // Pause on hover
+  const announcementBar = document.getElementById('site-announcement');
+  announcementBar.addEventListener('mouseenter', stopAutoRotate);
+  announcementBar.addEventListener('mouseleave', startAutoRotate);
+})();
+</script>
+{{ end }}
 {{- end -}}
