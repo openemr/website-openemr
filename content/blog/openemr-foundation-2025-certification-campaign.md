@@ -1,7 +1,7 @@
 ---
 title: Join Us in Funding OpenEMR's 2025 Certification
 author:
-  name: Stephen Waite
+  name: "OpenEMR Foundation"
   twitter: openemr
 date: '2025-10-30'
 slug: join-us-in-funding-openemr-2025-certification
