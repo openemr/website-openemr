@@ -11,6 +11,10 @@ coverImage: images/certification-campaign.png
 twitterCardImageURL: images/certification-campaign.png
 ---
 
+Today, we're launching something important for the future of open-source healthcare: our campaign to fund OpenEMR's certification for 2025.
+
+[CONTRIBUTE NOW](https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026). Learn more about certification on [the OpenEMR wiki](https://www.open-emr.org/wiki/index.php/OpenEMR_Certification_ONC_HTI-1_Final_Rule).
+
 <!--more-->
 
 ![image info](../../images/certification-campaign.png)
@@ -19,11 +23,12 @@ twitterCardImageURL: images/certification-campaign.png
 
 ## Join Us in Funding OpenEMR's 2025 ONC Certification
 
-Today, we're launching something important for the future of open-source healthcare: our campaign to fund OpenEMR's certification for 2025.
 
 **The goal:** $200,000  
 **The deadline:** December 31, 2025  
 **The mission:** Keep healthcare open, accessible and free from vendor lock-in
+
+[CONTRIBUTE NOW](https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026). Learn more about certification on [the OpenEMR wiki](https://www.open-emr.org/wiki/index.php/OpenEMR_Certification_ONC_HTI-1_Final_Rule).
 
 ## Why This Matters
 
@@ -59,6 +64,8 @@ This is where the OpenEMR community comes in.
 ## Support • Empower • Innovate
 
 Our campaign theme isn't just a tagline—it's how open source works.
+
+[CONTRIBUTE NOW](https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026). Learn more about certification on [the OpenEMR wiki](https://www.open-emr.org/wiki/index.php/OpenEMR_Certification_ONC_HTI-1_Final_Rule).
 
 ### SUPPORT: The Foundation
 
@@ -126,6 +133,8 @@ Between now and December 31, 2025, we'll be working toward this goal together. V
 * Transparent reporting on how funds are used
 
 This isn't just about meeting a regulatory requirement. It's about proving that community-funded, open-source healthcare IT can work at scale. It's about maintaining competition in a market that desperately needs alternatives to corporate monopolies. It's about keeping healthcare accessible for practices of all sizes.
+
+[CONTRIBUTE NOW](https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026). Learn more about certification on [the OpenEMR wiki](https://www.open-emr.org/wiki/index.php/OpenEMR_Certification_ONC_HTI-1_Final_Rule).
 
 ---
 
