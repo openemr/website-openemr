@@ -15,6 +15,7 @@ Donations go to the OpenEMR Foundation, which is a 501(c)(3) nonprofit
 organization that exists to support the OpenEMR project. We have five
 ways you can make a financial donation to OpenEMR.
 
+
 ## Give via PayPal
 {{< paypal >}}
 
