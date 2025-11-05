@@ -11,9 +11,11 @@ coverImage: images/certification-campaign.png
 twitterCardImageURL: images/certification-campaign.png
 ---
 
-Today, we're launching something important for the future of open-source healthcare: our campaign to fund OpenEMR's certification for 2025.
+[CONTRIBUTE NOW](https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026).
 
-[CONTRIBUTE NOW](https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026). Learn more about certification on [the OpenEMR wiki](https://www.open-emr.org/wiki/index.php/OpenEMR_Certification_ONC_HTI-1_Final_Rule).
+Learn more about certification on [the OpenEMR wiki](https://www.open-emr.org/wiki/index.php/OpenEMR_Certification_ONC_HTI-1_Final_Rule).
+
+Today, we're launching something important for the future of open-source healthcare: our campaign to fund OpenEMR's certification for 2025.
 
 <!--more-->
 
