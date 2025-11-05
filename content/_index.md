@@ -1,11 +1,11 @@
 ---
-title: The world's leading open-source<br>medical record software.
-subtitle: Donations fund ONC Certification, API, FHIR and more!
+title: <a href="https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026">Fund OpenEMR Certification Together</a>
+subtitle: The world's leading open-source medical record software.
 billboard:
   cards:
-    - url: donate
-      title: Give Now
-      content: Help support ongoing development of OpenEMR.
+    - url: https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026
+      title: Contribute Now
+      content: Support - Empower - Innovate
       image: images/heart.svg
       classes:
         card: donation
