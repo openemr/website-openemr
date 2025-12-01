@@ -24,6 +24,15 @@ jobs:
           hugo-version: '0.150.0'
           extended: true
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./themes/openemr
+
       - name: Build
         run: hugo --minify
 
