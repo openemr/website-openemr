@@ -1,8 +1,4 @@
+# Disallow all crawling in github pages
+# Official server has its own robots.txt
 User-agent: *
-Allow: /
-Disallow: /index.php?
-Disallow: /index.php/Help:
-Disallow: /index.php/MediaWiki:
-Disallow: /index.php/Special:
-Disallow: /index.php/Template:
-Disallow: /skins/
+Disallow: /
