@@ -1,4 +1,5 @@
 User-agent: *
+Allow: /
 Disallow: /index.php?
 Disallow: /index.php/Help:
 Disallow: /index.php/MediaWiki:
