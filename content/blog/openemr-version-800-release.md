@@ -10,8 +10,6 @@ images:
 coverImage: images/openemr.png
 twitterCardImageURL: images/openemr.png
 ---
-___[Contribute Now](https://www.zeffy.com/en-US/donation-form/donate-to-onc--2026)___
-
 # Announcing OpenEMR Version 8
 
 The OpenEMR community is proud to announce the release of version 8! The ONC certified version contains dozens of new features, improvements and fixes to support interoperability, streamline workflows, and improve patient care.
