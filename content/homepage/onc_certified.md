@@ -20,4 +20,4 @@ parallax:
   after: "img/stethoscope.jpg"
 ---
 
-OpenEMR is ONC Certified! More details on how the OpenEMR community completed this feat can be [found on our blog article](blog/openemr-version-8-released/). The ONC Certification Transparency and Disclosure Requirements for OpenEMR can [be viewed here](https://open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#Current).
+OpenEMR is ONC Certified! More details on how the OpenEMR community completed this feat can be [found on our blog article](blog/openemr-version-8-released/). The ONC Certification Transparency and Disclosure Requirements for OpenEMR can [be viewed here](https://www.open-emr.org/wiki/index.php/OpenEMR_Wiki_Home_Page#ONC_Ambulatory_EHR_Certification).
