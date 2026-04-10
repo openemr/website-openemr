@@ -47,9 +47,17 @@
 </div>
 {{ if .Params.external_links_new_tab }}
 <script>
-  document.querySelectorAll('a[href^="http"]').forEach(function(link) {
-    link.setAttribute('target', '_blank');
-    link.setAttribute('rel', 'noopener noreferrer');
+  document.querySelectorAll('a[href]').forEach(function(link) {
+    try {
+      var url = new URL(link.href, window.location.href);
+      if (!/^https?:$/.test(url.protocol) || url.origin === window.location.origin) {
+        return;
+      }
+      link.setAttribute('target', '_blank');
+      link.relList.add('noopener', 'noreferrer');
+    } catch (e) {
+      // Ignore invalid or non-standard href values.
+    }
   });
 </script>
 {{ end }}
