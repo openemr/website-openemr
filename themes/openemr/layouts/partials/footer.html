@@ -45,4 +45,12 @@
     </div>
   </div>
 </div>
+{{ if .Params.external_links_new_tab }}
+<script>
+  document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+  });
+</script>
+{{ end }}
 </footer>

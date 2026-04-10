@@ -3,6 +3,7 @@ title: "OpenEMR Demo"
 date: 2018-06-22T20:57:39-05:00
 url: demo
 layout: page
+external_links_new_tab: true
 ---
 
 # Fully Working OpenEMR 8.0.0 Demo
