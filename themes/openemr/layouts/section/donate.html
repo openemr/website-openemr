@@ -73,7 +73,8 @@
     btn.setAttribute('aria-label', msg);
     btn.style.color = ok ? '#1a7a45' : '#b91c1c';
     announce(msg);
-    setTimeout(function () {
+    clearTimeout(btn._copyTimer);
+    btn._copyTimer = setTimeout(function () {
       btn.querySelector('span').textContent = 'Copy address';
       btn.setAttribute('aria-label', originalLabel);
       btn.style.color = '';
