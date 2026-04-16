@@ -7,7 +7,7 @@
   a 501(c)(3) nonprofit organization that exists to support the OpenEMR project.</p>
 
   <span class="donate-tax-badge">
-    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2l1.5 4h4.5l-3.5 2.5 1.5 4.5L8 10.5l-4 2.5 1.5-4.5L2 6h4.5z"/></svg>
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M8 2l1.5 4h4.5l-3.5 2.5 1.5 4.5L8 10.5l-4 2.5 1.5-4.5L2 6h4.5z"/></svg>
     501(c)(3) — donations are tax-deductible
   </span>
 
@@ -19,6 +19,10 @@
   </div>
 
   <p class="donate-section-label">Cryptocurrency</p>
+
+  {{/* Single live region — one per page is enough */}}
+  <div id="donate-copy-status" role="status" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
+
   <div class="donate-crypto">
     <div class="donate-crypto__card">
       <div class="donate-crypto__header">
@@ -26,9 +30,11 @@
         <strong>Bitcoin (BTC)</strong>
       </div>
       <p class="donate-crypto__addr" id="donate-btc">3GCNLbiZmHP26fA77NkLgY4tKdEts3ADQg</p>
-      <button class="donate-copy-btn" onclick="donateCopy('donate-btc',this)">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
-        Copy address
+      <button class="donate-copy-btn"
+              aria-label="Copy Bitcoin address to clipboard"
+              onclick="donateCopy('donate-btc',this)">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+        <span aria-hidden="true">Copy address</span>
       </button>
     </div>
     <div class="donate-crypto__card">
@@ -37,9 +43,11 @@
         <strong>Ethereum &amp; ERC-20 tokens (ETH)</strong>
       </div>
       <p class="donate-crypto__addr" id="donate-eth">0xcD7542b2DcF41072aC7783C7cbc31B0f1E257E80</p>
-      <button class="donate-copy-btn" onclick="donateCopy('donate-eth',this)">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
-        Copy address
+      <button class="donate-copy-btn"
+              aria-label="Copy Ethereum address to clipboard"
+              onclick="donateCopy('donate-eth',this)">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+        <span aria-hidden="true">Copy address</span>
       </button>
     </div>
   </div>
@@ -50,18 +58,29 @@
 
 <script>
 (function () {
-  var ICON = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg> ';
+  var COPY_SVG = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>';
+  var statusEl = document.getElementById('donate-copy-status');
 
-  function showResult(btn, ok) {
-    btn.textContent = ok ? 'Copied!' : 'Copy failed';
-    btn.style.color  = ok ? '#1a7a45' : '#b91c1c';
+  function announce(msg) {
+    // Clear first so re-copying the same address re-triggers the live region.
+    statusEl.textContent = '';
+    setTimeout(function () { statusEl.textContent = msg; }, 50);
+  }
+
+  function showResult(btn, originalLabel, ok) {
+    var msg = ok ? 'Copied!' : 'Copy failed';
+    btn.querySelector('span').textContent = msg;
+    btn.setAttribute('aria-label', msg);
+    btn.style.color = ok ? '#1a7a45' : '#b91c1c';
+    announce(msg);
     setTimeout(function () {
-      btn.innerHTML   = ICON + 'Copy address';
+      btn.querySelector('span').textContent = 'Copy address';
+      btn.setAttribute('aria-label', originalLabel);
       btn.style.color = '';
     }, 2000);
   }
 
-  function fallbackCopy(text, btn) {
+  function fallbackCopy(text, btn, originalLabel) {
     var ta = document.createElement('textarea');
     ta.value = text;
     ta.style.cssText = 'position:fixed;top:-999px;left:-999px;opacity:0';
@@ -71,17 +90,18 @@
     var ok = false;
     try { ok = document.execCommand('copy'); } catch (e) {}
     document.body.removeChild(ta);
-    showResult(btn, ok);
+    showResult(btn, originalLabel, ok);
   }
 
   window.donateCopy = function (id, btn) {
     var text = document.getElementById(id).textContent.trim();
+    var originalLabel = btn.getAttribute('aria-label');
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text)
-        .then(function ()  { showResult(btn, true);  })
-        .catch(function () { fallbackCopy(text, btn); });
+        .then(function ()  { showResult(btn, originalLabel, true); })
+        .catch(function () { fallbackCopy(text, btn, originalLabel); });
     } else {
-      fallbackCopy(text, btn);
+      fallbackCopy(text, btn, originalLabel);
     }
   };
 }());
