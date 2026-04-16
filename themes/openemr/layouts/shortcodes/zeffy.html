@@ -1,0 +1,14 @@
+{{- $url := "https://www.zeffy.com/en-US/donation-form/support-openemr" -}}
+<div class="zeffy-widget">
+  <iframe
+    src="{{ $url }}"
+    title="Donate to OpenEMR Foundation via Zeffy"
+    allow="payment"
+    loading="lazy"
+    style="width:100%;min-height:520px;border:none;border-radius:8px;display:block;"
+  ></iframe>
+  <p class="zeffy-fallback">
+    Having trouble seeing the form?
+    <a href="{{ $url }}" target="_blank" rel="noopener">Open donation form in a new tab</a>.
+  </p>
+</div>
