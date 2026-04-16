@@ -186,7 +186,6 @@ params:
   dateFormat: Mon, Jan 2, 2006
   highlightJsUrl: ""
   highlightJsLocalUrl: ""
-  paypalID: UA3UDABCAUZ2S
   githubSponser: openemr
   openCollective: openemr
   author:
