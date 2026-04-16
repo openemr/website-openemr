@@ -1,0 +1,12 @@
+{{ with .Site.Params.openCollective }}
+<div class="donate-card">
+  <div class="donate-card__icon donate-card__icon--oc">○</div>
+  <h3 class="donate-card__title">Open Collective</h3>
+  <p class="donate-card__desc">Full financial transparency. See exactly how funds are received and spent by the Foundation.</p>
+  <a href="https://opencollective.com/{{ . }}"
+     target="_blank" rel="noopener"
+     class="donate-card__btn donate-card__btn--oc">
+    <i class="fa fa-heart" aria-hidden="true"></i> Donate on Open Collective
+  </a>
+</div>
+{{ end }}
