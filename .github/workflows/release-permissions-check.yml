@@ -1,0 +1,98 @@
+name: release-permissions-check
+
+# Manual self-check that the credentials and tokens release-docs.yml
+# depends on actually have the permissions it needs. Run this any time
+# the App, the token, or the cross-repo dispatch contract changes.
+#
+# Three things are probed:
+#
+# 1. `contents: write` on this repo — verified by creating and then
+#    deleting an empty `release-perms-probe/<run-id>` branch.
+# 2. `pull-requests: write` on this repo — verified by listing PRs;
+#    a no-op write happens against a sentinel PR only when one exists.
+# 3. Cross-repo `repository_dispatch` to website-openemr-files using
+#    the `release-permissions-probe` event type. The receiving repo's
+#    workflow simply acks the event.
+#
+# Each probe runs even if a previous probe failed, so a single run
+# reports every missing permission rather than just the first.
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repo:
+        description: 'Cross-repo dispatch target (owner/repo)'
+        required: true
+        default: 'openemr/website-openemr-files'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-permissions-check
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    name: probe (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe contents:write — create and delete a probe branch
+        id: contents
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          branch="release-perms-probe/${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git push origin "HEAD:refs/heads/$branch"
+          git push origin --delete "$branch"
+          echo 'ok=true' >> "$GITHUB_OUTPUT"
+
+      - name: Probe pull-requests:write — list and inspect PRs
+        id: prs
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/pulls?state=open&per_page=1" >/dev/null
+          echo 'ok=true' >> "$GITHUB_OUTPUT"
+
+      - name: Probe cross-repo repository_dispatch
+        id: dispatch
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_DISPATCH_TOKEN }}
+          TARGET_REPO: ${{ github.event.inputs.target_repo }}
+        run: |
+          set -euo pipefail
+          gh api "repos/${TARGET_REPO}/dispatches" \
+            --method POST \
+            --field event_type='release-permissions-probe' \
+            --raw-field 'client_payload[run_id]'="${GITHUB_RUN_ID}" \
+            --raw-field 'client_payload[source]'="${GITHUB_REPOSITORY}"
+          echo 'ok=true' >> "$GITHUB_OUTPUT"
+
+      - name: Report
+        run: |
+          set -euo pipefail
+          contents='${{ steps.contents.outputs.ok }}'
+          prs='${{ steps.prs.outputs.ok }}'
+          dispatch='${{ steps.dispatch.outputs.ok }}'
+          printf 'contents:write       %s\n' "${contents:-FAIL}"
+          printf 'pull-requests:write  %s\n' "${prs:-FAIL}"
+          printf 'cross-repo dispatch  %s\n' "${dispatch:-FAIL}"
+          if [[ "$contents" != true || "$prs" != true || "$dispatch" != true ]]; then
+            echo 'one or more probes failed; release-docs.yml will not work'
+            exit 1
+          fi

@@ -1,0 +1,14 @@
+{
+    "8.1.0": {
+        "status": "DRAFT",
+        "branch": "rel-810",
+        "sha": "abc1234567890abcdef0123456789abcdef01234",
+        "released_at": null
+    },
+    "8.0.0": {
+        "status": "FINAL",
+        "branch": "rel-800",
+        "sha": "def0987654321fedcba9876543210fedcba98765",
+        "released_at": "2025-09-01"
+    }
+}

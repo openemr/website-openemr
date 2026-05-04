@@ -5,19 +5,31 @@ on:
     branches:
       - master
     paths:
-      - '.github/actions/**'
       - '.github/workflows/**'
+      - '.github/actions/**'
   pull_request:
     branches:
       - master
     paths:
-      - '.github/actions/**'
       - '.github/workflows/**'
+      - '.github/actions/**'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: actionlint-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   actionlint:
-    name: actionlint
-    runs-on: ubuntu-latest
+    name: actionlint (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
     steps:
       - uses: actions/checkout@v6
       - uses: reviewdog/action-actionlint@v1

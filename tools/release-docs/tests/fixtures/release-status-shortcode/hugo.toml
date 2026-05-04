@@ -1,0 +1,4 @@
+baseURL = "http://example.invalid/"
+languageCode = "en-us"
+title = "release-status shortcode test fixture"
+disableKinds = ["taxonomy", "term", "section", "RSS", "sitemap", "home"]

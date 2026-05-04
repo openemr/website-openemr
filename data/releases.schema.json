@@ -1,0 +1,52 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://openemr.org/website-openemr/data/releases.schema.json",
+    "title": "OpenEMR releases manifest",
+    "description": "Per-version release status, consumed by the release-status Hugo shortcode and written by the release-docs workflow on inbound dispatches from openemr/openemr.",
+    "type": "object",
+    "additionalProperties": false,
+    "patternProperties": {
+        "^\\d+\\.\\d+\\.\\d+$": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "branch", "sha", "released_at"],
+            "properties": {
+                "status": { "enum": ["DRAFT", "FINAL"] },
+                "branch": {
+                    "type": "string",
+                    "pattern": "^rel-(\\d+)(\\d)0$"
+                },
+                "sha": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{40}$"
+                },
+                "released_at": {
+                    "oneOf": [
+                        { "type": "null" },
+                        {
+                            "type": "string",
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                        }
+                    ]
+                }
+            },
+            "oneOf": [
+                {
+                    "properties": {
+                        "status": { "const": "DRAFT" },
+                        "released_at": { "type": "null" }
+                    }
+                },
+                {
+                    "properties": {
+                        "status": { "const": "FINAL" },
+                        "released_at": {
+                            "type": "string",
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

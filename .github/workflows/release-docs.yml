@@ -1,0 +1,202 @@
+name: release-docs
+
+# Long-lived docs PR per OpenEMR release. Fired by the conductor in
+# openemr/openemr (or any operator via workflow_dispatch with a
+# hand-authored payload). Every run regenerates the full per-release
+# Hugo content from a fixed openemr/openemr sha and force-pushes
+# `release-docs/<version>` so reviewers see the current state.
+#
+# Inbound contract:  tools/release-docs/contracts/dispatch.schema.json
+# Outbound contract: same schema, openemr-docs-binaries variant,
+# emitted to openemr/website-openemr-files when the inbound payload
+# carries a non-empty data.files array.
+#
+# This workflow is intentionally a thin sequencer: every non-trivial
+# step is a Taskfile target under tools/release-docs/Taskfile.yml so the
+# operations can be invoked locally for debugging the same way CI runs
+# them. See the `workflow:*` tasks there.
+
+on:
+  repository_dispatch:
+    types:
+      - openemr-rel-cut
+      - openemr-rel-update
+      - openemr-tag
+  workflow_dispatch:
+    inputs:
+      event:
+        description: 'Dispatch event name (openemr-rel-cut | openemr-rel-update | openemr-tag).'
+        required: true
+        type: choice
+        options:
+          - openemr-rel-cut
+          - openemr-rel-update
+          - openemr-tag
+      version:
+        description: 'Release version, e.g. 8.1.0.'
+        required: true
+      branch:
+        description: 'Release branch, e.g. rel-810.'
+        required: true
+      sha:
+        description: 'openemr/openemr commit sha to checkout.'
+        required: true
+      prev_release:
+        description: 'Previous release version (e.g. 8.0.0). Empty for the very first dispatch on a new minor line.'
+        required: false
+        default: ''
+      tag:
+        description: 'Annotated tag name (openemr-tag only), e.g. v8_1_0.'
+        required: false
+        default: ''
+      files:
+        description: 'JSON array of binary filenames to forward to website-openemr-files (e.g. ["openemr-8.1.0-ehi.tar.gz"]). Empty array skips the sub-dispatch.'
+        required: false
+        default: '[]'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+# Serialize per-version so two dispatches for the same release branch
+# don't race on the same `release-docs/<version>` ref. Different
+# versions can run in parallel. cancel-in-progress: false because
+# regenerations are cheap and overlapping cancels would lose state.
+concurrency:
+  group: release-docs-${{ github.event.client_payload.data.version || inputs.version }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: tools/release-docs
+
+jobs:
+  generate:
+    name: generate (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    env:
+      OPENEMR_CHECKOUT: ${{ github.workspace }}/.openemr-src
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+
+      - name: Install task
+        uses: arduino/setup-task@v2
+        with:
+          version: '3.x'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install release-docs dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist --no-dev
+
+      - name: Mint App token
+        id: token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            website-openemr
+            website-openemr-files
+
+      - name: Resolve dispatch payload
+        id: payload
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          CLIENT_PAYLOAD: ${{ toJSON(github.event.client_payload) }}
+          INPUTS_PAYLOAD: ${{ toJSON(inputs) }}
+        run: task workflow:resolve-payload
+
+      - name: Validate payload against dispatch.schema.json
+        env:
+          PAYLOAD: ${{ steps.payload.outputs.file }}
+        run: |
+          task workflow:strip-sidecar
+          task validate-dispatch PAYLOAD="$RUNNER_TEMP/payload.canonical.json"
+
+      - name: Sparse-checkout openemr/openemr at dispatched sha
+        uses: actions/checkout@v4
+        with:
+          repository: openemr/openemr
+          ref: ${{ steps.payload.outputs.sha }}
+          path: .openemr-src
+          fetch-depth: 0
+          sparse-checkout: |
+            .git
+            version.php
+            CHANGELOG.md
+
+      - name: Generate acknowledgements
+        if: ${{ steps.payload.outputs.prev_release != '' }}
+        env:
+          PREV: ${{ steps.payload.outputs.prev_release }}
+          VERSION: ${{ steps.payload.outputs.version }}
+        run: task gen-acknowledgements REPO_PATH="$OPENEMR_CHECKOUT" PREV_VERSION="$PREV" VERSION="$VERSION"
+
+      - name: Generate release notes
+        if: ${{ steps.payload.outputs.prev_release != '' }}
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          PREV: ${{ steps.payload.outputs.prev_release }}
+          VERSION: ${{ steps.payload.outputs.version }}
+        run: task gen-release-notes REPO_PATH="$OPENEMR_CHECKOUT" PREV_VERSION="$PREV" VERSION="$VERSION"
+
+      - name: Generate install page
+        env:
+          VERSION: ${{ steps.payload.outputs.version }}
+        run: task gen-install-page VERSION="$VERSION"
+
+      - name: Generate upgrade page
+        if: ${{ steps.payload.outputs.prev_release != '' }}
+        env:
+          PREV: ${{ steps.payload.outputs.prev_release }}
+          VERSION: ${{ steps.payload.outputs.version }}
+        run: task gen-upgrade-page VERSION="$VERSION" PREVIOUS_VERSION="$PREV"
+
+      - name: Update releases manifest
+        env:
+          PAYLOAD: ${{ steps.payload.outputs.file }}
+        run: |
+          task workflow:strip-sidecar
+          task update-manifest PAYLOAD="$RUNNER_TEMP/payload.canonical.json"
+
+      - name: Commit and force-push docs branch
+        id: push
+        env:
+          BRANCH: release-docs/${{ steps.payload.outputs.version }}
+          EVENT: ${{ steps.payload.outputs.event }}
+          VERSION: ${{ steps.payload.outputs.version }}
+          SHA: ${{ steps.payload.outputs.sha }}
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: task workflow:commit-push
+
+      - name: Open or update draft PR
+        if: ${{ steps.push.outputs.pushed == 'true' }}
+        env:
+          BRANCH: release-docs/${{ steps.payload.outputs.version }}
+          EVENT: ${{ steps.payload.outputs.event }}
+          VERSION: ${{ steps.payload.outputs.version }}
+          SHA: ${{ steps.payload.outputs.sha }}
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: task workflow:upsert-pr
+
+      - name: Sub-dispatch binaries to website-openemr-files
+        if: ${{ steps.payload.outputs.files_count != '0' }}
+        env:
+          PAYLOAD: ${{ steps.payload.outputs.file }}
+          VERSION: ${{ steps.payload.outputs.version }}
+          BRANCH_NAME: ${{ steps.payload.outputs.branch }}
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: task workflow:sub-dispatch
