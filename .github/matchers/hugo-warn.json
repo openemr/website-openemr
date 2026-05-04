@@ -1,0 +1,14 @@
+{
+  "problemMatcher": [
+    {
+      "owner": "hugo-warn",
+      "severity": "error",
+      "pattern": [
+        {
+          "regexp": "^(WARN.*)$",
+          "message": 1
+        }
+      ]
+    }
+  ]
+}
