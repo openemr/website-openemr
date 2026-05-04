@@ -1,3 +1,8 @@
+# Deploys the site to GitHub Pages staging at
+# https://openemr.github.io/website-openemr/ on every push to master.
+# Production (https://www.open-emr.org/) is not deployed by this
+# workflow — see openemr/website-openemr#92 for the planned prod
+# deploy.
 name: Deploy to GitHub Pages
 
 on:
@@ -10,13 +15,18 @@ permissions:
   pages: write
   id-token: write
 
+# Serialize Pages deploys: only one in-flight at a time, but don't cancel
+# a running deploy if a new push arrives — let it finish before the next
+# starts. Matches GitHub's recommended Pages workflow template.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-        with:
-          submodules: true  # if theme is a submodule
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
@@ -33,8 +43,15 @@ jobs:
         run: npm ci
         working-directory: ./themes/openemr
 
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      # actions/configure-pages emits base_url without a trailing slash
+      # (e.g. https://openemr.github.io/website-openemr). Hugo expects a
+      # trailing slash on baseURL, so append one explicitly.
       - name: Build
-        run: hugo --minify
+        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
