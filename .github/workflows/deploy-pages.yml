@@ -1,70 +1,137 @@
-# Deploys the site to GitHub Pages staging at
-# https://openemr.github.io/website-openemr/ on every push to master.
-# Production (https://www.open-emr.org/) is not deployed by this
-# workflow — see openemr/website-openemr#92 for the planned prod
-# deploy.
-name: Deploy to GitHub Pages
+# Builds the site and (on master) deploys it to GitHub Pages staging at
+# https://openemr.github.io/website-openemr/. Production
+# (https://www.open-emr.org/) is not deployed by this workflow — see
+# openemr/website-openemr#92 for the planned prod deploy.
+#
+# The build job runs on every PR and master push and gates the deploy
+# job behind a Hugo WARN allowlist. Deploy only runs on master push and
+# rebuilds with the Pages base URL — the build job's artifact is a
+# fail-fast gate, not the deployable artifact.
+name: site
 
 on:
   push:
     branches: [master]
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'data/**'
+      - 'static/**'
+      - 'archetypes/**'
+      - 'themes/**'
+      - 'config.yaml'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy-pages.yml'
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'data/**'
+      - 'static/**'
+      - 'archetypes/**'
+      - 'themes/**'
+      - 'config.yaml'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# Serialize Pages deploys: only one in-flight at a time, but don't cancel
-# a running deploy if a new push arrives — let it finish before the next
-# starts. Matches GitHub's recommended Pages workflow template.
+# PR runs auto-cancel on supersede; master pushes and dispatches
+# serialize on the ref so a follow-up push waits rather than cancelling
+# an in-flight deploy.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  HUGO_VERSION: '0.150.0'
+  NODE_VERSION: '24'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: hugo build (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: [ubuntu-24.04]
     steps:
       - uses: actions/checkout@v6
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
+      - uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.150.0'
+          hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm ci
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install theme dependencies
         working-directory: ./themes/openemr
-
-      - name: Configure Pages
-        id: pages
-        uses: actions/configure-pages@v5
-
-      # actions/configure-pages emits base_url without a trailing slash
-      # (e.g. https://openemr.github.io/website-openemr). Hugo expects a
-      # trailing slash on baseURL, so append one explicitly.
-      - name: Build
-        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
+        run: npm ci
+      - name: Build site
+        shell: bash
+        run: hugo --gc --minify 2>&1 | tee "$RUNNER_TEMP/hugo.log"
+      - name: Filter WARN lines against allowlist
+        run: |
+          # Allowlist pre-existing warnings. Update only when removing
+          # or replacing a known-permanent warning.
+          awk '
+            /^WARN/ &&
+            index($0, "deprecated: project config key languageCode") == 0 &&
+            index($0, "deprecated: .Site.Data was deprecated") == 0 &&
+            index($0, "Google Analytics 4 (GA4) replaced") == 0
+          ' "$RUNNER_TEMP/hugo.log" > "$RUNNER_TEMP/hugo.unexpected"
+      - name: Fail on unexpected warnings
+        run: |
+          if [[ -s "$RUNNER_TEMP/hugo.unexpected" ]]; then
+            cat "$RUNNER_TEMP/hugo.unexpected"
+            exit 1
+          fi
+      - name: Upload Hugo log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
         with:
-          path: './public'
+          name: hugo-log
+          path: ${{ runner.temp }}/hugo.log
+          if-no-files-found: warn
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v6
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install theme dependencies
+        working-directory: ./themes/openemr
+        run: npm ci
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      # actions/configure-pages emits base_url without a trailing slash
+      # (e.g. https://openemr.github.io/website-openemr). Hugo expects a
+      # trailing slash on baseURL, so append one explicitly.
+      - name: Build for deploy
+        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: './public'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
