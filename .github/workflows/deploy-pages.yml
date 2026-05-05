@@ -41,8 +41,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # PR runs auto-cancel on supersede; master pushes and dispatches
 # serialize on the ref so a follow-up push waits rather than cancelling
@@ -60,7 +58,6 @@ jobs:
     name: hugo build (${{ matrix.runner }})
     runs-on: ${{ matrix.runner }}
     strategy:
-      fail-fast: false
       matrix:
         runner: [ubuntu-24.04]
     steps:
@@ -114,6 +111,10 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
