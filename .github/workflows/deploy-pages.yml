@@ -65,6 +65,12 @@ jobs:
         runner: [ubuntu-24.04]
     steps:
       - uses: actions/checkout@v6
+      # Register the matcher before the build runs so WARN lines are
+      # annotated in the Files-changed tab even when hugo itself fails
+      # before the explicit allowlist check.
+      - name: Register Hugo WARN matcher
+        shell: bash
+        run: echo '::add-matcher::.github/matchers/hugo-warn.json'
       - uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
@@ -89,10 +95,9 @@ jobs:
             index($0, "deprecated: .Site.Data was deprecated") == 0 &&
             index($0, "Google Analytics 4 (GA4) replaced") == 0
           ' "$RUNNER_TEMP/hugo.log" > "$RUNNER_TEMP/hugo.unexpected"
-      - name: Annotate and fail on unexpected warnings
+      - name: Fail on unexpected warnings
         shell: bash
         run: |
-          echo '::add-matcher::.github/matchers/hugo-warn.json'
           if [[ -s "$RUNNER_TEMP/hugo.unexpected" ]]; then
             cat "$RUNNER_TEMP/hugo.unexpected"
             exit 1
