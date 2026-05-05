@@ -74,7 +74,6 @@ jobs:
         shell: bash
         run: hugo --gc --minify 2>&1 | tee "$RUNNER_TEMP/hugo.log"
       - name: Filter WARN lines against allowlist
-        shell: bash
         run: |
           # Allowlist pre-existing warnings. Update only when removing
           # or replacing a known-permanent warning.
@@ -85,7 +84,6 @@ jobs:
             index($0, "Google Analytics 4 (GA4) replaced") == 0
           ' "$RUNNER_TEMP/hugo.log" > "$RUNNER_TEMP/hugo.unexpected"
       - name: Fail on unexpected warnings
-        shell: bash
         run: |
           if [[ -s "$RUNNER_TEMP/hugo.unexpected" ]]; then
             cat "$RUNNER_TEMP/hugo.unexpected"
