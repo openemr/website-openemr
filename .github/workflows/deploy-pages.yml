@@ -23,7 +23,6 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/deploy-pages.yml'
-      - '.github/matchers/hugo-warn.json'
   pull_request:
     paths:
       - 'content/**'
@@ -36,7 +35,6 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/deploy-pages.yml'
-      - '.github/matchers/hugo-warn.json'
   workflow_dispatch:
 
 permissions:
@@ -62,12 +60,6 @@ jobs:
         runner: [ubuntu-24.04]
     steps:
       - uses: actions/checkout@v6
-      # Register the matcher before the build runs so WARN lines are
-      # annotated in the Files-changed tab even when hugo itself fails
-      # before the explicit allowlist check.
-      - name: Register Hugo WARN matcher
-        shell: bash
-        run: echo '::add-matcher::.github/matchers/hugo-warn.json'
       - uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
