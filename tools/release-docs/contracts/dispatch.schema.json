@@ -1,0 +1,136 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://openemr.org/contracts/release/dispatch.schema.json",
+    "title": "OpenEMR release dispatch payload",
+    "description": "Vendored copy of the canonical dispatch contract owned by openemr/openemr-devops at tools/release/contracts/dispatch.schema.json. The drift-check tool in openemr-devops reconciles divergence.",
+    "oneOf": [
+        { "$ref": "#/$defs/openemr-rel-cut" },
+        { "$ref": "#/$defs/openemr-rel-update" },
+        { "$ref": "#/$defs/openemr-tag" },
+        { "$ref": "#/$defs/openemr-docs-binaries" }
+    ],
+    "$defs": {
+        "envelope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["event", "repo", "sha", "actor", "dispatched_at", "data"],
+            "properties": {
+                "event": { "type": "string", "minLength": 1 },
+                "repo": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$"
+                },
+                "sha": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{40}$"
+                },
+                "actor": { "type": "string", "minLength": 1 },
+                "dispatched_at": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
+                },
+                "data": { "type": "object" }
+            }
+        },
+        "branch": {
+            "type": "string",
+            "pattern": "^rel-(\\d+)(\\d)0$"
+        },
+        "tag": {
+            "type": "string",
+            "pattern": "^v(\\d+)_(\\d+)_(\\d+)$"
+        },
+        "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "openemr-rel-cut": {
+            "allOf": [
+                { "$ref": "#/$defs/envelope" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "event": { "const": "openemr-rel-cut" },
+                        "data": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["branch", "version", "prev_release"],
+                            "properties": {
+                                "branch": { "$ref": "#/$defs/branch" },
+                                "version": { "$ref": "#/$defs/version" },
+                                "prev_release": { "$ref": "#/$defs/version" }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "openemr-rel-update": {
+            "allOf": [
+                { "$ref": "#/$defs/envelope" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "event": { "const": "openemr-rel-update" },
+                        "data": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["branch", "version", "prev_release"],
+                            "properties": {
+                                "branch": { "$ref": "#/$defs/branch" },
+                                "version": { "$ref": "#/$defs/version" },
+                                "prev_release": { "$ref": "#/$defs/version" }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "openemr-tag": {
+            "allOf": [
+                { "$ref": "#/$defs/envelope" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "event": { "const": "openemr-tag" },
+                        "data": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["tag", "branch", "version"],
+                            "properties": {
+                                "tag": { "$ref": "#/$defs/tag" },
+                                "branch": { "$ref": "#/$defs/branch" },
+                                "version": { "$ref": "#/$defs/version" }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "openemr-docs-binaries": {
+            "allOf": [
+                { "$ref": "#/$defs/envelope" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "event": { "const": "openemr-docs-binaries" },
+                        "data": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["version", "branch", "files"],
+                            "properties": {
+                                "version": { "$ref": "#/$defs/version" },
+                                "branch": { "$ref": "#/$defs/branch" },
+                                "files": {
+                                    "type": "array",
+                                    "minItems": 1,
+                                    "items": { "type": "string", "minLength": 1 }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

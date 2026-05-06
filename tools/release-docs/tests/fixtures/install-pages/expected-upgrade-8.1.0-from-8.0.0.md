@@ -1,0 +1,35 @@
+---
+title: "Upgrading to OpenEMR 8.1.0"
+version: "8.1.0"
+---
+
+{{< release-status version="8.1.0" >}}
+
+# Upgrading to OpenEMR 8.1.0
+
+## Backup first
+
+Before starting any upgrade, take a full backup of:
+
+- Your OpenEMR `sites/` directory.
+- The OpenEMR database.
+
+## Prerequisites
+
+- A working OpenEMR 8.0.0 installation.
+- PHP 8.2 or newer (you may need to upgrade PHP before upgrading OpenEMR itself).
+
+## Upgrade steps
+
+1. Download the [openemr-8.1.0.tar.gz](https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.1.0/openemr-8.1.0.tar.gz/download) tarball.
+2. Extract the tarball alongside the existing installation; do not overwrite
+   the existing `sites/` directory.
+3. Browse to `https://your-server/openemr-8.1.0/sql_upgrade.php` and run
+   the upgrade.
+4. Update your web server document root to point to the new release.
+
+## After upgrade
+
+- Verify the version number on the OpenEMR login page.
+- Review the [release notes](/release-notes/8.1.0/) for post-upgrade
+  configuration steps.

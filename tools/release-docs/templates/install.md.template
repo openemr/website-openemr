@@ -1,0 +1,35 @@
+---
+title: "Installing OpenEMR __VERSION__"
+version: "__VERSION__"
+---
+
+{{< release-status version="__VERSION__" >}}
+
+# Installing OpenEMR __VERSION__
+
+## Prerequisites
+
+- PHP __MIN_PHP__ or newer with the OpenEMR-required extensions installed.
+- MySQL 5.7+ or MariaDB 10.4+.
+- Apache 2.4+ or Nginx 1.18+ in front of PHP-FPM.
+- A modern web browser for the setup wizard.
+
+## Download
+
+Download the OpenEMR __VERSION__ release tarball:
+
+- [openemr-__VERSION__.tar.gz](https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/__VERSION__/openemr-__VERSION__.tar.gz/download)
+
+## Install
+
+1. Extract the tarball into your web server's document root.
+2. Set file permissions according to the OpenEMR installation guide.
+3. Browse to `https://your-server/openemr/setup.php` and follow the wizard.
+4. Complete database setup, admin account creation, and initial configuration.
+
+## After install
+
+- Review the [administrator manual](/docs/administration/) for first-time
+  configuration.
+- Apply the [security checklist](/docs/security/) before exposing the
+  installation publicly.

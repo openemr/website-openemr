@@ -1,0 +1,108 @@
+name: release-docs-ci
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'tools/release-docs/**'
+      - 'data/**'
+      - 'layouts/**'
+      - 'content/**'
+      - '.github/workflows/release-docs-ci.yml'
+  pull_request:
+    paths:
+      - 'tools/release-docs/**'
+      - 'data/**'
+      - 'layouts/**'
+      - 'content/**'
+      - '.github/workflows/release-docs-ci.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-docs-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    working-directory: tools/release-docs
+
+jobs:
+  phpcs:
+    name: phpcs (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2, cs2pr
+          coverage: none
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: composer phpcs:ci | cs2pr
+
+  phpstan:
+    name: phpstan (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: composer phpstan:ci
+
+  test:
+    name: phpunit (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: composer test
+
+  validate-fixtures:
+    name: validate dispatch fixtures (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - name: Validate every "valid-*" fixture against the schema
+        shell: bash
+        run: |
+          # GHA's bash already runs with `-eo pipefail`; no need to repeat it.
+          shopt -s nullglob
+          for fixture in tests/fixtures/dispatch/valid-*.json; do
+            echo "::group::$fixture"
+            php bin/validate-dispatch.php --payload="$fixture"
+            echo "::endgroup::"
+          done

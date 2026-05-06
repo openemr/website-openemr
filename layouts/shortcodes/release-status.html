@@ -1,0 +1,28 @@
+{{- /*
+  release-status — render the DRAFT or FINAL banner for a versioned release page.
+
+  Usage:
+    {{< release-status version="8.1.0" >}}
+
+  Reads from data/releases.json (see data/releases.schema.json). The release-docs
+  workflow keeps the manifest in sync with the conductor's branch state.
+*/ -}}
+{{- $version := .Get "version" -}}
+{{- $manifest := index .Site.Data.releases $version -}}
+{{- if not $manifest -}}
+<div class="release-status release-status-unknown" role="status">
+  <strong>Unknown release version</strong> <code>{{ $version }}</code> — not present in <code>data/releases.json</code>.
+</div>
+{{- else if eq $manifest.status "FINAL" -}}
+<div class="release-status release-status-final" role="status">
+  <strong>FINAL</strong> — OpenEMR <code>{{ $version }}</code> released {{ $manifest.released_at }}.
+</div>
+{{- else if eq $manifest.status "DRAFT" -}}
+<div class="release-status release-status-draft" role="status">
+  <strong>DRAFT</strong> — based on <code>{{ $manifest.branch }}</code> @ <code>{{ substr $manifest.sha 0 7 }}</code>. Content regenerates on every push and is subject to change.
+</div>
+{{- else -}}
+<div class="release-status release-status-unknown" role="status">
+  <strong>Unknown release status</strong> <code>{{ $manifest.status }}</code> for version <code>{{ $version }}</code>.
+</div>
+{{- end -}}

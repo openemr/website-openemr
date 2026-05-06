@@ -1,0 +1,51 @@
+{
+    "name": "openemr/release-docs-tools",
+    "description": "Release documentation generators for the OpenEMR website",
+    "license": "GPL-2.0-or-later",
+    "type": "project",
+    "require": {
+        "php": "^8.5",
+        "guzzlehttp/guzzle": "^7.8",
+        "opis/json-schema": "^2.4",
+        "symfony/console": "^7.0",
+        "symfony/process": "^7.0",
+        "symfony/yaml": "^7.0"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.48",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^11.0",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OpenEMR\\ReleaseDocs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OpenEMR\\ReleaseDocs\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "check": [
+            "@phpcs",
+            "@phpstan",
+            "@test"
+        ],
+        "fix": "phpcbf",
+        "phpcbf": "phpcbf",
+        "phpcs": "phpcs",
+        "phpcs:ci": "phpcs --report=checkstyle",
+        "phpstan": "phpstan analyse --memory-limit=2G",
+        "phpstan:ci": "phpstan analyse --memory-limit=2G --error-format=github",
+        "test": "phpunit"
+    }
+}
