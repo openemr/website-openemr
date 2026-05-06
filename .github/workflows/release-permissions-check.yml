@@ -8,8 +8,7 @@ name: release-permissions-check
 #
 # 1. `contents: write` on this repo — verified by creating and then
 #    deleting an empty `release-perms-probe/<run-id>` branch.
-# 2. `pull-requests: write` on this repo — verified by listing PRs;
-#    a no-op write happens against a sentinel PR only when one exists.
+# 2. `pull-requests: write` on this repo — verified by listing PRs.
 # 3. Cross-repo `repository_dispatch` to website-openemr-files using
 #    the `release-permissions-probe` event type. The receiving repo's
 #    workflow simply acks the event.
@@ -26,8 +25,7 @@ on:
         default: 'openemr/website-openemr-files'
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: release-permissions-check
@@ -40,25 +38,38 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Mint release App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          # Allow the minted token to dispatch into the cross-repo target
+          # in addition to this repo. The App must be installed on both.
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }},website-openemr-files
+
       - name: Probe contents:write — create and delete a probe branch
         id: contents
         continue-on-error: true
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
           branch="release-perms-probe/${GITHUB_RUN_ID}"
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git push origin "HEAD:refs/heads/$branch"
-          git push origin --delete "$branch"
+          git config user.name 'openemr-release-bot'
+          git config user.email 'release-bot@openemr.invalid'
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: bearer ${GH_TOKEN}" \
+              push origin "HEAD:refs/heads/$branch"
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: bearer ${GH_TOKEN}" \
+              push origin --delete "$branch"
           echo 'ok=true' >> "$GITHUB_OUTPUT"
 
-      - name: Probe pull-requests:write — list and inspect PRs
+      - name: Probe pull-requests:write — list open PRs
         id: prs
         continue-on-error: true
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
           gh api "repos/${GITHUB_REPOSITORY}/pulls?state=open&per_page=1" >/dev/null
@@ -68,7 +79,7 @@ jobs:
         id: dispatch
         continue-on-error: true
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_DISPATCH_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
           TARGET_REPO: ${{ github.event.inputs.target_repo }}
         run: |
           set -euo pipefail
