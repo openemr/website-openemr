@@ -36,8 +36,6 @@ jobs:
     name: probe
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-
       - name: Mint release App token
         id: app-token
         uses: actions/create-github-app-token@v1
@@ -54,15 +52,13 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           branch="release-perms-probe/${GITHUB_RUN_ID}"
-          git config user.name 'openemr-release-bot'
-          git config user.email 'release-bot@openemr.invalid'
-          git -c "http.https://github.com/.extraheader=AUTHORIZATION: bearer ${GH_TOKEN}" \
-              push origin "HEAD:refs/heads/$branch"
-          git -c "http.https://github.com/.extraheader=AUTHORIZATION: bearer ${GH_TOKEN}" \
-              push origin --delete "$branch"
+          base_sha=$(gh api "repos/${REPO}/git/ref/heads/$(gh api "repos/${REPO}" --jq '.default_branch')" --jq '.object.sha')
+          gh api -X POST "repos/${REPO}/git/refs" -f "ref=refs/heads/${branch}" -f "sha=${base_sha}" >/dev/null
+          gh api -X DELETE "repos/${REPO}/git/refs/heads/${branch}" >/dev/null
           echo 'ok=true' >> "$GITHUB_OUTPUT"
 
       - name: Probe pull-requests:write — list open PRs
