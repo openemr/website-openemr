@@ -42,6 +42,7 @@ tasks:
     vars:
       OUTPUT: '{{.OUTPUT | default (printf "%s/content/acknowledgements/%s.md" .REPO_ROOT .VERSION)}}'
     cmds:
+      - mkdir -p "$(dirname '{{.OUTPUT}}')"
       - >-
         php bin/gen-acknowledgements.php
         --repo-path={{.REPO_PATH}}
@@ -59,6 +60,7 @@ tasks:
       REPO: '{{.REPO | default "openemr"}}'
       OUTPUT: '{{.OUTPUT | default (printf "%s/content/release-notes/%s.md" .REPO_ROOT .VERSION)}}'
     cmds:
+      - mkdir -p "$(dirname '{{.OUTPUT}}')"
       - >-
         php bin/gen-release-notes.php
         --owner={{.OWNER}}
@@ -76,6 +78,7 @@ tasks:
     vars:
       OUTPUT: '{{.OUTPUT | default (printf "%s/content/installation/%s.md" .REPO_ROOT .VERSION)}}'
     cmds:
+      - mkdir -p "$(dirname '{{.OUTPUT}}')"
       - >-
         php bin/gen-install-pages.php
         --mode=install
@@ -90,6 +93,7 @@ tasks:
     vars:
       OUTPUT: '{{.OUTPUT | default (printf "%s/content/upgrade/%s.md" .REPO_ROOT .VERSION)}}'
     cmds:
+      - mkdir -p "$(dirname '{{.OUTPUT}}')"
       - >-
         php bin/gen-install-pages.php
         --mode=upgrade
@@ -115,15 +119,17 @@ tasks:
       - php bin/validate-dispatch.php --payload={{.PAYLOAD}}
 
   update-manifest:
-    desc: Apply a dispatch payload to data/releases.json
+    desc: Apply a dispatch payload to a releases.json (defaults to the in-repo copy)
     deps: [setup]
     requires:
       vars: [PAYLOAD]
+    vars:
+      MANIFEST: '{{.MANIFEST | default (printf "%s/data/releases.json" .REPO_ROOT)}}'
     cmds:
       - >-
         php bin/update-manifest.php
         --payload={{.PAYLOAD}}
-        --manifest={{.REPO_ROOT}}/data/releases.json
+        --manifest={{.MANIFEST}}
         --schema={{.REPO_ROOT}}/data/releases.schema.json
 
   lint-aliases:
@@ -172,38 +178,55 @@ tasks:
           jq -r -f contracts/payload-outputs.jq "$payload"
         } >> "$GITHUB_OUTPUT"
 
-  workflow:commit-push:
+  workflow:prepare-publish:
     desc: |
-      Commit anything new in the working tree and force-push it to
-      release-docs/$VERSION. Reports `pushed=true|false` on $GITHUB_OUTPUT.
-    dir: '{{.REPO_ROOT}}'
+      Clone the website-openemr repo into $PUBLISH and check out $BRANCH.
+      Falls back to a fresh branch off master when $BRANCH does not exist
+      remotely yet (first dispatch for a version). The clone uses the App
+      token in the URL — no actions/checkout extraheader interferes.
     cmds:
       - |
-        git config user.name 'openemr-release-bot[bot]'
-        git config user.email 'openemr-release-bot[bot]@users.noreply.github.com'
-        git remote set-url origin \
-          "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-        # The first dispatch for a version creates release-docs/$VERSION;
-        # later dispatches in the same release (rel-update, openemr-tag)
-        # check out master and have no local ref for the branch. We need
-        # to (a) build on top of any prior dispatch's artifacts so this
-        # commit doesn't clobber them, and (b) give --force-with-lease a
-        # current baseline so it doesn't reject with "stale info".
-        # Both come from fetching the branch and basing our work on it.
-        if git fetch origin "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null; then
-          git checkout -B "$BRANCH" "origin/${BRANCH}"
+        rm -rf "$PUBLISH"
+        git clone --quiet --depth 1 \
+          "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+          "$PUBLISH"
+        git -C "$PUBLISH" config user.name 'openemr-release-bot[bot]'
+        git -C "$PUBLISH" config user.email 'openemr-release-bot[bot]@users.noreply.github.com'
+        if git -C "$PUBLISH" fetch --quiet --depth 1 origin \
+            "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null; then
+          git -C "$PUBLISH" checkout -B "$BRANCH" "origin/${BRANCH}"
         else
           # First dispatch for this version — branch doesn't exist yet.
-          git checkout -B "$BRANCH"
+          # Local branch will spring into existence on first push.
+          git -C "$PUBLISH" checkout -B "$BRANCH"
         fi
-        git add -A
-        if git diff --cached --quiet; then
+
+  workflow:commit-push:
+    desc: |
+      Apply $STAGING on top of $PUBLISH, commit, and force-push to $BRANCH.
+      Reports `pushed=true|false` on $GITHUB_OUTPUT. The $PUBLISH clone
+      already has the App token wired into its origin remote by
+      workflow:prepare-publish.
+    cmds:
+      - |
+        # Generators write under $STAGING. update-manifest writes directly
+        # into $PUBLISH/data/releases.json (it needs the live manifest to
+        # mutate). Both end up here; rsync only copies what's present.
+        if [ -d "$STAGING" ] && [ -n "$(ls -A "$STAGING" 2>/dev/null)" ]; then
+          rsync -a "${STAGING}/" "${PUBLISH}/"
+        fi
+        git -C "$PUBLISH" add -A
+        if git -C "$PUBLISH" diff --cached --quiet; then
           echo 'no docs changes; skipping push'
           echo 'pushed=false' >> "$GITHUB_OUTPUT"
           exit 0
         fi
-        git commit -m "release-docs: ${EVENT} ${VERSION} @ ${SHA:0:12}"
-        git push --force-with-lease origin "HEAD:${BRANCH}"
+        git -C "$PUBLISH" commit -m "release-docs: ${EVENT} ${VERSION} @ ${SHA:0:12}"
+        # --force-with-lease has a real baseline because prepare-publish
+        # checked out origin/$BRANCH (when it existed). For the first
+        # dispatch on a new version, the branch simply doesn't exist
+        # remotely and the push creates it.
+        git -C "$PUBLISH" push --force-with-lease origin "HEAD:${BRANCH}"
         echo 'pushed=true' >> "$GITHUB_OUTPUT"
 
   workflow:upsert-pr:

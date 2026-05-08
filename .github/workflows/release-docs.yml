@@ -15,6 +15,12 @@ name: release-docs
 # step is a Taskfile target under tools/release-docs/Taskfile.yml so the
 # operations can be invoked locally for debugging the same way CI runs
 # them. See the `workflow:*` tasks there.
+#
+# The workspace checkout is the *build environment* only (Composer deps,
+# generator source). Generators write into $STAGING under $RUNNER_TEMP,
+# and a separate $PUBLISH clone is the actual force-push target. This
+# decoupling keeps the workspace's untracked generated files from
+# colliding with the publish branch's tracked content during checkout.
 
 on:
   repository_dispatch:
@@ -78,19 +84,28 @@ jobs:
       fail-fast: false
       matrix:
         runner: [ubuntu-24.04]
-    env:
-      OPENEMR_CHECKOUT: ${{ github.workspace }}/.openemr-src
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
-          # Don't persist GITHUB_TOKEN as a git http.extraheader. That
-          # header takes precedence over credentials we later embed in
-          # the remote URL, so the workflow's `git push` would
-          # authenticate as github-actions[bot] (limited to this
-          # workflow's `contents: read` scope) instead of the App token
-          # minted below — and 403.
+          # Defense in depth — we no longer push from this checkout, but
+          # leaving GITHUB_TOKEN persisted as an http.extraheader would
+          # still cause confusion if anything downstream did a git push
+          # from $GITHUB_WORKSPACE.
           persist-credentials: false
+
+      # runner.temp isn't available in job-level env, so resolve all
+      # working paths here and export them via GITHUB_ENV. All paths under
+      # $RUNNER_TEMP so the workspace checkout stays a clean build env —
+      # no untracked working-tree files for the generators to leak into
+      # git operations.
+      - name: Define working paths
+        run: |
+          {
+            printf 'OPENEMR_CHECKOUT=%s\n' "$RUNNER_TEMP/openemr-src"
+            printf 'STAGING=%s\n' "$RUNNER_TEMP/staging"
+            printf 'PUBLISH=%s\n' "$RUNNER_TEMP/publish"
+          } >> "$GITHUB_ENV"
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -139,8 +154,8 @@ jobs:
       # fake versions in data/releases.json and open mergeable docs PRs that
       # ship test artifacts. Instead, route test-mode pushes to a parallel
       # `release-docs-test/<version>` branch and skip the manifest write.
-      # The end-to-end auth/lease/cumulative-checkout paths are still
-      # exercised; only the production-facing side effects are gated off.
+      # Only the production-facing side effects are gated off; auth, lease,
+      # and cumulative-publish paths are still exercised end-to-end.
       - name: Detect test mode
         id: mode
         env:
@@ -158,19 +173,30 @@ jobs:
         with:
           repository: openemr/openemr
           ref: ${{ steps.payload.outputs.sha }}
-          path: .openemr-src
+          path: ${{ runner.temp }}/openemr-src
           fetch-depth: 0
           sparse-checkout: |
             .git
             version.php
             CHANGELOG.md
 
+      - name: Prepare staging + publish-target
+        env:
+          BRANCH: ${{ steps.mode.outputs.test == 'true' && format('release-docs-test/{0}', steps.payload.outputs.version) || format('release-docs/{0}', steps.payload.outputs.version) }}
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: task workflow:prepare-publish
+
       - name: Generate acknowledgements
         if: ${{ steps.payload.outputs.prev_release != '' }}
         env:
           PREV: ${{ steps.payload.outputs.prev_release }}
           VERSION: ${{ steps.payload.outputs.version }}
-        run: task gen-acknowledgements REPO_PATH="$OPENEMR_CHECKOUT" PREV_VERSION="$PREV" VERSION="$VERSION"
+        run: >-
+          task gen-acknowledgements
+          REPO_PATH="$OPENEMR_CHECKOUT"
+          PREV_VERSION="$PREV"
+          VERSION="$VERSION"
+          OUTPUT="$STAGING/content/acknowledgements/$VERSION.md"
 
       - name: Generate release notes
         if: ${{ steps.payload.outputs.prev_release != '' }}
@@ -178,19 +204,31 @@ jobs:
           GITHUB_TOKEN: ${{ steps.token.outputs.token }}
           PREV: ${{ steps.payload.outputs.prev_release }}
           VERSION: ${{ steps.payload.outputs.version }}
-        run: task gen-release-notes REPO_PATH="$OPENEMR_CHECKOUT" PREV_VERSION="$PREV" VERSION="$VERSION"
+        run: >-
+          task gen-release-notes
+          REPO_PATH="$OPENEMR_CHECKOUT"
+          PREV_VERSION="$PREV"
+          VERSION="$VERSION"
+          OUTPUT="$STAGING/content/release-notes/$VERSION.md"
 
       - name: Generate install page
         env:
           VERSION: ${{ steps.payload.outputs.version }}
-        run: task gen-install-page VERSION="$VERSION"
+        run: >-
+          task gen-install-page
+          VERSION="$VERSION"
+          OUTPUT="$STAGING/content/installation/$VERSION.md"
 
       - name: Generate upgrade page
         if: ${{ steps.payload.outputs.prev_release != '' }}
         env:
           PREV: ${{ steps.payload.outputs.prev_release }}
           VERSION: ${{ steps.payload.outputs.version }}
-        run: task gen-upgrade-page VERSION="$VERSION" PREVIOUS_VERSION="$PREV"
+        run: >-
+          task gen-upgrade-page
+          VERSION="$VERSION"
+          PREVIOUS_VERSION="$PREV"
+          OUTPUT="$STAGING/content/upgrade/$VERSION.md"
 
       - name: Update releases manifest
         if: ${{ steps.mode.outputs.test != 'true' }}
@@ -198,7 +236,9 @@ jobs:
           PAYLOAD: ${{ steps.payload.outputs.file }}
         run: |
           task workflow:strip-sidecar
-          task update-manifest PAYLOAD="$RUNNER_TEMP/payload.canonical.json"
+          task update-manifest \
+            PAYLOAD="$RUNNER_TEMP/payload.canonical.json" \
+            MANIFEST="$PUBLISH/data/releases.json"
 
       - name: Commit and force-push docs branch
         id: push
@@ -207,7 +247,6 @@ jobs:
           EVENT: ${{ steps.payload.outputs.event }}
           VERSION: ${{ steps.payload.outputs.version }}
           SHA: ${{ steps.payload.outputs.sha }}
-          GH_TOKEN: ${{ steps.token.outputs.token }}
         run: task workflow:commit-push
 
       - name: Open or update draft PR
