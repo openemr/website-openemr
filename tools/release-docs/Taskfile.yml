@@ -183,6 +183,13 @@ tasks:
         git config user.email 'openemr-release-bot[bot]@users.noreply.github.com'
         git remote set-url origin \
           "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        # The first dispatch for a version creates release-docs/$VERSION;
+        # later dispatches in the same release (rel-update, openemr-tag)
+        # check out master and so have no local ref for this branch.
+        # Without this fetch, --force-with-lease sees an empty local
+        # baseline against a non-empty remote and rejects with
+        # "stale info". Ignore failure: branch may not exist yet.
+        git fetch origin "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null || true
         git checkout -B "$BRANCH"
         git add -A
         if git diff --cached --quiet; then
