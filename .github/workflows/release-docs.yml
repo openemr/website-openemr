@@ -148,7 +148,7 @@ jobs:
       - name: Generate release notes
         if: ${{ steps.payload.outputs.prev_release != '' }}
         env:
-          GH_TOKEN: ${{ steps.token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.token.outputs.token }}
           PREV: ${{ steps.payload.outputs.prev_release }}
           VERSION: ${{ steps.payload.outputs.version }}
         run: task gen-release-notes REPO_PATH="$OPENEMR_CHECKOUT" PREV_VERSION="$PREV" VERSION="$VERSION"
