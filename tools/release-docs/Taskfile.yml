@@ -189,9 +189,20 @@ tasks:
         # to (a) build on top of any prior dispatch's artifacts so this
         # commit doesn't clobber them, and (b) give --force-with-lease a
         # current baseline so it doesn't reject with "stale info".
-        # Both come from fetching the branch and basing our work on it.
+        #
+        # We can't `git checkout -B "$BRANCH" origin/$BRANCH` because the
+        # generators (which ran earlier in the workflow) wrote
+        # content/<section>/<version>.md as untracked files in the
+        # working tree. Those paths are tracked on origin/$BRANCH from
+        # the prior dispatch, and a real checkout refuses to clobber
+        # untracked files. Instead, point HEAD at $BRANCH and reset the
+        # index to match origin/$BRANCH without touching the working
+        # tree — `git add -A` then sees the generators' files as
+        # modifications to the existing tracked content.
         if git fetch origin "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null; then
-          git checkout -B "$BRANCH" "origin/${BRANCH}"
+          git update-ref "refs/heads/${BRANCH}" "refs/remotes/origin/${BRANCH}"
+          git symbolic-ref HEAD "refs/heads/${BRANCH}"
+          git reset --mixed
         else
           # First dispatch for this version — branch doesn't exist yet.
           git checkout -B "$BRANCH"
