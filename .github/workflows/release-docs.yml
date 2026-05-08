@@ -83,6 +83,14 @@ jobs:
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v4
+        with:
+          # Don't persist GITHUB_TOKEN as a git http.extraheader. That
+          # header takes precedence over credentials we later embed in
+          # the remote URL, so the workflow's `git push` would
+          # authenticate as github-actions[bot] (limited to this
+          # workflow's `contents: read` scope) instead of the App token
+          # minted below — and 403.
+          persist-credentials: false
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2

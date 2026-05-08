@@ -6,8 +6,16 @@ name: release-permissions-check
 #
 # Three things are probed:
 #
-# 1. `contents: write` on this repo — verified by creating and then
-#    deleting an empty `release-perms-probe/<run-id>` branch.
+# 1. `contents: write` on this repo — verified by checking out the
+#    repo without persisted credentials, embedding the App token in
+#    the remote URL, and force-pushing (then deleting) an empty
+#    commit on `release-perms-probe/<run-id>`. This deliberately
+#    mirrors release-docs.yml's `git push` path. An earlier version
+#    of this probe used the REST refs API, which doesn't go through
+#    git's http.extraheader layer and so couldn't catch the
+#    extraheader-vs-URL-credentials precedence bug that made
+#    release-docs.yml 403 on push despite the App holding
+#    `contents: write`.
 # 2. `pull-requests: write` on this repo — verified by listing PRs.
 # 3. Cross-repo `repository_dispatch` to website-openemr-files using
 #    the `release-permissions-probe` event type. The receiving repo's
@@ -47,18 +55,29 @@ jobs:
           owner: ${{ github.repository_owner }}
           repositories: ${{ github.event.repository.name }},website-openemr-files
 
-      - name: Probe contents:write — create and delete a probe branch
+      # Mirror release-docs.yml's checkout (no persisted credentials)
+      # so the probe exercises the same auth path as the real workflow.
+      - name: Checkout for git-push probe
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Probe contents:write — push and delete a probe branch
         id: contents
         continue-on-error: true
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           branch="release-perms-probe/${GITHUB_RUN_ID}"
-          base_sha=$(gh api "repos/${REPO}/git/ref/heads/$(gh api "repos/${REPO}" --jq '.default_branch')" --jq '.object.sha')
-          gh api -X POST "repos/${REPO}/git/refs" -f "ref=refs/heads/${branch}" -f "sha=${base_sha}" >/dev/null
-          gh api -X DELETE "repos/${REPO}/git/refs/heads/${branch}" >/dev/null
+          git config user.name 'openemr-release-bot[bot]'
+          git config user.email 'openemr-release-bot[bot]@users.noreply.github.com'
+          git remote set-url origin \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git checkout -B "$branch"
+          git commit --allow-empty -m "release-permissions-check probe ${GITHUB_RUN_ID}"
+          git push --force-with-lease origin "HEAD:${branch}"
+          git push origin --delete "$branch"
           echo 'ok=true' >> "$GITHUB_OUTPUT"
 
       - name: Probe pull-requests:write — list open PRs
