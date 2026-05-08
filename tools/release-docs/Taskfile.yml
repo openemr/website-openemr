@@ -185,12 +185,17 @@ tasks:
           "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
         # The first dispatch for a version creates release-docs/$VERSION;
         # later dispatches in the same release (rel-update, openemr-tag)
-        # check out master and so have no local ref for this branch.
-        # Without this fetch, --force-with-lease sees an empty local
-        # baseline against a non-empty remote and rejects with
-        # "stale info". Ignore failure: branch may not exist yet.
-        git fetch origin "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null || true
-        git checkout -B "$BRANCH"
+        # check out master and have no local ref for the branch. We need
+        # to (a) build on top of any prior dispatch's artifacts so this
+        # commit doesn't clobber them, and (b) give --force-with-lease a
+        # current baseline so it doesn't reject with "stale info".
+        # Both come from fetching the branch and basing our work on it.
+        if git fetch origin "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null; then
+          git checkout -B "$BRANCH" "origin/${BRANCH}"
+        else
+          # First dispatch for this version — branch doesn't exist yet.
+          git checkout -B "$BRANCH"
+        fi
         git add -A
         if git diff --cached --quiet; then
           echo 'no docs changes; skipping push'
