@@ -134,6 +134,25 @@ jobs:
           task workflow:strip-sidecar
           task validate-dispatch PAYLOAD="$RUNNER_TEMP/payload.canonical.json"
 
+      # Conductor test-mode runs (openemr/openemr release-prep with test=true)
+      # dispatch from `rel-test`. Treating those as production would put
+      # fake versions in data/releases.json and open mergeable docs PRs that
+      # ship test artifacts. Instead, route test-mode pushes to a parallel
+      # `release-docs-test/<version>` branch and skip the manifest write.
+      # The end-to-end auth/lease/cumulative-checkout paths are still
+      # exercised; only the production-facing side effects are gated off.
+      - name: Detect test mode
+        id: mode
+        env:
+          BRANCH_FROM_PAYLOAD: ${{ steps.payload.outputs.branch }}
+        run: |
+          if [ "$BRANCH_FROM_PAYLOAD" = 'rel-test' ]; then
+            echo 'test=true' >> "$GITHUB_OUTPUT"
+            echo 'Test-mode dispatch — pushing to release-docs-test/* and skipping manifest write.'
+          else
+            echo 'test=false' >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Sparse-checkout openemr/openemr at dispatched sha
         uses: actions/checkout@v4
         with:
@@ -174,6 +193,7 @@ jobs:
         run: task gen-upgrade-page VERSION="$VERSION" PREVIOUS_VERSION="$PREV"
 
       - name: Update releases manifest
+        if: ${{ steps.mode.outputs.test != 'true' }}
         env:
           PAYLOAD: ${{ steps.payload.outputs.file }}
         run: |
@@ -183,7 +203,7 @@ jobs:
       - name: Commit and force-push docs branch
         id: push
         env:
-          BRANCH: release-docs/${{ steps.payload.outputs.version }}
+          BRANCH: ${{ steps.mode.outputs.test == 'true' && format('release-docs-test/{0}', steps.payload.outputs.version) || format('release-docs/{0}', steps.payload.outputs.version) }}
           EVENT: ${{ steps.payload.outputs.event }}
           VERSION: ${{ steps.payload.outputs.version }}
           SHA: ${{ steps.payload.outputs.sha }}
@@ -193,7 +213,7 @@ jobs:
       - name: Open or update draft PR
         if: ${{ steps.push.outputs.pushed == 'true' }}
         env:
-          BRANCH: release-docs/${{ steps.payload.outputs.version }}
+          BRANCH: ${{ steps.mode.outputs.test == 'true' && format('release-docs-test/{0}', steps.payload.outputs.version) || format('release-docs/{0}', steps.payload.outputs.version) }}
           EVENT: ${{ steps.payload.outputs.event }}
           VERSION: ${{ steps.payload.outputs.version }}
           SHA: ${{ steps.payload.outputs.sha }}

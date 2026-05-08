@@ -190,3 +190,6 @@ bh_unicode_properties.cache
 GitHub.sublime-settings
 
 # End of https://www.toptal.com/developers/gitignore/api/hugo,node,sublimetext
+
+# release-docs sparse checkout of openemr/openemr (input for generators)
+/.openemr-src
