@@ -95,14 +95,15 @@ jobs:
           persist-credentials: false
 
       # runner.temp isn't available in job-level env, so resolve all
-      # working paths here and export them via GITHUB_ENV. All paths under
-      # $RUNNER_TEMP so the workspace checkout stays a clean build env —
-      # no untracked working-tree files for the generators to leak into
-      # git operations.
+      # working paths here and export them via GITHUB_ENV. STAGING and
+      # PUBLISH live under $RUNNER_TEMP so they can't collide with the
+      # workspace's tracked content. OPENEMR_CHECKOUT has to stay under
+      # $GITHUB_WORKSPACE — actions/checkout refuses paths outside it —
+      # so .openemr-src is gitignored to prevent it from being committed.
       - name: Define working paths
         run: |
           {
-            printf 'OPENEMR_CHECKOUT=%s\n' "$RUNNER_TEMP/openemr-src"
+            printf 'OPENEMR_CHECKOUT=%s\n' "$GITHUB_WORKSPACE/.openemr-src"
             printf 'STAGING=%s\n' "$RUNNER_TEMP/staging"
             printf 'PUBLISH=%s\n' "$RUNNER_TEMP/publish"
           } >> "$GITHUB_ENV"
@@ -173,7 +174,7 @@ jobs:
         with:
           repository: openemr/openemr
           ref: ${{ steps.payload.outputs.sha }}
-          path: ${{ runner.temp }}/openemr-src
+          path: .openemr-src
           fetch-depth: 0
           sparse-checkout: |
             .git
