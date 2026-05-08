@@ -186,6 +186,9 @@ tasks:
       token in the URL — no actions/checkout extraheader interferes.
     cmds:
       - |
+        # $STAGING is created here so commit-push can rsync from it
+        # unconditionally; an empty dir is a harmless no-op for rsync.
+        mkdir -p "$STAGING"
         rm -rf "$PUBLISH"
         git clone --quiet --depth 1 \
           "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
@@ -211,10 +214,9 @@ tasks:
       - |
         # Generators write under $STAGING. update-manifest writes directly
         # into $PUBLISH/data/releases.json (it needs the live manifest to
-        # mutate). Both end up here; rsync only copies what's present.
-        if [ -d "$STAGING" ] && [ -n "$(ls -A "$STAGING" 2>/dev/null)" ]; then
-          rsync -a "${STAGING}/" "${PUBLISH}/"
-        fi
+        # mutate). prepare-publish guarantees $STAGING exists, so rsync
+        # is unconditional — an empty staging dir is a no-op.
+        rsync -a "${STAGING}/" "${PUBLISH}/"
         git -C "$PUBLISH" add -A
         if git -C "$PUBLISH" diff --cached --quiet; then
           echo 'no docs changes; skipping push'
