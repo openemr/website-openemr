@@ -4,5 +4,11 @@
         "branch": "rel-800",
         "sha": "b91b73600327acb46252b9fce7d04467eea126fd",
         "released_at": "2026-02-13"
+    },
+    "8.1.7": {
+        "branch": "rel-test",
+        "sha": "3bedfff276fdfdfd50dde354923917c21ec26a22",
+        "status": "FINAL",
+        "released_at": "2026-05-08"
     }
 }
