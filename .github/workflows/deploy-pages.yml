@@ -1,12 +1,13 @@
-# Builds the site and (on master) deploys it to GitHub Pages staging at
-# https://openemr.github.io/website-openemr/. Production
-# (https://www.open-emr.org/) is not deployed by this workflow — see
-# openemr/website-openemr#92 for the planned prod deploy.
+# Builds the site and (on master) deploys it to GitHub Pages. The Pages
+# site is published both at https://openemr.github.io/website-openemr/
+# and at the custom domain https://www.open-emr.org/ (fronted by
+# Cloudflare); both are served from the same artifact, so the build
+# must use the production baseURL from config.yaml without override.
 #
 # The build job runs on every PR and master push and gates the deploy
 # job behind a Hugo WARN allowlist. Deploy only runs on master push and
-# rebuilds with the Pages base URL — the build job's artifact is a
-# fail-fast gate, not the deployable artifact.
+# rebuilds the site — the build job's artifact is a fail-fast gate,
+# not the deployable artifact.
 name: site
 
 on:
@@ -117,14 +118,8 @@ jobs:
       - name: Install theme dependencies
         working-directory: ./themes/openemr
         run: npm ci
-      - name: Configure Pages
-        id: pages
-        uses: actions/configure-pages@v5
-      # actions/configure-pages emits base_url without a trailing slash
-      # (e.g. https://openemr.github.io/website-openemr). Hugo expects a
-      # trailing slash on baseURL, so append one explicitly.
       - name: Build for deploy
-        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: hugo --minify
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
