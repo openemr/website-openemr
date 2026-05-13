@@ -56,8 +56,8 @@ final class ReleasesManifest
     }
 
     /**
-     * @param array<string, array<string, string|null>> $manifest
-     * @return array<string, array<string, string|null>>
+     * @param array<string, array<string, string|null|array<string, string>>> $manifest
+     * @return array<string, array<string, string|null|array<string, string>>>
      */
     private function applyRelCut(array $manifest, DispatchEvent $event): array
     {
@@ -72,8 +72,8 @@ final class ReleasesManifest
     }
 
     /**
-     * @param array<string, array<string, string|null>> $manifest
-     * @return array<string, array<string, string|null>>
+     * @param array<string, array<string, string|null|array<string, string>>> $manifest
+     * @return array<string, array<string, string|null|array<string, string>>>
      */
     private function applyRelUpdate(array $manifest, DispatchEvent $event): array
     {
@@ -91,8 +91,8 @@ final class ReleasesManifest
     }
 
     /**
-     * @param array<string, array<string, string|null>> $manifest
-     * @return array<string, array<string, string|null>>
+     * @param array<string, array<string, string|null|array<string, string>>> $manifest
+     * @return array<string, array<string, string|null|array<string, string>>>
      */
     private function applyTag(array $manifest, DispatchEvent $event): array
     {
@@ -114,7 +114,7 @@ final class ReleasesManifest
     }
 
     /**
-     * @return array<string, array<string, string|null>>
+     * @return array<string, array<string, string|null|array<string, string>>>
      */
     private function load(): array
     {
@@ -150,7 +150,7 @@ final class ReleasesManifest
 
     /**
      * @param array<int|string, mixed> $entry
-     * @return array<string, string|null>
+     * @return array<string, string|null|array<string, string>>
      */
     private function normalizeEntry(array $entry): array
     {
@@ -159,17 +159,38 @@ final class ReleasesManifest
             if (!is_string($key)) {
                 throw new RuntimeException('manifest entry keys must be strings');
             }
-            if ($value !== null && !is_string($value)) {
-                throw new RuntimeException("manifest entry $key must be string or null");
+            if ($value === null || is_string($value)) {
+                $result[$key] = $value;
+                continue;
             }
-            $result[$key] = $value;
+            if (is_array($value)) {
+                $result[$key] = $this->normalizeStringMap($key, $value);
+                continue;
+            }
+            throw new RuntimeException("manifest entry $key must be string, null, or string-keyed string map");
         }
 
         return $result;
     }
 
     /**
-     * @param array<string, array<string, string|null>> $manifest
+     * @param array<int|string, mixed> $value
+     * @return array<string, string>
+     */
+    private function normalizeStringMap(string $parentKey, array $value): array
+    {
+        $sub = [];
+        foreach ($value as $k => $v) {
+            if (!is_string($k) || !is_string($v)) {
+                throw new RuntimeException("manifest entry $parentKey.$k must be string");
+            }
+            $sub[$k] = $v;
+        }
+        return $sub;
+    }
+
+    /**
+     * @param array<string, array<string, string|null|array<string, string>>> $manifest
      */
     private function validate(array $manifest): void
     {
@@ -202,7 +223,7 @@ final class ReleasesManifest
     }
 
     /**
-     * @param array<string, array<string, string|null>> $manifest
+     * @param array<string, array<string, string|null|array<string, string>>> $manifest
      */
     private function save(array $manifest): void
     {

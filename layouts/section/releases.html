@@ -1,0 +1,85 @@
+{{ define "main" }}
+<div style="margin-top: 98px; margin-bottom: 50px">
+    <div class="container page">
+        <div class="row">
+            <div class="col-xs-12 col-md-10 offset-md-1">
+                {{ .Content }}
+
+                {{ $rows := slice }}
+                {{ range $version, $entry := .Site.Data.releases }}
+                    {{ if eq $entry.status "FINAL" }}
+                        {{ $rows = $rows | append (dict
+                            "version" $version
+                            "entry" $entry
+                            "major" (index (split $version ".") 0)) }}
+                    {{ end }}
+                {{ end }}
+                {{ $rows = sort $rows "version" "desc" }}
+
+                {{ $currentMajor := "" }}
+                {{ range $rows }}
+                    {{ if ne .major $currentMajor }}
+                        {{ if ne $currentMajor "" }}
+                            </tbody></table>
+                        {{ end }}
+                        {{ $currentMajor = .major }}
+                        <h2 id="v{{ .major }}-x">{{ .major }}.x</h2>
+                        <table class="release-history">
+                            <thead>
+                                <tr>
+                                    <th>Version</th>
+                                    <th>Released</th>
+                                    <th>Release notes</th>
+                                    <th>Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    {{ end }}
+
+                    {{ $tag := printf "v%s" (replace .version "." "_") }}
+                    <tr>
+                        <td><strong>{{ .version }}</strong></td>
+                        <td>{{ .entry.released_at }}</td>
+                        <td>
+                            {{ if .entry.archive_urls }}
+                                <a href="https://www.open-emr.org/wiki/index.php/Release_Features#Version_{{ .version }}">notes (wiki)</a>
+                            {{ else }}
+                                <a href="https://github.com/openemr/openemr/releases/tag/{{ $tag }}">notes (GitHub)</a>
+                            {{ end }}
+                        </td>
+                        <td>
+                            {{ with .entry.archive_urls }}
+                                <a href="{{ .tarball }}">tar.gz</a>
+                                &nbsp;|&nbsp;
+                                <a href="{{ .zip }}">zip</a>
+                            {{ else }}
+                                <a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.tar.gz">tar.gz</a>
+                                &nbsp;|&nbsp;
+                                <a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.zip">zip</a>
+                            {{ end }}
+                        </td>
+                    </tr>
+                {{ end }}
+                {{ if ne $currentMajor "" }}
+                    </tbody></table>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    table.release-history {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    table.release-history th,
+    table.release-history td {
+        padding: 6px 12px;
+        border-bottom: 1px solid #eee;
+    }
+    table.release-history th {
+        text-align: left;
+        background: #f7f7f7;
+    }
+</style>
+{{ end }}

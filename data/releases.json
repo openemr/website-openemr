@@ -1,4 +1,132 @@
 {
+    "4.1.0": {
+        "status": "FINAL",
+        "released_at": "2011-09-21",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.0/openemr-4.1.0.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.0/openemr-4.1.0.zip/download"
+        }
+    },
+    "4.1.1": {
+        "status": "FINAL",
+        "released_at": "2012-08-29",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.1/openemr-4.1.1.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.1/openemr-4.1.1.zip/download"
+        }
+    },
+    "4.1.2": {
+        "status": "FINAL",
+        "released_at": "2013-08-16",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.2/openemr-4.1.2.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.2/openemr-4.1.2.zip/download"
+        }
+    },
+    "4.2.0": {
+        "status": "FINAL",
+        "released_at": "2014-12-20",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.0/openemr-4.2.0.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.0/openemr-4.2.0.zip/download"
+        }
+    },
+    "4.2.1": {
+        "status": "FINAL",
+        "released_at": "2016-03-23",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.1/openemr-4.2.1.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.1/openemr-4.2.1.zip/download"
+        }
+    },
+    "4.2.2": {
+        "status": "FINAL",
+        "released_at": "2016-05-18",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.2/openemr-4.2.2.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.2/openemr-4.2.2.zip/download"
+        }
+    },
+    "5.0.0": {
+        "status": "FINAL",
+        "released_at": "2017-02-13",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.0/openemr-5.0.0.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.0/openemr-5.0.0.zip/download"
+        }
+    },
+    "5.0.1": {
+        "status": "FINAL",
+        "released_at": "2018-04-21",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.1/openemr-5.0.1.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.1/openemr-5.0.1.zip/download"
+        }
+    },
+    "5.0.2": {
+        "status": "FINAL",
+        "released_at": "2019-08-03",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.2/openemr-5.0.2.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.2/openemr-5.0.2.zip/download"
+        }
+    },
+    "6.0.0": {
+        "status": "FINAL",
+        "released_at": "2021-01-05",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.0.0/openemr-6.0.0.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.0.0/openemr-6.0.0.zip/download"
+        }
+    },
+    "6.1.0": {
+        "status": "FINAL",
+        "released_at": "2022-03-20",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.1.0/openemr-6.1.0.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.1.0/openemr-6.1.0.zip/download"
+        }
+    },
+    "7.0.0": {
+        "status": "FINAL",
+        "released_at": "2022-07-18",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.0/openemr-7.0.0.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.0/openemr-7.0.0.zip/download"
+        }
+    },
+    "7.0.1": {
+        "status": "FINAL",
+        "released_at": "2023-04-25",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.1/openemr-7.0.1.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.1/openemr-7.0.1.zip/download"
+        }
+    },
+    "7.0.2": {
+        "status": "FINAL",
+        "released_at": "2023-11-15",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.2/openemr-7.0.2.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.2/openemr-7.0.2.zip/download"
+        }
+    },
+    "7.0.3": {
+        "status": "FINAL",
+        "released_at": "2025-03-19",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.3/openemr-7.0.3.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.3/openemr-7.0.3.zip/download"
+        }
+    },
+    "7.0.4": {
+        "status": "FINAL",
+        "released_at": "2025-12-18",
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.4/openemr-7.0.4.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.4/openemr-7.0.4.zip/download"
+        }
+    },
     "8.0.0": {
         "status": "FINAL",
         "branch": "rel-800",

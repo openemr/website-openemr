@@ -177,6 +177,52 @@ final class ReleasesManifestApplyTest extends TestCase
         self::assertSame(['8.0.0', '8.2.0'], array_keys($manifest));
     }
 
+    public function testHistoricalEntryPreservedAcrossDispatch(): void
+    {
+        $this->seed([
+            '5.0.2' => [
+                'status' => 'FINAL',
+                'released_at' => '2018-08-23',
+                'archive_urls' => [
+                    'tarball' => 'https://sourceforge.net/projects/openemr/files/'
+                        . 'OpenEMR%20Current/5.0.2/openemr-5.0.2.tar.gz/download',
+                    'zip' => 'https://sourceforge.net/projects/openemr/files/'
+                        . 'OpenEMR%20Current/5.0.2/openemr-5.0.2.zip/download',
+                ],
+            ],
+            '8.0.0' => [
+                'status' => 'FINAL',
+                'branch' => 'rel-800',
+                'sha' => 'b91b73600327acb46252b9fce7d04467eea126fd',
+                'released_at' => '2026-02-13',
+            ],
+        ]);
+
+        $this->manifest()->apply(new DispatchEvent(
+            event: 'openemr-rel-cut',
+            version: '8.1.0',
+            branch: 'rel-810',
+            sha: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            releasedAt: null,
+        ));
+
+        $manifest = $this->readManifest();
+        self::assertSame(['5.0.2', '8.0.0', '8.1.0'], array_keys($manifest));
+        self::assertSame(
+            [
+                'status' => 'FINAL',
+                'released_at' => '2018-08-23',
+                'archive_urls' => [
+                    'tarball' => 'https://sourceforge.net/projects/openemr/files/'
+                        . 'OpenEMR%20Current/5.0.2/openemr-5.0.2.tar.gz/download',
+                    'zip' => 'https://sourceforge.net/projects/openemr/files/'
+                        . 'OpenEMR%20Current/5.0.2/openemr-5.0.2.zip/download',
+                ],
+            ],
+            $manifest['5.0.2'],
+        );
+    }
+
     public function testFromJsonExtractsRequiredFields(): void
     {
         $payload = json_encode([
@@ -207,7 +253,7 @@ final class ReleasesManifestApplyTest extends TestCase
     }
 
     /**
-     * @param array<string, array<string, string|null>> $contents
+     * @param array<string, array<string, string|null|array<string, string>>> $contents
      */
     private function seed(array $contents): void
     {
@@ -216,7 +262,7 @@ final class ReleasesManifestApplyTest extends TestCase
     }
 
     /**
-     * @return array<string, array<string, string|null>>
+     * @return array<string, array<string, string|null|array<string, string>>>
      */
     private function readManifest(): array
     {
@@ -229,7 +275,7 @@ final class ReleasesManifestApplyTest extends TestCase
             throw new RuntimeException('manifest decoded to non-array in test');
         }
 
-        /** @var array<string, array<string, string|null>> */
+        /** @var array<string, array<string, string|null|array<string, string>>> */
         return $decoded;
     }
 }

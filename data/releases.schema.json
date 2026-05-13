@@ -2,22 +2,23 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://openemr.org/website-openemr/data/releases.schema.json",
     "title": "OpenEMR releases manifest",
-    "description": "Per-version release status, consumed by the release-status Hugo shortcode and written by the release-docs workflow on inbound dispatches from openemr/openemr.",
+    "description": "Per-version release status, consumed by the release-status Hugo shortcode and the /releases/ and /downloads/ pages, and written by the release-docs workflow on inbound dispatches from openemr/openemr. Historical entries (versions that predate the rel-* branch and dispatch automation) carry only status, released_at, and archive_urls; the dispatch writer never touches them.",
     "type": "object",
     "additionalProperties": false,
     "patternProperties": {
         "^\\d+\\.\\d+\\.\\d+$": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["status", "branch", "sha", "released_at"],
+            "required": ["status"],
             "properties": {
                 "status": { "enum": ["DRAFT", "FINAL"] },
                 "branch": {
-                    "description": "Release branch name. Real releases use rel-<MAJOR><MINOR>0 (e.g. rel-810). Pattern is widened to rel-<alphanumeric> so test branches like rel-test can exercise the same workflow end-to-end without a real release-cut. Matches the canonical dispatch.schema.json branch pattern in openemr/openemr-devops.",
+                    "description": "Release branch name. Real releases use rel-<MAJOR><MINOR>0 (e.g. rel-810). Pattern is widened to rel-<alphanumeric> so test branches like rel-test can exercise the same workflow end-to-end without a real release-cut. Matches the canonical dispatch.schema.json branch pattern in openemr/openemr-devops. Absent on historical entries that predate the rel-* convention.",
                     "type": "string",
                     "pattern": "^rel-[A-Za-z0-9]+$"
                 },
                 "sha": {
+                    "description": "Commit SHA the dispatch refers to. Absent on historical entries.",
                     "type": "string",
                     "pattern": "^[0-9a-f]{40}$"
                 },
@@ -29,16 +30,41 @@
                             "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
                         }
                     ]
+                },
+                "archive_urls": {
+                    "description": "Direct download URLs for the release tarball and zip. Used for historical entries (mostly SourceForge) where the URL cannot be derived from the version. New dispatch-driven entries derive URLs from the GitHub release at render time and omit this field.",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "tarball": { "type": "string", "format": "uri" },
+                        "zip": { "type": "string", "format": "uri" }
+                    }
                 }
             },
             "oneOf": [
                 {
+                    "description": "Dispatch-managed DRAFT entry. Always carries branch + sha; released_at is null until the tag flips it to FINAL.",
+                    "required": ["branch", "sha", "released_at"],
                     "properties": {
                         "status": { "const": "DRAFT" },
                         "released_at": { "type": "null" }
                     }
                 },
                 {
+                    "description": "Dispatch-managed FINAL entry. Carries branch + sha from the originating dispatch.",
+                    "required": ["branch", "sha", "released_at"],
+                    "properties": {
+                        "status": { "const": "FINAL" },
+                        "released_at": {
+                            "type": "string",
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                        }
+                    }
+                },
+                {
+                    "description": "Historical FINAL entry. Predates the rel-* branch and dispatch automation; carries only released_at and (optionally) archive_urls.",
+                    "required": ["released_at"],
+                    "not": { "anyOf": [{ "required": ["branch"] }, { "required": ["sha"] }] },
                     "properties": {
                         "status": { "const": "FINAL" },
                         "released_at": {
