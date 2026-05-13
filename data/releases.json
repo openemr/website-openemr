@@ -131,6 +131,27 @@
         "status": "FINAL",
         "branch": "rel-800",
         "sha": "b91b73600327acb46252b9fce7d04467eea126fd",
-        "released_at": "2026-02-13"
+        "released_at": "2026-02-13",
+        "compatibility": {
+            "php":     { "min": "8.2",  "max": "8.5"  },
+            "mariadb": { "min": "10.6", "max": "11.8" },
+            "mysql":   { "min": "5.7",  "max": "8.4"  },
+            "recommended_db": "MariaDB"
+        },
+        "downloads": {
+            "docker": {
+                "install_url": "https://community.open-emr.org/t/openemr-official-docker-has-been-released/9084"
+            },
+            "linux": {
+                "install_url":   "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Linux_Installation",
+                "upgrade_url":   "https://www.open-emr.org/wiki/index.php/Linux_Upgrade_7.0.4_to_8.0.0",
+                "checksums_url": "https://eight.openemr.io/files/openemr-linux-md5.txt"
+            },
+            "windows": {
+                "install_url":   "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Windows_Installation",
+                "upgrade_url":   "https://www.open-emr.org/wiki/index.php/Windows_Upgrade_7.0.4_to_8.0.0",
+                "checksums_url": "https://eight.openemr.io/files/openemr-windows-md5.txt"
+            }
+        }
     }
 }
