@@ -1,0 +1,62 @@
+{{ define "main" }}
+<div style="margin-top: 98px; margin-bottom: 50px">
+    <div class="container page">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 offset-md-2">
+                {{ .Content }}
+
+                {{/* Pick the highest-version FINAL entry as current stable. */}}
+                {{ $finals := slice }}
+                {{ range $version, $entry := .Site.Data.releases }}
+                    {{ if eq $entry.status "FINAL" }}
+                        {{ $finals = $finals | append (dict "version" $version "entry" $entry) }}
+                    {{ end }}
+                {{ end }}
+                {{ $finals = sort $finals "version" "desc" }}
+                {{ $latest := index $finals 0 }}
+
+                {{ with $latest }}
+                    {{ $tag := printf "v%s" (replace .version "." "_") }}
+                    <h2>Stable production release &mdash; version {{ .version }}</h2>
+                    <p>Released {{ .entry.released_at }}.</p>
+
+                    <h3>Download</h3>
+                    <ul>
+                        {{ with .entry.archive_urls }}
+                            <li><a href="{{ .tarball }}">openemr-{{ $latest.version }}.tar.gz</a></li>
+                            <li><a href="{{ .zip }}">openemr-{{ $latest.version }}.zip</a></li>
+                        {{ else }}
+                            <li><a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.tar.gz">openemr-{{ .version }}.tar.gz</a></li>
+                            <li><a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.zip">openemr-{{ .version }}.zip</a></li>
+                        {{ end }}
+                    </ul>
+
+                    <h3>What's in this release</h3>
+                    <ul>
+                        {{ if .entry.archive_urls }}
+                            <li><a href="https://www.open-emr.org/wiki/index.php/Release_Features#Version_{{ .version }}">Release notes (wiki)</a></li>
+                        {{ else }}
+                            <li><a href="https://github.com/openemr/openemr/releases/tag/{{ $tag }}">Release notes (GitHub)</a></li>
+                        {{ end }}
+                        <li><a href="https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_ONC_Certification">ONC Ambulatory EHR certification resources</a></li>
+                    </ul>
+                {{ end }}
+
+                <h2>Development versions</h2>
+                <p>For testing the bleeding edge, the development Docker images are published continuously to Docker Hub:</p>
+                <ul>
+                    <li><a href="https://hub.docker.com/r/openemr/openemr/">openemr/openemr on Docker Hub</a></li>
+                </ul>
+                <p>For installing development snapshots from source:</p>
+                <ul>
+                    <li><a href="https://www.open-emr.org/wiki/index.php/OpenEMR_Development_Version_Linux_Installation">Linux installation</a></li>
+                    <li><a href="https://www.open-emr.org/wiki/index.php/OpenEMR_Development_Version_Windows_Installation">Windows installation</a></li>
+                </ul>
+
+                <h2>Older versions</h2>
+                <p>Every previous release is listed on the <a href="/releases/">Releases</a> page.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
