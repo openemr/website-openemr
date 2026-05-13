@@ -20,14 +20,53 @@
                     <h2>Stable production release &mdash; version {{ .version }}</h2>
                     <p>Released {{ .entry.released_at }}.</p>
 
-                    <h3>Download</h3>
+                    {{ with .entry.compatibility }}
+                        <p>
+                            Compatibility:
+                            {{ with .php }}PHP {{ .min }}&ndash;{{ .max }}{{ end }}{{ if and .php (or .mariadb .mysql) }}, {{ end }}
+                            {{ with .mariadb }}MariaDB {{ .min }}&ndash;{{ .max }}{{ end }}{{ if and .mariadb .mysql }}, {{ end }}
+                            {{ with .mysql }}MySQL {{ .min }}&ndash;{{ .max }}{{ end }}.
+                            {{ with .recommended_db }}{{ . }} is recommended.{{ end }}
+                        </p>
+                    {{ end }}
+
+                    {{ $dl := .entry.downloads | default dict }}
+
+                    <h3>Docker (recommended)</h3>
+                    <p>The official OpenEMR Docker image is the recommended way to run OpenEMR.</p>
+                    <ul>
+                        <li><a href="https://hub.docker.com/r/openemr/openemr">openemr/openemr on Docker Hub</a></li>
+                        {{ with $dl.docker }}
+                            {{ with .install_url }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
+                            {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
+                        {{ end }}
+                    </ul>
+
+                    <h3>Linux</h3>
                     <ul>
                         {{ with .entry.archive_urls }}
                             <li><a href="{{ .tarball }}">openemr-{{ $latest.version }}.tar.gz</a></li>
-                            <li><a href="{{ .zip }}">openemr-{{ $latest.version }}.zip</a></li>
                         {{ else }}
                             <li><a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.tar.gz">openemr-{{ .version }}.tar.gz</a></li>
+                        {{ end }}
+                        {{ with $dl.linux }}
+                            {{ with .checksums_url }}<li><a href="{{ . }}">Checksums</a></li>{{ end }}
+                            {{ with .install_url }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
+                            {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
+                        {{ end }}
+                    </ul>
+
+                    <h3>Windows</h3>
+                    <ul>
+                        {{ with .entry.archive_urls }}
+                            <li><a href="{{ .zip }}">openemr-{{ $latest.version }}.zip</a></li>
+                        {{ else }}
                             <li><a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.zip">openemr-{{ .version }}.zip</a></li>
+                        {{ end }}
+                        {{ with $dl.windows }}
+                            {{ with .checksums_url }}<li><a href="{{ . }}">Checksums</a></li>{{ end }}
+                            {{ with .install_url }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
+                            {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
                         {{ end }}
                     </ul>
 
