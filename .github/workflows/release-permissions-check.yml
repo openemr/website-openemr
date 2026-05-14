@@ -46,9 +46,9 @@ jobs:
     steps:
       - name: Mint release App token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v3.1
         with:
-          app-id: ${{ secrets.RELEASE_APP_ID }}
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
           # Allow the minted token to dispatch into the cross-repo target
           # in addition to this repo. The App must be installed on both.

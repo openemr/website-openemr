@@ -121,7 +121,8 @@ In dependency order:
 ## Permissions self-check
 
 `.github/workflows/release-permissions-check.yml` (manual `workflow_dispatch`).
-Mints an App token from `RELEASE_APP_ID` + `RELEASE_APP_PRIVATE_KEY` and
+Mints an App token from the `RELEASE_APP_CLIENT_ID` org variable +
+`RELEASE_APP_PRIVATE_KEY` org secret and
 probes what this repo's docs workflow performs:
 
 - `GET /installation/repositories` — confirm this repo is in the install list.
