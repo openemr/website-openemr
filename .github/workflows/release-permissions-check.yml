@@ -58,7 +58,7 @@ jobs:
       # Mirror release-docs.yml's checkout (no persisted credentials)
       # so the probe exercises the same auth path as the real workflow.
       - name: Checkout for git-push probe
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           persist-credentials: false
 

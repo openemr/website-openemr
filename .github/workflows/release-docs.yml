@@ -86,7 +86,7 @@ jobs:
         runner: [ubuntu-24.04]
     steps:
       - name: Checkout this repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Defense in depth — we no longer push from this checkout, but
           # leaving GITHUB_TOKEN persisted as an http.extraheader would
@@ -170,7 +170,7 @@ jobs:
           fi
 
       - name: Sparse-checkout openemr/openemr at dispatched sha
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: openemr/openemr
           ref: ${{ steps.payload.outputs.sha }}
