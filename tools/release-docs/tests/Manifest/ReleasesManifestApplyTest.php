@@ -223,6 +223,53 @@ final class ReleasesManifestApplyTest extends TestCase
         );
     }
 
+    public function testEntryWithNestedCompatibilityAndDownloadsLoads(): void
+    {
+        $this->seed([
+            '8.0.0' => [
+                'status' => 'FINAL',
+                'branch' => 'rel-800',
+                'sha' => 'b91b73600327acb46252b9fce7d04467eea126fd',
+                'released_at' => '2026-02-13',
+                'compatibility' => [
+                    'php' => ['min' => '8.2', 'max' => '8.5'],
+                    'mariadb' => ['min' => '10.6', 'max' => '11.8'],
+                    'recommended_db' => 'MariaDB',
+                ],
+                'downloads' => [
+                    'docker' => ['install_url' => 'https://example.invalid/docker'],
+                ],
+            ],
+        ]);
+
+        $this->manifest()->apply(new DispatchEvent(
+            event: 'openemr-rel-cut',
+            version: '8.1.0',
+            branch: 'rel-810',
+            sha: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            releasedAt: null,
+        ));
+
+        $manifest = $this->readManifest();
+        self::assertSame(
+            [
+                'status' => 'FINAL',
+                'branch' => 'rel-800',
+                'sha' => 'b91b73600327acb46252b9fce7d04467eea126fd',
+                'released_at' => '2026-02-13',
+                'compatibility' => [
+                    'php' => ['min' => '8.2', 'max' => '8.5'],
+                    'mariadb' => ['min' => '10.6', 'max' => '11.8'],
+                    'recommended_db' => 'MariaDB',
+                ],
+                'downloads' => [
+                    'docker' => ['install_url' => 'https://example.invalid/docker'],
+                ],
+            ],
+            $manifest['8.0.0'],
+        );
+    }
+
     public function testFromJsonExtractsRequiredFields(): void
     {
         $payload = json_encode([
@@ -253,7 +300,7 @@ final class ReleasesManifestApplyTest extends TestCase
     }
 
     /**
-     * @param array<string, array<string, string|null|array<string, string>>> $contents
+     * @param array<string, array<string, mixed>> $contents
      */
     private function seed(array $contents): void
     {
@@ -262,7 +309,7 @@ final class ReleasesManifestApplyTest extends TestCase
     }
 
     /**
-     * @return array<string, array<string, string|null|array<string, string>>>
+     * @return array<string, array<string, mixed>>
      */
     private function readManifest(): array
     {
@@ -275,7 +322,7 @@ final class ReleasesManifestApplyTest extends TestCase
             throw new RuntimeException('manifest decoded to non-array in test');
         }
 
-        /** @var array<string, array<string, string|null|array<string, string>>> */
+        /** @var array<string, array<string, mixed>> */
         return $decoded;
     }
 }

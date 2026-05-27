@@ -56,8 +56,8 @@ final class ReleasesManifest
     }
 
     /**
-     * @param array<string, array<string, string|null|array<string, string>>> $manifest
-     * @return array<string, array<string, string|null|array<string, string>>>
+     * @param array<string, array<string, mixed>> $manifest
+     * @return array<string, array<string, mixed>>
      */
     private function applyRelCut(array $manifest, DispatchEvent $event): array
     {
@@ -72,8 +72,8 @@ final class ReleasesManifest
     }
 
     /**
-     * @param array<string, array<string, string|null|array<string, string>>> $manifest
-     * @return array<string, array<string, string|null|array<string, string>>>
+     * @param array<string, array<string, mixed>> $manifest
+     * @return array<string, array<string, mixed>>
      */
     private function applyRelUpdate(array $manifest, DispatchEvent $event): array
     {
@@ -91,8 +91,8 @@ final class ReleasesManifest
     }
 
     /**
-     * @param array<string, array<string, string|null|array<string, string>>> $manifest
-     * @return array<string, array<string, string|null|array<string, string>>>
+     * @param array<string, array<string, mixed>> $manifest
+     * @return array<string, array<string, mixed>>
      */
     private function applyTag(array $manifest, DispatchEvent $event): array
     {
@@ -114,7 +114,7 @@ final class ReleasesManifest
     }
 
     /**
-     * @return array<string, array<string, string|null|array<string, string>>>
+     * @return array<string, array<string, mixed>>
      */
     private function load(): array
     {
@@ -149,8 +149,14 @@ final class ReleasesManifest
     }
 
     /**
+     * Normalize a decoded manifest entry. Only enforces that keys are strings
+     * and leaf values are scalar (string) or null; the JSON schema validator
+     * is the authoritative check on structural shape, so nested objects
+     * (compatibility.php = {min, max}, downloads.docker = {install_url}, etc.)
+     * pass through unchanged.
+     *
      * @param array<int|string, mixed> $entry
-     * @return array<string, string|null|array<string, string>>
+     * @return array<string, mixed>
      */
     private function normalizeEntry(array $entry): array
     {
@@ -159,38 +165,32 @@ final class ReleasesManifest
             if (!is_string($key)) {
                 throw new RuntimeException('manifest entry keys must be strings');
             }
-            if ($value === null || is_string($value)) {
-                $result[$key] = $value;
-                continue;
-            }
-            if (is_array($value)) {
-                $result[$key] = $this->normalizeStringMap($key, $value);
-                continue;
-            }
-            throw new RuntimeException("manifest entry $key must be string, null, or string-keyed string map");
+            $result[$key] = $this->normalizeValue($key, $value);
         }
 
         return $result;
     }
 
-    /**
-     * @param array<int|string, mixed> $value
-     * @return array<string, string>
-     */
-    private function normalizeStringMap(string $parentKey, array $value): array
+    private function normalizeValue(string $path, mixed $value): mixed
     {
+        if ($value === null || is_string($value)) {
+            return $value;
+        }
+        if (!is_array($value)) {
+            throw new RuntimeException("manifest entry $path must be string, null, or string-keyed object");
+        }
         $sub = [];
         foreach ($value as $k => $v) {
-            if (!is_string($k) || !is_string($v)) {
-                throw new RuntimeException("manifest entry $parentKey.$k must be string");
+            if (!is_string($k)) {
+                throw new RuntimeException("manifest entry $path.$k keys must be strings");
             }
-            $sub[$k] = $v;
+            $sub[$k] = $this->normalizeValue("$path.$k", $v);
         }
         return $sub;
     }
 
     /**
-     * @param array<string, array<string, string|null|array<string, string>>> $manifest
+     * @param array<string, array<string, mixed>> $manifest
      */
     private function validate(array $manifest): void
     {
@@ -223,7 +223,7 @@ final class ReleasesManifest
     }
 
     /**
-     * @param array<string, array<string, string|null|array<string, string>>> $manifest
+     * @param array<string, array<string, mixed>> $manifest
      */
     private function save(array $manifest): void
     {
