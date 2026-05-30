@@ -115,15 +115,14 @@ final class ReleaseNotesGeneratorTest extends TestCase
     {
         $page1Items = [];
         for ($i = 1; $i <= 100; $i++) {
-            $page1Items[] = self::apiItem($i, 'feat: pr ' . $i);
+            $page1Items[] = self::apiItem($i, 'feat: pr ' . $i, '2026-04-29T12:00:00Z');
         }
         $page2Items = [
-            self::apiItem(101, 'fix: pr 101'),
-            self::apiItem(102, 'chore: pr 102'),
+            self::apiItem(101, 'fix: pr 101', '2026-04-28T12:00:00Z'),
+            self::apiItem(102, 'chore: pr 102', '2026-04-27T12:00:00Z'),
         ];
-        $envelope = ['total_count' => 102, 'incomplete_results' => false];
-        $page1 = json_encode($envelope + ['items' => $page1Items], JSON_THROW_ON_ERROR);
-        $page2 = json_encode($envelope + ['items' => $page2Items], JSON_THROW_ON_ERROR);
+        $page1 = json_encode($page1Items, JSON_THROW_ON_ERROR);
+        $page2 = json_encode($page2Items, JSON_THROW_ON_ERROR);
 
         $mock = new MockHandler([new Response(200, [], $page1), new Response(200, [], $page2)]);
         $client = new Client(['handler' => HandlerStack::create($mock)]);
@@ -134,6 +133,57 @@ final class ReleaseNotesGeneratorTest extends TestCase
         self::assertCount(102, $prs);
         self::assertSame(1, $prs[0]['number']);
         self::assertSame(102, $prs[101]['number']);
+    }
+
+    public function testFetchMergedPullRequestsStopsAtWindowBoundary(): void
+    {
+        $page1 = json_encode([
+            self::apiItem(10, 'feat: in window', '2026-04-20T12:00:00Z'),
+            self::apiItem(11, 'fix: in window edge', '2026-02-13T00:00:01Z'),
+            self::apiItem(12, 'chore: before window', '2026-02-01T12:00:00Z'),
+        ], JSON_THROW_ON_ERROR);
+
+        // Second response is queued to prove early-exit doesn't fetch it.
+        $mock = new MockHandler([
+            new Response(200, [], $page1),
+            new Response(500, [], 'must not be called'),
+        ]);
+        $client = new Client(['handler' => HandlerStack::create($mock)]);
+
+        $prs = (new ReleaseNotesGenerator($client))
+            ->fetchMergedPullRequests('openemr', 'openemr', '2026-02-13', '2026-04-29');
+
+        self::assertSame([10, 11], array_column($prs, 'number'));
+    }
+
+    public function testFetchMergedPullRequestsSkipsClosedWithoutMerge(): void
+    {
+        $page1 = json_encode([
+            [
+                'number' => 1,
+                'title' => 'feat: merged',
+                'html_url' => 'https://example.test/1',
+                'user' => ['login' => 'alice'],
+                'merged_at' => '2026-04-20T12:00:00Z',
+                'updated_at' => '2026-04-20T12:00:00Z',
+            ],
+            [
+                'number' => 2,
+                'title' => 'feat: closed without merge',
+                'html_url' => 'https://example.test/2',
+                'user' => ['login' => 'bob'],
+                'merged_at' => null,
+                'updated_at' => '2026-04-19T12:00:00Z',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        $mock = new MockHandler([new Response(200, [], $page1)]);
+        $client = new Client(['handler' => HandlerStack::create($mock)]);
+
+        $prs = (new ReleaseNotesGenerator($client))
+            ->fetchMergedPullRequests('openemr', 'openemr', '2026-02-13', '2026-04-29');
+
+        self::assertSame([1], array_column($prs, 'number'));
     }
 
     /**
@@ -152,13 +202,15 @@ final class ReleaseNotesGeneratorTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function apiItem(int $number, string $title): array
+    private static function apiItem(int $number, string $title, string $mergedAt): array
     {
         return [
             'number' => $number,
             'title' => $title,
             'html_url' => "https://github.com/openemr/openemr/pull/$number",
             'user' => ['login' => 'tester'],
+            'merged_at' => $mergedAt,
+            'updated_at' => $mergedAt,
         ];
     }
 

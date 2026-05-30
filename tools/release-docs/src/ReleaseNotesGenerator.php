@@ -96,10 +96,29 @@ final class ReleaseNotesGenerator
      */
     public function fetchMergedPullRequests(string $owner, string $repo, string $from, string $to): array
     {
+        // List-pulls is used in preference to /search/issues because the
+        // Search API caps results at 1000 — OpenEMR routinely exceeds
+        // that in a release window. /repos/{o}/{r}/pulls has no such cap.
+        $fromTs = self::parseBoundary($from, startOfDay: true);
+        $toTs = self::parseBoundary($to, startOfDay: false);
         $items = [];
-        foreach ($this->fetchPages($owner, $repo, $from, $to) as $page) {
-            foreach ($page as $item) {
-                $items[] = $item;
+        foreach ($this->fetchClosedPullPages($owner, $repo) as $page) {
+            foreach ($page as $pull) {
+                $updatedAt = self::parseTimestamp($pull, 'updated_at');
+                if ($updatedAt < $fromTs) {
+                    // Sorted by updated desc — anything past this point
+                    // updated before our window can't have merged in it.
+                    return $this->parseItems($items);
+                }
+                $mergedAtRaw = $pull['merged_at'] ?? null;
+                if (!is_string($mergedAtRaw) || $mergedAtRaw === '') {
+                    continue;
+                }
+                $mergedAt = strtotime($mergedAtRaw);
+                if ($mergedAt === false || $mergedAt < $fromTs || $mergedAt > $toTs) {
+                    continue;
+                }
+                $items[] = $pull;
             }
         }
 
@@ -107,15 +126,15 @@ final class ReleaseNotesGenerator
     }
 
     /**
-     * Yield successive pages of search results until a short page signals
-     * the end. The caller never sees the page index.
+     * Yield pages of closed PRs sorted by updated_at desc until a short
+     * page signals the end.
      *
      * @return Generator<int, list<array<int|string, mixed>>>
      */
-    private function fetchPages(string $owner, string $repo, string $from, string $to): Generator
+    private function fetchClosedPullPages(string $owner, string $repo): Generator
     {
         for ($page = 1;; $page++) {
-            $batch = $this->fetchPage($owner, $repo, $from, $to, $page);
+            $batch = $this->fetchClosedPullPage($owner, $repo, $page);
             yield $batch;
             if (count($batch) < self::PER_PAGE) {
                 return;
@@ -126,11 +145,13 @@ final class ReleaseNotesGenerator
     /**
      * @return list<array<int|string, mixed>>
      */
-    private function fetchPage(string $owner, string $repo, string $from, string $to, int $page): array
+    private function fetchClosedPullPage(string $owner, string $repo, int $page): array
     {
-        $response = $this->client->request('GET', '/search/issues', [
+        $response = $this->client->request('GET', "/repos/$owner/$repo/pulls", [
             'query' => [
-                'q' => "repo:$owner/$repo is:pr is:merged merged:$from..$to",
+                'state' => 'closed',
+                'sort' => 'updated',
+                'direction' => 'desc',
                 'per_page' => self::PER_PAGE,
                 'page' => $page,
             ],
@@ -138,22 +159,46 @@ final class ReleaseNotesGenerator
         $body = (string) $response->getBody();
         $payload = json_decode($body, true, flags: JSON_THROW_ON_ERROR);
         if (!is_array($payload)) {
-            throw new RuntimeException('GitHub search API returned a non-array payload');
-        }
-        $items = $payload['items'] ?? null;
-        if (!is_array($items)) {
-            throw new RuntimeException('GitHub search API payload missing items[]');
+            throw new RuntimeException('GitHub pulls API returned a non-array payload');
         }
 
         $normalized = [];
-        foreach ($items as $item) {
+        foreach ($payload as $item) {
             if (!is_array($item)) {
-                throw new RuntimeException('GitHub search API item is not an array');
+                throw new RuntimeException('GitHub pulls API item is not an array');
             }
             $normalized[] = $item;
         }
 
         return $normalized;
+    }
+
+    private static function parseBoundary(string $date, bool $startOfDay): int
+    {
+        $suffix = $startOfDay ? 'T00:00:00Z' : 'T23:59:59Z';
+        $ts = strtotime($date . $suffix);
+        if ($ts === false) {
+            throw new RuntimeException("Invalid date boundary: $date");
+        }
+
+        return $ts;
+    }
+
+    /**
+     * @param array<int|string, mixed> $pull
+     */
+    private static function parseTimestamp(array $pull, string $field): int
+    {
+        $raw = $pull[$field] ?? null;
+        if (!is_string($raw) || $raw === '') {
+            throw new RuntimeException("PR field \"$field\" missing or not non-empty string");
+        }
+        $ts = strtotime($raw);
+        if ($ts === false) {
+            throw new RuntimeException("PR field \"$field\" not a parseable timestamp: $raw");
+        }
+
+        return $ts;
     }
 
     /**

@@ -224,11 +224,20 @@ tasks:
           exit 0
         fi
         git -C "$PUBLISH" commit -m "release-docs: ${EVENT} ${VERSION} @ ${SHA:0:12}"
-        # --force-with-lease has a real baseline because prepare-publish
-        # checked out origin/$BRANCH (when it existed). For the first
-        # dispatch on a new version, the branch simply doesn't exist
-        # remotely and the push creates it.
-        git -C "$PUBLISH" push --force-with-lease origin "HEAD:${BRANCH}"
+        # --force-with-lease needs an explicit expected baseline. The
+        # local branch isn't tracking origin/$BRANCH (prepare-publish
+        # does `checkout -B`, not `--track`), so a bare --force-with-lease
+        # has no @{upstream} to read and the server rejects with
+        # "stale info". When the remote-tracking ref doesn't exist (first
+        # dispatch for this version), fall back to a plain push that
+        # creates the branch.
+        if base=$(git -C "$PUBLISH" rev-parse --verify --quiet "refs/remotes/origin/${BRANCH}"); then
+          git -C "$PUBLISH" push \
+            --force-with-lease="refs/heads/${BRANCH}:${base}" \
+            origin "HEAD:${BRANCH}"
+        else
+          git -C "$PUBLISH" push origin "HEAD:${BRANCH}"
+        fi
         echo 'pushed=true' >> "$GITHUB_OUTPUT"
 
   workflow:upsert-pr:
