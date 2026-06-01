@@ -18,7 +18,7 @@ version: "__VERSION__"
 
 Download the OpenEMR __VERSION__ release tarball:
 
-- [openemr-__VERSION__.tar.gz](https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/__VERSION__/openemr-__VERSION__.tar.gz/download)
+- [openemr-__VERSION__.tar.gz](https://github.com/openemr/openemr/releases/download/__VERSION_TAG__/openemr-__VERSION__.tar.gz)
 
 ## Install
 

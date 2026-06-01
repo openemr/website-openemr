@@ -21,7 +21,7 @@ Before starting any upgrade, take a full backup of:
 
 ## Upgrade steps
 
-1. Download the [openemr-__VERSION__.tar.gz](https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/__VERSION__/openemr-__VERSION__.tar.gz/download) tarball.
+1. Download the [openemr-__VERSION__.tar.gz](https://github.com/openemr/openemr/releases/download/__VERSION_TAG__/openemr-__VERSION__.tar.gz) tarball.
 2. Extract the tarball alongside the existing installation; do not overwrite
    the existing `sites/` directory.
 3. Browse to `https://your-server/openemr-__VERSION__/sql_upgrade.php` and run
