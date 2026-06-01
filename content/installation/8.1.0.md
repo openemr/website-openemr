@@ -18,7 +18,7 @@ version: "8.1.0"
 
 Download the OpenEMR 8.1.0 release tarball:
 
-- [openemr-8.1.0.tar.gz](https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.1.0/openemr-8.1.0.tar.gz/download)
+- [openemr-8.1.0.tar.gz](https://github.com/openemr/openemr/releases/download/v8_1_0/openemr-8.1.0.tar.gz)
 
 ## Install
 
