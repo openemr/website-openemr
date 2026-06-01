@@ -29,6 +29,7 @@ final class InstallPagesGenerator
     {
         return $this->renderTemplate('install.md.template', [
             '__VERSION__' => $version,
+            '__VERSION_TAG__' => AcknowledgementsGenerator::tagForVersion($version),
             '__MIN_PHP__' => $minPhp,
         ]);
     }
@@ -40,6 +41,7 @@ final class InstallPagesGenerator
     ): string {
         return $this->renderTemplate('upgrade.md.template', [
             '__VERSION__' => $version,
+            '__VERSION_TAG__' => AcknowledgementsGenerator::tagForVersion($version),
             '__PREVIOUS_VERSION__' => $previousVersion,
             '__MIN_PHP__' => $minPhp,
         ]);

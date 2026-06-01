@@ -21,7 +21,7 @@ Before starting any upgrade, take a full backup of:
 
 ## Upgrade steps
 
-1. Download the [openemr-8.1.0.tar.gz](https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.1.0/openemr-8.1.0.tar.gz/download) tarball.
+1. Download the [openemr-8.1.0.tar.gz](https://github.com/openemr/openemr/releases/download/v8_1_0/openemr-8.1.0.tar.gz) tarball.
 2. Extract the tarball alongside the existing installation; do not overwrite
    the existing `sites/` directory.
 3. Browse to `https://your-server/openemr-8.1.0/sql_upgrade.php` and run
