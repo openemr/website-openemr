@@ -90,6 +90,29 @@ final class ReleaseNotesGeneratorTest extends TestCase
         self::assertCount(2, $groups['Other']);
     }
 
+    public function testFilterNoiseDropsMachineryAndKeepsRealChanges(): void
+    {
+        $generator = new ReleaseNotesGenerator(self::clientReturning('{}'));
+
+        $kept = $generator->filterNoise([
+            self::authored(1, 'feat(api): real feature', 'alice'),
+            self::authored(2, 'chore(release): prep 8.1.0', 'openemr-release-bot[bot]'),
+            self::authored(3, 'feat: experimental [TEST] thing', 'bob'),
+            self::authored(4, 'chore(deps): bump redis from 8.8.0 to 8.8.0', 'dependabot[bot]'),
+            self::authored(5, 'chore(deps): bump twig/twig from 3.25.0 to 3.26.0', 'dependabot[bot]'),
+            self::authored(6, 'fix(release): widen dispatch branch pattern', 'carol'),
+            self::authored(7, 'fix(release-prep): stop bumping docker-version files', 'carol'),
+            self::authored(8, 'fix(encounter): handle null uuid (backport #999)', 'carol'),
+            self::authored(9, 'chore: release 8.1.0 misc', 'dave'),
+            self::authored(10, 'fix(ui): keep me', 'erin'),
+        ]);
+
+        // Kept: real feature, real (different-version) dep bump, real fix.
+        // Dropped: release bot, [TEST], no-op bump, release/release-prep
+        // scopes, backport duplicate, and the "chore: release" straggler.
+        self::assertSame([1, 5, 10], array_column($kept, 'number'));
+    }
+
     public function testFullPipelineMatchesFixtureSnapshot(): void
     {
         $body = self::loadFixture('api-page1.json');
@@ -196,6 +219,19 @@ final class ReleaseNotesGeneratorTest extends TestCase
             'title' => $title,
             'url' => "https://example.test/$number",
             'author' => 'tester',
+        ];
+    }
+
+    /**
+     * @return array{number: int, title: string, url: string, author: string}
+     */
+    private static function authored(int $number, string $title, string $author): array
+    {
+        return [
+            'number' => $number,
+            'title' => $title,
+            'url' => "https://example.test/$number",
+            'author' => $author,
         ];
     }
 
