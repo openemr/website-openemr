@@ -164,9 +164,9 @@
         }
     },
     "8.1.0": {
-        "status": "DRAFT",
+        "status": "FINAL",
         "branch": "rel-810",
-        "sha": "d9671f3deca021ad637d382f331d382af2d438a6",
-        "released_at": null
+        "sha": "28dc4f9ba3f3d4de8324980699a072cdaf098927",
+        "released_at": "2026-06-01"
     }
 }
