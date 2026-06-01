@@ -56,6 +56,24 @@ final class ReleaseNotesGenerator
         'Other',
     ];
 
+    /**
+     * Bot login whose PRs are pure release machinery, never user-facing.
+     */
+    private const RELEASE_BOT = 'openemr-release-bot[bot]';
+
+    /**
+     * Dependabot login; its same-version no-op re-pins are dropped.
+     */
+    private const DEPENDABOT = 'dependabot[bot]';
+
+    /**
+     * Conventional-Commits scopes that mark a PR as release automation
+     * rather than a user-facing change.
+     *
+     * @var list<string>
+     */
+    private const MACHINERY_SCOPES = ['release', 'release-prep'];
+
     public function __construct(
         private readonly ClientInterface $client,
     ) {
@@ -63,7 +81,12 @@ final class ReleaseNotesGenerator
 
     public function generate(string $owner, string $repo, string $from, string $to, string $version): string
     {
-        return $this->render($this->groupByPrefix($this->fetchMergedPullRequests($owner, $repo, $from, $to)), $version);
+        return $this->render(
+            $this->groupByPrefix(
+                $this->filterNoise($this->fetchMergedPullRequests($owner, $repo, $from, $to)),
+            ),
+            $version,
+        );
     }
 
     /**
@@ -238,6 +261,71 @@ final class ReleaseNotesGenerator
         }
 
         return $result;
+    }
+
+    /**
+     * Drop PRs that are release machinery or other non-user-facing noise:
+     * release-bot commits, [TEST] dry-run PRs, same-version dependabot
+     * no-op bumps, release/release-prep-scoped automation, and the
+     * duplicate half of a backport pair (the original is kept).
+     *
+     * @param list<array{number: int, title: string, url: string, author: string}> $prs
+     * @return list<array{number: int, title: string, url: string, author: string}>
+     */
+    public function filterNoise(array $prs): array
+    {
+        return array_values(array_filter($prs, static fn (array $pr): bool => !self::isNoise($pr)));
+    }
+
+    /**
+     * @param array{number: int, title: string, url: string, author: string} $pr
+     */
+    private static function isNoise(array $pr): bool
+    {
+        $title = $pr['title'];
+        if ($pr['author'] === self::RELEASE_BOT) {
+            return true;
+        }
+        if (stripos($title, '[TEST]') !== false) {
+            return true;
+        }
+        if (stripos($title, 'backport') !== false) {
+            return true;
+        }
+        if (in_array(self::scopeOf($title), self::MACHINERY_SCOPES, true)) {
+            return true;
+        }
+        if (preg_match('/^chore(?:\([^)]*\))?:\s*release\b/i', $title) === 1) {
+            return true;
+        }
+
+        return $pr['author'] === self::DEPENDABOT && self::isNoOpVersionBump($title);
+    }
+
+    /**
+     * Lowercased Conventional-Commits scope, or null when the title has no
+     * parseable "type(scope):" prefix.
+     */
+    private static function scopeOf(string $title): ?string
+    {
+        if (preg_match('/^\w+\(([^)]*)\)!?:/', $title, $matches) !== 1) {
+            return null;
+        }
+
+        return strtolower($matches[1]);
+    }
+
+    /**
+     * True for a dependabot "bump <dep> from <v> to <v>" title where the two
+     * versions are identical — a re-pin that changes nothing.
+     */
+    private static function isNoOpVersionBump(string $title): bool
+    {
+        if (preg_match('/\bfrom\s+(\S+)\s+to\s+(\S+)/', $title, $matches) !== 1) {
+            return false;
+        }
+
+        return $matches[1] === $matches[2];
     }
 
     /**
