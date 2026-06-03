@@ -193,3 +193,5 @@ GitHub.sublime-settings
 
 # release-docs sparse checkout of openemr/openemr (input for generators)
 /.openemr-src
+# release-docs fallback checkout of openemr master EHI assets (retroactive 8.1.0)
+/.openemr-ehi-fallback

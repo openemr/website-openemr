@@ -101,6 +101,33 @@ tasks:
         --previous-version={{.PREVIOUS_VERSION}}
         --output={{.OUTPUT}}
 
+  gen-ehi:
+    desc: Regenerate the EHI (b)(10) SchemaSpy documentation for a release
+    deps: [setup]
+    requires:
+      vars: [OPENEMR_CHECKOUT, VERSION]
+    vars:
+      OUTPUT: '{{.OUTPUT | default (printf "%s/static/documentation/%s/b10/" .REPO_ROOT .VERSION)}}'
+      DB_HOST: '{{.DB_HOST | default "127.0.0.1"}}'
+      DB_PORT: '{{.DB_PORT | default "3306"}}'
+      DB_NAME: '{{.DB_NAME | default "openemr"}}'
+      DB_USER: '{{.DB_USER | default "openemr"}}'
+      DB_PASSWORD: '{{.DB_PASSWORD | default "openemr"}}'
+      DB_SCHEMA: '{{.DB_SCHEMA | default "openemr"}}'
+    cmds:
+      - mkdir -p '{{.OUTPUT}}'
+      - >-
+        php bin/gen-ehi.php
+        --openemr-checkout={{.OPENEMR_CHECKOUT}}
+        --release-version={{.VERSION}}
+        --output={{.OUTPUT}}
+        --db-host={{.DB_HOST}}
+        --db-port={{.DB_PORT}}
+        --db-name={{.DB_NAME}}
+        --db-user={{.DB_USER}}
+        --db-password={{.DB_PASSWORD}}
+        --db-schema={{.DB_SCHEMA}}
+
   apply-aliases:
     desc: Merge wiki-URL aliases into Hugo page frontmatter
     deps: [setup]
@@ -195,6 +222,9 @@ tasks:
           "$PUBLISH"
         git -C "$PUBLISH" config user.name 'openemr-release-bot[bot]'
         git -C "$PUBLISH" config user.email 'openemr-release-bot[bot]@users.noreply.github.com'
+        # Enable LFS clean filters locally so committing the b10 docs tree
+        # captures it as LFS objects (per the repo-root .gitattributes rule).
+        git -C "$PUBLISH" lfs install --local
         if git -C "$PUBLISH" fetch --quiet --depth 1 origin \
             "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null; then
           git -C "$PUBLISH" checkout -B "$BRANCH" "origin/${BRANCH}"
@@ -287,6 +317,40 @@ tasks:
            "$PAYLOAD" > "$sub"
         gh api -X POST /repos/openemr/website-openemr-files/dispatches \
           --input "$sub"
+
+  workflow:gen-ehi:
+    desc: |
+      Load the fresh-install schema into the MariaDB service and regenerate
+      the EHI (b)(10) SchemaSpy docs into
+      $STAGING/static/documentation/$VERSION/b10/. Table set + schemaspy
+      assets come from $OPENEMR_CHECKOUT; when $FALLBACK is 'true' (tagged sha
+      predates b10-tables.yml — the retroactive 8.1.0 path) they come from the
+      openemr-master checkout at $GITHUB_WORKSPACE/.openemr-ehi-fallback while
+      the schema is still loaded from the tagged sha's sql/database.sql.
+    cmds:
+      - |
+        db_host="${DB_HOST:-127.0.0.1}"
+        db_port="${DB_PORT:-3306}"
+        db_name="${DB_NAME:-openemr}"
+        db_user="${DB_USER:-openemr}"
+        db_password="${DB_PASSWORD:-openemr}"
+        mysql -h"$db_host" -P"$db_port" -u"$db_user" -p"$db_password" "$db_name" \
+          < "$OPENEMR_CHECKOUT/sql/database.sql"
+        ehi_src="$OPENEMR_CHECKOUT/Documentation/EHI_Export"
+        if [ "${FALLBACK:-false}" = 'true' ]; then
+          ehi_src="$GITHUB_WORKSPACE/.openemr-ehi-fallback/Documentation/EHI_Export"
+        fi
+        php bin/gen-ehi.php \
+          --openemr-checkout="$OPENEMR_CHECKOUT" \
+          --release-version="$VERSION" \
+          --output="$STAGING/static/documentation/$VERSION/b10/" \
+          --tables-file="$ehi_src/b10-tables.yml" \
+          --schemaspy-dir="$ehi_src/schemaspy" \
+          --db-host="$db_host" \
+          --db-port="$db_port" \
+          --db-name="$db_name" \
+          --db-user="$db_user" \
+          --db-password="$db_password"
 
   workflow:strip-sidecar:
     desc: |

@@ -1,0 +1,11 @@
+# Synthetic fixture for EhiSchemaGeneratorTest — NOT openemr's real table set.
+# Exercises grouping, cross-group duplication, and unsorted input so the
+# flatten/sort/dedupe logic is observable. Keep small and self-contained.
+groups:
+  alpha:
+    - zebra
+    - mango
+    - apple
+  beta:
+    - mango
+    - banana
