@@ -84,6 +84,25 @@ jobs:
       fail-fast: false
       matrix:
         runner: [ubuntu-24.04]
+    # Schema-only source for the EHI (b)(10) SchemaSpy run. Always declared
+    # (services can't be conditional) but only used by the gated EHI steps;
+    # on DRAFT dispatches it idles. db/user/pass = openemr to match the
+    # installer defaults the schemaspy invocation expects.
+    services:
+      mariadb:
+        image: mariadb:11
+        env:
+          MARIADB_DATABASE: openemr
+          MARIADB_USER: openemr
+          MARIADB_PASSWORD: openemr
+          MARIADB_ROOT_PASSWORD: openemr
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=20
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v6
@@ -180,6 +199,50 @@ jobs:
             .git
             version.php
             CHANGELOG.md
+            sql/database.sql
+            Documentation/EHI_Export/b10-tables.yml
+            Documentation/EHI_Export/schemaspy
+
+      # EHI (b)(10) regen is a heavyweight Java+DB step; run it only for
+      # FINAL tags and manual dispatches. `fallback` flags the retroactive
+      # 8.1.0 case whose tagged sha predates b10-tables.yml, so its assets
+      # must come from openemr master instead of the tagged checkout.
+      - name: Resolve EHI (b)(10) generation
+        id: ehi
+        env:
+          EVENT: ${{ steps.payload.outputs.event }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = 'openemr-tag' ] || [ "$EVENT_NAME" = 'workflow_dispatch' ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'EHI (b)(10) regen runs only on openemr-tag or workflow_dispatch; skipping.'
+          fi
+          if [ -f "$OPENEMR_CHECKOUT/Documentation/EHI_Export/b10-tables.yml" ]; then
+            echo 'fallback=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'fallback=true' >> "$GITHUB_OUTPUT"
+            echo 'Tagged sha predates b10-tables.yml; EHI assets will come from openemr master.'
+          fi
+
+      - name: Sparse-checkout EHI assets from openemr master (8.1.0 fallback)
+        if: ${{ steps.ehi.outputs.enabled == 'true' && steps.ehi.outputs.fallback == 'true' }}
+        uses: actions/checkout@v6
+        with:
+          repository: openemr/openemr
+          ref: master
+          path: .openemr-ehi-fallback
+          sparse-checkout: |
+            Documentation/EHI_Export/b10-tables.yml
+            Documentation/EHI_Export/schemaspy
+
+      - name: Set up Java for SchemaSpy
+        if: ${{ steps.ehi.outputs.enabled == 'true' }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
       - name: Prepare staging + publish-target
         env:
@@ -230,6 +293,13 @@ jobs:
           VERSION="$VERSION"
           PREVIOUS_VERSION="$PREV"
           OUTPUT="$STAGING/content/upgrade/$VERSION.md"
+
+      - name: Generate EHI (b)(10) schema docs
+        if: ${{ steps.ehi.outputs.enabled == 'true' }}
+        env:
+          VERSION: ${{ steps.payload.outputs.version }}
+          FALLBACK: ${{ steps.ehi.outputs.fallback }}
+        run: task workflow:gen-ehi
 
       - name: Update releases manifest
         if: ${{ steps.mode.outputs.test != 'true' }}

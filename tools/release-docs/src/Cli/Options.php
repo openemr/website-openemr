@@ -33,4 +33,26 @@ final class Options
 
         return $value;
     }
+
+    /**
+     * Fetch an optional string option.
+     *
+     * Returns null when the option is absent; throws when it is present but
+     * empty, so an explicit `--opt=` is a usage error rather than a silent
+     * fall-through to the default.
+     *
+     * @return non-empty-string|null
+     */
+    public static function optionalString(InputInterface $input, string $name): ?string
+    {
+        $value = $input->getOption($name);
+        if ($value === null) {
+            return null;
+        }
+        if (!is_string($value) || $value === '') {
+            throw new RuntimeException("--$name must not be empty");
+        }
+
+        return $value;
+    }
 }

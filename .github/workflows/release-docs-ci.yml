@@ -81,6 +81,64 @@ jobs:
       - run: composer install --no-interaction --no-progress --prefer-dist
       - run: composer test
 
+  gen-ehi-smoke:
+    name: gen-ehi smoke (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    services:
+      mariadb:
+        image: mariadb:11
+        env:
+          MARIADB_DATABASE: openemr
+          MARIADB_USER: openemr
+          MARIADB_PASSWORD: openemr
+          MARIADB_ROOT_PASSWORD: openemr
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: arduino/setup-task@v2
+        with:
+          version: '3.x'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - name: Sparse-checkout EHI assets from openemr master
+        uses: actions/checkout@v6
+        with:
+          repository: openemr/openemr
+          ref: master
+          path: .openemr-src
+          sparse-checkout: |
+            sql/database.sql
+            Documentation/EHI_Export/b10-tables.yml
+            Documentation/EHI_Export/schemaspy
+      - name: Generate EHI docs to a temp dir and assert index.html
+        env:
+          OPENEMR_CHECKOUT: ${{ github.workspace }}/.openemr-src
+          STAGING: ${{ runner.temp }}/ehi-smoke
+          VERSION: smoke
+          FALLBACK: 'false'
+        run: |
+          task workflow:gen-ehi
+          test -f "$STAGING/static/documentation/$VERSION/b10/index.html"
+
   validate-fixtures:
     name: validate dispatch fixtures (${{ matrix.runner }})
     runs-on: ${{ matrix.runner }}
