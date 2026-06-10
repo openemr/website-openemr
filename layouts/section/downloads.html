@@ -32,6 +32,15 @@
 
                     {{ $dl := .entry.downloads | default dict }}
 
+                    {{/* Dispatch-driven releases (those with a branch) carry a
+                         generated /installation/<version>/ page. Derive the link
+                         here rather than storing a derivable path in the manifest,
+                         mirroring how archive_urls are derived at render time. */}}
+                    {{ $installUrl := "" }}
+                    {{ with .entry.branch }}
+                        {{ $installUrl = printf "/installation/%s/" $latest.version }}
+                    {{ end }}
+
                     <h3>Docker (recommended)</h3>
                     <p>The official OpenEMR Docker image is the recommended way to run OpenEMR.</p>
                     <ul>
@@ -51,9 +60,9 @@
                         {{ end }}
                         {{ with $dl.linux }}
                             {{ with .checksums_url }}<li><a href="{{ . }}">Checksums</a></li>{{ end }}
-                            {{ with .install_url }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
                             {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
                         {{ end }}
+                        {{ with (or $dl.linux.install_url $installUrl) }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
                     </ul>
 
                     <h3>Windows</h3>
@@ -65,9 +74,9 @@
                         {{ end }}
                         {{ with $dl.windows }}
                             {{ with .checksums_url }}<li><a href="{{ . }}">Checksums</a></li>{{ end }}
-                            {{ with .install_url }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
                             {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
                         {{ end }}
+                        {{ with (or $dl.windows.install_url $installUrl) }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
                     </ul>
 
                     <h3>What's in this release</h3>
