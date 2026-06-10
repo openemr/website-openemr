@@ -131,3 +131,22 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+      # Best-effort: GitHub Pages serves www.open-emr.org via Cloudflare,
+      # which caches aggressively. Purge so the new deploy is visible
+      # without waiting for TTL expiry. Never fails the deploy.
+      - name: Purge Cloudflare cache
+        if: success()
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          if [[ -z "$CLOUDFLARE_API_TOKEN" || -z "$CLOUDFLARE_ZONE_ID" ]]; then
+            echo "Cloudflare secrets not set; skipping cache purge."
+            exit 0
+          fi
+          curl --fail --silent --show-error \
+            -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
