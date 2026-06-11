@@ -5,17 +5,6 @@
     "description": "Per-version release status, consumed by the release-status Hugo shortcode and the /releases/ and /downloads/ pages, and written by the release-docs workflow on inbound dispatches from openemr/openemr. Historical entries (versions that predate the rel-* branch and dispatch automation) carry only status, released_at, and archive_urls; the dispatch writer never touches them.",
     "type": "object",
     "additionalProperties": false,
-    "$defs": {
-        "versionRange": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["min", "max"],
-            "properties": {
-                "min": { "type": "string" },
-                "max": { "type": "string" }
-            }
-        }
-    },
     "patternProperties": {
         "^\\d+\\.\\d+\\.\\d+$": {
             "type": "object",
@@ -49,17 +38,6 @@
                     "properties": {
                         "tarball": { "type": "string", "format": "uri" },
                         "zip": { "type": "string", "format": "uri" }
-                    }
-                },
-                "compatibility": {
-                    "description": "Supported runtime versions for this release, surfaced on the /downloads/ page. Each component carries an inclusive min/max version range. recommended_db (when set) names the database the project recommends when both MariaDB and MySQL are supported.",
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "php":     { "$ref": "#/$defs/versionRange" },
-                        "mariadb": { "$ref": "#/$defs/versionRange" },
-                        "mysql":   { "$ref": "#/$defs/versionRange" },
-                        "recommended_db": { "enum": ["MariaDB", "MySQL"] }
                     }
                 },
                 "downloads": {
