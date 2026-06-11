@@ -20,13 +20,10 @@
                     <h2>Stable production release &mdash; version {{ .version }}</h2>
                     <p>Released {{ .entry.released_at }}.</p>
 
-                    {{ with .entry.compatibility }}
+                    {{ if not .entry.archive_urls }}
                         <p>
-                            Compatibility:
-                            {{ with .php }}PHP {{ .min }}&ndash;{{ .max }}{{ end }}{{ if and .php (or .mariadb .mysql) }}, {{ end }}
-                            {{ with .mariadb }}MariaDB {{ .min }}&ndash;{{ .max }}{{ end }}{{ if and .mariadb .mysql }}, {{ end }}
-                            {{ with .mysql }}MySQL {{ .min }}&ndash;{{ .max }}{{ end }}.
-                            {{ with .recommended_db }}{{ . }} is recommended.{{ end }}
+                            For supported PHP and database versions, see the
+                            <a href="https://github.com/openemr/openemr/releases/tag/{{ $tag }}">release notes</a>.
                         </p>
                     {{ end }}
 
