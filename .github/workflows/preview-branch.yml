@@ -1,0 +1,102 @@
+# Publishes a preview of any non-master org branch to the previews repo
+# so changes are viewable before merge. Each branch lands in its own
+# `branch-<slug>/` subfolder under
+# https://openemr.github.io/website-openemr-previews/.
+#
+# Trusted context: this only fires on pushes to branches in this repo
+# (forks can't push here), so it may hold the app token and build with
+# the real `npm ci` step. Fork PRs are handled separately by
+# preview-pr-build.yml / preview-pr-publish.yml.
+#
+# Production (deploy-pages.yml -> openemr.github.io/website-openemr/ +
+# Cloudflare) is never touched.
+name: preview-branch
+
+on:
+  push:
+    branches-ignore: [master]
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'data/**'
+      - 'static/**'
+      - 'archetypes/**'
+      - 'themes/**'
+      - 'config.yaml'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/preview-branch.yml'
+
+permissions:
+  contents: read
+
+# Serialize per-branch so two quick pushes don't race on the same
+# destination folder; supersede in-flight builds for the same branch.
+concurrency:
+  group: preview-branch-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HUGO_VERSION: '0.150.0'
+  NODE_VERSION: '24'
+  PREVIEWS_REPO: openemr/website-openemr-previews
+  PREVIEWS_BASE: https://openemr.github.io/website-openemr-previews
+
+jobs:
+  preview:
+    name: build and publish branch preview
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          lfs: true
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      # branch name -> URL/path-safe slug: every non-alphanumeric run
+      # collapses to one '-' (tr -cs squeezes), with edge dashes trimmed.
+      # Must match the cleanup workflow exactly so the publish and remove
+      # paths agree.
+      - name: Compute slug
+        id: slug
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          slug="$(printf '%s' "$BRANCH" | tr -cs 'A-Za-z0-9' '-')"
+          slug="${slug#-}"
+          slug="${slug%-}"
+          if [[ -z "$slug" ]]; then
+            echo "Branch '$BRANCH' produced an empty slug." >&2
+            exit 1
+          fi
+          echo "slug=$slug" >> "$GITHUB_OUTPUT"
+      - name: Install theme dependencies
+        working-directory: ./themes/openemr
+        run: npm ci
+      - name: Build site
+        env:
+          BASE_URL: ${{ env.PREVIEWS_BASE }}/branch-${{ steps.slug.outputs.slug }}/
+        run: hugo --gc --minify --baseURL "$BASE_URL"
+      - name: Mint App token
+        id: token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            website-openemr-previews
+      - name: Publish to previews repo
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ steps.token.outputs.token }}
+          external_repository: ${{ env.PREVIEWS_REPO }}
+          publish_branch: gh-pages
+          publish_dir: ./public
+          destination_dir: branch-${{ steps.slug.outputs.slug }}
+          keep_files: true
+          commit_message: "preview: branch ${{ github.ref_name }} @ ${{ github.sha }}"
