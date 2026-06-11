@@ -1,0 +1,77 @@
+# Stage 2 of the fork-PR preview: publish the artifact built by
+# preview-pr-build.yml.
+#
+# `workflow_run` runs in the BASE repo context — it has secrets and a
+# write token — but it must never check out or execute the fork's PR
+# code. It only consumes the already-built `public/` artifact and a
+# PR number, both produced by the untrusted build stage. The PR number
+# is re-validated as an integer here before it touches any path, URL, or
+# API call, so a malicious artifact can't escape the `pr-<N>/` folder or
+# comment on an arbitrary issue.
+name: preview-pr-publish
+
+on:
+  workflow_run:
+    workflows: [preview-pr-build]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  PREVIEWS_REPO: openemr/website-openemr-previews
+  PREVIEWS_BASE: https://openemr.github.io/website-openemr-previews
+
+jobs:
+  publish:
+    name: publish fork PR preview
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download preview artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: pr-preview
+          path: artifact
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate PR number
+        id: pr
+        run: |
+          number="$(cat artifact/pr-number.txt)"
+          if [[ ! "$number" =~ ^[0-9]+$ ]]; then
+            echo "Refusing to publish: PR number '$number' is not an integer." >&2
+            exit 1
+          fi
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+      - name: Mint App token
+        id: token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            website-openemr-previews
+      - name: Publish to previews repo
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ steps.token.outputs.token }}
+          external_repository: ${{ env.PREVIEWS_REPO }}
+          publish_branch: gh-pages
+          publish_dir: ./artifact/public
+          destination_dir: pr-${{ steps.pr.outputs.number }}
+          keep_files: true
+          commit_message: "preview: PR #${{ steps.pr.outputs.number }}"
+      - name: Comment preview link
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.pr.outputs.number }}
+          header: website-preview
+          message: |
+            ## Website preview
+
+            Built from this PR: ${{ env.PREVIEWS_BASE }}/pr-${{ steps.pr.outputs.number }}/
+
+            Updates on each push. Removed when the PR is closed.
