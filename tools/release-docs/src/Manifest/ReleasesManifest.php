@@ -152,8 +152,7 @@ final class ReleasesManifest
      * Normalize a decoded manifest entry. Only enforces that keys are strings
      * and leaf values are scalar (string) or null; the JSON schema validator
      * is the authoritative check on structural shape, so nested objects
-     * (compatibility.php = {min, max}, downloads.docker = {install_url}, etc.)
-     * pass through unchanged.
+     * (downloads.docker = {install_url}, etc.) pass through unchanged.
      *
      * @param array<int|string, mixed> $entry
      * @return array<string, mixed>
