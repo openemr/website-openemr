@@ -110,7 +110,7 @@ jobs:
           php-version: '8.5'
           tools: composer:v2
           coverage: none
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
