@@ -6,6 +6,8 @@ url: support
 
 # OpenEMR Costs and Support Options
 
+> THROWAWAY PREVIEW TEST (PR #152) — this banner verifies the fork-PR preview pipeline and will be removed. Do not merge.
+
 ## Overview
 OpenEMR is free software and open source, which means you are free to download, use, and customize it to your heart's content!
 
