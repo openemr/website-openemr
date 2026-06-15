@@ -1,0 +1,78 @@
+# Stage 1 of the fork-PR preview: build only, no secrets.
+#
+# Fork PRs run untrusted code (the PR's own `npm ci` install scripts,
+# Hugo config, etc.), so this uses `pull_request` — NOT
+# `pull_request_target` — which checks out the fork head with a
+# read-only GITHUB_TOKEN and no access to repo secrets. The built site
+# and the PR number are handed to the trusted publish stage
+# (preview-pr-publish.yml) via an artifact + workflow_run.
+#
+# Org-branch PRs already get previews from preview-branch.yml on push,
+# so this is gated to forks only to avoid double-publishing.
+name: preview-pr-build
+
+on:
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'data/**'
+      - 'static/**'
+      - 'archetypes/**'
+      - 'themes/**'
+      - 'config.yaml'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/preview-pr-build.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-pr-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  HUGO_VERSION: '0.150.0'
+  NODE_VERSION: '24'
+  PREVIEWS_BASE: https://openemr.github.io/website-openemr-previews
+
+jobs:
+  build:
+    name: build fork PR preview
+    if: ${{ github.event.pull_request.head.repo.fork }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          lfs: true
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install theme dependencies
+        working-directory: ./themes/openemr
+        run: npm ci
+      - name: Build site
+        env:
+          BASE_URL: ${{ env.PREVIEWS_BASE }}/pr-${{ github.event.pull_request.number }}/
+        run: hugo --gc --minify --baseURL "$BASE_URL"
+      # The publish stage runs in base context and can't trust the PR
+      # number from the workflow_run event (empty for forks), so persist
+      # it as a sibling of the built site — outside ./public so it is
+      # never published into the preview folder.
+      - name: Record PR number
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: echo "$PR_NUMBER" > ./pr-number.txt
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: pr-preview
+          path: |
+            public
+            pr-number.txt
+          if-no-files-found: error

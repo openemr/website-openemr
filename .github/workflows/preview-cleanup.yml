@@ -1,0 +1,87 @@
+# Removes preview folders from the previews repo when their source goes
+# away: an org branch being deleted (covers internal-PR branches deleted
+# on merge) or a fork PR being closed.
+#
+# Both triggers run in the BASE repo context. The `delete` event carries
+# only a branch name; `pull_request_target [closed]` carries only a PR
+# number. Neither checks out PR code — the job just `git rm`s a folder
+# whose name it derives from those trusted, structured fields — so
+# `pull_request_target` is safe here.
+name: preview-cleanup
+
+on:
+  delete:
+  pull_request_target:
+    types: [closed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-cleanup-${{ github.event.ref || github.event.pull_request.number }}
+  cancel-in-progress: false
+
+env:
+  PREVIEWS_REPO: openemr/website-openemr-previews
+
+jobs:
+  cleanup:
+    name: remove preview folder
+    # delete: only branches (not tags). pull_request_target: only fork
+    # PRs, since org-branch previews are removed by the branch delete.
+    if: >-
+      (github.event_name == 'delete' && github.event.ref_type == 'branch') ||
+      (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.fork)
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Resolve preview folder
+        id: folder
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BRANCH: ${{ github.event.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          if [[ "$EVENT_NAME" == 'delete' ]]; then
+            # Keep this slug logic identical to preview-branch.yml.
+            slug="$(printf '%s' "$BRANCH" | tr -cs 'A-Za-z0-9' '-')"
+            slug="${slug#-}"
+            slug="${slug%-}"
+            if [[ -z "$slug" ]]; then
+              echo "Branch '$BRANCH' produced an empty slug; nothing to remove." >&2
+              exit 0
+            fi
+            echo "dir=branch-$slug" >> "$GITHUB_OUTPUT"
+          else
+            if [[ ! "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
+              echo "PR number '$PR_NUMBER' is not an integer." >&2
+              exit 1
+            fi
+            echo "dir=pr-$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Mint App token
+        id: token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            website-openemr-previews
+      - name: Remove folder from gh-pages
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          PREVIEW_DIR: ${{ steps.folder.outputs.dir }}
+        run: |
+          tmp="$(mktemp -d)"
+          git clone --depth 1 --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${PREVIEWS_REPO}.git" "$tmp"
+          cd "$tmp"
+          if [[ ! -d "$PREVIEW_DIR" ]]; then
+            echo "No preview folder '$PREVIEW_DIR'; nothing to remove."
+            exit 0
+          fi
+          git rm -r --quiet "$PREVIEW_DIR"
+          git -c user.name='openemr-release[bot]' \
+              -c user.email='openemr-release[bot]@users.noreply.github.com' \
+              commit -m "preview: remove $PREVIEW_DIR"
+          git push origin gh-pages
