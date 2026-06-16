@@ -8,6 +8,10 @@
 # is re-validated as an integer here before it touches any path, URL, or
 # API call, so a malicious artifact can't escape the `pr-<N>/` folder or
 # comment on an arbitrary issue.
+#
+# The one checkout below pulls BASE-repo code (default-branch HEAD, the
+# workflow_run default ref) solely to load the local previews-commit
+# action — never the fork's PR head.
 name: preview-pr-publish
 
 on:
@@ -29,6 +33,13 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-24.04
     steps:
+      # BASE-repo checkout (default-branch HEAD) for the local
+      # previews-commit action only. Runs first because checkout cleans the
+      # workspace; the untrusted artifact is downloaded into ./artifact after.
+      # No git auth needed here — the action clones with its own token.
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Download preview artifact
         uses: actions/download-artifact@v7
         with:
@@ -55,15 +66,13 @@ jobs:
           repositories: |
             website-openemr-previews
       - name: Publish to previews repo
-        uses: peaceiris/actions-gh-pages@v4
+        uses: ./.github/actions/previews-commit
         with:
-          personal_token: ${{ steps.token.outputs.token }}
-          external_repository: ${{ env.PREVIEWS_REPO }}
-          publish_branch: gh-pages
-          publish_dir: ./artifact/public
-          destination_dir: pr-${{ steps.pr.outputs.number }}
-          keep_files: true
-          commit_message: "preview: PR #${{ steps.pr.outputs.number }}"
+          token: ${{ steps.token.outputs.token }}
+          repo: ${{ env.PREVIEWS_REPO }}
+          dir: pr-${{ steps.pr.outputs.number }}
+          source: ./artifact/public
+          message: "preview: PR #${{ steps.pr.outputs.number }}"
       - name: Comment preview link
         uses: marocchino/sticky-pull-request-comment@v2
         with:
