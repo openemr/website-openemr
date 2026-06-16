@@ -1,0 +1,107 @@
+# Commits a single preview folder to the previews repo's gh-pages branch
+# and pushes, retrying on a rejected push.
+#
+# Every preview workflow (branch publish, fork-PR publish, cleanup) pushes
+# to the same gh-pages ref but only ever touches its own folder. Two that
+# overlap in time race: one clones the tip, the other pushes first, and the
+# loser's push is rejected for being non-fast-forward — silently dropping a
+# preview (and its PR comment). Re-cloning the fresh tip and replaying the
+# same folder mutation is idempotent, so retrying converges.
+#
+# This runs in the BASE repo context with a write token but never checks
+# out or executes PR code — it only adds/removes a folder whose name the
+# caller derives from trusted, structured fields.
+name: Commit a preview folder
+description: Publish or remove one preview folder on the previews gh-pages branch, retrying on push rejection.
+
+inputs:
+  token:
+    description: Token with write access to the previews repo.
+    required: true
+  repo:
+    description: owner/name of the previews repo.
+    required: true
+  dir:
+    description: Preview folder to write or remove (e.g. branch-foo, pr-150).
+    required: true
+  source:
+    description: >-
+      Directory whose contents replace `dir`. When empty, `dir` is removed
+      instead (cleanup mode).
+    required: false
+    default: ''
+  message:
+    description: Commit message.
+    required: true
+  attempts:
+    description: Max push attempts before failing.
+    required: false
+    default: '5'
+
+runs:
+  using: composite
+  steps:
+    - name: Commit and push
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        PREVIEWS_REPO: ${{ inputs.repo }}
+        DEST_DIR: ${{ inputs.dir }}
+        SOURCE_DIR: ${{ inputs.source }}
+        COMMIT_MSG: ${{ inputs.message }}
+        MAX_ATTEMPTS: ${{ inputs.attempts }}
+      run: |
+        set -euo pipefail
+
+        if [[ -z "$DEST_DIR" || "$DEST_DIR" == */* || "$DEST_DIR" == .* ]]; then
+          echo "Refusing to operate on suspicious folder '$DEST_DIR'." >&2
+          exit 1
+        fi
+
+        src=''
+        if [[ -n "$SOURCE_DIR" ]]; then
+          src="$(cd "$SOURCE_DIR" && pwd)"
+        fi
+
+        attempt=1
+        while (( attempt <= MAX_ATTEMPTS )); do
+          tmp="$(mktemp -d)"
+          git clone --depth 1 --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${PREVIEWS_REPO}.git" "$tmp"
+
+          if [[ -n "$src" ]]; then
+            rm -rf "${tmp:?}/${DEST_DIR}"
+            mkdir -p "$tmp/$DEST_DIR"
+            cp -a "$src/." "$tmp/$DEST_DIR/"
+          else
+            if [[ ! -d "$tmp/$DEST_DIR" ]]; then
+              echo "No preview folder '$DEST_DIR'; nothing to remove."
+              exit 0
+            fi
+            git -C "$tmp" rm -rq "$DEST_DIR"
+          fi
+
+          git -C "$tmp" add -A "$DEST_DIR"
+          if git -C "$tmp" diff --cached --quiet; then
+            echo "No changes for '$DEST_DIR'; nothing to push."
+            exit 0
+          fi
+
+          git -C "$tmp" \
+            -c user.name='openemr-release[bot]' \
+            -c user.email='openemr-release[bot]@users.noreply.github.com' \
+            commit -q -m "$COMMIT_MSG"
+
+          if git -C "$tmp" push origin gh-pages; then
+            echo "Pushed '$DEST_DIR' on attempt $attempt."
+            exit 0
+          fi
+
+          echo "Push rejected (attempt $attempt/$MAX_ATTEMPTS); refetching." >&2
+          rm -rf "$tmp"
+          sleep "$(( attempt * 3 ))"
+          (( attempt++ )) || true
+        done
+
+        echo "Failed to push '$DEST_DIR' after $MAX_ATTEMPTS attempts." >&2
+        exit 1

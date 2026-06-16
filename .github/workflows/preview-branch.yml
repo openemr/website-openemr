@@ -98,15 +98,13 @@ jobs:
           repositories: |
             website-openemr-previews
       - name: Publish to previews repo
-        uses: peaceiris/actions-gh-pages@v4
+        uses: ./.github/actions/previews-commit
         with:
-          personal_token: ${{ steps.token.outputs.token }}
-          external_repository: ${{ env.PREVIEWS_REPO }}
-          publish_branch: gh-pages
-          publish_dir: ./public
-          destination_dir: branch-${{ steps.slug.outputs.slug }}
-          keep_files: true
-          commit_message: "preview: branch ${{ github.ref_name }} @ ${{ github.sha }}"
+          token: ${{ steps.token.outputs.token }}
+          repo: ${{ env.PREVIEWS_REPO }}
+          dir: branch-${{ steps.slug.outputs.slug }}
+          source: ./public
+          message: "preview: branch ${{ github.ref_name }} @ ${{ github.sha }}"
       # The push may land before the PR exists; then there's nothing to
       # comment on and the pull_request trigger picks it up later.
       - name: Find open PR for branch

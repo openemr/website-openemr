@@ -34,6 +34,9 @@ jobs:
       (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.fork)
     runs-on: ubuntu-24.04
     steps:
+      # BASE-repo checkout for the local previews-commit action. Both
+      # triggers run in base context with only trusted, structured fields.
+      - uses: actions/checkout@v6
       - name: Resolve preview folder
         id: folder
         env:
@@ -68,20 +71,10 @@ jobs:
           repositories: |
             website-openemr-previews
       - name: Remove folder from gh-pages
-        env:
-          GH_TOKEN: ${{ steps.token.outputs.token }}
-          PREVIEW_DIR: ${{ steps.folder.outputs.dir }}
-        run: |
-          tmp="$(mktemp -d)"
-          git clone --depth 1 --branch gh-pages \
-            "https://x-access-token:${GH_TOKEN}@github.com/${PREVIEWS_REPO}.git" "$tmp"
-          cd "$tmp"
-          if [[ ! -d "$PREVIEW_DIR" ]]; then
-            echo "No preview folder '$PREVIEW_DIR'; nothing to remove."
-            exit 0
-          fi
-          git rm -r --quiet "$PREVIEW_DIR"
-          git -c user.name='openemr-release[bot]' \
-              -c user.email='openemr-release[bot]@users.noreply.github.com' \
-              commit -m "preview: remove $PREVIEW_DIR"
-          git push origin gh-pages
+        if: ${{ steps.folder.outputs.dir != '' }}
+        uses: ./.github/actions/previews-commit
+        with:
+          token: ${{ steps.token.outputs.token }}
+          repo: ${{ env.PREVIEWS_REPO }}
+          dir: ${{ steps.folder.outputs.dir }}
+          message: "preview: remove ${{ steps.folder.outputs.dir }}"
