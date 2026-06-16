@@ -36,7 +36,10 @@ jobs:
     steps:
       # BASE-repo checkout for the local previews-commit action. Both
       # triggers run in base context with only trusted, structured fields.
+      # No git auth needed here — the action clones with its own token.
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Resolve preview folder
         id: folder
         env:

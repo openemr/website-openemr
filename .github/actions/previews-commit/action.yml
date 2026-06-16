@@ -63,6 +63,11 @@ runs:
           src="$(cd "$SOURCE_DIR" && pwd)"
         fi
 
+        if [[ ! "$MAX_ATTEMPTS" =~ ^[1-9][0-9]*$ ]]; then
+          echo "Input 'attempts' must be a positive integer, got '$MAX_ATTEMPTS'." >&2
+          exit 1
+        fi
+
         attempt=1
         while (( attempt <= MAX_ATTEMPTS )); do
           tmp="$(mktemp -d)"
