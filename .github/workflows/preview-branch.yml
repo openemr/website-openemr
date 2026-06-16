@@ -26,9 +26,15 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/preview-branch.yml'
+  # A branch is often pushed before its PR is opened; that push build
+  # finds no PR and skips the comment. Re-comment when the PR appears so
+  # the link always lands. The folder already exists from the push build.
+  pull_request:
+    types: [opened, reopened]
 
 permissions:
   contents: read
+  pull-requests: write
 
 # Serialize per-branch so two quick pushes don't race on the same
 # destination folder; supersede in-flight builds for the same branch.
@@ -45,6 +51,7 @@ env:
 jobs:
   preview:
     name: build and publish branch preview
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
@@ -100,3 +107,60 @@ jobs:
           destination_dir: branch-${{ steps.slug.outputs.slug }}
           keep_files: true
           commit_message: "preview: branch ${{ github.ref_name }} @ ${{ github.sha }}"
+      # The push may land before the PR exists; then there's nothing to
+      # comment on and the pull_request trigger picks it up later.
+      - name: Find open PR for branch
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          number="$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" \
+            --state open --json number --jq '.[0].number // empty')"
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+      - name: Comment preview link
+        if: ${{ steps.pr.outputs.number != '' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.pr.outputs.number }}
+          header: website-preview
+          message: |
+            ## Website preview
+
+            Built from this branch: ${{ env.PREVIEWS_BASE }}/branch-${{ steps.slug.outputs.slug }}/
+
+            Updates on each push. Removed when the branch is deleted.
+
+  # When a PR is opened/reopened, the push build's preview folder already
+  # exists. Fork PRs are excluded — preview-pr-publish.yml comments those.
+  comment:
+    name: comment branch preview link
+    if: ${{ github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork }}
+    runs-on: ubuntu-24.04
+    steps:
+      # Keep this slug logic identical to the preview job and the cleanup
+      # workflow so the publish, comment, and remove paths all agree.
+      - name: Compute slug
+        id: slug
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          slug="$(printf '%s' "$BRANCH" | tr -cs 'A-Za-z0-9' '-')"
+          slug="${slug#-}"
+          slug="${slug%-}"
+          if [[ -z "$slug" ]]; then
+            echo "Branch '$BRANCH' produced an empty slug." >&2
+            exit 1
+          fi
+          echo "slug=$slug" >> "$GITHUB_OUTPUT"
+      - name: Comment preview link
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ github.event.pull_request.number }}
+          header: website-preview
+          message: |
+            ## Website preview
+
+            Built from this branch: ${{ env.PREVIEWS_BASE }}/branch-${{ steps.slug.outputs.slug }}/
+
+            Updates on each push. Removed when the branch is deleted.
