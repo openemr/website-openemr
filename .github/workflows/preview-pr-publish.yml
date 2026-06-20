@@ -74,7 +74,7 @@ jobs:
           source: ./artifact/public
           message: "preview: PR #${{ steps.pr.outputs.number }}"
       - name: Comment preview link
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           number: ${{ steps.pr.outputs.number }}
           header: website-preview

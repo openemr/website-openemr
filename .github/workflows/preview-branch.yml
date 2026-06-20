@@ -118,7 +118,7 @@ jobs:
           echo "number=$number" >> "$GITHUB_OUTPUT"
       - name: Comment preview link
         if: ${{ steps.pr.outputs.number != '' }}
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           number: ${{ steps.pr.outputs.number }}
           header: website-preview
@@ -152,7 +152,7 @@ jobs:
           fi
           echo "slug=$slug" >> "$GITHUB_OUTPUT"
       - name: Comment preview link
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           number: ${{ github.event.pull_request.number }}
           header: website-preview
