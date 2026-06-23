@@ -165,7 +165,7 @@
     },
     "8.1.0": {
         "branch": "rel-810",
-        "sha": "1a860f17e89f8e9ca4dffcccb6cbe3a48aaf40b3",
+        "sha": "e3e9e47cc18af878b803a677deb873707598f1fe",
         "status": "FINAL",
         "released_at": "2026-06-04",
         "archive_urls": {
