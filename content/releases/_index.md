@@ -8,4 +8,4 @@ url: releases
 
 Every tagged OpenEMR release, grouped by major version.
 Release notes live on GitHub for 8.x and on the wiki for older versions.
-For the current stable download, see the [Downloads]({{< relref "/downloads/_index.md" >}}) page.
+For the current stable download, see the [Downloads]({{< ref "/downloads/_index.md" >}}) page.
