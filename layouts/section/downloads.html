@@ -59,7 +59,7 @@
                             <li><a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.tar.gz">openemr-{{ .version }}.tar.gz</a></li>
                         {{ end }}
                         {{ with $dl.linux }}
-                            {{ with .checksums_url }}<li><a href="{{ . }}">Checksums</a></li>{{ end }}
+                            {{ with .checksums_url }}<li><a href="{{ . | absURL }}">Checksums</a></li>{{ end }}
                             {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
                         {{ end }}
                         {{ with (or $dl.linux.install_url $installUrl) }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
@@ -73,11 +73,19 @@
                             <li><a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.zip">openemr-{{ .version }}.zip</a></li>
                         {{ end }}
                         {{ with $dl.windows }}
-                            {{ with .checksums_url }}<li><a href="{{ . }}">Checksums</a></li>{{ end }}
+                            {{ with .checksums_url }}<li><a href="{{ . | absURL }}">Checksums</a></li>{{ end }}
                             {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
                         {{ end }}
                         {{ with (or $dl.windows.install_url $installUrl) }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
                     </ul>
+
+                    {{ with .entry.patches_url }}
+                        <h3>Patches</h3>
+                        <p>Post-release patches are applied on top of the base install. The wiki page below lists the most recent patch and installation instructions.</p>
+                        <ul>
+                            <li><a href="{{ . }}">Latest patch and installation instructions</a></li>
+                        </ul>
+                    {{ end }}
 
                     <h3>What's in this release</h3>
                     <ul>

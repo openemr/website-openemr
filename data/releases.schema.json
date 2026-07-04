@@ -81,7 +81,7 @@
                             "properties": {
                                 "install_url":   { "type": "string", "format": "uri" },
                                 "upgrade_url":   { "type": "string", "format": "uri" },
-                                "checksums_url": { "type": "string", "format": "uri" }
+                                "checksums_url": { "type": "string", "format": "uri-reference" }
                             }
                         },
                         "windows": {
@@ -90,10 +90,15 @@
                             "properties": {
                                 "install_url":   { "type": "string", "format": "uri" },
                                 "upgrade_url":   { "type": "string", "format": "uri" },
-                                "checksums_url": { "type": "string", "format": "uri" }
+                                "checksums_url": { "type": "string", "format": "uri-reference" }
                             }
                         }
                     }
+                },
+                "patches_url": {
+                    "description": "Optional link to a wiki page listing post-release patches for this version. Rendered on the /downloads/ page as a Patches section. Present on releases (8.0.0 and earlier) that use the manual apply-patch-zip flow; omitted on 8.2.0+ where in-place upgrade automation supersedes the patch page.",
+                    "type": "string",
+                    "format": "uri"
                 }
             },
             "oneOf": [
