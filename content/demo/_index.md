@@ -8,7 +8,7 @@ external_links_new_tab: true
 
 # Fully Working OpenEMR 8.0.0 Demo
 
-We offer 3 fully functional demo installations for you to try out. Some simple configuration has been added for clearer demonstration of OpenEMR, medical billing, accounting, access controls and patient portal. Each demo is reset overnight (8:00 am UTC time) so no data is persistent. Note there are 3 identical demos ('Main', 'Alternate', 'Another Alternate') offered in case a demo is down or has been modified. We also offer other [OpenEMR 8.0.0 demos with the latest patch or code for the next patch](https://www.open-emr.org/wiki/index.php/Development_8.0.0_Demo) and [Development Demos](https://www.open-emr.org/wiki/index.php/Development_Demo) (these are demos that are rebuilt daily from most recent development code) where you can test out new features.
+We offer 3 fully functional demo installations for you to try out. Some simple configuration has been added for clearer demonstration of OpenEMR, medical billing, accounting, access controls and patient portal. Each demo is reset overnight (8:00 am UTC time) so no data is persistent. Note there are 3 identical demos ('Main', 'Alternate', 'Another Alternate') offered in case a demo is down or has been modified. We also offer [Development Demos](https://www.open-emr.org/wiki/index.php/Development_Demo) (these are demos that are rebuilt daily from most recent development code) where you can test out new features.
 
 ---
 
