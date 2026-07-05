@@ -113,6 +113,76 @@ final class ReleaseNotesGeneratorTest extends TestCase
         self::assertSame([1, 5, 10], array_column($kept, 'number'));
     }
 
+    public function testFilterNoiseDropsDependabotDockerBumpsByPath(): void
+    {
+        $generator = new ReleaseNotesGenerator(self::clientReturning('{}'));
+
+        $bot = 'dependabot[bot]';
+        $dockerPath = 'chore(deps): bump axllent/mailpit from v1.30.2 to v1.30.3'
+            . ' in /docker/development-insane in the mailpit group across 1 directory';
+        $ciPath = 'chore(deps): bump axllent/mailpit from v1.30.2 to v1.30.3'
+            . ' in /ci/compose-shared-mailpit in the mailpit group across 1 directory';
+        $composerPath = 'chore(deps): bump guzzlehttp/psr7 from 2.11.0 to 2.12.1 in /tools/release-docs';
+        $npmPath = 'chore(deps): bump globals from 17.6.0 to 17.7.0 in /ccdaservice';
+
+        // Path-embedded ecosystem — dependabot puts the target directory
+        // in the title. Anything under /docker/... or /ci/... is a
+        // docker-compose ecosystem bump, not a package the released
+        // OpenEMR ships with.
+        $kept = $generator->filterNoise([
+            self::authored(1, $dockerPath, $bot),
+            self::authored(2, $ciPath, $bot),
+            self::authored(3, $composerPath, $bot),
+            self::authored(4, $npmPath, $bot),
+        ]);
+
+        // Kept: composer bump in /tools/release-docs, npm bump in /ccdaservice.
+        // Dropped: docker bumps in /docker/... and /ci/...
+        self::assertSame([3, 4], array_column($kept, 'number'));
+    }
+
+    public function testFilterNoiseDropsDependabotDockerBumpsByGroupName(): void
+    {
+        $generator = new ReleaseNotesGenerator(self::clientReturning('{}'));
+
+        $bot = 'dependabot[bot]';
+
+        // Grouped bumps have no path in the title but name the group.
+        // Docker-compose groups (per openemr/openemr's dependabot.yml)
+        // are the DEPENDABOT_DOCKER_GROUPS list.
+        $kept = $generator->filterNoise([
+            self::authored(1, 'chore(deps): bump the openemr-images group across 19 directories with 1 update', $bot),
+            self::authored(2, 'chore(deps): bump the mariadb group across 4 directories with 1 update', $bot),
+            self::authored(3, 'chore(deps): bump the phpmyadmin group across 3 directories with 1 update', $bot),
+            self::authored(4, 'chore(deps): bump the mailpit group across 2 directories with 1 update', $bot),
+            self::authored(5, 'chore(deps): bump the symfony group with 11 updates', $bot),
+            self::authored(6, 'chore(deps-dev): bump webpack from 5.107.2 to 5.108.1 in the build-tools group', $bot),
+        ]);
+
+        // Kept: symfony (composer group), build-tools (npm group).
+        // Dropped: docker-compose groups.
+        self::assertSame([5, 6], array_column($kept, 'number'));
+    }
+
+    public function testFilterNoiseDropsReservedWordBotButOnlyByStandardRules(): void
+    {
+        $generator = new ReleaseNotesGenerator(self::clientReturning('{}'));
+
+        // openemr-reserved-word-bot[bot] is uncommon and its output is a
+        // legitimate chore that belongs in release notes — it isn't
+        // subject to a bot-specific always-drop rule the way the release
+        // bot is. It goes through the standard title-based filters like
+        // any other author.
+        $kept = $generator->filterNoise([
+            self::authored(1, 'chore(deps): refresh reserved-words list', 'openemr-reserved-word-bot[bot]'),
+            self::authored(2, 'chore: release 8.1.0 misc', 'openemr-reserved-word-bot[bot]'),
+        ]);
+
+        // Kept: legitimate chore.
+        // Dropped: matches the "chore: release" straggler pattern.
+        self::assertSame([1], array_column($kept, 'number'));
+    }
+
     public function testFullPipelineMatchesFixtureSnapshot(): void
     {
         $body = self::loadFixture('api-page1.json');
