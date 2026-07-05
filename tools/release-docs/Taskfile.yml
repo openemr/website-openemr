@@ -194,31 +194,27 @@ tasks:
         # Enable LFS clean filters locally so committing the b10 docs tree
         # captures it as LFS objects (per the repo-root .gitattributes rule).
         git -C "$PUBLISH" lfs install --local
-        if git -C "$PUBLISH" fetch --quiet --depth 1 origin \
-            "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null; then
-          git -C "$PUBLISH" checkout -B "$BRANCH" "origin/${BRANCH}"
-        else
-          # First dispatch for this version — branch doesn't exist yet.
-          # Local branch will spring into existence on first push.
-          git -C "$PUBLISH" checkout -B "$BRANCH"
-        fi
-        # Reset data/releases.json from master before update-manifest.php
-        # mutates it. The docs branch is a long-lived per-version branch;
-        # without this reset, each dispatch keeps mutating a stale
-        # snapshot of the manifest taken when the branch was first cut,
-        # so subsequent master updates to other entries (e.g. 8.0.0's
-        # checksums URLs or archive_urls after a hotfix PR) never
-        # propagate onto the docs branch, and the PR eventually blocks on
-        # content + formatting merge conflicts. update-manifest.php only
-        # ever adds/updates the dispatched version's entry — every other
-        # entry belongs to master alone, so starting from master's copy
-        # is always correct.
+        # Every dispatch rebases the branch on master's current HEAD.
+        # The docs branch is a working PR whose only real content is
+        # what update-manifest.php and the generators add on top of
+        # master — the per-version data/releases.json entry, and the
+        # per-version content/ files. Committing on top of the previous
+        # branch state (the pre-fix pattern) let the branch's history
+        # diverge from master indefinitely. Even after #174 fixed the
+        # file-content drift by resetting data/releases.json from
+        # master, git's 3-way merge with master still saw two divergent
+        # histories both editing the same lines with the same intent
+        # and flagged spurious conflicts.
         #
-        # The initial `git clone --depth 1` above already fetched master's
-        # HEAD as the default branch, so `origin/HEAD` is available with
-        # no extra fetch. Redundant no-op when the docs branch is fresh
-        # (first dispatch case), because it was already based on master.
-        git -C "$PUBLISH" checkout origin/HEAD -- data/releases.json
+        # Fix: always create $BRANCH fresh on master's HEAD, replacing
+        # its pre-existing state (if any) via force-push in
+        # workflow:commit-push. Each dispatch produces a single-commit
+        # branch whose merge base with master is master's current tip;
+        # the PR always merges cleanly with just the version entry +
+        # generated content as the diff. The `--depth 1` clone above
+        # already fetched master, so `origin/HEAD` resolves without an
+        # extra fetch.
+        git -C "$PUBLISH" checkout -B "$BRANCH" origin/HEAD
 
   workflow:commit-push:
     desc: |
