@@ -221,10 +221,23 @@ tasks:
         # falls to a plain `git push` which the server rejects because
         # HEAD isn't a fast-forward of the remote branch's current tip
         # (the whole point is that we're rewriting, not extending).
-        # A `|| true` swallows the exit code of an intentional miss —
-        # first dispatch on a version with no existing docs branch.
-        git -C "$PUBLISH" fetch --quiet --depth 1 origin \
-          "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null || true
+        #
+        # Only the "remote ref doesn't exist" case is expected here
+        # (first dispatch on a new version). Every other fetch failure —
+        # network, auth, permissions — should surface in CI, not be
+        # silently swallowed: absorbing them would leave the ref
+        # unpopulated and reproduce the exact plain-push-reject bug this
+        # step is meant to prevent.
+        fetch_log=$(mktemp)
+        if ! git -C "$PUBLISH" fetch --quiet --depth 1 origin \
+            "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>"$fetch_log"; then
+          if ! grep -q "couldn't find remote ref" "$fetch_log"; then
+            cat "$fetch_log" >&2
+            rm -f "$fetch_log"
+            exit 1
+          fi
+        fi
+        rm -f "$fetch_log"
         git -C "$PUBLISH" checkout -B "$BRANCH" origin/HEAD
 
   workflow:commit-push:
