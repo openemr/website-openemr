@@ -32,14 +32,17 @@
 
                     {{ $dl := .entry.downloads | default dict }}
 
-                    {{/* Dispatch-driven releases (those with a branch) carry a
-                         generated /installation/<version>/ page. Derive the link
-                         here rather than storing a derivable path in the manifest,
-                         mirroring how archive_urls are derived at render time. */}}
-                    {{ $installUrl := "" }}
-                    {{ with .entry.branch }}
-                        {{ $installUrl = printf "/installation/%s/" $latest.version }}
-                    {{ end }}
+                    {{/* Version-agnostic install / upgrade wiki pages. These are the
+                         defaults for future OpenEMR releases; the wiki maintains a
+                         single canonical page per platform that covers all versions.
+                         A specific release may still override on a per-platform basis
+                         via `data/releases.json` downloads.<platform>.{install,upgrade}_url
+                         if it needs bespoke instructions (8.0.0 is grandfathered this
+                         way to per-version wiki pages). */}}
+                    {{ $defaultLinuxInstall   := "https://www.open-emr.org/wiki/index.php/OpenEMR_Linux_Installation" }}
+                    {{ $defaultLinuxUpgrade   := "https://www.open-emr.org/wiki/index.php/OpenEMR_Linux_Upgrade" }}
+                    {{ $defaultWindowsInstall := "https://www.open-emr.org/wiki/index.php/OpenEMR_Windows_Installation" }}
+                    {{ $defaultWindowsUpgrade := "https://www.open-emr.org/wiki/index.php/OpenEMR_Windows_Upgrade" }}
 
                     {{/* Resolve tar.gz + zip URLs. Historical entries (SourceForge-era)
                          carry an explicit archive_urls block. Dispatch-managed entries
@@ -90,20 +93,16 @@
                     <ul>
                         {{ with $tarballUrl }}<li><a href="{{ . }}">openemr-{{ $latest.version }}.tar.gz</a></li>{{ end }}
                         {{ with $linuxCk }}<li><a href="{{ . | absURL }}">Checksums</a></li>{{ end }}
-                        {{ with $dl.linux }}
-                            {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
-                        {{ end }}
-                        {{ with (or $dl.linux.install_url $installUrl) }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
+                        <li><a href="{{ or $dl.linux.upgrade_url $defaultLinuxUpgrade }}">Upgrade Instructions</a></li>
+                        <li><a href="{{ or $dl.linux.install_url $defaultLinuxInstall }}">Installation Instructions</a></li>
                     </ul>
 
                     <h3>Windows</h3>
                     <ul>
                         {{ with $zipUrl }}<li><a href="{{ . }}">openemr-{{ $latest.version }}.zip</a></li>{{ end }}
                         {{ with $winCk }}<li><a href="{{ . | absURL }}">Checksums</a></li>{{ end }}
-                        {{ with $dl.windows }}
-                            {{ with .upgrade_url }}<li><a href="{{ . }}">Upgrade Instructions</a></li>{{ end }}
-                        {{ end }}
-                        {{ with (or $dl.windows.install_url $installUrl) }}<li><a href="{{ . }}">Installation Instructions</a></li>{{ end }}
+                        <li><a href="{{ or $dl.windows.upgrade_url $defaultWindowsUpgrade }}">Upgrade Instructions</a></li>
+                        <li><a href="{{ or $dl.windows.install_url $defaultWindowsInstall }}">Installation Instructions</a></li>
                     </ul>
 
                     {{ with .entry.patches_url }}
