@@ -145,13 +145,18 @@
             "linux": {
                 "install_url":   "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Linux_Installation",
                 "upgrade_url":   "https://www.open-emr.org/wiki/index.php/Linux_Upgrade_7.0.4_to_8.0.0",
-                "checksums_url": "https://eight.openemr.io/files/openemr-linux-md5.txt"
+                "checksums_url": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha1"
             },
             "windows": {
                 "install_url":   "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Windows_Installation",
                 "upgrade_url":   "https://www.open-emr.org/wiki/index.php/Windows_Upgrade_7.0.4_to_8.0.0",
-                "checksums_url": "https://eight.openemr.io/files/openemr-windows-md5.txt"
+                "checksums_url": "checksums/8.0.0/openemr-8.0.0.zip.sha1"
             }
-        }
+        },
+        "archive_urls": {
+            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.0.0/openemr-8.0.0.tar.gz/download",
+            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.0.0/openemr-8.0.0.zip/download"
+        },
+        "patches_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_Patches"
     }
 }

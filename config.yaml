@@ -21,7 +21,7 @@ menu:
       weight: 2
     - identifier: download
       name: Download
-      url: https://open-emr.org/wiki/index.php/OpenEMR_Downloads
+      url: /downloads
       weight: 3
     - identifier: module
       name: Modules
@@ -87,10 +87,10 @@ menu:
       name: Demo
       weight: 20
       url: demo
-    - identifier: download 
+    - identifier: download
       name: Download
       weight: 30
-      url: https://open-emr.org/wiki/index.php/OpenEMR_Downloads
+      url: downloads
     - identifier: modules
       name: Modules
       weight: 40
@@ -192,7 +192,7 @@ params:
     name: OpenEMR
     twitter: openemr
   demoUrl: demo
-  downloadUrl: https://www.open-emr.org/wiki/index.php/OpenEMR_Downloads
+  downloadUrl: /downloads
   footer_one_title: Main Project Links
   footer_two_title: Help & Support Links
   footer_three_title: Developer Links
