@@ -1,8 +1,8 @@
     142	Test Author One
-     87	Test Author Two
-     54	Test Author Three
-     31	Test Author Four
-     12	Test Author Five
-      8	Test Author Six
-      4	Test Author Seven
-      1	Test Author Eight
+     87	dependabot[bot]
+     54	Test Author Two
+     31	Test Author Three
+     12	Test Author Four
+      8	openemr-reserved-word-bot[bot]
+      4	Test Author Five
+      1	Test Author Six

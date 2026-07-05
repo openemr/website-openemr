@@ -11,10 +11,8 @@ OpenEMR 8.1.0 exists thanks to the work of the following contributors.
 Counts reflect commits to 8.1.0 on the openemr/openemr repository.
 
 - Test Author One (142 commits)
-- Test Author Two (87 commits)
-- Test Author Three (54 commits)
-- Test Author Four (31 commits)
-- Test Author Five (12 commits)
-- Test Author Six (8 commits)
-- Test Author Seven (4 commits)
-- Test Author Eight (1 commit)
+- Test Author Two (54 commits)
+- Test Author Three (31 commits)
+- Test Author Four (12 commits)
+- Test Author Five (4 commits)
+- Test Author Six (1 commit)
