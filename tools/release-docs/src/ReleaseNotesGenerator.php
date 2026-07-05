@@ -74,6 +74,32 @@ final class ReleaseNotesGenerator
      */
     private const MACHINERY_SCOPES = ['release', 'release-prep'];
 
+    /**
+     * Dependabot docker-compose group names from openemr/openemr
+     * `.github/dependabot.yml`. Grouped-update PR titles look like
+     * `bump the <group> group across N directories with M updates`;
+     * matching the group name identifies the bump as a docker-image
+     * update rather than a composer/npm package update. The
+     * source-of-truth file to check when this list feels stale is
+     * openemr/openemr's `.github/dependabot.yml` — look for the
+     * `package-ecosystem: docker-compose` blocks and their
+     * `groups:` maps.
+     *
+     * @var list<string>
+     */
+    private const DEPENDABOT_DOCKER_GROUPS = [
+        'couchdb',
+        'infrastructure',
+        'mailpit',
+        'mariadb',
+        'mysql',
+        'openemr-images',
+        'phpmyadmin',
+        'redis',
+        'selenium',
+        'selenium-updates',
+    ];
+
     public function __construct(
         private readonly ClientInterface $client,
     ) {
@@ -265,9 +291,14 @@ final class ReleaseNotesGenerator
 
     /**
      * Drop PRs that are release machinery or other non-user-facing noise:
-     * release-bot commits, [TEST] dry-run PRs, same-version dependabot
-     * no-op bumps, release/release-prep-scoped automation, and the
-     * duplicate half of a backport pair (the original is kept).
+     * release-bot commits, [TEST] dry-run PRs, dependabot bumps that are
+     * either no-op re-pins or docker-image/CI infrastructure updates,
+     * release/release-prep-scoped automation, `chore: release` stragglers,
+     * and the duplicate half of a backport pair (the original is kept).
+     *
+     * Real composer/npm dependency bumps from dependabot ARE kept — those
+     * are actual user-facing package changes. Only docker-tag and CI-only
+     * bumps are dropped.
      *
      * @param list<array{number: int, title: string, url: string, author: string}> $prs
      * @return list<array{number: int, title: string, url: string, author: string}>
@@ -299,7 +330,41 @@ final class ReleaseNotesGenerator
             return true;
         }
 
-        return $pr['author'] === self::DEPENDABOT && self::isNoOpVersionBump($title);
+        if ($pr['author'] === self::DEPENDABOT) {
+            if (self::isNoOpVersionBump($title)) {
+                return true;
+            }
+            if (self::isDockerBump($title)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * True for dependabot titles that describe a docker-image or CI
+     * infrastructure bump rather than a composer/npm package update.
+     * Two signals:
+     *
+     * - Path signal: dependabot embeds the ecosystem's target directory
+     *   in the title as `in /path/...`; docker-compose lives under
+     *   `/docker/...` or `/ci/...` in openemr/openemr.
+     * - Group signal: grouped bumps look like
+     *   `bump the <group> group ...`; the docker-compose groups from
+     *   openemr/openemr's dependabot.yml are enumerated in
+     *   DEPENDABOT_DOCKER_GROUPS.
+     */
+    private static function isDockerBump(string $title): bool
+    {
+        if (preg_match('#\bin /(?:docker|ci)/#', $title) === 1) {
+            return true;
+        }
+        $groups = implode('|', array_map(
+            static fn (string $g): string => preg_quote($g, '/'),
+            self::DEPENDABOT_DOCKER_GROUPS,
+        ));
+        return preg_match("/\\bbump the ($groups) group\\b/", $title) === 1;
     }
 
     /**
