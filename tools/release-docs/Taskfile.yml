@@ -202,6 +202,23 @@ tasks:
           # Local branch will spring into existence on first push.
           git -C "$PUBLISH" checkout -B "$BRANCH"
         fi
+        # Reset data/releases.json from master before update-manifest.php
+        # mutates it. The docs branch is a long-lived per-version branch;
+        # without this reset, each dispatch keeps mutating a stale
+        # snapshot of the manifest taken when the branch was first cut,
+        # so subsequent master updates to other entries (e.g. 8.0.0's
+        # checksums URLs or archive_urls after a hotfix PR) never
+        # propagate onto the docs branch, and the PR eventually blocks on
+        # content + formatting merge conflicts. update-manifest.php only
+        # ever adds/updates the dispatched version's entry — every other
+        # entry belongs to master alone, so starting from master's copy
+        # is always correct.
+        #
+        # The initial `git clone --depth 1` above already fetched master's
+        # HEAD as the default branch, so `origin/HEAD` is available with
+        # no extra fetch. Redundant no-op when the docs branch is fresh
+        # (first dispatch case), because it was already based on master.
+        git -C "$PUBLISH" checkout origin/HEAD -- data/releases.json
 
   workflow:commit-push:
     desc: |
