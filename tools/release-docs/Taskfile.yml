@@ -214,6 +214,17 @@ tasks:
         # generated content as the diff. The `--depth 1` clone above
         # already fetched master, so `origin/HEAD` resolves without an
         # extra fetch.
+        #
+        # We still fetch the remote $BRANCH ref (if it exists) into
+        # refs/remotes/origin/$BRANCH so workflow:commit-push has a
+        # baseline for --force-with-lease. Without that ref, commit-push
+        # falls to a plain `git push` which the server rejects because
+        # HEAD isn't a fast-forward of the remote branch's current tip
+        # (the whole point is that we're rewriting, not extending).
+        # A `|| true` swallows the exit code of an intentional miss —
+        # first dispatch on a version with no existing docs branch.
+        git -C "$PUBLISH" fetch --quiet --depth 1 origin \
+          "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>/dev/null || true
         git -C "$PUBLISH" checkout -B "$BRANCH" origin/HEAD
 
   workflow:commit-push:
