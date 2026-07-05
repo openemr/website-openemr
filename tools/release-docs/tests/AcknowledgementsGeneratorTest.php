@@ -18,7 +18,7 @@ final class AcknowledgementsGeneratorTest extends TestCase
 
         self::assertCount(8, $authors);
         self::assertSame(['name' => 'Test Author One', 'commits' => 142], $authors[0]);
-        self::assertSame(['name' => 'Test Author Eight', 'commits' => 1], $authors[7]);
+        self::assertSame(['name' => 'Test Author Six', 'commits' => 1], $authors[7]);
     }
 
     public function testParseShortlogIgnoresBlankAndMalformedLines(): void
@@ -36,10 +36,46 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
-    public function testRenderMatchesFixtureSnapshot(): void
+    public function testFilterBotsDropsBotAuthorsAndReindexes(): void
+    {
+        $authors = (new AcknowledgementsGenerator())->filterBots([
+            ['name' => 'Test Author One', 'commits' => 142],
+            ['name' => 'dependabot[bot]', 'commits' => 87],
+            ['name' => 'Test Author Two', 'commits' => 54],
+            ['name' => 'openemr-reserved-word-bot[bot]', 'commits' => 8],
+        ]);
+
+        self::assertSame(
+            [
+                ['name' => 'Test Author One', 'commits' => 142],
+                ['name' => 'Test Author Two', 'commits' => 54],
+            ],
+            $authors,
+        );
+    }
+
+    public function testFilterBotsOnlyMatchesTrailingBotSuffix(): void
+    {
+        // A hypothetical human contributor whose display name happens to
+        // contain "[bot]" in the middle isn't dropped; only the trailing-
+        // suffix pattern (used by GitHub App identities) is filtered.
+        $authors = (new AcknowledgementsGenerator())->filterBots([
+            ['name' => 'Alice [bot maintainer] Smith', 'commits' => 5],
+            ['name' => 'noisy[bot]', 'commits' => 100],
+        ]);
+
+        self::assertSame(
+            [['name' => 'Alice [bot maintainer] Smith', 'commits' => 5]],
+            $authors,
+        );
+    }
+
+    public function testRenderMatchesFixtureSnapshotAfterBotFilter(): void
     {
         $generator = new AcknowledgementsGenerator();
-        $authors = $generator->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt'));
+        $authors = $generator->filterBots(
+            $generator->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt')),
+        );
 
         $rendered = $generator->render($authors, '8.1.0');
 
@@ -49,7 +85,9 @@ final class AcknowledgementsGeneratorTest extends TestCase
     public function testRenderIsDeterministic(): void
     {
         $generator = new AcknowledgementsGenerator();
-        $authors = $generator->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt'));
+        $authors = $generator->filterBots(
+            $generator->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt')),
+        );
 
         self::assertSame($generator->render($authors, '8.1.0'), $generator->render($authors, '8.1.0'));
     }

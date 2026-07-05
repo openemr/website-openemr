@@ -20,7 +20,25 @@ final class AcknowledgementsGenerator
 {
     public function generate(string $repoPath, string $fromRev, string $toRev, string $version): string
     {
-        return $this->render($this->shortlog($repoPath, $fromRev, $toRev), $version);
+        return $this->render($this->filterBots($this->shortlog($repoPath, $fromRev, $toRev)), $version);
+    }
+
+    /**
+     * Drop GitHub App bot authors (identified by the `[bot]` suffix that
+     * GitHub attaches to App identities in commit author metadata, e.g.
+     * `dependabot[bot]`, `openemr-reserved-word-bot[bot]`). The
+     * acknowledgements page celebrates human contributors; bot commit
+     * volume swamps the top of the list without carrying that meaning.
+     *
+     * @param list<array{name: string, commits: int}> $authors
+     * @return list<array{name: string, commits: int}>
+     */
+    public function filterBots(array $authors): array
+    {
+        return array_values(array_filter(
+            $authors,
+            static fn (array $author): bool => !str_ends_with($author['name'], '[bot]'),
+        ));
     }
 
     /**
