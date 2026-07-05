@@ -275,24 +275,18 @@ jobs:
           VERSION="$VERSION"
           OUTPUT="$STAGING/content/release-notes/$VERSION.md"
 
-      - name: Generate install page
+      # Per-release install/upgrade pages are no longer generated; the
+      # /downloads/ template now defaults to the wiki's version-agnostic
+      # install/upgrade docs (OpenEMR_{Linux,Windows}_{Installation,Upgrade}).
+      # Scrub any stale copies from a prior dispatch that predates this
+      # policy — quiet no-op if the files were never generated for this
+      # branch.
+      - name: Remove stale per-release install/upgrade pages
         env:
           VERSION: ${{ steps.payload.outputs.version }}
-        run: >-
-          task gen-install-page
-          VERSION="$VERSION"
-          OUTPUT="$STAGING/content/installation/$VERSION.md"
-
-      - name: Generate upgrade page
-        if: ${{ steps.payload.outputs.prev_release != '' }}
-        env:
-          PREV: ${{ steps.payload.outputs.prev_release }}
-          VERSION: ${{ steps.payload.outputs.version }}
-        run: >-
-          task gen-upgrade-page
-          VERSION="$VERSION"
-          PREVIOUS_VERSION="$PREV"
-          OUTPUT="$STAGING/content/upgrade/$VERSION.md"
+        run: |
+          rm -f "$PUBLISH/content/installation/$VERSION.md" \
+                "$PUBLISH/content/upgrade/$VERSION.md"
 
       - name: Generate EHI (b)(10) schema docs
         if: ${{ steps.ehi.outputs.enabled == 'true' }}

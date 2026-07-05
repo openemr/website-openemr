@@ -35,3 +35,13 @@ jobs:
       - uses: reviewdog/action-actionlint@v1
         with:
           fail_level: error
+          # `actions/create-github-app-token@v3` supports both `app-id`
+          # (numeric App ID) and `client-id` (App Client ID) for auth;
+          # actionlint's bundled action schema only knows about `app-id`
+          # and reports the working `client-id` usage as a false positive.
+          # release-docs.yml uses `client-id` and runs green in practice
+          # (workflow runs on every openemr-rel-cut / rel-update / tag
+          # dispatch). Suppress the two known-good findings here.
+          actionlint_flags: >-
+            -ignore 'missing input "app-id".+create-github-app-token'
+            -ignore '"client-id" is not defined.+create-github-app-token'
