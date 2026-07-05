@@ -70,37 +70,6 @@ tasks:
         --release-version={{.VERSION}}
         --output={{.OUTPUT}}
 
-  gen-install-page:
-    desc: Render the per-release install page
-    deps: [setup]
-    requires:
-      vars: [VERSION]
-    vars:
-      OUTPUT: '{{.OUTPUT | default (printf "%s/content/installation/%s.md" .REPO_ROOT .VERSION)}}'
-    cmds:
-      - mkdir -p "$(dirname '{{.OUTPUT}}')"
-      - >-
-        php bin/gen-install-pages.php
-        --mode=install
-        --release-version={{.VERSION}}
-        --output={{.OUTPUT}}
-
-  gen-upgrade-page:
-    desc: Render the per-release upgrade page
-    deps: [setup]
-    requires:
-      vars: [VERSION, PREVIOUS_VERSION]
-    vars:
-      OUTPUT: '{{.OUTPUT | default (printf "%s/content/upgrade/%s.md" .REPO_ROOT .VERSION)}}'
-    cmds:
-      - mkdir -p "$(dirname '{{.OUTPUT}}')"
-      - >-
-        php bin/gen-install-pages.php
-        --mode=upgrade
-        --release-version={{.VERSION}}
-        --previous-version={{.PREVIOUS_VERSION}}
-        --output={{.OUTPUT}}
-
   gen-ehi:
     desc: Regenerate the EHI (b)(10) SchemaSpy documentation for a release
     deps: [setup]
