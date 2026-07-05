@@ -31,12 +31,53 @@
                                     <th>Released</th>
                                     <th>Release notes</th>
                                     <th>Download</th>
+                                    <th>Checksums</th>
                                 </tr>
                             </thead>
                             <tbody>
                     {{ end }}
 
                     {{ $tag := printf "v%s" (replace .version "." "_") }}
+
+                    {{/* Resolve tar.gz + zip URLs. Historical entries (SourceForge-era)
+                         carry an explicit archive_urls block. Dispatch-managed entries
+                         (with a git sha) inherit derived URLs pointing at the packaged
+                         GitHub Release asset — NOT the auto-generated source archive at
+                         archive/refs/tags/... which is a raw repo dump. */}}
+                    {{ $tarballUrl := "" }}
+                    {{ $zipUrl := "" }}
+                    {{ with .entry.archive_urls }}
+                        {{ $tarballUrl = .tarball }}
+                        {{ $zipUrl = .zip }}
+                    {{ else }}
+                        {{ if .entry.sha }}
+                            {{ $tarballUrl = printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.tar.gz" $tag .version }}
+                            {{ $zipUrl = printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.zip" $tag .version }}
+                        {{ end }}
+                    {{ end }}
+
+                    {{/* Resolve checksums. Historical + 8.0.0 use self-hosted .sha1
+                         sidecars from data/releases.json's downloads.<platform>.checksums_url
+                         field (path-relative; absURL prepends the environment baseURL).
+                         Dispatch-managed entries without an explicit checksums_url derive
+                         a GitHub Release .sha256 sidecar — matches the sidecar naming that
+                         the release automation already emits (see v8_1_0 assets). */}}
+                    {{ $linuxCk := "" }}
+                    {{ $winCk := "" }}
+                    {{ with .entry.downloads }}
+                        {{ with .linux }}{{ $linuxCk = .checksums_url }}{{ end }}
+                        {{ with .windows }}{{ $winCk = .checksums_url }}{{ end }}
+                    {{ end }}
+                    {{ $ckExt := ".sha1" }}
+                    {{ if and (not $linuxCk) .entry.sha }}
+                        {{ $linuxCk = printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.tar.gz.sha256" $tag .version }}
+                        {{ $ckExt = ".sha256" }}
+                    {{ end }}
+                    {{ if and (not $winCk) .entry.sha }}
+                        {{ $winCk = printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.zip.sha256" $tag .version }}
+                        {{ $ckExt = ".sha256" }}
+                    {{ end }}
+
                     <tr>
                         <td><strong>{{ .version }}</strong></td>
                         <td>{{ .entry.released_at }}</td>
@@ -48,15 +89,14 @@
                             {{ end }}
                         </td>
                         <td>
-                            {{ with .entry.archive_urls }}
-                                <a href="{{ .tarball }}">tar.gz</a>
-                                &nbsp;|&nbsp;
-                                <a href="{{ .zip }}">zip</a>
-                            {{ else }}
-                                <a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.tar.gz">tar.gz</a>
-                                &nbsp;|&nbsp;
-                                <a href="https://github.com/openemr/openemr/archive/refs/tags/{{ $tag }}.zip">zip</a>
-                            {{ end }}
+                            {{ with $tarballUrl }}<a href="{{ . }}">tar.gz</a>{{ end }}
+                            {{ if and $tarballUrl $zipUrl }}&nbsp;|&nbsp;{{ end }}
+                            {{ with $zipUrl }}<a href="{{ . }}">zip</a>{{ end }}
+                        </td>
+                        <td>
+                            {{ with $linuxCk }}<a href="{{ . | absURL }}">linux {{ $ckExt }}</a>{{ end }}
+                            {{ if and $linuxCk $winCk }}&nbsp;|&nbsp;{{ end }}
+                            {{ with $winCk }}<a href="{{ . | absURL }}">windows {{ $ckExt }}</a>{{ end }}
                         </td>
                     </tr>
                 {{ end }}
