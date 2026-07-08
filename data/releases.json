@@ -447,5 +447,11 @@
             "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.0.0/openemr-8.0.0.zip/download"
         },
         "patches_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_Patches"
+    },
+    "8.2.1": {
+        "status": "DRAFT",
+        "branch": "rel-820",
+        "sha": "6125a2fd8089c8bcc3848071c1293c60e27a7585",
+        "released_at": null
     }
 }
