@@ -117,6 +117,9 @@
                         {{ else }}
                             <li><a href="https://github.com/openemr/openemr/releases/tag/{{ $tag }}">Release notes (GitHub)</a></li>
                         {{ end }}
+                        {{ with site.GetPage (printf "/acknowledgements/%s" .version) }}
+                            <li><a href="{{ .Permalink }}">Acknowledgements</a></li>
+                        {{ end }}
                         <li><a href="https://www.open-emr.org/wiki/index.php/OpenEMR_ONC_Ambulatory_EHR_Certification_Requirements">ONC Ambulatory EHR certification resources</a></li>
                     </ul>
                 {{ end }}
