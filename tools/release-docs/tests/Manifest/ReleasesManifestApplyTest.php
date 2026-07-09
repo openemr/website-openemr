@@ -223,7 +223,7 @@ final class ReleasesManifestApplyTest extends TestCase
         );
     }
 
-    public function testEntryWithNestedCompatibilityAndDownloadsLoads(): void
+    public function testEntryWithNestedDownloadsLoads(): void
     {
         $this->seed([
             '8.0.0' => [
@@ -231,11 +231,6 @@ final class ReleasesManifestApplyTest extends TestCase
                 'branch' => 'rel-800',
                 'sha' => 'b91b73600327acb46252b9fce7d04467eea126fd',
                 'released_at' => '2026-02-13',
-                'compatibility' => [
-                    'php' => ['min' => '8.2', 'max' => '8.5'],
-                    'mariadb' => ['min' => '10.6', 'max' => '11.8'],
-                    'recommended_db' => 'MariaDB',
-                ],
                 'downloads' => [
                     'docker' => ['install_url' => 'https://example.invalid/docker'],
                 ],
@@ -257,11 +252,6 @@ final class ReleasesManifestApplyTest extends TestCase
                 'branch' => 'rel-800',
                 'sha' => 'b91b73600327acb46252b9fce7d04467eea126fd',
                 'released_at' => '2026-02-13',
-                'compatibility' => [
-                    'php' => ['min' => '8.2', 'max' => '8.5'],
-                    'mariadb' => ['min' => '10.6', 'max' => '11.8'],
-                    'recommended_db' => 'MariaDB',
-                ],
                 'downloads' => [
                     'docker' => ['install_url' => 'https://example.invalid/docker'],
                 ],
