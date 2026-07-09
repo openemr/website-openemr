@@ -117,6 +117,9 @@
                         {{ else }}
                             <li><a href="https://github.com/openemr/openemr/releases/tag/{{ $tag }}">Release notes (GitHub)</a></li>
                         {{ end }}
+                        {{ if .entry.sha }}
+                            <li><a href="https://github.com/openemr/openemr/releases/download/{{ $tag }}/changelog.md">Changelog</a></li>
+                        {{ end }}
                         {{ with site.GetPage (printf "/acknowledgements/%s" .version) }}
                             <li><a href="{{ .Permalink }}">Acknowledgements</a></li>
                         {{ end }}

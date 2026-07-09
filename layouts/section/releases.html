@@ -87,6 +87,9 @@
                             {{ else }}
                                 <a href="https://github.com/openemr/openemr/releases/tag/{{ $tag }}">notes (GitHub)</a>
                             {{ end }}
+                            {{ if .entry.sha }}
+                                &nbsp;|&nbsp;<a href="https://github.com/openemr/openemr/releases/download/{{ $tag }}/changelog.md">changelog</a>
+                            {{ end }}
                             {{ with site.GetPage (printf "/acknowledgements/%s" .version) }}
                                 &nbsp;|&nbsp;<a href="{{ .Permalink }}">acknowledgements</a>
                             {{ end }}
