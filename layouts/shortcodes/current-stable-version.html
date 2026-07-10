@@ -1,0 +1,31 @@
+{{- /*
+  current-stable-version — returns the highest-version FINAL entry from
+  data/releases.json as a plain version string (e.g., "8.2.0"). Used in
+  places that hardcode the current stable version in marketing copy
+  (demo page headings, table rows), so the manifest becomes the single
+  source of truth and no manual bump is needed on ship.
+
+  Usage in content:
+    OpenEMR {{< current-stable-version >}} Demo
+
+  Reads from data/releases.json (see data/releases.schema.json). The
+  release-docs workflow keeps the manifest in sync with the conductor's
+  branch state, so the page updates automatically when a new FINAL
+  release lands. Prerelease-only versions (status != FINAL) are ignored,
+  so an aborted cut like v8_1_0 doesn't briefly become the "current
+  stable" between its cut and the next real release.
+
+  Returns empty when no FINAL entries exist -- a data-corruption case
+  that would be visibly broken on the page (e.g., "OpenEMR  Demo") and
+  should surface fast rather than get papered over with a fallback.
+*/ -}}
+{{- $finals := slice -}}
+{{- range $version, $entry := .Site.Data.releases -}}
+  {{- if eq $entry.status "FINAL" -}}
+    {{- $finals = $finals | append (dict "version" $version) -}}
+  {{- end -}}
+{{- end -}}
+{{- $finals = sort $finals "version" "desc" -}}
+{{- if gt (len $finals) 0 -}}
+  {{- (index $finals 0).version -}}
+{{- end -}}

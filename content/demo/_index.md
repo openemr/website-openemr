@@ -6,7 +6,7 @@ layout: page
 external_links_new_tab: true
 ---
 
-# Fully Working OpenEMR 8.2.0 Demo
+# Fully Working OpenEMR {{< current-stable-version >}} Demo
 
 We offer 3 fully functional demo installations for you to try out. Some simple configuration has been added for clearer demonstration of OpenEMR, medical billing, accounting, access controls and patient portal. Each demo is reset overnight (8:00 am UTC time) so no data is persistent. Note there are 3 identical demos ('Main', 'Alternate', 'Another Alternate') offered in case a demo is down or has been modified. We also offer [Development Demos](https://www.open-emr.org/wiki/index.php/Development_Demo) (these are demos that are rebuilt daily from most recent development code) where you can test out new features.
 
@@ -35,7 +35,7 @@ Part of our mission is making OpenEMR accessible to everyone, regardless of tech
 ### Links
 | Demo                    |Link |
 |-------------------------|----------------------------------------------------------------------------------|
-| OpenEMR 8.2.0 Main Demo | [https://demo.openemr.io/openemr](https://demo.openemr.io/openemr/index.php) |
+| OpenEMR {{< current-stable-version >}} Main Demo | [https://demo.openemr.io/openemr](https://demo.openemr.io/openemr/index.php) |
 | Alternate Demo          | [https://demo.openemr.io/a/openemr](https://demo.openemr.io/a/openemr/index.php) |
 | Another Alternate Demo  | [https://demo.openemr.io/b/openemr](https://demo.openemr.io/b/openemr/index.php) |
 
@@ -54,7 +54,7 @@ Part of our mission is making OpenEMR accessible to everyone, regardless of tech
 
 | Demo                      |Link |
 |---------------------------|----------------------------------------------------------------------------------------------------|
-| OpenEMR 8.2.0 Portal Demo | [https://demo.openemr.io/openemr/portal](https://demo.openemr.io/openemr/portal/index.php) |
+| OpenEMR {{< current-stable-version >}} Portal Demo | [https://demo.openemr.io/openemr/portal](https://demo.openemr.io/openemr/portal/index.php) |
 | Alternate Demo            | [https://demo.openemr.io/a/openemr/portal](https://demo.openemr.io/a/openemr/portal/index.php) |
 | Another Alternate Demo    | [https://demo.openemr.io/b/openemr/portal](https://demo.openemr.io/b/openemr/portal/index.php) |
 
