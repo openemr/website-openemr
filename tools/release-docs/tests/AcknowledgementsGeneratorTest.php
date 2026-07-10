@@ -36,9 +36,9 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
-    public function testFilterBotsDropsBotAuthorsAndReindexes(): void
+    public function testFilterAutomatedAuthorsDropsBotAuthorsAndReindexes(): void
     {
-        $authors = (new AcknowledgementsGenerator())->filterBots([
+        $authors = (new AcknowledgementsGenerator())->filterAutomatedAuthors([
             ['name' => 'Test Author One', 'commits' => 142],
             ['name' => 'dependabot[bot]', 'commits' => 87],
             ['name' => 'Test Author Two', 'commits' => 54],
@@ -54,12 +54,12 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
-    public function testFilterBotsOnlyMatchesTrailingBotSuffix(): void
+    public function testFilterAutomatedAuthorsOnlyMatchesTrailingBotSuffix(): void
     {
         // A hypothetical human contributor whose display name happens to
         // contain "[bot]" in the middle isn't dropped; only the trailing-
         // suffix pattern (used by GitHub App identities) is filtered.
-        $authors = (new AcknowledgementsGenerator())->filterBots([
+        $authors = (new AcknowledgementsGenerator())->filterAutomatedAuthors([
             ['name' => 'Alice [bot maintainer] Smith', 'commits' => 5],
             ['name' => 'noisy[bot]', 'commits' => 100],
         ]);
@@ -70,10 +70,54 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
+    public function testFilterAutomatedAuthorsDropsNonBotNonHumans(): void
+    {
+        // Copilot (and other future LLM/IDE assistants) commit under a
+        // bare name with no `[bot]` suffix, so the bot-suffix rule alone
+        // wouldn't catch them. The NON_HUMAN_NAMES blocklist handles
+        // that case -- Copilot's ~16 commits on the 8.2.0 release cycle
+        // were the concrete driver for adding it (see G25 in the
+        // openemr/openemr release-mechanism-gaps doc).
+        $authors = (new AcknowledgementsGenerator())->filterAutomatedAuthors([
+            ['name' => 'Test Author One', 'commits' => 142],
+            ['name' => 'Copilot', 'commits' => 16],
+            ['name' => 'Test Author Two', 'commits' => 54],
+        ]);
+
+        self::assertSame(
+            [
+                ['name' => 'Test Author One', 'commits' => 142],
+                ['name' => 'Test Author Two', 'commits' => 54],
+            ],
+            $authors,
+        );
+    }
+
+    public function testFilterAutomatedAuthorsPreservesNamesThatMerelyContainNonHumanSubstring(): void
+    {
+        // A hypothetical human contributor whose display name is a
+        // superset of the blocklist entry (case matters, and only exact
+        // full-name matches are dropped) is preserved. Only exact-match
+        // membership in NON_HUMAN_NAMES triggers the drop.
+        $authors = (new AcknowledgementsGenerator())->filterAutomatedAuthors([
+            ['name' => 'Copilot Enthusiast', 'commits' => 5],
+            ['name' => 'copilot', 'commits' => 3],
+            ['name' => 'Copilot', 'commits' => 100],
+        ]);
+
+        self::assertSame(
+            [
+                ['name' => 'Copilot Enthusiast', 'commits' => 5],
+                ['name' => 'copilot', 'commits' => 3],
+            ],
+            $authors,
+        );
+    }
+
     public function testRenderMatchesFixtureSnapshotAfterBotFilter(): void
     {
         $generator = new AcknowledgementsGenerator();
-        $authors = $generator->filterBots(
+        $authors = $generator->filterAutomatedAuthors(
             $generator->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt')),
         );
 
@@ -85,7 +129,7 @@ final class AcknowledgementsGeneratorTest extends TestCase
     public function testRenderIsDeterministic(): void
     {
         $generator = new AcknowledgementsGenerator();
-        $authors = $generator->filterBots(
+        $authors = $generator->filterAutomatedAuthors(
             $generator->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt')),
         );
 
