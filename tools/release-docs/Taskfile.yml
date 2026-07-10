@@ -295,8 +295,20 @@ tasks:
           printf 'This PR is force-updated on every dispatch. Do not push commits\n'
           printf 'directly — they will be overwritten.\n'
         } > "$body_file"
-        if gh pr view "$BRANCH" --repo "$GITHUB_REPOSITORY" --json number >/dev/null 2>&1; then
-          gh pr edit "$BRANCH" --repo "$GITHUB_REPOSITORY" \
+        # Filter by --state open so a previously-merged PR for the same
+        # branch (typical after a recovery dispatch on a release-docs
+        # branch whose original PR already shipped) doesn't get matched
+        # here and silently absorbed by `gh pr edit` -- editing a merged
+        # PR is a no-op for the intent, leaves the freshly force-pushed
+        # branch unattached to any live PR, and reports success while
+        # doing nothing. Capture the PR number explicitly so `gh pr edit`
+        # can't ambiguously fall back to a closed/merged match if the
+        # `--head`/`--state` combination ever returns multiple.
+        open_pr="$(gh pr list --repo "$GITHUB_REPOSITORY" \
+          --head "$BRANCH" --state open --json number \
+          --jq '.[0].number // empty')"
+        if [ -n "$open_pr" ]; then
+          gh pr edit "$open_pr" --repo "$GITHUB_REPOSITORY" \
             --title "$title" --body-file "$body_file"
         else
           gh pr create --draft --repo "$GITHUB_REPOSITORY" \
