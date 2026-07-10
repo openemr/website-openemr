@@ -438,5 +438,11 @@
         "sha": "6125a2fd8089c8bcc3848071c1293c60e27a7585",
         "status": "FINAL",
         "released_at": "2026-07-08"
+    },
+    "8.2.1": {
+        "status": "DRAFT",
+        "branch": "rel-820",
+        "sha": "7bcf4238781975a428134891f74bf447b8a3d3ef",
+        "released_at": null
     }
 }
