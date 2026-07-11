@@ -18,7 +18,7 @@
   dispatched_at: $ts,
   data: (
     if   .event == "openemr-tag"
-    then {tag: .tag, branch: .branch, version: .version}
+    then {tag: .tag, branch: .branch, version: .version, prev_release: .prev_release}
     else {branch: .branch, version: .version, prev_release: .prev_release}
     end
   ),
