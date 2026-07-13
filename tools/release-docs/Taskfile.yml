@@ -50,26 +50,6 @@ tasks:
         --release-version={{.VERSION}}
         --output={{.OUTPUT}}
 
-  gen-release-notes:
-    desc: Render the per-release release-notes page
-    deps: [setup]
-    requires:
-      vars: [REPO_PATH, PREV_VERSION, VERSION]
-    vars:
-      OWNER: '{{.OWNER | default "openemr"}}'
-      REPO: '{{.REPO | default "openemr"}}'
-      OUTPUT: '{{.OUTPUT | default (printf "%s/content/release-notes/%s.md" .REPO_ROOT .VERSION)}}'
-    cmds:
-      - mkdir -p "$(dirname '{{.OUTPUT}}')"
-      - >-
-        php bin/gen-release-notes.php
-        --owner={{.OWNER}}
-        --repo={{.REPO}}
-        --repo-path={{.REPO_PATH}}
-        --prev-version={{.PREV_VERSION}}
-        --release-version={{.VERSION}}
-        --output={{.OUTPUT}}
-
   gen-ehi:
     desc: Regenerate the EHI (b)(10) SchemaSpy documentation for a release
     deps: [setup]
