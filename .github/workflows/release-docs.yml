@@ -262,18 +262,22 @@ jobs:
           VERSION="$VERSION"
           OUTPUT="$STAGING/content/acknowledgements/$VERSION.md"
 
-      - name: Generate release notes
-        if: ${{ steps.payload.outputs.prev_release != '' }}
+      # Per-release release-notes pages are no longer generated. The
+      # release-notes surface consolidated into openemr's CHANGELOG.md
+      # (written by ChangelogMutator + CompatibilityMutator at release-
+      # prep + release-finalize PR time; see openemr/openemr#12925 +
+      # #12928 + openemr-devops#858). The GitHub Release body (populated
+      # by devops's build-release.yml via section-extract from openemr's
+      # tagged CHANGELOG.md) is the canonical per-release notes surface
+      # now; the wiki's OpenEMR_{version}_Release_Notes page links
+      # there. Scrub any stale copies from a prior dispatch that predates
+      # this policy -- quiet no-op if the files were never generated for
+      # this version.
+      - name: Remove stale per-release release-notes page
         env:
-          GITHUB_TOKEN: ${{ steps.token.outputs.token }}
-          PREV: ${{ steps.payload.outputs.prev_release }}
           VERSION: ${{ steps.payload.outputs.version }}
-        run: >-
-          task gen-release-notes
-          REPO_PATH="$OPENEMR_CHECKOUT"
-          PREV_VERSION="$PREV"
-          VERSION="$VERSION"
-          OUTPUT="$STAGING/content/release-notes/$VERSION.md"
+        run: |
+          rm -f "$PUBLISH/content/release-notes/$VERSION.md"
 
       # Per-release install/upgrade pages are no longer generated; the
       # /downloads/ template now defaults to the wiki's version-agnostic
