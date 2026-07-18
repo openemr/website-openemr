@@ -69,13 +69,19 @@ final readonly class AnnouncementRenderer
         if (!is_dir($announcementsDir)) {
             throw new \RuntimeException("Announcements template dir not found: {$announcementsDir}");
         }
-        // autoescape: 'name' picks the strategy from the template filename —
-        // *.html.twig gets HTML escaping; *.md.twig and *.txt.twig get none.
+        // Autoescape: HTML for `*.html.twig` only; disabled for everything
+        // else. Twig's built-in 'name' strategy defaults unknown extensions
+        // (including `.md`) to HTML escaping, which would mangle Markdown
+        // URLs by turning `&` into `&amp;` — visible in Discourse posts.
+        // Explicitly restrict HTML escaping to files rendered as HTML.
         // The {{FORUM_URL}} placeholder is preserved verbatim because Twig
         // doesn't touch literal text in templates.
         $twig = new Environment(
             new FilesystemLoader($announcementsDir),
-            ['autoescape' => 'name'],
+            [
+                'autoescape' => static fn(?string $name): string|false =>
+                    is_string($name) && str_ends_with($name, '.html.twig') ? 'html' : false,
+            ],
         );
 
         $rendered = [];

@@ -90,7 +90,11 @@ final class AnnouncementRendererTest extends TestCase
         // before measuring. This is a loose sanity check, not an exact
         // reproduction of X's character-counting rules.
         $approx = preg_replace('#https?://\S+#', str_repeat('x', 23), trim($rendered['x.txt']));
-        self::assertLessThanOrEqual(280, mb_strlen($approx ?? ''));
+        // Guard against a silent preg_replace failure returning null; the
+        // null-coalescing empty string would otherwise mb_strlen to 0 and
+        // silently pass the ≤280 assertion.
+        self::assertIsString($approx, 'URL substitution failed');
+        self::assertLessThanOrEqual(280, mb_strlen($approx));
     }
 
     public function testMailSubjectIsSingleLine(): void
@@ -128,5 +132,29 @@ final class AnnouncementRendererTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
         $renderer->renderAll($this->context());
+    }
+
+    public function testMarkdownAndTextChannelsPreserveAmpersandInUrls(): void
+    {
+        // Regression for Twig's default 'name' autoescape strategy, which
+        // treats any non-txt/js/css extension (including .md) as HTML and
+        // would mangle `&` in URL query strings to `&amp;` — visible in
+        // Discourse posts and X drafts.
+        $context = $this->context();
+        $context['release_url'] = 'https://github.com/openemr/openemr/releases?a=b&c=d';
+        $context['release_notes_url'] = 'https://open-emr.org/notes?x=1&y=2';
+
+        $rendered = (new AnnouncementRenderer(self::TEMPLATE_DIR))->renderAll($context);
+
+        $nonHtmlChannels = ['forum.md', 'chat.md', 'x.txt', 'facebook.txt', 'linkedin.txt', 'mail.subject.txt'];
+        foreach ($nonHtmlChannels as $channel) {
+            self::assertStringNotContainsString(
+                '&amp;',
+                $rendered[$channel],
+                "{$channel} should not HTML-escape ampersands",
+            );
+        }
+        // mail.html IS an HTML channel — escaping is correct + desired there.
+        self::assertStringContainsString('&amp;', $rendered['mail.html'], 'mail.html should HTML-escape ampersands');
     }
 }
