@@ -133,6 +133,39 @@ const HEAD_REF_PREFIX = 'release-docs/';
                     return 1;
                 }
             }
+            // Even when each field is individually shape-valid, the trio
+            // could still cross-refer (--release-version=8.1.0 with
+            // --release-tag=v9_9_9): shape passes but the tag doesn't
+            // describe the version. Derive canonical tag+branch from the
+            // version and require the caller-supplied values to match, so
+            // a workflow_dispatch typo can't silently ship announcement
+            // drafts with mismatched links.
+            [$major, $minor] = explode('.', $version, 3);
+            $expectedTag = 'v' . str_replace('.', '_', $version);
+            $expectedBranch = "rel-{$major}{$minor}0";
+            if ($tag !== $expectedTag || $branch !== $expectedBranch) {
+                $err->writeln(sprintf(
+                    "<error>tag/branch do not match version: expected tag=%s branch=%s"
+                    . " for version %s, got tag=%s branch=%s</error>",
+                    $expectedTag,
+                    $expectedBranch,
+                    $version,
+                    $tag,
+                    $branch,
+                ));
+                return 1;
+            }
+        }
+
+        // forum_url is user-supplied and emitted verbatim to stdout, which
+        // the workflow appends to $GITHUB_OUTPUT. A value containing CR/LF
+        // would open additional key=value lines and let a caller inject
+        // extra workflow outputs. URLs never contain literal control chars
+        // (RFC 3986 requires percent-encoding), so rejecting is safe.
+        $forumUrl = $str('forum-url');
+        if (str_contains($forumUrl, "\r") || str_contains($forumUrl, "\n")) {
+            $err->writeln('<error>--forum-url must be a single-line value (no CR/LF)</error>');
+            return 1;
         }
 
         // Emit forum_url verbatim (possibly empty); downstream renderers
@@ -143,7 +176,7 @@ const HEAD_REF_PREFIX = 'release-docs/';
         $output->writeln(sprintf('version=%s', $version));
         $output->writeln(sprintf('tag=%s', $tag));
         $output->writeln(sprintf('branch=%s', $branch));
-        $output->writeln(sprintf('forum_url=%s', $str('forum-url')));
+        $output->writeln(sprintf('forum_url=%s', $forumUrl));
         return 0;
     })
     ->run();

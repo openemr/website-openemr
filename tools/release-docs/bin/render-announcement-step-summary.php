@@ -77,7 +77,10 @@ use Symfony\Component\Console\SingleCommandApplication;
 
         $target = $input->getOption('output');
         if (is_string($target) && $target !== '') {
-            file_put_contents($target, $rendered);
+            if (file_put_contents($target, $rendered) === false) {
+                $err->writeln("<error>Failed to write summary file: {$target}</error>");
+                return 1;
+            }
             return 0;
         }
         $output->write($rendered);

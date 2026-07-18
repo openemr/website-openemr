@@ -122,7 +122,11 @@ use Symfony\Component\Console\SingleCommandApplication;
         $rendered = (new AnnouncementRenderer($templateDir))->renderAll($context);
 
         foreach ($rendered as $name => $body) {
-            file_put_contents($outputDir . '/' . $name, $body);
+            $path = $outputDir . '/' . $name;
+            if (file_put_contents($path, $body) === false) {
+                $err->writeln("<error>Failed to write channel file: {$path}</error>");
+                return 1;
+            }
             $output->writeln("Wrote <info>{$name}</info>");
         }
 
@@ -137,7 +141,11 @@ use Symfony\Component\Console\SingleCommandApplication;
             'Content-Type: text/html; charset=UTF-8',
             'Content-Transfer-Encoding: 8bit',
         ]);
-        file_put_contents($outputDir . '/mail.eml', $emlHeaders . "\r\n\r\n" . $rendered['mail.html']);
+        $emlPath = $outputDir . '/mail.eml';
+        if (file_put_contents($emlPath, $emlHeaders . "\r\n\r\n" . $rendered['mail.html']) === false) {
+            $err->writeln("<error>Failed to write mail.eml preview: {$emlPath}</error>");
+            return 1;
+        }
         $output->writeln('Wrote <info>mail.eml</info> (preview)');
 
         return 0;

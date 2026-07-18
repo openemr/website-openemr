@@ -144,4 +144,46 @@ final class DeriveAnnouncementInputsCliTest extends TestCase
         self::assertSame('', $process->getOutput());
         self::assertStringContainsString('mutually exclusive', $process->getErrorOutput());
     }
+
+    public function testInternallyInconsistentExplicitFlagsRejected(): void
+    {
+        // Each field is shape-valid in isolation, but the tag/branch don't
+        // describe the version. Without the cross-consistency check the
+        // script would emit mismatched links + a workflow_dispatch typo
+        // could silently ship broken announcements.
+        $process = new Process([
+            'php',
+            self::BIN,
+            '--release-version=8.1.0',
+            '--release-tag=v9_9_9',
+            '--release-branch=rel-990',
+        ]);
+        $process->run();
+
+        self::assertSame(1, $process->getExitCode(), 'expected consistency check to reject');
+        self::assertSame('', $process->getOutput());
+        self::assertStringContainsString('tag/branch do not match version', $process->getErrorOutput());
+    }
+
+    public function testForumUrlWithNewlineRejected(): void
+    {
+        // Guard against $GITHUB_OUTPUT injection: a CR/LF-containing value
+        // emitted verbatim to stdout would open additional key=value lines
+        // and let a caller define arbitrary extra workflow outputs.
+        $process = new Process([
+            'php',
+            self::BIN,
+            '--head-ref=release-docs/8.1.0',
+            "--forum-url=https://good.example\nEVIL_OUTPUT=bad",
+        ]);
+        $process->run();
+
+        self::assertSame(1, $process->getExitCode());
+        self::assertSame(
+            '',
+            $process->getOutput(),
+            'stdout must stay clean so no injected line reaches $GITHUB_OUTPUT',
+        );
+        self::assertStringContainsString('single-line value', $process->getErrorOutput());
+    }
 }
