@@ -349,18 +349,22 @@ jobs:
           # gh release view exits non-zero when the Release object doesn't
           # exist yet (openemr-tag dispatch fires simultaneously with the
           # tag, before build-release-on-tag.yml has created the Release
-          # object). Fall through with empty in that case.
+          # object). The `(.publishedAt // "")[0:10]` idiom coerces null
+          # to "" before slicing so we don't feed the literal string
+          # "null" downstream when the field exists but is null.
           release_published_at=$(gh release view "$TAG" --repo openemr/openemr \
-              --json publishedAt --jq '.publishedAt[0:10]' 2>/dev/null || true)
+              --json publishedAt --jq '(.publishedAt // "")[0:10]' 2>/dev/null || true)
           # Annotated tag object's tagger.date. The refs/tags/<tag> lookup
           # returns the tag object SHA; git/tags/<sha> returns the tagger
           # metadata. The tag was created before this workflow ran, so this
-          # call should always succeed for openemr-tag events.
+          # call should always succeed for openemr-tag events. Same
+          # `// ""` null-guard as above on both jq extractions.
           tagger_date=''
-          if tag_sha=$(gh api "repos/openemr/openemr/git/refs/tags/$TAG" \
-                  --jq '.object.sha' 2>/dev/null) && [ -n "$tag_sha" ]; then
+          tag_sha=$(gh api "repos/openemr/openemr/git/refs/tags/$TAG" \
+              --jq '.object.sha // ""' 2>/dev/null || true)
+          if [ -n "$tag_sha" ]; then
             tagger_date=$(gh api "repos/openemr/openemr/git/tags/$tag_sha" \
-                --jq '.tagger.date[0:10]' 2>/dev/null || true)
+                --jq '(.tagger.date // "")[0:10]' 2>/dev/null || true)
           fi
           # Envelope dispatched_at is a very-last-resort fallback and is
           # WRONG for retroactive workflow_dispatch reruns of this workflow:

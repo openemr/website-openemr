@@ -37,29 +37,42 @@ final class GitHubApiFieldExtractionTest extends TestCase
     /**
      * Workflow expression:
      *   gh release view <tag> --repo openemr/openemr --json publishedAt \
-     *       --jq '.publishedAt[0:10]'
+     *       --jq '(.publishedAt // "")[0:10]'
      *
      * Must extract a YYYY-MM-DD date string from the `publishedAt`
      * ISO 8601 timestamp on the Release object. This is the preferred
      * source for released_at (matches the user-facing "Released"
      * moment on github.com/openemr/openemr/releases).
+     *
+     * The `// ""` null-coalesce is critical: without it, a null field
+     * or missing field would slice to the literal string "null" (jq's
+     * default rendering) rather than an empty string, and the workflow
+     * would happily set released_at=null. See openemr/website-openemr#199's
+     * rabbit review for the exact failure mode.
      */
     public function testReleasePublishedAtJqExtraction(): void
     {
-        $result = $this->runJq('.publishedAt[0:10]', 'release-view-v8_2_0.json');
+        $result = $this->runJq('(.publishedAt // "")[0:10]', 'release-view-v8_2_0.json');
         self::assertSame('2026-07-08', $result);
+    }
+
+    public function testReleasePublishedAtJqExtractionWithNullField(): void
+    {
+        $result = $this->runJq('(.publishedAt // "")[0:10]', 'release-view-null-publishedAt.json');
+        self::assertSame('', $result, 'null publishedAt must coalesce to "" so downstream bash sees empty');
     }
 
     /**
      * Workflow expression (step 1 of the annotated-tag lookup):
-     *   gh api "repos/openemr/openemr/git/refs/tags/<tag>" --jq '.object.sha'
+     *   gh api "repos/openemr/openemr/git/refs/tags/<tag>" --jq '.object.sha // ""'
      *
      * Must extract the tag object SHA from the refs/tags response;
-     * feeds into step 2 (`git/tags/<sha>`) below.
+     * feeds into step 2 (`git/tags/<sha>`) below. Same null-guard
+     * as the other extractions.
      */
     public function testAnnotatedTagObjectShaJqExtraction(): void
     {
-        $result = $this->runJq('.object.sha', 'refs-tags-v8_2_0.json');
+        $result = $this->runJq('.object.sha // ""', 'refs-tags-v8_2_0.json');
         self::assertMatchesRegularExpression(
             '/^[0-9a-f]{40}$/',
             $result,
@@ -69,7 +82,8 @@ final class GitHubApiFieldExtractionTest extends TestCase
 
     /**
      * Workflow expression (step 2 of the annotated-tag lookup):
-     *   gh api "repos/openemr/openemr/git/tags/<sha>" --jq '.tagger.date[0:10]'
+     *   gh api "repos/openemr/openemr/git/tags/<sha>" \
+     *       --jq '(.tagger.date // "")[0:10]'
      *
      * Must extract a YYYY-MM-DD date string from the annotated tag's
      * `tagger.date` ISO 8601 timestamp. This is the 3rd-priority
@@ -78,8 +92,14 @@ final class GitHubApiFieldExtractionTest extends TestCase
      */
     public function testAnnotatedTagTaggerDateJqExtraction(): void
     {
-        $result = $this->runJq('.tagger.date[0:10]', 'git-tags-v8_2_0.json');
+        $result = $this->runJq('(.tagger.date // "")[0:10]', 'git-tags-v8_2_0.json');
         self::assertSame('2026-07-08', $result);
+    }
+
+    public function testAnnotatedTagTaggerDateJqExtractionWithNullField(): void
+    {
+        $result = $this->runJq('(.tagger.date // "")[0:10]', 'git-tags-null-tagger-date.json');
+        self::assertSame('', $result, 'null tagger.date must coalesce to "" so downstream bash sees empty');
     }
 
     /**
