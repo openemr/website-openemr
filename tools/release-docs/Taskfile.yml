@@ -108,6 +108,46 @@ tasks:
         --manifest={{.MANIFEST}}
         --schema={{.REPO_ROOT}}/data/releases.schema.json
 
+  derive-announcement-inputs:
+    desc: Emit version/tag/branch/forum_url lines for the announcements workflow
+    deps: [setup]
+    cmds:
+      - >-
+        php bin/derive-announcement-inputs.php
+        {{if .HEAD_REF}}--head-ref={{shellQuote .HEAD_REF}}{{end}}
+        {{if .VERSION}}--release-version={{shellQuote .VERSION}}{{end}}
+        {{if .TAG}}--release-tag={{shellQuote .TAG}}{{end}}
+        {{if .BRANCH}}--release-branch={{shellQuote .BRANCH}}{{end}}
+        {{if .FORUM_URL}}--forum-url={{shellQuote .FORUM_URL}}{{end}}
+
+  render-announcements:
+    desc: Render per-channel release-announcement drafts to a directory
+    requires:
+      vars: [OUTPUT_DIR, VERSION, TAG, BRANCH]
+    deps: [setup]
+    cmds:
+      - >-
+        php bin/render-announcements.php
+        --output-dir={{shellQuote .OUTPUT_DIR}}
+        --release-version={{shellQuote .VERSION}}
+        --release-tag={{shellQuote .TAG}}
+        --release-branch={{shellQuote .BRANCH}}
+        {{if .FORUM_URL}}--forum-url={{shellQuote .FORUM_URL}}{{end}}
+
+  render-announcement-step-summary:
+    desc: Render the GitHub Actions step-summary markdown for the announcement drafts
+    requires:
+      vars: [OUTPUT_DIR, VERSION, TAG]
+    deps: [setup]
+    cmds:
+      - >-
+        php bin/render-announcement-step-summary.php
+        --output-dir={{shellQuote .OUTPUT_DIR}}
+        --release-version={{shellQuote .VERSION}}
+        --release-tag={{shellQuote .TAG}}
+        {{if .FORUM_URL}}--forum-url={{shellQuote .FORUM_URL}}{{end}}
+        {{if .OUTPUT}}--output={{shellQuote .OUTPUT}}{{end}}
+
   lint-aliases:
     desc: Verify every aliases mapping target points to an existing Hugo page
     deps: [setup]
