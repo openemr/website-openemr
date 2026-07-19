@@ -12,27 +12,125 @@ final class AcknowledgementsGeneratorTest extends TestCase
 {
     private const FIXTURE_DIR = __DIR__ . '/fixtures/acknowledgements';
 
-    public function testParseShortlogExtractsAuthorsAndCounts(): void
+    public function testParseLogOutputExtractsEmailAndName(): void
     {
-        $authors = (new AcknowledgementsGenerator())->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt'));
+        $input = "alice@example.com\tAlice Smith\nbob@example.com\tBob Jones\n";
 
-        self::assertCount(8, $authors);
-        self::assertSame(['name' => 'Test Author One', 'commits' => 142], $authors[0]);
-        self::assertSame(['name' => 'Test Author Six', 'commits' => 1], $authors[7]);
-    }
-
-    public function testParseShortlogIgnoresBlankAndMalformedLines(): void
-    {
-        $input = "   3  Alice\n\n   not-a-line\n   2  Bob\n";
-
-        $authors = (new AcknowledgementsGenerator())->parseShortlog($input);
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
 
         self::assertSame(
             [
-                ['name' => 'Alice', 'commits' => 3],
-                ['name' => 'Bob', 'commits' => 2],
+                ['email' => 'alice@example.com', 'name' => 'Alice Smith'],
+                ['email' => 'bob@example.com', 'name' => 'Bob Jones'],
             ],
-            $authors,
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputIgnoresBlankAndMalformedLines(): void
+    {
+        // Malformed = no tab separator, or blank name/email after trim.
+        $input = "alice@example.com\tAlice\n\nnotab-line\n\t\nbob@example.com\tBob\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [
+                ['email' => 'alice@example.com', 'name' => 'Alice'],
+                ['email' => 'bob@example.com', 'name' => 'Bob'],
+            ],
+            $commits,
+        );
+    }
+
+    public function testGroupByEmailCollapsesMultipleNameSpellings(): void
+    {
+        // Reproduces the #135 failure: Stephen Waite commits under
+        // three spellings tied to the same email.
+        $commits = array_merge(
+            array_fill(0, 16, ['email' => 'stephen@example.com', 'name' => 'steve waite']),
+            array_fill(0, 12, ['email' => 'stephen@example.com', 'name' => 'Stephen Waite']),
+            array_fill(0, 1, ['email' => 'stephen@example.com', 'name' => 'stephen waite']),
+        );
+
+        $grouped = (new AcknowledgementsGenerator())->groupByEmail($commits);
+
+        self::assertSame(
+            // Total 29 commits, display name = most-used spelling (16-count).
+            [['name' => 'steve waite', 'commits' => 29]],
+            $grouped,
+        );
+    }
+
+    public function testGroupByEmailIsCaseInsensitiveOnTheEmailKey(): void
+    {
+        // Author emails are canonically lowercase; treat mixed-case
+        // variants as the same identity.
+        $commits = [
+            ['email' => 'Alice@Example.com', 'name' => 'Alice'],
+            ['email' => 'alice@example.com', 'name' => 'Alice'],
+            ['email' => 'ALICE@example.com', 'name' => 'Alice'],
+        ];
+
+        $grouped = (new AcknowledgementsGenerator())->groupByEmail($commits);
+
+        self::assertSame([['name' => 'Alice', 'commits' => 3]], $grouped);
+    }
+
+    public function testGroupByEmailTieBreaksOnLongestNameThenAlphabetical(): void
+    {
+        // Two spellings for the same person tied on commit count. The
+        // longer name wins (a fully-qualified "Firstname Lastname" beats
+        // a shorter nickname or bare-email name).
+        $commits = array_merge(
+            array_fill(0, 5, ['email' => 'chris@example.com', 'name' => 'cdx@rolling.ventures']),
+            array_fill(0, 5, ['email' => 'chris@example.com', 'name' => 'Chris Dickman']),
+        );
+
+        $grouped = (new AcknowledgementsGenerator())->groupByEmail($commits);
+
+        self::assertSame(
+            // Tied at 5 commits; "cdx@rolling.ventures" (20 chars) is
+            // longer than "Chris Dickman" (13 chars), so longest wins.
+            [['name' => 'cdx@rolling.ventures', 'commits' => 10]],
+            $grouped,
+        );
+    }
+
+    public function testGroupByEmailTieBreaksAlphabeticallyWhenNamesEqualLength(): void
+    {
+        // Same length + same count -> alphabetical (uppercase C < lowercase c).
+        $commits = array_merge(
+            array_fill(0, 3, ['email' => 'carol@example.com', 'name' => 'Carol Lee']),
+            array_fill(0, 3, ['email' => 'carol@example.com', 'name' => 'carol lee']),
+        );
+
+        $grouped = (new AcknowledgementsGenerator())->groupByEmail($commits);
+
+        self::assertSame(
+            [['name' => 'Carol Lee', 'commits' => 6]],
+            $grouped,
+        );
+    }
+
+    public function testGroupByEmailSortsByCommitsDescThenNameAsc(): void
+    {
+        $commits = array_merge(
+            array_fill(0, 3, ['email' => 'alice@example.com', 'name' => 'Alice']),
+            array_fill(0, 3, ['email' => 'bob@example.com', 'name' => 'Bob']),
+            array_fill(0, 5, ['email' => 'zack@example.com', 'name' => 'Zack']),
+        );
+
+        $grouped = (new AcknowledgementsGenerator())->groupByEmail($commits);
+
+        self::assertSame(
+            [
+                ['name' => 'Zack', 'commits' => 5],
+                // Ties broken by name asc: Alice before Bob.
+                ['name' => 'Alice', 'commits' => 3],
+                ['name' => 'Bob', 'commits' => 3],
+            ],
+            $grouped,
         );
     }
 
@@ -114,33 +212,34 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
-    public function testRenderMatchesFixtureSnapshotAfterBotFilter(): void
+    public function testEndToEndPipelineMatchesFixtureSnapshot(): void
     {
+        // Full pipeline: parseLogOutput -> groupByEmail -> filterAutomated
+        // -> render. Uses 8.2.0 (the most recent stable release) as
+        // the version label. 8.1.0 would be ambiguous (that version
+        // was cut then skipped, so it's a real-but-nonexistent tag).
         $generator = new AcknowledgementsGenerator();
-        $authors = $generator->filterAutomatedAuthors(
-            $generator->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt')),
-        );
+        $commits = $generator->parseLogOutput(self::loadFixture('log-8.1.0-to-8.2.0.txt'));
+        $grouped = $generator->groupByEmail($commits);
+        $rendered = $generator->render($generator->filterAutomatedAuthors($grouped), '8.2.0');
 
-        $rendered = $generator->render($authors, '8.1.0');
-
-        self::assertStringEqualsFile(self::FIXTURE_DIR . '/expected-8.1.0.md', $rendered);
+        self::assertStringEqualsFile(self::FIXTURE_DIR . '/expected-8.2.0.md', $rendered);
     }
 
     public function testRenderIsDeterministic(): void
     {
         $generator = new AcknowledgementsGenerator();
-        $authors = $generator->filterAutomatedAuthors(
-            $generator->parseShortlog(self::loadFixture('shortlog-8.0.0-to-8.1.0.txt')),
-        );
+        $commits = $generator->parseLogOutput(self::loadFixture('log-8.1.0-to-8.2.0.txt'));
+        $authors = $generator->filterAutomatedAuthors($generator->groupByEmail($commits));
 
-        self::assertSame($generator->render($authors, '8.1.0'), $generator->render($authors, '8.1.0'));
+        self::assertSame($generator->render($authors, '8.2.0'), $generator->render($authors, '8.2.0'));
     }
 
     public function testSingleCommitAuthorUsesSingularNoun(): void
     {
         $rendered = (new AcknowledgementsGenerator())->render(
             [['name' => 'Lone Contributor', 'commits' => 1]],
-            '8.1.0',
+            '8.2.0',
         );
 
         self::assertStringContainsString('- Lone Contributor (1 commit)', $rendered);
