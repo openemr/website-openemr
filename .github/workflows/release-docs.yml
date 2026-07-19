@@ -313,15 +313,22 @@ jobs:
       #
       # Resolution order (openemr-tag events only; other events don't set
       # released_at):
-      #   1. inputs.released_at         explicit workflow_dispatch override
-      #   2. Release.publishedAt        canonical tag date via GitHub API
-      #   3. envelope.dispatched_at     fallback if the Release object
-      #                                 doesn't exist yet (build-release
-      #                                 races us) or the API call fails
+      #   1. inputs.released_at        explicit workflow_dispatch override
+      #   2. Release.publishedAt       canonical tag date via GitHub API
+      #                                (matches what users see on the
+      #                                Releases page)
+      #   3. annotated tag tagger.date atomic with tag creation; always
+      #                                exists by the time this workflow
+      #                                runs since the openemr-tag dispatch
+      #                                is emitted AFTER tag creation
+      #   4. envelope.dispatched_at    very last resort if all three
+      #                                GitHub API calls fail
       #
-      # The 3rd fallback is still close-to-correct for the initial dispatch
-      # (dispatched_at is within seconds of the tag creation); it's the
-      # retroactive path where operators should pass inputs.released_at.
+      # Steps 2 and 3 are usually within seconds of each other. Step 2 is
+      # preferred because it matches the user-facing "Released" moment on
+      # github.com/openemr/openemr/releases; step 3 fills the narrow window
+      # where openemr-tag dispatch fires before build-release-on-tag.yml
+      # has created the Release object.
       - name: Resolve released_at
         id: released_at
         if: ${{ steps.mode.outputs.test != 'true' && steps.payload.outputs.event == 'openemr-tag' }}
@@ -331,28 +338,38 @@ jobs:
           PAYLOAD: ${{ steps.payload.outputs.file }}
           GH_TOKEN: ${{ steps.token.outputs.token }}
         run: |
+          emit() { echo "value=$1" >> "$GITHUB_OUTPUT"; echo "$2"; }
+
           if [ -n "$INPUT_RELEASED_AT" ]; then
-            echo "value=$INPUT_RELEASED_AT" >> "$GITHUB_OUTPUT"
-            echo "Using workflow_dispatch input released_at=$INPUT_RELEASED_AT"
+            emit "$INPUT_RELEASED_AT" "Using workflow_dispatch input released_at=$INPUT_RELEASED_AT"
             exit 0
           fi
           # gh release view exits non-zero when the Release object doesn't
           # exist yet (openemr-tag dispatch fires simultaneously with the
           # tag, before build-release-on-tag.yml has created the Release
-          # object). Fall through to dispatched_at in that case.
+          # object). Fall through in that case.
           if published=$(gh release view "$TAG" --repo openemr/openemr --json publishedAt --jq '.publishedAt[0:10]' 2>/dev/null) \
               && [ -n "$published" ]; then
-            echo "value=$published" >> "$GITHUB_OUTPUT"
-            echo "Using Release publishedAt=$published for $TAG"
+            emit "$published" "Using Release publishedAt=$published for $TAG"
+            exit 0
+          fi
+          # Annotated tag object's tagger.date. The refs/tags/<tag> lookup
+          # returns the tag object SHA; the git/tags/<sha> lookup returns
+          # the tagger metadata. The tag was created before this workflow
+          # ran, so this call should always succeed for openemr-tag events.
+          if tag_sha=$(gh api "repos/openemr/openemr/git/refs/tags/$TAG" --jq '.object.sha' 2>/dev/null) \
+              && [ -n "$tag_sha" ] \
+              && tagger_date=$(gh api "repos/openemr/openemr/git/tags/$tag_sha" --jq '.tagger.date[0:10]' 2>/dev/null) \
+              && [ -n "$tagger_date" ]; then
+            emit "$tagger_date" "Release object not yet created for $TAG; using annotated tag tagger.date=$tagger_date"
             exit 0
           fi
           dispatched=$(jq -r '.dispatched_at[0:10]' "$PAYLOAD")
           if [ -z "$dispatched" ] || [ "$dispatched" = "null" ]; then
-            echo "::warning::released_at could not be resolved from inputs, Release object, or dispatched_at; update-manifest.php will fall back to today's date"
+            echo "::warning::released_at could not be resolved from inputs, Release object, annotated tag, or dispatched_at; update-manifest.php will fall back to today's date"
             exit 0
           fi
-          echo "value=$dispatched" >> "$GITHUB_OUTPUT"
-          echo "Release object not yet created for $TAG; using envelope dispatched_at=$dispatched"
+          emit "$dispatched" "Release + tag lookups both failed for $TAG; using envelope dispatched_at=$dispatched"
 
       - name: Update releases manifest
         if: ${{ steps.mode.outputs.test != 'true' }}
