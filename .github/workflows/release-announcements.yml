@@ -1,0 +1,144 @@
+name: release-announcements
+
+# Drafts-only announcement rendering for OpenEMR releases. See
+# openemr/openemr-devops#719 for the original design and
+# openemr/openemr#12598 for the migration from openemr-devops.
+#
+# Fires when a `release-docs/<version>` PR merges into master (the
+# semantic "the download page is now live" moment — Hugo re-deploys
+# from the merged docs content, so the /downloads/ landing page
+# switches to the just-shipped version at the same time). Also
+# supports `workflow_dispatch` for maintainer re-renders when the
+# pull_request:closed path missed or the drafts artifact was lost.
+#
+# Renders per-channel drafts (forum, chat, X, Facebook, LinkedIn,
+# mail) into a workflow artifact + step summary. Maintainer copy-
+# pastes onto each channel; mailing list is sent separately via
+# openemr-registration's oe-sender.js using the rendered mail.html +
+# mail.subject.txt files. No posting, no SMTP, no API integration
+# in this phase.
+#
+# This workflow is intentionally a thin sequencer: every non-trivial
+# step is a Taskfile target under tools/release-docs/Taskfile.yml so
+# the operations can be invoked locally for debugging the same way
+# CI runs them.
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. 8.2.0).'
+        required: true
+        type: string
+      tag:
+        description: 'Annotated release tag (e.g. v8_2_0).'
+        required: true
+        type: string
+      branch:
+        description: 'Release branch (e.g. rel-820).'
+        required: true
+        type: string
+      forum_url:
+        description: 'Per-release Discourse thread URL (optional; placeholder rendered if blank).'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+# Serialize per-release so overlapping dispatches for the same version
+# don't race on the same artifact name. Different versions can run in
+# parallel. cancel-in-progress: false because rerenders are cheap and
+# overlapping cancels would lose useful step-summary context.
+concurrency:
+  group: release-announcements-${{ github.event.pull_request.head.ref || inputs.tag }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: tools/release-docs
+
+jobs:
+  draft:
+    name: draft (${{ matrix.runner }})
+    # Fire on workflow_dispatch always, or on pull_request only when a
+    # `release-docs/*` PR actually merged (not just closed unmerged and
+    # not from any other head_ref). GitHub's `pull_request` trigger
+    # can't filter on head_ref natively, only on base branch, so this
+    # job-level `if` is the gate.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+       startsWith(github.event.pull_request.head.ref, 'release-docs/'))
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    env:
+      OUTPUT_DIR: ${{ github.workspace }}/out/announcements
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: none
+
+      - name: Install task
+        uses: arduino/setup-task@v3
+        with:
+          version: '3.x'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install release-docs dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist --no-dev
+
+      - name: Derive release inputs
+        id: inputs
+        env:
+          # pull_request path:      HEAD_REF from head_ref, others empty.
+          # workflow_dispatch path: HEAD_REF empty, VERSION/TAG/BRANCH from inputs.
+          # The derive-announcement-inputs CLI rejects mixing the two,
+          # validates each field against the canonical release-format
+          # patterns (mirroring dispatch.schema.json shapes), and — in
+          # explicit-flags mode — cross-checks that tag + branch actually
+          # describe the version. A workflow_dispatch typo aborts here
+          # instead of shipping artifacts with mismatched links.
+          HEAD_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || '' }}
+          VERSION: ${{ inputs.version }}
+          TAG: ${{ inputs.tag }}
+          BRANCH: ${{ inputs.branch }}
+          FORUM_URL: ${{ inputs.forum_url }}
+        run: task derive-announcement-inputs >> "$GITHUB_OUTPUT"
+
+      - name: Render announcements
+        env:
+          VERSION: ${{ steps.inputs.outputs.version }}
+          TAG: ${{ steps.inputs.outputs.tag }}
+          BRANCH: ${{ steps.inputs.outputs.branch }}
+          FORUM_URL: ${{ steps.inputs.outputs.forum_url }}
+        run: task render-announcements
+
+      - name: Write step summary
+        env:
+          VERSION: ${{ steps.inputs.outputs.version }}
+          TAG: ${{ steps.inputs.outputs.tag }}
+          FORUM_URL: ${{ steps.inputs.outputs.forum_url }}
+        run: OUTPUT="$GITHUB_STEP_SUMMARY" task render-announcement-step-summary
+
+      - name: Upload announcement drafts
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-announcements-${{ steps.inputs.outputs.version }}
+          path: ${{ env.OUTPUT_DIR }}/
+          if-no-files-found: error
