@@ -94,6 +94,21 @@ tasks:
     cmds:
       - php bin/validate-dispatch.php --payload={{.PAYLOAD}}
 
+  resolve-released-at:
+    desc: |
+      Pick the first non-empty released_at candidate from four sources.
+      The workflow gathers each source via inline gh/jq calls; this task
+      just picks the winner. Emits `released_at=<date>` on stdout (or
+      nothing if all sources are empty).
+    deps: [setup]
+    cmds:
+      - >-
+        php bin/resolve-released-at.php
+        {{if .INPUT_RELEASED_AT}}--input-released-at={{shellQuote .INPUT_RELEASED_AT}}{{end}}
+        {{if .RELEASE_PUBLISHED_AT}}--release-published-at={{shellQuote .RELEASE_PUBLISHED_AT}}{{end}}
+        {{if .TAGGER_DATE}}--tagger-date={{shellQuote .TAGGER_DATE}}{{end}}
+        {{if .DISPATCHED_AT}}--dispatched-at={{shellQuote .DISPATCHED_AT}}{{end}}
+
   update-manifest:
     desc: Apply a dispatch payload to a releases.json (defaults to the in-repo copy)
     deps: [setup]
@@ -102,11 +117,17 @@ tasks:
     vars:
       MANIFEST: '{{.MANIFEST | default (printf "%s/data/releases.json" .REPO_ROOT)}}'
     cmds:
+      # RELEASED_AT is optional; when set (openemr-tag path, resolved by
+      # the workflow's Resolve released_at step) it pins the manifest's
+      # released_at to the tag date. When unset, update-manifest.php's
+      # gmdate('Y-m-d') fallback wins -- correct only when the dispatch
+      # happens to fire on the same UTC day as the tag was published.
       - >-
         php bin/update-manifest.php
         --payload={{.PAYLOAD}}
         --manifest={{.MANIFEST}}
         --schema={{.REPO_ROOT}}/data/releases.schema.json
+        {{if .RELEASED_AT}}--released-at={{shellQuote .RELEASED_AT}}{{end}}
 
   derive-announcement-inputs:
     desc: Emit version/tag/branch/forum_url lines for the announcements workflow

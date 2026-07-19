@@ -59,6 +59,10 @@ on:
         description: 'JSON array of binary filenames to forward to website-openemr-files (e.g. ["openemr-8.1.0-ehi.tar.gz"]). Empty array skips the sub-dispatch.'
         required: false
         default: '[]'
+      released_at:
+        description: 'YYYY-MM-DD override for the manifest `released_at` field (openemr-tag only). Leave empty to auto-derive from the tag''s GitHub Release publishedAt (or the dispatch envelope''s dispatched_at as a fallback). Set explicitly for retroactive dispatches where those auto-sources would be wrong.'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -299,10 +303,100 @@ jobs:
           FALLBACK: ${{ steps.ehi.outputs.fallback }}
         run: task workflow:gen-ehi
 
+      # Resolve released_at for the manifest write. The manifest surfaces
+      # this date directly on /downloads/ and /releases/. Left to
+      # update-manifest.php's default it would use gmdate('Y-m-d') --
+      # today's date in the runner's UTC, which is wrong for any dispatch
+      # that fires on a different day than the tag was published
+      # (retroactive dispatches, near-midnight-UTC tag creation, etc.).
+      # See openemr/website-openemr#145.
+      #
+      # Resolution order (openemr-tag events only; other events don't set
+      # released_at):
+      #   1. inputs.released_at        explicit workflow_dispatch override
+      #   2. Release.publishedAt       canonical tag date via GitHub API
+      #                                (matches what users see on the
+      #                                Releases page)
+      #   3. annotated tag tagger.date atomic with tag creation; always
+      #                                exists by the time this workflow
+      #                                runs since the openemr-tag dispatch
+      #                                is emitted AFTER tag creation
+      #   4. envelope.dispatched_at    very last resort if all three
+      #                                GitHub API calls fail
+      #
+      # Steps 2 and 3 are usually within seconds of each other. Step 2 is
+      # preferred because it matches the user-facing "Released" moment on
+      # github.com/openemr/openemr/releases; step 3 fills the narrow window
+      # where openemr-tag dispatch fires before build-release-on-tag.yml
+      # has created the Release object.
+      - name: Resolve released_at
+        id: released_at
+        if: ${{ steps.mode.outputs.test != 'true' && steps.payload.outputs.event == 'openemr-tag' }}
+        env:
+          INPUT_RELEASED_AT: ${{ inputs.released_at }}
+          TAG: ${{ steps.payload.outputs.tag }}
+          PAYLOAD: ${{ steps.payload.outputs.file }}
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: |
+          # Gather each candidate source, then let bin/resolve-released-at.php
+          # pick the winner. Extracting the picker to a testable CLI keeps
+          # the priority order under test coverage (ResolveReleasedAtCliTest);
+          # the inline gh/jq plumbing below stays here since testing external-
+          # command calls in isolation requires PATH-stubbing infrastructure
+          # the project doesn't have and gets exercised in production usage
+          # anyway.
+          #
+          # gh release view exits non-zero when the Release object doesn't
+          # exist yet (openemr-tag dispatch fires simultaneously with the
+          # tag, before build-release-on-tag.yml has created the Release
+          # object). The `(.publishedAt // "")[0:10]` idiom coerces null
+          # to "" before slicing so we don't feed the literal string
+          # "null" downstream when the field exists but is null.
+          release_published_at=$(gh release view "$TAG" --repo openemr/openemr \
+              --json publishedAt --jq '(.publishedAt // "")[0:10]' 2>/dev/null || true)
+          # Annotated tag object's tagger.date. The refs/tags/<tag> lookup
+          # returns the tag object SHA; git/tags/<sha> returns the tagger
+          # metadata. The tag was created before this workflow ran, so this
+          # call should always succeed for openemr-tag events. Same
+          # `// ""` null-guard as above on both jq extractions.
+          tagger_date=''
+          tag_sha=$(gh api "repos/openemr/openemr/git/refs/tags/$TAG" \
+              --jq '.object.sha // ""' 2>/dev/null || true)
+          if [ -n "$tag_sha" ]; then
+            tagger_date=$(gh api "repos/openemr/openemr/git/tags/$tag_sha" \
+                --jq '(.tagger.date // "")[0:10]' 2>/dev/null || true)
+          fi
+          # Envelope dispatched_at is a very-last-resort fallback and is
+          # WRONG for retroactive workflow_dispatch reruns of this workflow:
+          # workflow:resolve-payload synthesizes dispatched_at as `date -u`
+          # (today's UTC time), not the original tag date. That's the same
+          # class of bug this issue is fixing. Operators doing retroactive
+          # re-dispatches for old tags MUST pass -f released_at=YYYY-MM-DD
+          # explicitly. This fallback only helps for repository_dispatch
+          # flows where dispatched_at is set by the openemr side within
+          # seconds of tag creation. In practice this branch essentially
+          # never fires because steps 2+3 (both hit GitHub's API with no
+          # permissions surface) will succeed for any real tag.
+          dispatched_at=$(jq -r '.dispatched_at[0:10] // empty' "$PAYLOAD")
+
+          resolved=$(task resolve-released-at \
+              INPUT_RELEASED_AT="$INPUT_RELEASED_AT" \
+              RELEASE_PUBLISHED_AT="$release_published_at" \
+              TAGGER_DATE="$tagger_date" \
+              DISPATCHED_AT="$dispatched_at" | tail -1)
+          if [ -z "$resolved" ]; then
+            echo "::warning::released_at could not be resolved from inputs, Release object, annotated tag, or dispatched_at; update-manifest.php will fall back to today's date"
+            exit 0
+          fi
+          value="${resolved#released_at=}"
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+          echo "Resolved released_at=$value from candidates (input='$INPUT_RELEASED_AT' release='$release_published_at' tagger='$tagger_date' dispatched='$dispatched_at')"
+
       - name: Update releases manifest
         if: ${{ steps.mode.outputs.test != 'true' }}
         env:
           PAYLOAD: ${{ steps.payload.outputs.file }}
+          RELEASED_AT: ${{ steps.released_at.outputs.value }}
         run: |
           task workflow:strip-sidecar
           task update-manifest \
