@@ -94,6 +94,21 @@ tasks:
     cmds:
       - php bin/validate-dispatch.php --payload={{.PAYLOAD}}
 
+  resolve-released-at:
+    desc: |
+      Pick the first non-empty released_at candidate from four sources.
+      The workflow gathers each source via inline gh/jq calls; this task
+      just picks the winner. Emits `released_at=<date>` on stdout (or
+      nothing if all sources are empty).
+    deps: [setup]
+    cmds:
+      - >-
+        php bin/resolve-released-at.php
+        {{if .INPUT_RELEASED_AT}}--input-released-at={{shellQuote .INPUT_RELEASED_AT}}{{end}}
+        {{if .RELEASE_PUBLISHED_AT}}--release-published-at={{shellQuote .RELEASE_PUBLISHED_AT}}{{end}}
+        {{if .TAGGER_DATE}}--tagger-date={{shellQuote .TAGGER_DATE}}{{end}}
+        {{if .DISPATCHED_AT}}--dispatched-at={{shellQuote .DISPATCHED_AT}}{{end}}
+
   update-manifest:
     desc: Apply a dispatch payload to a releases.json (defaults to the in-repo copy)
     deps: [setup]
