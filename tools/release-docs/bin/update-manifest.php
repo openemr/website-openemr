@@ -78,7 +78,23 @@ $command = new class () extends Command {
             return null;
         }
 
-        return gmdate('Y-m-d');
+        // Last-resort fallback: today's date in UTC. Correct only when the
+        // dispatch happens to fire on the same UTC day as the tag was
+        // published. The release-docs.yml workflow's "Resolve released_at"
+        // step should always pass --released-at for openemr-tag events
+        // (sourced from the tag's Release publishedAt, or the envelope's
+        // dispatched_at, or an operator-supplied workflow_dispatch input);
+        // this fallback only fires if that plumbing breaks or a caller
+        // outside the workflow forgets to pass the flag. Warn to stderr
+        // so the misfire is visible instead of silently producing a wrong
+        // manifest date. See openemr/website-openemr#145.
+        $today = gmdate('Y-m-d');
+        fwrite(STDERR, sprintf(
+            "warning: --released-at not passed for openemr-tag event; falling back to today's UTC"
+            . " date (%s) which may not match the tag's actual publication date\n",
+            $today,
+        ));
+        return $today;
     }
 };
 

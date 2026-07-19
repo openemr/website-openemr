@@ -102,11 +102,17 @@ tasks:
     vars:
       MANIFEST: '{{.MANIFEST | default (printf "%s/data/releases.json" .REPO_ROOT)}}'
     cmds:
+      # RELEASED_AT is optional; when set (openemr-tag path, resolved by
+      # the workflow's Resolve released_at step) it pins the manifest's
+      # released_at to the tag date. When unset, update-manifest.php's
+      # gmdate('Y-m-d') fallback wins -- correct only when the dispatch
+      # happens to fire on the same UTC day as the tag was published.
       - >-
         php bin/update-manifest.php
         --payload={{.PAYLOAD}}
         --manifest={{.MANIFEST}}
         --schema={{.REPO_ROOT}}/data/releases.schema.json
+        {{if .RELEASED_AT}}--released-at={{shellQuote .RELEASED_AT}}{{end}}
 
   derive-announcement-inputs:
     desc: Emit version/tag/branch/forum_url lines for the announcements workflow
