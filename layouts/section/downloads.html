@@ -59,22 +59,40 @@
                         {{ end }}
                     {{ end }}
 
-                    {{/* Resolve checksums. Historical + 8.0.0 use self-hosted .sha1
-                         sidecars from downloads.<platform>.checksums_url. Dispatch-managed
-                         entries without an explicit checksums_url derive a GitHub Release
-                         .sha256 sidecar — matches what the release automation emits
-                         (see v8_1_0 assets). Path-relative values render through absURL
-                         for preview-baseURL correctness. */}}
-                    {{ $linuxCk := "" }}
-                    {{ $winCk := "" }}
-                    {{ with $dl.linux }}{{ $linuxCk = .checksums_url }}{{ end }}
-                    {{ with $dl.windows }}{{ $winCk = .checksums_url }}{{ end }}
+                    {{/* Resolve per-algorithm checksum URLs for tar (linux) and
+                         zip (windows). Historical entries carry explicit URLs in
+                         downloads.<platform>.checksums; dispatch-managed entries
+                         derive sha256 + sha512 URLs from the GitHub Release
+                         sidecars. On the /downloads/ page we always show sha256 +
+                         sha512 inline next to the download link -- no sha1 fallback
+                         even for historical entries (sha1 stays available on the
+                         /releases/ page for compatibility with older verification
+                         workflows, but the download landing page steers current
+                         users at the stronger hashes). */}}
+                    {{ $linuxCk := dict }}
+                    {{ $winCk := dict }}
+                    {{ with $dl.linux }}
+                        {{ with .checksums }}{{ $linuxCk = . }}{{ end }}
+                    {{ end }}
+                    {{ with $dl.windows }}
+                        {{ with .checksums }}{{ $winCk = . }}{{ end }}
+                    {{ end }}
                     {{ if and (not $linuxCk) .entry.sha }}
-                        {{ $linuxCk = printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.tar.gz.sha256" $tag .version }}
+                        {{ $linuxCk = dict
+                            "sha256" (printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.tar.gz.sha256" $tag .version)
+                            "sha512" (printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.tar.gz.sha512" $tag .version)
+                        }}
                     {{ end }}
                     {{ if and (not $winCk) .entry.sha }}
-                        {{ $winCk = printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.zip.sha256" $tag .version }}
+                        {{ $winCk = dict
+                            "sha256" (printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.zip.sha256" $tag .version)
+                            "sha512" (printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.zip.sha512" $tag .version)
+                        }}
                     {{ end }}
+                    {{/* Reusable inline-checksum-links snippet. Renders
+                         "(<a>sha256</a>, <a>sha512</a>)" next to a download,
+                         skipping algorithms the entry doesn't carry. */}}
+                    {{ $inlineAlgos := slice "sha256" "sha512" }}
 
                     <h3>Docker (recommended)</h3>
                     <p>The official OpenEMR Docker image is the recommended way to run OpenEMR.</p>
@@ -86,18 +104,42 @@
                         {{ end }}
                     </ul>
 
+                    {{/* Assemble the inline "(sha256, sha512)" span per platform.
+                         Renders empty string if no algorithms are available so the
+                         download line stays clean. */}}
+                    {{ $linuxCkLinks := slice }}
+                    {{ range $algo := $inlineAlgos }}
+                        {{ with index $linuxCk $algo }}
+                            {{ $linuxCkLinks = $linuxCkLinks | append (printf "<a href=\"%s\">%s</a>" (. | absURL) $algo) }}
+                        {{ end }}
+                    {{ end }}
+                    {{ $winCkLinks := slice }}
+                    {{ range $algo := $inlineAlgos }}
+                        {{ with index $winCk $algo }}
+                            {{ $winCkLinks = $winCkLinks | append (printf "<a href=\"%s\">%s</a>" (. | absURL) $algo) }}
+                        {{ end }}
+                    {{ end }}
+
                     <h3>Linux</h3>
                     <ul>
-                        {{ with $tarballUrl }}<li><a href="{{ . }}">openemr-{{ $latest.version }}.tar.gz</a></li>{{ end }}
-                        {{ with $linuxCk }}<li><a href="{{ . | absURL }}">Checksums</a></li>{{ end }}
+                        {{ with $tarballUrl }}
+                            <li>
+                                <a href="{{ . }}">openemr-{{ $latest.version }}.tar.gz</a>
+                                {{ with $linuxCkLinks }}<span class="download-checksums">({{ delimit . ", " | safeHTML }})</span>{{ end }}
+                            </li>
+                        {{ end }}
                         <li><a href="{{ or $dl.linux.upgrade_url $defaultLinuxUpgrade }}">Upgrade Instructions</a></li>
                         <li><a href="{{ or $dl.linux.install_url $defaultLinuxInstall }}">Installation Instructions</a></li>
                     </ul>
 
                     <h3>Windows</h3>
                     <ul>
-                        {{ with $zipUrl }}<li><a href="{{ . }}">openemr-{{ $latest.version }}.zip</a></li>{{ end }}
-                        {{ with $winCk }}<li><a href="{{ . | absURL }}">Checksums</a></li>{{ end }}
+                        {{ with $zipUrl }}
+                            <li>
+                                <a href="{{ . }}">openemr-{{ $latest.version }}.zip</a>
+                                {{ with $winCkLinks }}<span class="download-checksums">({{ delimit . ", " | safeHTML }})</span>{{ end }}
+                            </li>
+                        {{ end }}
                         <li><a href="{{ or $dl.windows.upgrade_url $defaultWindowsUpgrade }}">Upgrade Instructions</a></li>
                         <li><a href="{{ or $dl.windows.install_url $defaultWindowsInstall }}">Installation Instructions</a></li>
                     </ul>
@@ -141,4 +183,16 @@
         </div>
     </div>
 </div>
+<style type="text/css">
+    .download-checksums {
+        font-size: 0.85em;
+        color: #777;
+    }
+    .download-checksums a {
+        color: inherit;
+    }
+    .download-checksums a:hover {
+        color: #444;
+    }
+</style>
 {{ end }}

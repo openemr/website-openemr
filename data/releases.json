@@ -7,7 +7,11 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha1",
+                    "sha256": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha256",
+                    "sha512": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha512"
+                }
             }
         }
     },
@@ -19,7 +23,11 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha1",
+                    "sha256": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha256",
+                    "sha512": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha512"
+                }
             }
         }
     },
@@ -31,7 +39,11 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha1",
+                    "sha256": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha256",
+                    "sha512": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha512"
+                }
             }
         }
     },
@@ -43,7 +55,11 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha1",
+                    "sha256": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha256",
+                    "sha512": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha512"
+                }
             }
         }
     },
@@ -56,10 +72,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha1",
+                    "sha256": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha256",
+                    "sha512": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/2.8.3/openemr-2.8.3.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/2.8.3/openemr-2.8.3.zip.sha1",
+                    "sha256": "checksums/2.8.3/openemr-2.8.3.zip.sha256",
+                    "sha512": "checksums/2.8.3/openemr-2.8.3.zip.sha512"
+                }
             }
         }
     },
@@ -71,7 +95,11 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha1",
+                    "sha256": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha256",
+                    "sha512": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha512"
+                }
             }
         }
     },
@@ -83,7 +111,11 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha1",
+                    "sha256": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha256",
+                    "sha512": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha512"
+                }
             }
         }
     },
@@ -96,10 +128,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha1",
+                    "sha256": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha256",
+                    "sha512": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/3.0.1/openemr-3.0.1.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/3.0.1/openemr-3.0.1.zip.sha1",
+                    "sha256": "checksums/3.0.1/openemr-3.0.1.zip.sha256",
+                    "sha512": "checksums/3.0.1/openemr-3.0.1.zip.sha512"
+                }
             }
         }
     },
@@ -112,10 +152,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha1",
+                    "sha256": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha256",
+                    "sha512": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/3.1.0/openemr-3.1.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/3.1.0/openemr-3.1.0.zip.sha1",
+                    "sha256": "checksums/3.1.0/openemr-3.1.0.zip.sha256",
+                    "sha512": "checksums/3.1.0/openemr-3.1.0.zip.sha512"
+                }
             }
         }
     },
@@ -128,10 +176,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha1",
+                    "sha256": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha256",
+                    "sha512": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/3.2.0/openemr-3.2.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/3.2.0/openemr-3.2.0.zip.sha1",
+                    "sha256": "checksums/3.2.0/openemr-3.2.0.zip.sha256",
+                    "sha512": "checksums/3.2.0/openemr-3.2.0.zip.sha512"
+                }
             }
         }
     },
@@ -144,10 +200,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha1",
+                    "sha256": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha256",
+                    "sha512": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/4.0.0/openemr-4.0.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.0.0/openemr-4.0.0.zip.sha1",
+                    "sha256": "checksums/4.0.0/openemr-4.0.0.zip.sha256",
+                    "sha512": "checksums/4.0.0/openemr-4.0.0.zip.sha512"
+                }
             }
         }
     },
@@ -160,10 +224,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha1",
+                    "sha256": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha256",
+                    "sha512": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/4.1.0/openemr-4.1.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.1.0/openemr-4.1.0.zip.sha1",
+                    "sha256": "checksums/4.1.0/openemr-4.1.0.zip.sha256",
+                    "sha512": "checksums/4.1.0/openemr-4.1.0.zip.sha512"
+                }
             }
         }
     },
@@ -176,10 +248,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha1",
+                    "sha256": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha256",
+                    "sha512": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/4.1.1/openemr-4.1.1.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.1.1/openemr-4.1.1.zip.sha1",
+                    "sha256": "checksums/4.1.1/openemr-4.1.1.zip.sha256",
+                    "sha512": "checksums/4.1.1/openemr-4.1.1.zip.sha512"
+                }
             }
         }
     },
@@ -192,10 +272,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha1",
+                    "sha256": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha256",
+                    "sha512": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/4.1.2/openemr-4.1.2.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.1.2/openemr-4.1.2.zip.sha1",
+                    "sha256": "checksums/4.1.2/openemr-4.1.2.zip.sha256",
+                    "sha512": "checksums/4.1.2/openemr-4.1.2.zip.sha512"
+                }
             }
         }
     },
@@ -208,10 +296,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha1",
+                    "sha256": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha256",
+                    "sha512": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/4.2.0/openemr-4.2.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.2.0/openemr-4.2.0.zip.sha1",
+                    "sha256": "checksums/4.2.0/openemr-4.2.0.zip.sha256",
+                    "sha512": "checksums/4.2.0/openemr-4.2.0.zip.sha512"
+                }
             }
         }
     },
@@ -224,10 +320,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha1",
+                    "sha256": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha256",
+                    "sha512": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/4.2.1/openemr-4.2.1.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.2.1/openemr-4.2.1.zip.sha1",
+                    "sha256": "checksums/4.2.1/openemr-4.2.1.zip.sha256",
+                    "sha512": "checksums/4.2.1/openemr-4.2.1.zip.sha512"
+                }
             }
         }
     },
@@ -240,10 +344,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha1",
+                    "sha256": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha256",
+                    "sha512": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/4.2.2/openemr-4.2.2.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/4.2.2/openemr-4.2.2.zip.sha1",
+                    "sha256": "checksums/4.2.2/openemr-4.2.2.zip.sha256",
+                    "sha512": "checksums/4.2.2/openemr-4.2.2.zip.sha512"
+                }
             }
         }
     },
@@ -256,10 +368,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha1",
+                    "sha256": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha256",
+                    "sha512": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/5.0.0/openemr-5.0.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/5.0.0/openemr-5.0.0.zip.sha1",
+                    "sha256": "checksums/5.0.0/openemr-5.0.0.zip.sha256",
+                    "sha512": "checksums/5.0.0/openemr-5.0.0.zip.sha512"
+                }
             }
         }
     },
@@ -272,10 +392,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha1",
+                    "sha256": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha256",
+                    "sha512": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/5.0.1/openemr-5.0.1.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/5.0.1/openemr-5.0.1.zip.sha1",
+                    "sha256": "checksums/5.0.1/openemr-5.0.1.zip.sha256",
+                    "sha512": "checksums/5.0.1/openemr-5.0.1.zip.sha512"
+                }
             }
         }
     },
@@ -288,10 +416,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha1",
+                    "sha256": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha256",
+                    "sha512": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/5.0.2/openemr-5.0.2.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/5.0.2/openemr-5.0.2.zip.sha1",
+                    "sha256": "checksums/5.0.2/openemr-5.0.2.zip.sha256",
+                    "sha512": "checksums/5.0.2/openemr-5.0.2.zip.sha512"
+                }
             }
         }
     },
@@ -304,10 +440,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha1",
+                    "sha256": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha256",
+                    "sha512": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/6.0.0/openemr-6.0.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/6.0.0/openemr-6.0.0.zip.sha1",
+                    "sha256": "checksums/6.0.0/openemr-6.0.0.zip.sha256",
+                    "sha512": "checksums/6.0.0/openemr-6.0.0.zip.sha512"
+                }
             }
         }
     },
@@ -320,10 +464,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha1",
+                    "sha256": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha256",
+                    "sha512": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/6.1.0/openemr-6.1.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/6.1.0/openemr-6.1.0.zip.sha1",
+                    "sha256": "checksums/6.1.0/openemr-6.1.0.zip.sha256",
+                    "sha512": "checksums/6.1.0/openemr-6.1.0.zip.sha512"
+                }
             }
         }
     },
@@ -336,10 +488,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha1",
+                    "sha256": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha256",
+                    "sha512": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/7.0.0/openemr-7.0.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.0/openemr-7.0.0.zip.sha1",
+                    "sha256": "checksums/7.0.0/openemr-7.0.0.zip.sha256",
+                    "sha512": "checksums/7.0.0/openemr-7.0.0.zip.sha512"
+                }
             }
         }
     },
@@ -352,10 +512,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha1",
+                    "sha256": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha256",
+                    "sha512": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/7.0.1/openemr-7.0.1.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.1/openemr-7.0.1.zip.sha1",
+                    "sha256": "checksums/7.0.1/openemr-7.0.1.zip.sha256",
+                    "sha512": "checksums/7.0.1/openemr-7.0.1.zip.sha512"
+                }
             }
         }
     },
@@ -368,10 +536,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha1",
+                    "sha256": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha256",
+                    "sha512": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/7.0.2/openemr-7.0.2.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.2/openemr-7.0.2.zip.sha1",
+                    "sha256": "checksums/7.0.2/openemr-7.0.2.zip.sha256",
+                    "sha512": "checksums/7.0.2/openemr-7.0.2.zip.sha512"
+                }
             }
         }
     },
@@ -384,10 +560,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha1",
+                    "sha256": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha256",
+                    "sha512": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/7.0.3/openemr-7.0.3.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.3/openemr-7.0.3.zip.sha1",
+                    "sha256": "checksums/7.0.3/openemr-7.0.3.zip.sha256",
+                    "sha512": "checksums/7.0.3/openemr-7.0.3.zip.sha512"
+                }
             }
         }
     },
@@ -400,10 +584,18 @@
         },
         "downloads": {
             "linux": {
-                "checksums_url": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha1",
+                    "sha256": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha256",
+                    "sha512": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha512"
+                }
             },
             "windows": {
-                "checksums_url": "checksums/7.0.4/openemr-7.0.4.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/7.0.4/openemr-7.0.4.zip.sha1",
+                    "sha256": "checksums/7.0.4/openemr-7.0.4.zip.sha256",
+                    "sha512": "checksums/7.0.4/openemr-7.0.4.zip.sha512"
+                }
             }
         }
     },
@@ -419,12 +611,20 @@
             "linux": {
                 "install_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Linux_Installation",
                 "upgrade_url": "https://www.open-emr.org/wiki/index.php/Linux_Upgrade_7.0.4_to_8.0.0",
-                "checksums_url": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha1"
+                "checksums": {
+                    "sha1": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha1",
+                    "sha256": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha256",
+                    "sha512": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha512"
+                }
             },
             "windows": {
                 "install_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Windows_Installation",
                 "upgrade_url": "https://www.open-emr.org/wiki/index.php/Windows_Upgrade_7.0.4_to_8.0.0",
-                "checksums_url": "checksums/8.0.0/openemr-8.0.0.zip.sha1"
+                "checksums": {
+                    "sha1": "checksums/8.0.0/openemr-8.0.0.zip.sha1",
+                    "sha256": "checksums/8.0.0/openemr-8.0.0.zip.sha256",
+                    "sha512": "checksums/8.0.0/openemr-8.0.0.zip.sha512"
+                }
             }
         },
         "archive_urls": {

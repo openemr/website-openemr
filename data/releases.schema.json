@@ -59,7 +59,16 @@
                             "properties": {
                                 "install_url":   { "type": "string", "format": "uri" },
                                 "upgrade_url":   { "type": "string", "format": "uri" },
-                                "checksums_url": { "type": "string", "format": "uri-reference" }
+                                "checksums": {
+                                    "description": "Optional map of hash-algorithm -> URL for this platform's release archive. Historical (SourceForge-era) entries carry explicit URLs pointing at self-hosted sidecars under static/checksums/<version>/. Dispatch-managed entries (with a git sha) omit this field; the /downloads/ and /releases/ templates derive .sha256 + .sha512 URLs pointing at the GitHub Release sidecars automatically. Recognized keys: sha1 (historical only), sha256, sha512.",
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "sha1":   { "type": "string", "format": "uri-reference" },
+                                        "sha256": { "type": "string", "format": "uri-reference" },
+                                        "sha512": { "type": "string", "format": "uri-reference" }
+                                    }
+                                }
                             }
                         },
                         "windows": {
@@ -68,7 +77,16 @@
                             "properties": {
                                 "install_url":   { "type": "string", "format": "uri" },
                                 "upgrade_url":   { "type": "string", "format": "uri" },
-                                "checksums_url": { "type": "string", "format": "uri-reference" }
+                                "checksums": {
+                                    "description": "Optional map of hash-algorithm -> URL for this platform's release archive. Historical (SourceForge-era) entries carry explicit URLs pointing at self-hosted sidecars under static/checksums/<version>/. Dispatch-managed entries (with a git sha) omit this field; the /downloads/ and /releases/ templates derive .sha256 + .sha512 URLs pointing at the GitHub Release sidecars automatically. Recognized keys: sha1 (historical only), sha256, sha512.",
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "sha1":   { "type": "string", "format": "uri-reference" },
+                                        "sha256": { "type": "string", "format": "uri-reference" },
+                                        "sha512": { "type": "string", "format": "uri-reference" }
+                                    }
+                                }
                             }
                         }
                     }
