@@ -134,6 +134,99 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
+    public function testMergeSameNameEntriesCollapsesSameNameAcrossDifferentEmails(): void
+    {
+        // Reproduces the Eric Stern / Fabricio Orrala case: same
+        // person commits from two email addresses under the same
+        // display name. Email-based grouping alone leaves them as
+        // two rows; this second pass merges them.
+        $entries = [
+            ['name' => 'Eric Stern', 'commits' => 213],
+            ['name' => 'Eric Stern', 'commits' => 3],
+            ['name' => 'Alice Solo', 'commits' => 42],
+        ];
+
+        $merged = (new AcknowledgementsGenerator())->mergeSameNameEntries($entries);
+
+        self::assertSame(
+            [
+                ['name' => 'Eric Stern', 'commits' => 216],
+                ['name' => 'Alice Solo', 'commits' => 42],
+            ],
+            $merged,
+        );
+    }
+
+    public function testMergeSameNameEntriesIsCaseInsensitive(): void
+    {
+        // Someone commits under "Alice Smith" from one email and
+        // "alice smith" from another. Case-insensitive name match
+        // should merge them.
+        $entries = [
+            ['name' => 'Alice Smith', 'commits' => 10],
+            ['name' => 'alice smith', 'commits' => 3],
+        ];
+
+        $merged = (new AcknowledgementsGenerator())->mergeSameNameEntries($entries);
+
+        self::assertSame(
+            // "Alice Smith" wins the display-name tie-break (higher
+            // count contributes more weight).
+            [['name' => 'Alice Smith', 'commits' => 13]],
+            $merged,
+        );
+    }
+
+    public function testMergeSameNameEntriesHandlesAccentedCharactersViaMbStrtolower(): void
+    {
+        // strtolower is byte-level and doesn't fold accented characters
+        // (é/É produce different bytes), so a plain strtolower key would
+        // fail to merge "François" / "françois". mb_strtolower with
+        // UTF-8 folds correctly.
+        $entries = [
+            ['name' => 'François Dupont', 'commits' => 5],
+            ['name' => 'françois dupont', 'commits' => 3],
+        ];
+
+        $merged = (new AcknowledgementsGenerator())->mergeSameNameEntries($entries);
+
+        self::assertSame(
+            [['name' => 'François Dupont', 'commits' => 8]],
+            $merged,
+        );
+    }
+
+    public function testMergeSameNameEntriesPreservesCjkNamesUnchanged(): void
+    {
+        // CJK characters have no case; mb_strtolower is a no-op on them.
+        // Two entries that share a CJK name should merge exactly; two
+        // that differ should stay separate.
+        $entries = [
+            ['name' => '李明', 'commits' => 5],
+            ['name' => '李明', 'commits' => 3],
+            ['name' => '张伟', 'commits' => 2],
+        ];
+
+        $merged = (new AcknowledgementsGenerator())->mergeSameNameEntries($entries);
+
+        self::assertCount(2, $merged);
+        self::assertSame(['name' => '李明', 'commits' => 8], $merged[0]);
+        self::assertSame(['name' => '张伟', 'commits' => 2], $merged[1]);
+    }
+
+    public function testMergeSameNameEntriesLeavesUniqueEntriesAlone(): void
+    {
+        $entries = [
+            ['name' => 'Alice', 'commits' => 10],
+            ['name' => 'Bob', 'commits' => 5],
+            ['name' => 'Carol', 'commits' => 2],
+        ];
+
+        $merged = (new AcknowledgementsGenerator())->mergeSameNameEntries($entries);
+
+        self::assertSame($entries, $merged);
+    }
+
     public function testFilterAutomatedAuthorsDropsBotAuthorsAndReindexes(): void
     {
         $authors = (new AcknowledgementsGenerator())->filterAutomatedAuthors([

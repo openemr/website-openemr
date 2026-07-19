@@ -42,7 +42,8 @@ final class AcknowledgementsGenerator
     {
         $commits = $this->logAuthors($repoPath, $fromRev, $toRev);
         $grouped = $this->groupByEmail($commits);
-        return $this->render($this->filterAutomatedAuthors($grouped), $version);
+        $merged = $this->mergeSameNameEntries($grouped);
+        return $this->render($this->filterAutomatedAuthors($merged), $version);
     }
 
     /**
@@ -186,6 +187,53 @@ final class AcknowledgementsGenerator
         });
 
         return $authors;
+    }
+
+    /**
+     * Second-pass dedup after groupByEmail(): merge entries whose
+     * resolved display name matches case-insensitively. This catches
+     * the same-person-different-email case (a contributor committing
+     * from both work and personal git accounts under the same display
+     * name) that pure email-based grouping would leave as two rows.
+     *
+     * Uses mb_strtolower(..., 'UTF-8') for the name key so accented
+     * characters (é/É, ß/SS, etc.) fold correctly; CJK characters
+     * have no case and pass through unchanged.
+     *
+     * @param list<array{name: string, commits: int}> $entries
+     * @return list<array{name: string, commits: int}>
+     */
+    public function mergeSameNameEntries(array $entries): array
+    {
+        /** @var array<string, array{total: int, spellings: array<string, int>}> $byName */
+        $byName = [];
+        foreach ($entries as $entry) {
+            $key = mb_strtolower($entry['name'], 'UTF-8');
+            if (!isset($byName[$key])) {
+                $byName[$key] = ['total' => 0, 'spellings' => []];
+            }
+            $byName[$key]['total'] += $entry['commits'];
+            // Preserve each spelling weighted by its commit contribution so
+            // the same tie-break rules (most-used, then longest, then
+            // alphabetical) apply to the merged display name.
+            $byName[$key]['spellings'][$entry['name']]
+                = ($byName[$key]['spellings'][$entry['name']] ?? 0) + $entry['commits'];
+        }
+
+        $merged = [];
+        foreach ($byName as $entry) {
+            $merged[] = [
+                'name' => self::pickDisplayName($entry['spellings']),
+                'commits' => $entry['total'],
+            ];
+        }
+
+        usort($merged, static function (array $a, array $b): int {
+            $byCommits = $b['commits'] <=> $a['commits'];
+            return $byCommits !== 0 ? $byCommits : strcmp($a['name'], $b['name']);
+        });
+
+        return $merged;
     }
 
     /**
