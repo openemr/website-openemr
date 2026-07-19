@@ -216,10 +216,14 @@ final class AcknowledgementsGeneratorTest extends TestCase
     {
         // Full pipeline: parseLogOutput -> groupByEmail -> filterAutomated
         // -> render. Uses 8.2.0 (the most recent stable release) as
-        // the version label. 8.1.0 would be ambiguous (that version
-        // was cut then skipped, so it's a real-but-nonexistent tag).
+        // the version label; range name reflects the real prev-release
+        // resolution: openemr/openemr's BranchVersionResolver walks
+        // past any version missing from website-openemr's
+        // data/releases.json, and 8.1.0 (cut then skipped) is
+        // intentionally absent from that manifest -- so 8.2.0's actual
+        // acknowledgements range is v8_0_0..v8_2_0, not v8_1_0..v8_2_0.
         $generator = new AcknowledgementsGenerator();
-        $commits = $generator->parseLogOutput(self::loadFixture('log-8.1.0-to-8.2.0.txt'));
+        $commits = $generator->parseLogOutput(self::loadFixture('log-8.0.0-to-8.2.0.txt'));
         $grouped = $generator->groupByEmail($commits);
         $rendered = $generator->render($generator->filterAutomatedAuthors($grouped), '8.2.0');
 
@@ -229,7 +233,7 @@ final class AcknowledgementsGeneratorTest extends TestCase
     public function testRenderIsDeterministic(): void
     {
         $generator = new AcknowledgementsGenerator();
-        $commits = $generator->parseLogOutput(self::loadFixture('log-8.1.0-to-8.2.0.txt'));
+        $commits = $generator->parseLogOutput(self::loadFixture('log-8.0.0-to-8.2.0.txt'));
         $authors = $generator->filterAutomatedAuthors($generator->groupByEmail($commits));
 
         self::assertSame($generator->render($authors, '8.2.0'), $generator->render($authors, '8.2.0'));
