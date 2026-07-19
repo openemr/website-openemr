@@ -125,7 +125,7 @@
                         {{ with $tarballUrl }}
                             <li>
                                 <a href="{{ . }}">openemr-{{ $latest.version }}.tar.gz</a>
-                                {{ with $linuxCkLinks }}({{ delimit . ", " | safeHTML }}){{ end }}
+                                {{ with $linuxCkLinks }}<span class="download-checksums">({{ delimit . ", " | safeHTML }})</span>{{ end }}
                             </li>
                         {{ end }}
                         <li><a href="{{ or $dl.linux.upgrade_url $defaultLinuxUpgrade }}">Upgrade Instructions</a></li>
@@ -137,7 +137,7 @@
                         {{ with $zipUrl }}
                             <li>
                                 <a href="{{ . }}">openemr-{{ $latest.version }}.zip</a>
-                                {{ with $winCkLinks }}({{ delimit . ", " | safeHTML }}){{ end }}
+                                {{ with $winCkLinks }}<span class="download-checksums">({{ delimit . ", " | safeHTML }})</span>{{ end }}
                             </li>
                         {{ end }}
                         <li><a href="{{ or $dl.windows.upgrade_url $defaultWindowsUpgrade }}">Upgrade Instructions</a></li>
@@ -183,4 +183,16 @@
         </div>
     </div>
 </div>
+<style type="text/css">
+    .download-checksums {
+        font-size: 0.85em;
+        color: #777;
+    }
+    .download-checksums a {
+        color: inherit;
+    }
+    .download-checksums a:hover {
+        color: #444;
+    }
+</style>
 {{ end }}

@@ -119,12 +119,12 @@
                         <td>
                             {{ with $tarballUrl }}
                                 <a href="{{ . }}">tar.gz</a>
-                                {{ with $linuxCkLinks }}({{ delimit . ", " | safeHTML }}){{ end }}
+                                {{ with $linuxCkLinks }}<span class="download-checksums">({{ delimit . ", " | safeHTML }})</span>{{ end }}
                             {{ end }}
                             {{ if and $tarballUrl $zipUrl }}&nbsp;|&nbsp;{{ end }}
                             {{ with $zipUrl }}
                                 <a href="{{ . }}">zip</a>
-                                {{ with $winCkLinks }}({{ delimit . ", " | safeHTML }}){{ end }}
+                                {{ with $winCkLinks }}<span class="download-checksums">({{ delimit . ", " | safeHTML }})</span>{{ end }}
                             {{ end }}
                         </td>
                     </tr>
@@ -149,6 +149,16 @@
     table.release-history th {
         text-align: left;
         background: #f7f7f7;
+    }
+    .download-checksums {
+        font-size: 0.85em;
+        color: #777;
+    }
+    .download-checksums a {
+        color: inherit;
+    }
+    .download-checksums a:hover {
+        color: #444;
     }
 </style>
 {{ end }}
