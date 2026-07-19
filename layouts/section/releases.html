@@ -31,7 +31,6 @@
                                     <th>Released</th>
                                     <th>Release notes</th>
                                     <th>Download</th>
-                                    <th>Checksums</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,26 +55,52 @@
                         {{ end }}
                     {{ end }}
 
-                    {{/* Resolve checksums. Historical + 8.0.0 use self-hosted .sha1
-                         sidecars from data/releases.json's downloads.<platform>.checksums_url
-                         field (path-relative; absURL prepends the environment baseURL).
-                         Dispatch-managed entries without an explicit checksums_url derive
-                         a GitHub Release .sha256 sidecar — matches the sidecar naming that
-                         the release automation already emits (see v8_1_0 assets). */}}
-                    {{ $linuxCk := "" }}
-                    {{ $winCk := "" }}
+                    {{/* Resolve per-algorithm checksum URLs for tar (linux) and
+                         zip (windows). Historical (SourceForge-era) entries carry
+                         explicit URLs in data/releases.json's
+                         downloads.<platform>.checksums map, pointing at self-hosted
+                         sidecars under static/checksums/<version>/. Dispatch-managed
+                         entries (with a git sha) derive URLs pointing at the
+                         .sha256 and .sha512 sidecars on the GitHub Release object.
+                         Rendered inline next to the download link as
+                         "(sha256, sha512)". sha1 stays committed under
+                         static/checksums/ for audit purposes but doesn't render on
+                         the page -- sha256 + sha512 are what current users should
+                         verify against. */}}
+                    {{ $inlineAlgos := slice "sha256" "sha512" }}
+                    {{ $linuxCk := dict }}
+                    {{ $winCk := dict }}
                     {{ with .entry.downloads }}
-                        {{ with .linux }}{{ $linuxCk = .checksums_url }}{{ end }}
-                        {{ with .windows }}{{ $winCk = .checksums_url }}{{ end }}
+                        {{ with .linux }}
+                            {{ with .checksums }}{{ $linuxCk = . }}{{ end }}
+                        {{ end }}
+                        {{ with .windows }}
+                            {{ with .checksums }}{{ $winCk = . }}{{ end }}
+                        {{ end }}
                     {{ end }}
-                    {{ $ckExt := ".sha1" }}
                     {{ if and (not $linuxCk) .entry.sha }}
-                        {{ $linuxCk = printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.tar.gz.sha256" $tag .version }}
-                        {{ $ckExt = ".sha256" }}
+                        {{ $linuxCk = dict
+                            "sha256" (printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.tar.gz.sha256" $tag .version)
+                            "sha512" (printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.tar.gz.sha512" $tag .version)
+                        }}
                     {{ end }}
                     {{ if and (not $winCk) .entry.sha }}
-                        {{ $winCk = printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.zip.sha256" $tag .version }}
-                        {{ $ckExt = ".sha256" }}
+                        {{ $winCk = dict
+                            "sha256" (printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.zip.sha256" $tag .version)
+                            "sha512" (printf "https://github.com/openemr/openemr/releases/download/%s/openemr-%s.zip.sha512" $tag .version)
+                        }}
+                    {{ end }}
+                    {{ $linuxCkLinks := slice }}
+                    {{ range $algo := $inlineAlgos }}
+                        {{ with index $linuxCk $algo }}
+                            {{ $linuxCkLinks = $linuxCkLinks | append (printf "<a href=\"%s\">%s</a>" (. | absURL) $algo) }}
+                        {{ end }}
+                    {{ end }}
+                    {{ $winCkLinks := slice }}
+                    {{ range $algo := $inlineAlgos }}
+                        {{ with index $winCk $algo }}
+                            {{ $winCkLinks = $winCkLinks | append (printf "<a href=\"%s\">%s</a>" (. | absURL) $algo) }}
+                        {{ end }}
                     {{ end }}
 
                     <tr>
@@ -92,14 +117,15 @@
                             {{ end }}
                         </td>
                         <td>
-                            {{ with $tarballUrl }}<a href="{{ . }}">tar.gz</a>{{ end }}
+                            {{ with $tarballUrl }}
+                                <a href="{{ . }}">tar.gz</a>
+                                {{ with $linuxCkLinks }}({{ delimit . ", " | safeHTML }}){{ end }}
+                            {{ end }}
                             {{ if and $tarballUrl $zipUrl }}&nbsp;|&nbsp;{{ end }}
-                            {{ with $zipUrl }}<a href="{{ . }}">zip</a>{{ end }}
-                        </td>
-                        <td>
-                            {{ with $linuxCk }}<a href="{{ . | absURL }}">linux {{ $ckExt }}</a>{{ end }}
-                            {{ if and $linuxCk $winCk }}&nbsp;|&nbsp;{{ end }}
-                            {{ with $winCk }}<a href="{{ . | absURL }}">windows {{ $ckExt }}</a>{{ end }}
+                            {{ with $zipUrl }}
+                                <a href="{{ . }}">zip</a>
+                                {{ with $winCkLinks }}({{ delimit . ", " | safeHTML }}){{ end }}
+                            {{ end }}
                         </td>
                     </tr>
                 {{ end }}
