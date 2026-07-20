@@ -1,642 +1,666 @@
 {
-    "2.7.2": {
-        "status": "FINAL",
-        "released_at": "2005-06-01",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.7.2/openemr-2.7.2.tar.gz/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha1",
-                    "sha256": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha256",
-                    "sha512": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha512"
-                }
-            }
+  "1.5.0": {
+    "status": "FINAL",
+    "released_at": "2002-08-16",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OldFiles/openemr-1.5.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OldFiles/openemr-1.5.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/1.5.0/openemr-1.5.tar.gz.sha1",
+          "sha256": "checksums/1.5.0/openemr-1.5.tar.gz.sha256",
+          "sha512": "checksums/1.5.0/openemr-1.5.tar.gz.sha512"
         }
-    },
-    "2.8.0": {
-        "status": "FINAL",
-        "released_at": "2005-11-11",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.0/openemr-2.8.0.tar.gz/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha1",
-                    "sha256": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha256",
-                    "sha512": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha512"
-                }
-            }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/1.5.0/openemr-1.5.zip.sha1",
+          "sha256": "checksums/1.5.0/openemr-1.5.zip.sha256",
+          "sha512": "checksums/1.5.0/openemr-1.5.zip.sha512"
         }
-    },
-    "2.8.1": {
-        "status": "FINAL",
-        "released_at": "2006-01-17",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.1/openemr-2.8.1.tar.gz/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha1",
-                    "sha256": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha256",
-                    "sha512": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha512"
-                }
-            }
-        }
-    },
-    "2.8.2": {
-        "status": "FINAL",
-        "released_at": "2007-01-14",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.2/openemr-2.8.2.tar.gz/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha1",
-                    "sha256": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha256",
-                    "sha512": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha512"
-                }
-            }
-        }
-    },
-    "2.8.3": {
-        "status": "FINAL",
-        "released_at": "2007-08-22",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.3/openemr-2.8.3.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.3/openemr-2.8.3.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha1",
-                    "sha256": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha256",
-                    "sha512": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/2.8.3/openemr-2.8.3.zip.sha1",
-                    "sha256": "checksums/2.8.3/openemr-2.8.3.zip.sha256",
-                    "sha512": "checksums/2.8.3/openemr-2.8.3.zip.sha512"
-                }
-            }
-        }
-    },
-    "2.9.0": {
-        "status": "FINAL",
-        "released_at": "2008-08-06",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.9.0/openemr-2.9.0.tar.gz/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha1",
-                    "sha256": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha256",
-                    "sha512": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha512"
-                }
-            }
-        }
-    },
-    "3.0.0": {
-        "status": "FINAL",
-        "released_at": "2009-03-15",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.0.0/openemr-3.0.0.tar.gz/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha1",
-                    "sha256": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha256",
-                    "sha512": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha512"
-                }
-            }
-        }
-    },
-    "3.0.1": {
-        "status": "FINAL",
-        "released_at": "2009-03-31",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.0.1/openemr-3.0.1.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.0.1/openemr-3.0.1.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha1",
-                    "sha256": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha256",
-                    "sha512": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/3.0.1/openemr-3.0.1.zip.sha1",
-                    "sha256": "checksums/3.0.1/openemr-3.0.1.zip.sha256",
-                    "sha512": "checksums/3.0.1/openemr-3.0.1.zip.sha512"
-                }
-            }
-        }
-    },
-    "3.1.0": {
-        "status": "FINAL",
-        "released_at": "2009-08-24",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.1.0/openemr-3.1.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.1.0/openemr-3.1.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha1",
-                    "sha256": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha256",
-                    "sha512": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/3.1.0/openemr-3.1.0.zip.sha1",
-                    "sha256": "checksums/3.1.0/openemr-3.1.0.zip.sha256",
-                    "sha512": "checksums/3.1.0/openemr-3.1.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "3.2.0": {
-        "status": "FINAL",
-        "released_at": "2010-02-15",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.2.0/openemr-3.2.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.2.0/openemr-3.2.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha1",
-                    "sha256": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha256",
-                    "sha512": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/3.2.0/openemr-3.2.0.zip.sha1",
-                    "sha256": "checksums/3.2.0/openemr-3.2.0.zip.sha256",
-                    "sha512": "checksums/3.2.0/openemr-3.2.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "4.0.0": {
-        "status": "FINAL",
-        "released_at": "2011-03-26",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.0.0/openemr-4.0.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.0.0/openemr-4.0.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha1",
-                    "sha256": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha256",
-                    "sha512": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/4.0.0/openemr-4.0.0.zip.sha1",
-                    "sha256": "checksums/4.0.0/openemr-4.0.0.zip.sha256",
-                    "sha512": "checksums/4.0.0/openemr-4.0.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "4.1.0": {
-        "status": "FINAL",
-        "released_at": "2011-09-21",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.0/openemr-4.1.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.0/openemr-4.1.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha1",
-                    "sha256": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha256",
-                    "sha512": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/4.1.0/openemr-4.1.0.zip.sha1",
-                    "sha256": "checksums/4.1.0/openemr-4.1.0.zip.sha256",
-                    "sha512": "checksums/4.1.0/openemr-4.1.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "4.1.1": {
-        "status": "FINAL",
-        "released_at": "2012-08-29",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.1/openemr-4.1.1.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.1/openemr-4.1.1.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha1",
-                    "sha256": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha256",
-                    "sha512": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/4.1.1/openemr-4.1.1.zip.sha1",
-                    "sha256": "checksums/4.1.1/openemr-4.1.1.zip.sha256",
-                    "sha512": "checksums/4.1.1/openemr-4.1.1.zip.sha512"
-                }
-            }
-        }
-    },
-    "4.1.2": {
-        "status": "FINAL",
-        "released_at": "2013-08-16",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.2/openemr-4.1.2.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.2/openemr-4.1.2.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha1",
-                    "sha256": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha256",
-                    "sha512": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/4.1.2/openemr-4.1.2.zip.sha1",
-                    "sha256": "checksums/4.1.2/openemr-4.1.2.zip.sha256",
-                    "sha512": "checksums/4.1.2/openemr-4.1.2.zip.sha512"
-                }
-            }
-        }
-    },
-    "4.2.0": {
-        "status": "FINAL",
-        "released_at": "2014-12-20",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.0/openemr-4.2.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.0/openemr-4.2.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha1",
-                    "sha256": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha256",
-                    "sha512": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/4.2.0/openemr-4.2.0.zip.sha1",
-                    "sha256": "checksums/4.2.0/openemr-4.2.0.zip.sha256",
-                    "sha512": "checksums/4.2.0/openemr-4.2.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "4.2.1": {
-        "status": "FINAL",
-        "released_at": "2016-03-23",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.1/openemr-4.2.1.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.1/openemr-4.2.1.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha1",
-                    "sha256": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha256",
-                    "sha512": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/4.2.1/openemr-4.2.1.zip.sha1",
-                    "sha256": "checksums/4.2.1/openemr-4.2.1.zip.sha256",
-                    "sha512": "checksums/4.2.1/openemr-4.2.1.zip.sha512"
-                }
-            }
-        }
-    },
-    "4.2.2": {
-        "status": "FINAL",
-        "released_at": "2016-05-18",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.2/openemr-4.2.2.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.2/openemr-4.2.2.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha1",
-                    "sha256": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha256",
-                    "sha512": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/4.2.2/openemr-4.2.2.zip.sha1",
-                    "sha256": "checksums/4.2.2/openemr-4.2.2.zip.sha256",
-                    "sha512": "checksums/4.2.2/openemr-4.2.2.zip.sha512"
-                }
-            }
-        }
-    },
-    "5.0.0": {
-        "status": "FINAL",
-        "released_at": "2017-02-13",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.0/openemr-5.0.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.0/openemr-5.0.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha1",
-                    "sha256": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha256",
-                    "sha512": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/5.0.0/openemr-5.0.0.zip.sha1",
-                    "sha256": "checksums/5.0.0/openemr-5.0.0.zip.sha256",
-                    "sha512": "checksums/5.0.0/openemr-5.0.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "5.0.1": {
-        "status": "FINAL",
-        "released_at": "2018-04-21",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.1/openemr-5.0.1.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.1/openemr-5.0.1.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha1",
-                    "sha256": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha256",
-                    "sha512": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/5.0.1/openemr-5.0.1.zip.sha1",
-                    "sha256": "checksums/5.0.1/openemr-5.0.1.zip.sha256",
-                    "sha512": "checksums/5.0.1/openemr-5.0.1.zip.sha512"
-                }
-            }
-        }
-    },
-    "5.0.2": {
-        "status": "FINAL",
-        "released_at": "2019-08-03",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.2/openemr-5.0.2.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.2/openemr-5.0.2.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha1",
-                    "sha256": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha256",
-                    "sha512": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/5.0.2/openemr-5.0.2.zip.sha1",
-                    "sha256": "checksums/5.0.2/openemr-5.0.2.zip.sha256",
-                    "sha512": "checksums/5.0.2/openemr-5.0.2.zip.sha512"
-                }
-            }
-        }
-    },
-    "6.0.0": {
-        "status": "FINAL",
-        "released_at": "2021-01-05",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.0.0/openemr-6.0.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.0.0/openemr-6.0.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha1",
-                    "sha256": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha256",
-                    "sha512": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/6.0.0/openemr-6.0.0.zip.sha1",
-                    "sha256": "checksums/6.0.0/openemr-6.0.0.zip.sha256",
-                    "sha512": "checksums/6.0.0/openemr-6.0.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "6.1.0": {
-        "status": "FINAL",
-        "released_at": "2022-03-20",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.1.0/openemr-6.1.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.1.0/openemr-6.1.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha1",
-                    "sha256": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha256",
-                    "sha512": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/6.1.0/openemr-6.1.0.zip.sha1",
-                    "sha256": "checksums/6.1.0/openemr-6.1.0.zip.sha256",
-                    "sha512": "checksums/6.1.0/openemr-6.1.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "7.0.0": {
-        "status": "FINAL",
-        "released_at": "2022-07-18",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.0/openemr-7.0.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.0/openemr-7.0.0.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha1",
-                    "sha256": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha256",
-                    "sha512": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/7.0.0/openemr-7.0.0.zip.sha1",
-                    "sha256": "checksums/7.0.0/openemr-7.0.0.zip.sha256",
-                    "sha512": "checksums/7.0.0/openemr-7.0.0.zip.sha512"
-                }
-            }
-        }
-    },
-    "7.0.1": {
-        "status": "FINAL",
-        "released_at": "2023-04-25",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.1/openemr-7.0.1.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.1/openemr-7.0.1.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha1",
-                    "sha256": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha256",
-                    "sha512": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/7.0.1/openemr-7.0.1.zip.sha1",
-                    "sha256": "checksums/7.0.1/openemr-7.0.1.zip.sha256",
-                    "sha512": "checksums/7.0.1/openemr-7.0.1.zip.sha512"
-                }
-            }
-        }
-    },
-    "7.0.2": {
-        "status": "FINAL",
-        "released_at": "2023-11-15",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.2/openemr-7.0.2.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.2/openemr-7.0.2.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha1",
-                    "sha256": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha256",
-                    "sha512": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/7.0.2/openemr-7.0.2.zip.sha1",
-                    "sha256": "checksums/7.0.2/openemr-7.0.2.zip.sha256",
-                    "sha512": "checksums/7.0.2/openemr-7.0.2.zip.sha512"
-                }
-            }
-        }
-    },
-    "7.0.3": {
-        "status": "FINAL",
-        "released_at": "2025-03-19",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.3/openemr-7.0.3.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.3/openemr-7.0.3.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha1",
-                    "sha256": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha256",
-                    "sha512": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/7.0.3/openemr-7.0.3.zip.sha1",
-                    "sha256": "checksums/7.0.3/openemr-7.0.3.zip.sha256",
-                    "sha512": "checksums/7.0.3/openemr-7.0.3.zip.sha512"
-                }
-            }
-        }
-    },
-    "7.0.4": {
-        "status": "FINAL",
-        "released_at": "2025-12-18",
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.4/openemr-7.0.4.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.4/openemr-7.0.4.zip/download"
-        },
-        "downloads": {
-            "linux": {
-                "checksums": {
-                    "sha1": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha1",
-                    "sha256": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha256",
-                    "sha512": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "checksums": {
-                    "sha1": "checksums/7.0.4/openemr-7.0.4.zip.sha1",
-                    "sha256": "checksums/7.0.4/openemr-7.0.4.zip.sha256",
-                    "sha512": "checksums/7.0.4/openemr-7.0.4.zip.sha512"
-                }
-            }
-        }
-    },
-    "8.0.0": {
-        "status": "FINAL",
-        "branch": "rel-800",
-        "sha": "b91b73600327acb46252b9fce7d04467eea126fd",
-        "released_at": "2026-02-13",
-        "downloads": {
-            "docker": {
-                "install_url": "https://community.open-emr.org/t/openemr-official-docker-has-been-released/9084"
-            },
-            "linux": {
-                "install_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Linux_Installation",
-                "upgrade_url": "https://www.open-emr.org/wiki/index.php/Linux_Upgrade_7.0.4_to_8.0.0",
-                "checksums": {
-                    "sha1": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha1",
-                    "sha256": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha256",
-                    "sha512": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha512"
-                }
-            },
-            "windows": {
-                "install_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Windows_Installation",
-                "upgrade_url": "https://www.open-emr.org/wiki/index.php/Windows_Upgrade_7.0.4_to_8.0.0",
-                "checksums": {
-                    "sha1": "checksums/8.0.0/openemr-8.0.0.zip.sha1",
-                    "sha256": "checksums/8.0.0/openemr-8.0.0.zip.sha256",
-                    "sha512": "checksums/8.0.0/openemr-8.0.0.zip.sha512"
-                }
-            }
-        },
-        "archive_urls": {
-            "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.0.0/openemr-8.0.0.tar.gz/download",
-            "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.0.0/openemr-8.0.0.zip/download"
-        },
-        "patches_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_Patches"
-    },
-    "8.2.0": {
-        "branch": "rel-820",
-        "sha": "6125a2fd8089c8bcc3848071c1293c60e27a7585",
-        "status": "FINAL",
-        "released_at": "2026-07-08"
+      }
     }
+  },
+  "2.7.2": {
+    "status": "FINAL",
+    "released_at": "2005-06-01",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.7.2/openemr-2.7.2.tar.gz/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha1",
+          "sha256": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha256",
+          "sha512": "checksums/2.7.2/openemr-2.7.2.tar.gz.sha512"
+        }
+      }
+    }
+  },
+  "2.8.0": {
+    "status": "FINAL",
+    "released_at": "2005-11-11",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.0/openemr-2.8.0.tar.gz/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha1",
+          "sha256": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha256",
+          "sha512": "checksums/2.8.0/openemr-2.8.0.tar.gz.sha512"
+        }
+      }
+    }
+  },
+  "2.8.1": {
+    "status": "FINAL",
+    "released_at": "2006-01-17",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.1/openemr-2.8.1.tar.gz/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha1",
+          "sha256": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha256",
+          "sha512": "checksums/2.8.1/openemr-2.8.1.tar.gz.sha512"
+        }
+      }
+    }
+  },
+  "2.8.2": {
+    "status": "FINAL",
+    "released_at": "2007-01-14",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.2/openemr-2.8.2.tar.gz/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha1",
+          "sha256": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha256",
+          "sha512": "checksums/2.8.2/openemr-2.8.2.tar.gz.sha512"
+        }
+      }
+    }
+  },
+  "2.8.3": {
+    "status": "FINAL",
+    "released_at": "2007-08-22",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.3/openemr-2.8.3.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.8.3/openemr-2.8.3.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha1",
+          "sha256": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha256",
+          "sha512": "checksums/2.8.3/openemr-2.8.3.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/2.8.3/openemr-2.8.3.zip.sha1",
+          "sha256": "checksums/2.8.3/openemr-2.8.3.zip.sha256",
+          "sha512": "checksums/2.8.3/openemr-2.8.3.zip.sha512"
+        }
+      }
+    }
+  },
+  "2.9.0": {
+    "status": "FINAL",
+    "released_at": "2008-08-06",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/2.9.0/openemr-2.9.0.tar.gz/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha1",
+          "sha256": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha256",
+          "sha512": "checksums/2.9.0/openemr-2.9.0.tar.gz.sha512"
+        }
+      }
+    }
+  },
+  "3.0.0": {
+    "status": "FINAL",
+    "released_at": "2009-03-15",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.0.0/openemr-3.0.0.tar.gz/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha1",
+          "sha256": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha256",
+          "sha512": "checksums/3.0.0/openemr-3.0.0.tar.gz.sha512"
+        }
+      }
+    }
+  },
+  "3.0.1": {
+    "status": "FINAL",
+    "released_at": "2009-03-31",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.0.1/openemr-3.0.1.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.0.1/openemr-3.0.1.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha1",
+          "sha256": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha256",
+          "sha512": "checksums/3.0.1/openemr-3.0.1.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/3.0.1/openemr-3.0.1.zip.sha1",
+          "sha256": "checksums/3.0.1/openemr-3.0.1.zip.sha256",
+          "sha512": "checksums/3.0.1/openemr-3.0.1.zip.sha512"
+        }
+      }
+    }
+  },
+  "3.1.0": {
+    "status": "FINAL",
+    "released_at": "2009-08-24",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.1.0/openemr-3.1.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.1.0/openemr-3.1.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha1",
+          "sha256": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha256",
+          "sha512": "checksums/3.1.0/openemr-3.1.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/3.1.0/openemr-3.1.0.zip.sha1",
+          "sha256": "checksums/3.1.0/openemr-3.1.0.zip.sha256",
+          "sha512": "checksums/3.1.0/openemr-3.1.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "3.2.0": {
+    "status": "FINAL",
+    "released_at": "2010-02-15",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.2.0/openemr-3.2.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/3.2.0/openemr-3.2.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha1",
+          "sha256": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha256",
+          "sha512": "checksums/3.2.0/openemr-3.2.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/3.2.0/openemr-3.2.0.zip.sha1",
+          "sha256": "checksums/3.2.0/openemr-3.2.0.zip.sha256",
+          "sha512": "checksums/3.2.0/openemr-3.2.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "4.0.0": {
+    "status": "FINAL",
+    "released_at": "2011-03-26",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.0.0/openemr-4.0.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.0.0/openemr-4.0.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha1",
+          "sha256": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha256",
+          "sha512": "checksums/4.0.0/openemr-4.0.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/4.0.0/openemr-4.0.0.zip.sha1",
+          "sha256": "checksums/4.0.0/openemr-4.0.0.zip.sha256",
+          "sha512": "checksums/4.0.0/openemr-4.0.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "4.1.0": {
+    "status": "FINAL",
+    "released_at": "2011-09-21",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.0/openemr-4.1.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.0/openemr-4.1.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha1",
+          "sha256": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha256",
+          "sha512": "checksums/4.1.0/openemr-4.1.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/4.1.0/openemr-4.1.0.zip.sha1",
+          "sha256": "checksums/4.1.0/openemr-4.1.0.zip.sha256",
+          "sha512": "checksums/4.1.0/openemr-4.1.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "4.1.1": {
+    "status": "FINAL",
+    "released_at": "2012-08-29",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.1/openemr-4.1.1.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.1/openemr-4.1.1.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha1",
+          "sha256": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha256",
+          "sha512": "checksums/4.1.1/openemr-4.1.1.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/4.1.1/openemr-4.1.1.zip.sha1",
+          "sha256": "checksums/4.1.1/openemr-4.1.1.zip.sha256",
+          "sha512": "checksums/4.1.1/openemr-4.1.1.zip.sha512"
+        }
+      }
+    }
+  },
+  "4.1.2": {
+    "status": "FINAL",
+    "released_at": "2013-08-16",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.2/openemr-4.1.2.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.1.2/openemr-4.1.2.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha1",
+          "sha256": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha256",
+          "sha512": "checksums/4.1.2/openemr-4.1.2.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/4.1.2/openemr-4.1.2.zip.sha1",
+          "sha256": "checksums/4.1.2/openemr-4.1.2.zip.sha256",
+          "sha512": "checksums/4.1.2/openemr-4.1.2.zip.sha512"
+        }
+      }
+    }
+  },
+  "4.2.0": {
+    "status": "FINAL",
+    "released_at": "2014-12-20",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.0/openemr-4.2.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.0/openemr-4.2.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha1",
+          "sha256": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha256",
+          "sha512": "checksums/4.2.0/openemr-4.2.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/4.2.0/openemr-4.2.0.zip.sha1",
+          "sha256": "checksums/4.2.0/openemr-4.2.0.zip.sha256",
+          "sha512": "checksums/4.2.0/openemr-4.2.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "4.2.1": {
+    "status": "FINAL",
+    "released_at": "2016-03-23",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.1/openemr-4.2.1.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.1/openemr-4.2.1.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha1",
+          "sha256": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha256",
+          "sha512": "checksums/4.2.1/openemr-4.2.1.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/4.2.1/openemr-4.2.1.zip.sha1",
+          "sha256": "checksums/4.2.1/openemr-4.2.1.zip.sha256",
+          "sha512": "checksums/4.2.1/openemr-4.2.1.zip.sha512"
+        }
+      }
+    }
+  },
+  "4.2.2": {
+    "status": "FINAL",
+    "released_at": "2016-05-18",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.2/openemr-4.2.2.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/4.2.2/openemr-4.2.2.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha1",
+          "sha256": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha256",
+          "sha512": "checksums/4.2.2/openemr-4.2.2.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/4.2.2/openemr-4.2.2.zip.sha1",
+          "sha256": "checksums/4.2.2/openemr-4.2.2.zip.sha256",
+          "sha512": "checksums/4.2.2/openemr-4.2.2.zip.sha512"
+        }
+      }
+    }
+  },
+  "5.0.0": {
+    "status": "FINAL",
+    "released_at": "2017-02-13",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.0/openemr-5.0.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.0/openemr-5.0.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha1",
+          "sha256": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha256",
+          "sha512": "checksums/5.0.0/openemr-5.0.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/5.0.0/openemr-5.0.0.zip.sha1",
+          "sha256": "checksums/5.0.0/openemr-5.0.0.zip.sha256",
+          "sha512": "checksums/5.0.0/openemr-5.0.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "5.0.1": {
+    "status": "FINAL",
+    "released_at": "2018-04-21",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.1/openemr-5.0.1.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.1/openemr-5.0.1.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha1",
+          "sha256": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha256",
+          "sha512": "checksums/5.0.1/openemr-5.0.1.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/5.0.1/openemr-5.0.1.zip.sha1",
+          "sha256": "checksums/5.0.1/openemr-5.0.1.zip.sha256",
+          "sha512": "checksums/5.0.1/openemr-5.0.1.zip.sha512"
+        }
+      }
+    }
+  },
+  "5.0.2": {
+    "status": "FINAL",
+    "released_at": "2019-08-03",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.2/openemr-5.0.2.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/5.0.2/openemr-5.0.2.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha1",
+          "sha256": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha256",
+          "sha512": "checksums/5.0.2/openemr-5.0.2.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/5.0.2/openemr-5.0.2.zip.sha1",
+          "sha256": "checksums/5.0.2/openemr-5.0.2.zip.sha256",
+          "sha512": "checksums/5.0.2/openemr-5.0.2.zip.sha512"
+        }
+      }
+    }
+  },
+  "6.0.0": {
+    "status": "FINAL",
+    "released_at": "2021-01-05",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.0.0/openemr-6.0.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.0.0/openemr-6.0.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha1",
+          "sha256": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha256",
+          "sha512": "checksums/6.0.0/openemr-6.0.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/6.0.0/openemr-6.0.0.zip.sha1",
+          "sha256": "checksums/6.0.0/openemr-6.0.0.zip.sha256",
+          "sha512": "checksums/6.0.0/openemr-6.0.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "6.1.0": {
+    "status": "FINAL",
+    "released_at": "2022-03-20",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.1.0/openemr-6.1.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/6.1.0/openemr-6.1.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha1",
+          "sha256": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha256",
+          "sha512": "checksums/6.1.0/openemr-6.1.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/6.1.0/openemr-6.1.0.zip.sha1",
+          "sha256": "checksums/6.1.0/openemr-6.1.0.zip.sha256",
+          "sha512": "checksums/6.1.0/openemr-6.1.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "7.0.0": {
+    "status": "FINAL",
+    "released_at": "2022-07-18",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.0/openemr-7.0.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.0/openemr-7.0.0.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha1",
+          "sha256": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha256",
+          "sha512": "checksums/7.0.0/openemr-7.0.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/7.0.0/openemr-7.0.0.zip.sha1",
+          "sha256": "checksums/7.0.0/openemr-7.0.0.zip.sha256",
+          "sha512": "checksums/7.0.0/openemr-7.0.0.zip.sha512"
+        }
+      }
+    }
+  },
+  "7.0.1": {
+    "status": "FINAL",
+    "released_at": "2023-04-25",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.1/openemr-7.0.1.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.1/openemr-7.0.1.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha1",
+          "sha256": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha256",
+          "sha512": "checksums/7.0.1/openemr-7.0.1.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/7.0.1/openemr-7.0.1.zip.sha1",
+          "sha256": "checksums/7.0.1/openemr-7.0.1.zip.sha256",
+          "sha512": "checksums/7.0.1/openemr-7.0.1.zip.sha512"
+        }
+      }
+    }
+  },
+  "7.0.2": {
+    "status": "FINAL",
+    "released_at": "2023-11-15",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.2/openemr-7.0.2.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.2/openemr-7.0.2.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha1",
+          "sha256": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha256",
+          "sha512": "checksums/7.0.2/openemr-7.0.2.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/7.0.2/openemr-7.0.2.zip.sha1",
+          "sha256": "checksums/7.0.2/openemr-7.0.2.zip.sha256",
+          "sha512": "checksums/7.0.2/openemr-7.0.2.zip.sha512"
+        }
+      }
+    }
+  },
+  "7.0.3": {
+    "status": "FINAL",
+    "released_at": "2025-03-19",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.3/openemr-7.0.3.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.3/openemr-7.0.3.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha1",
+          "sha256": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha256",
+          "sha512": "checksums/7.0.3/openemr-7.0.3.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/7.0.3/openemr-7.0.3.zip.sha1",
+          "sha256": "checksums/7.0.3/openemr-7.0.3.zip.sha256",
+          "sha512": "checksums/7.0.3/openemr-7.0.3.zip.sha512"
+        }
+      }
+    }
+  },
+  "7.0.4": {
+    "status": "FINAL",
+    "released_at": "2025-12-18",
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.4/openemr-7.0.4.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.4/openemr-7.0.4.zip/download"
+    },
+    "downloads": {
+      "linux": {
+        "checksums": {
+          "sha1": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha1",
+          "sha256": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha256",
+          "sha512": "checksums/7.0.4/openemr-7.0.4.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "checksums": {
+          "sha1": "checksums/7.0.4/openemr-7.0.4.zip.sha1",
+          "sha256": "checksums/7.0.4/openemr-7.0.4.zip.sha256",
+          "sha512": "checksums/7.0.4/openemr-7.0.4.zip.sha512"
+        }
+      }
+    }
+  },
+  "8.0.0": {
+    "status": "FINAL",
+    "branch": "rel-800",
+    "sha": "b91b73600327acb46252b9fce7d04467eea126fd",
+    "released_at": "2026-02-13",
+    "downloads": {
+      "docker": {
+        "install_url": "https://community.open-emr.org/t/openemr-official-docker-has-been-released/9084"
+      },
+      "linux": {
+        "install_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Linux_Installation",
+        "upgrade_url": "https://www.open-emr.org/wiki/index.php/Linux_Upgrade_7.0.4_to_8.0.0",
+        "checksums": {
+          "sha1": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha1",
+          "sha256": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha256",
+          "sha512": "checksums/8.0.0/openemr-8.0.0.tar.gz.sha512"
+        }
+      },
+      "windows": {
+        "install_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_8.0.0_Windows_Installation",
+        "upgrade_url": "https://www.open-emr.org/wiki/index.php/Windows_Upgrade_7.0.4_to_8.0.0",
+        "checksums": {
+          "sha1": "checksums/8.0.0/openemr-8.0.0.zip.sha1",
+          "sha256": "checksums/8.0.0/openemr-8.0.0.zip.sha256",
+          "sha512": "checksums/8.0.0/openemr-8.0.0.zip.sha512"
+        }
+      }
+    },
+    "archive_urls": {
+      "tarball": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.0.0/openemr-8.0.0.tar.gz/download",
+      "zip": "https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/8.0.0/openemr-8.0.0.zip/download"
+    },
+    "patches_url": "https://www.open-emr.org/wiki/index.php/OpenEMR_Patches"
+  },
+  "8.2.0": {
+    "branch": "rel-820",
+    "sha": "6125a2fd8089c8bcc3848071c1293c60e27a7585",
+    "status": "FINAL",
+    "released_at": "2026-07-08"
+  }
 }
