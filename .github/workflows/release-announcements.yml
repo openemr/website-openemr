@@ -67,14 +67,24 @@ jobs:
   draft:
     name: draft (${{ matrix.runner }})
     # Fire on workflow_dispatch always, or on pull_request only when a
-    # `release-docs/*` PR actually merged (not just closed unmerged and
-    # not from any other head_ref). GitHub's `pull_request` trigger
-    # can't filter on head_ref natively, only on base branch, so this
-    # job-level `if` is the gate.
+    # `release-docs/*` PR authored by the release App bot actually
+    # merged (not just closed unmerged, not from any other head_ref,
+    # not from a maintainer's manually-crafted branch). GitHub's
+    # `pull_request` trigger can't filter on head_ref or author
+    # natively, only on base branch, so this job-level `if` is the
+    # gate. Defense-in-depth for the future auto-posting phase: today
+    # a stray `release-docs/x.y.z` test-branch merge would only render
+    # drafts to an artifact, but once channels get automated posting
+    # this becomes the difference between "the workflow ran on a test
+    # branch and produced garbage" and "the workflow sent real posts
+    # to real channels from a test branch." Manual re-renders (e.g.
+    # after a bad first draft) go through workflow_dispatch instead,
+    # which stays gated on repo permissions.
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.pull_request.merged == true &&
-       startsWith(github.event.pull_request.head.ref, 'release-docs/'))
+       startsWith(github.event.pull_request.head.ref, 'release-docs/') &&
+       github.event.pull_request.user.login == 'openemr-release-bot[bot]')
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
