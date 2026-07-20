@@ -1,0 +1,135 @@
+name: release-announcements-smoketest
+
+# End-to-end integration test for the release-announcements task
+# chain. Runs derive-announcement-inputs → render-announcements →
+# render-announcement-step-summary against a canned real release
+# (8.2.0) whenever a PR touches the workflow YAML, the CLI scripts,
+# the renderer classes, the Taskfile, or the announcement templates.
+#
+# The unit tests in tools/release-docs/tests/ cover each class in
+# isolation but can't catch:
+#
+#   1. Taskfile template-var name drift (e.g. renaming a Taskfile var
+#      without updating the CLI's --flag name it maps to).
+#   2. CLI flag renames not propagated to the Taskfile.
+#   3. Env-var → Taskfile template propagation breaks (HEAD_REF piped
+#      through to --head-ref, etc.).
+#   4. Workflow `if:` gate logic drift on the real release-announcements
+#      workflow (verified only by running the same tasks the real
+#      workflow would run).
+#
+# All four surface only on live workflow runs -- historically that
+# means "the next release cycle." Cheap to catch here instead. See
+# openemr/website-openemr#196.
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/release-announcements.yml'
+      - '.github/workflows/release-announcements-smoketest.yml'
+      - 'tools/release-docs/bin/derive-announcement-inputs.php'
+      - 'tools/release-docs/bin/render-announcements.php'
+      - 'tools/release-docs/bin/render-announcement-step-summary.php'
+      - 'tools/release-docs/src/AnnouncementRenderer.php'
+      - 'tools/release-docs/src/AnnouncementStepSummaryRenderer.php'
+      - 'tools/release-docs/src/Cli/DeriveAnnouncementInputsCli.php'
+      - 'tools/release-docs/templates/announcements/**'
+      - 'tools/release-docs/Taskfile.yml'
+      - 'tools/release-docs/composer.json'
+      - 'tools/release-docs/composer.lock'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-announcements-smoketest-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: tools/release-docs
+
+jobs:
+  smoketest:
+    name: smoketest (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04]
+    env:
+      # Same output dir the real release-announcements.yml workflow
+      # uses, so the render step's write paths match production.
+      OUTPUT_DIR: ${{ github.workspace }}/out/announcements
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: none
+
+      - name: Install task
+        uses: arduino/setup-task@v3
+        with:
+          version: '3.x'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install release-docs dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist --no-dev
+
+      # Feed the same env-var shape a real pull_request:closed event
+      # would feed (a merged release-docs/8.2.0 PR). The derive step
+      # is where head-ref-mode vs explicit-flags-mode branching lives;
+      # exercising the head-ref path here is what catches
+      # DeriveAnnouncementInputsCli flag-name regressions that unit
+      # tests wouldn't -- unit tests invoke the CLI directly with
+      # already-parsed arg arrays and can't observe the Taskfile
+      # template that composes them.
+      - name: Derive release inputs (head-ref mode)
+        id: inputs
+        env:
+          HEAD_REF: release-docs/8.2.0
+          VERSION: ''
+          TAG: ''
+          BRANCH: ''
+          FORUM_URL: ''
+        run: task derive-announcement-inputs >> "$GITHUB_OUTPUT"
+
+      - name: Assert derived inputs are non-empty
+        run: |
+          [ -n '${{ steps.inputs.outputs.version }}' ] || { echo 'derive: version empty'; exit 1; }
+          [ -n '${{ steps.inputs.outputs.tag }}' ]     || { echo 'derive: tag empty';     exit 1; }
+          [ -n '${{ steps.inputs.outputs.branch }}' ]  || { echo 'derive: branch empty';  exit 1; }
+          echo "derived: version=${{ steps.inputs.outputs.version }} tag=${{ steps.inputs.outputs.tag }} branch=${{ steps.inputs.outputs.branch }}"
+
+      - name: Render announcements
+        env:
+          VERSION: ${{ steps.inputs.outputs.version }}
+          TAG: ${{ steps.inputs.outputs.tag }}
+          BRANCH: ${{ steps.inputs.outputs.branch }}
+          FORUM_URL: ${{ steps.inputs.outputs.forum_url }}
+        run: task render-announcements
+
+      - name: Assert every channel wrote a non-empty file
+        run: |
+          set -e
+          for f in chat.md facebook.txt forum.md linkedin.txt mail.html mail.subject.txt x.txt; do
+            path="$OUTPUT_DIR/$f"
+            if [ ! -s "$path" ]; then
+              echo "render: missing or empty channel output: $path"
+              exit 1
+            fi
+            echo "render OK: $f ($(wc -c < "$path") bytes)"
+          done
+
+      - name: Write step summary
+        env:
+          VERSION: ${{ steps.inputs.outputs.version }}
+          TAG: ${{ steps.inputs.outputs.tag }}
+          FORUM_URL: ${{ steps.inputs.outputs.forum_url }}
+        run: OUTPUT="$GITHUB_STEP_SUMMARY" task render-announcement-step-summary
