@@ -101,11 +101,21 @@ jobs:
         run: task derive-announcement-inputs >> "$GITHUB_OUTPUT"
 
       - name: Assert derived inputs are non-empty
+        # Pipe step outputs through env vars rather than inlining
+        # `${{ ... }}` into the shell script. The derive CLI is
+        # in-repo and its output is trusted, but a shell-metacharacter
+        # in a future input mode would otherwise be a script-injection
+        # vector -- follow the GitHub Actions security guidance
+        # ("Using an intermediate environment variable") uniformly.
+        env:
+          DERIVED_VERSION: ${{ steps.inputs.outputs.version }}
+          DERIVED_TAG: ${{ steps.inputs.outputs.tag }}
+          DERIVED_BRANCH: ${{ steps.inputs.outputs.branch }}
         run: |
-          [ -n '${{ steps.inputs.outputs.version }}' ] || { echo 'derive: version empty'; exit 1; }
-          [ -n '${{ steps.inputs.outputs.tag }}' ]     || { echo 'derive: tag empty';     exit 1; }
-          [ -n '${{ steps.inputs.outputs.branch }}' ]  || { echo 'derive: branch empty';  exit 1; }
-          echo "derived: version=${{ steps.inputs.outputs.version }} tag=${{ steps.inputs.outputs.tag }} branch=${{ steps.inputs.outputs.branch }}"
+          [ -n "$DERIVED_VERSION" ] || { echo 'derive: version empty'; exit 1; }
+          [ -n "$DERIVED_TAG" ]     || { echo 'derive: tag empty';     exit 1; }
+          [ -n "$DERIVED_BRANCH" ]  || { echo 'derive: branch empty';  exit 1; }
+          echo "derived: version=$DERIVED_VERSION tag=$DERIVED_TAG branch=$DERIVED_BRANCH"
 
       - name: Render announcements
         env:
