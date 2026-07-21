@@ -422,6 +422,41 @@ jobs:
           GH_TOKEN: ${{ steps.token.outputs.token }}
         run: task workflow:upsert-pr
 
+      # Post-tag flip: on openemr-tag the docs PR content reflects the
+      # shipped state, so we flip out of draft. Skipped for test-mode
+      # dispatches (branch is release-docs-test/*, PR is ephemeral) and
+      # for pre-tag events (rel-cut/rel-update) that only accumulate
+      # draft-quality content. ship-release's full-auto poll waits on
+      # isDraft==false before merging the docs PR — this step is what
+      # unblocks that wait.
+      - name: Flip docs PR out of draft (openemr-tag only)
+        if: ${{ steps.push.outputs.pushed == 'true' && steps.payload.outputs.event == 'openemr-tag' && steps.mode.outputs.test != 'true' }}
+        env:
+          BRANCH: release-docs/${{ steps.payload.outputs.version }}
+          TAG: ${{ steps.payload.outputs.tag }}
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          pr_data="$(gh pr list --repo "$REPO" \
+            --head "$BRANCH" --state open \
+            --json number,isDraft --jq '.[0]')"
+          if [ -z "$pr_data" ] || [ "$pr_data" = 'null' ]; then
+            echo "::error::docs PR for $BRANCH not found; upsert-pr should have created/updated it"
+            exit 1
+          fi
+          pr_number="$(printf '%s' "$pr_data" | jq -r '.number')"
+          is_draft="$(printf '%s' "$pr_data" | jq -r '.isDraft')"
+          # gh pr ready fails if the PR is already out of draft (typical on
+          # a re-fire of openemr-tag after a first successful flip). Guard
+          # with isDraft so re-fires are idempotent.
+          if [ "$is_draft" = 'true' ]; then
+            gh pr ready "$pr_number" --repo "$REPO"
+            gh pr comment "$pr_number" --repo "$REPO" --body \
+              "Comment from Claude: post-tag dispatch applied; content reflects the shipped state for tag \`${TAG}\`. PR flipped out of draft and is ready for merge to master."
+          else
+            echo "PR #${pr_number} is already out of draft; nothing to flip."
+          fi
+
       - name: Sub-dispatch binaries to website-openemr-files
         if: ${{ steps.payload.outputs.files_count != '0' }}
         env:

@@ -324,7 +324,15 @@ tasks:
     cmds:
       - |
         short_sha="${SHA:0:12}"
-        title="release-docs: OpenEMR ${VERSION} (DRAFT)"
+        # openemr-tag is the post-tag "final content" dispatch — the workflow
+        # flips the PR out of draft in a follow-up step, so the title tracks
+        # that state. rel-cut/rel-update remain "(DRAFT)" while the PR
+        # accumulates pre-tag content.
+        if [ "$EVENT" = 'openemr-tag' ]; then
+          title="release-docs: OpenEMR ${VERSION}"
+        else
+          title="release-docs: OpenEMR ${VERSION} (DRAFT)"
+        fi
         body_file="$RUNNER_TEMP/pr-body.md"
         # shellcheck disable=SC2016
         {
