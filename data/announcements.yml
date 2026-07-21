@@ -1,5 +1,10 @@
+- title: <strong>New:</strong> Announcing OpenEMR Version 8.2
+  url: downloads
+  date: 2026-07-08
+  linkText: 💃🕺→
+
 - title: <strong>New:</strong> OpenEMR 8.2 Express Plus AWS ☁️
-  url: blog/openemr-8-2-cloud-express-plus-release/
+  url: blog/openemr-8-2-cloud-release/
   date: 2026-07-21
   linkText: Launch on AWS 🚀
   

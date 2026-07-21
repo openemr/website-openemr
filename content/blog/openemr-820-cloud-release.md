@@ -12,7 +12,7 @@ twitterCardImageURL: images/openemr.png
 ---
 # OpenEMR 8.2 Express Plus ☁️
 
-OpenEMR Express Plus now installs version 8.2.0 — the current, ONC-certified production release — on a modern, secure foundation, restoring true one-click deployment on AWS. The stack is built on HIPAA-eligible AWS services with encryption and auditing designed to support a HIPAA-compliant deployment when properly configured — including executing a Business Associate Agreement with AWS, which our deployment guide walks you through.
+OpenEMR Express Plus now installs version 8.2.0 — the current, ONC-certified production release — on a modern, secure foundation, restoring true one-click deployment on AWS. The stack is built on HIPAA-eligible AWS services with encryption and auditing designed to support a HIPAA-compliant deployment when properly configured — including executing a Business Associate Agreement with AWS, which our [deployment guide](https://github.com/openemr/openemr-devops/tree/master/packages/express_plus#hipaa-compliance) walks you through.
 
 ___[Launch OpenEMR Express Plus on AWS](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=OpenEMR&templateURL=https://s3.amazonaws.com/openemr-cfn-useast1/OpenEMR-Express-Plus.json)___
 
