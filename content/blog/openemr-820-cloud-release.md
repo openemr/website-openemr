@@ -1,5 +1,5 @@
 ---
-title: OpenEMR 8.2 in the Cloud
+title: OpenEMR 8.2 Express Plus AWS ☁️
 author:
   name: "OpenEMR Foundation"
   twitter: openemr
@@ -10,7 +10,7 @@ images:
 coverImage: images/openemr.png
 twitterCardImageURL: images/openemr.png
 ---
-# OpenEMR 8.2 in the Cloud
+# OpenEMR 8.2 Express Plus ☁️
 
 OpenEMR Express Plus now installs version 8.2.0 — the current, ONC-certified production release — on a modern, secure foundation, restoring true one-click deployment on AWS. The stack is built on HIPAA-eligible AWS services with encryption and auditing designed to support a HIPAA-compliant deployment when properly configured — including executing a Business Associate Agreement with AWS, which our deployment guide walks you through.
 
@@ -33,4 +33,4 @@ Thank you to the community volunteers who tested, reviewed, and hardened this re
 
 We need your financial support in keeping OpenEMR open and free. Your donation funds critical work, including maintaining ONC certification compliance, supporting API FHIR infrastructure, and advancing innovative features.
 
-**If you rely on OpenEMR for your practice or support its open-source mission, please donate today.** Offset certification costs with a ___[one-time contribution](https://www.open-emr.org/donate/)___, or become an official OpenEMR Sponsor with a ___[recurring monthly donation](https://www.open-emr.org/donate/)___.
+**If you rely on OpenEMR for your practice or support its open-source mission, please donate today.** Make a ___[one-time contribution](https://www.open-emr.org/donate/)___, or become an official OpenEMR Sponsor with a ___[recurring monthly donation](https://www.open-emr.org/donate/)___.
