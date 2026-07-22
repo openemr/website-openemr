@@ -21,7 +21,7 @@
  *       was lost. All three flags required together in this mode.
  *
  * The two modes are mutually exclusive. Validation patterns mirror the
- * canonical shapes from openemr-devops's dispatch.schema.json (version,
+ * canonical shapes from openemr/openemr's dispatch.schema.json (version,
  * tag, branch); a malformed value aborts the step instead of producing
  * artifacts that reference "null".
  *

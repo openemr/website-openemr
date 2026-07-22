@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://openemr.org/contracts/release/dispatch.schema.json",
     "title": "OpenEMR release dispatch payload",
-    "description": "Vendored copy of the canonical dispatch contract owned by openemr/openemr-devops at tools/release/contracts/dispatch.schema.json. The drift-check tool in openemr-devops reconciles divergence.",
+    "description": "Website-openemr's implementation of the release dispatch contract. Structure diverges from the canonical schema at openemr/openemr's tools/release/contracts/dispatch.schema.json (this file uses $defs+$ref+draft/2020-12 for a per-event-type oneOf shape; the canonical uses a flat draft-07 shape). Both describe the same event set and payload semantics; the divergence is intentional for local validator ergonomics.",
     "oneOf": [
         { "$ref": "#/$defs/openemr-rel-cut" },
         { "$ref": "#/$defs/openemr-rel-update" },
