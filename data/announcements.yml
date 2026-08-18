@@ -1,6 +1,11 @@
-- title: <strong>New:</strong> Announcing OpenEMR Version 8.3
+# The "current release" entry is rendered dynamically by
+# themes/openemr/layouts/partials/homepage-announcement-bar.html — it
+# pulls the highest FINAL version from data/releases.json (same source
+# as the current-stable-version shortcode) so the banner auto-updates
+# when a new release lands in the manifest. No manual bump needed here
+# on ship.
+- kind: current-release
   url: downloads
-  date: 2026-08-18
   linkText: 💃🕺→
 
 - title: <strong>New:</strong> OpenEMR 8.2 Express Plus AWS ☁️
