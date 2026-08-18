@@ -1,15 +1,21 @@
-- title: <strong>New:</strong> Announcing OpenEMR Version 8.3
+# The "current release" entry is rendered dynamically by
+# themes/openemr/layouts/partials/homepage-announcement-bar.html — it
+# pulls the highest FINAL version from data/releases.json (same source
+# as the current-stable-version shortcode) so the banner auto-updates
+# when a new release lands in the manifest. No manual bump needed here
+# on ship.
+- kind: current-release
   url: downloads
-  date: 2026-08-18
   linkText: 💃🕺→
 
+# Hidden until an 8.3-supporting AWS Express Plus build ships; flip
+# `disabled` back to false (or drop the field) to re-enable.
 - title: <strong>New:</strong> OpenEMR 8.2 Express Plus AWS ☁️
   url: blog/openemr-8-2-cloud-release/
-  date: 2026-07-21
   linkText: Launch on AWS 🚀
-  
+  disabled: true
+
 - title: <strong>New:</strong> Free, fully hosted OpenEMR for U.S.-based healthcare providers—no servers, no setup, no cost.
   url: https://www.opencoreemr.com/?utm_source=referral&utm_medium=banner&utm_campaign=openemr_launch
-  date: 2025-08-15
   linkText: Try it now →
   # icon: fa fa-announcement

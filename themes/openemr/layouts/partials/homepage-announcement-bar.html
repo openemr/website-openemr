@@ -1,11 +1,42 @@
 {{- if .IsHome -}}
-{{ $data := .Site.Data.announcements }}
-{{ if gt (len $data) 0 }}
+{{- /*
+  Pre-filter announcements: entries with `disabled: true` are skipped
+  (useful for temporarily hiding a banner without deleting its entry).
+  All downstream logic — first-item `active` class, `data-index`, dots
+  count, carousel-controls gate — operates on the filtered slice, so
+  hiding an entry doesn't blank the initial slide or misalign the dots.
+*/ -}}
+{{ $visible := slice }}
+{{ range .Site.Data.announcements }}
+  {{ if not .disabled }}
+    {{ $visible = $visible | append . }}
+  {{ end }}
+{{ end }}
+{{ if gt (len $visible) 0 }}
 <div id="site-announcement" class="w-100 bg-primary text-white text-center py-2 position-relative">
   <div id="announcement-carousel" class="announcement-wrapper">
-    {{ range $index, $announcement := $data }}
+    {{ range $index, $announcement := $visible }}
     <div class="announcement-item {{ if eq $index 0 }}active{{ end }}" data-index="{{ $index }}">
-      {{ $announcement.title | safeHTML }}
+      {{- /*
+        Resolve the title. When kind == "current-release", derive it from
+        the highest FINAL entry in data/releases.json (via the shared
+        highest-final-version partial, which also backs the demo page's
+        current-stable-version shortcode). Version display rule: show
+        "major.minor" when patch == 0, else "major.minor.patch".
+      */ -}}
+      {{- $title := $announcement.title -}}
+      {{- if eq $announcement.kind "current-release" -}}
+        {{- $v := partial "highest-final-version.html" $ -}}
+        {{- if $v -}}
+          {{- $parts := split $v "." -}}
+          {{- $display := $v -}}
+          {{- if and (ge (len $parts) 3) (eq (index $parts 2) "0") -}}
+            {{- $display = printf "%s.%s" (index $parts 0) (index $parts 1) -}}
+          {{- end -}}
+          {{- $title = printf "<strong>New:</strong> Announcing OpenEMR Version %s" $display -}}
+        {{- end -}}
+      {{- end -}}
+      {{ $title | safeHTML }}
       <a href="{{ $announcement.url | absURL }}" class="text-white text-underline font-weight-bold">
         {{- if $announcement.icon -}}
           <i class="{{ $announcement.icon }}">&nbsp;</i>
@@ -15,12 +46,12 @@
     </div>
     {{ end }}
   </div>
-  
-  {{ if gt (len $data) 1 }}
+
+  {{ if gt (len $visible) 1 }}
   <div class="announcement-controls">
     <button class="announcement-prev" aria-label="Previous announcement">&lsaquo;</button>
     <div class="announcement-dots">
-      {{ range $index, $announcement := $data }}
+      {{ range $index, $announcement := $visible }}
       <span class="dot {{ if eq $index 0 }}active{{ end }}" data-index="{{ $index }}"></span>
       {{ end }}
     </div>
