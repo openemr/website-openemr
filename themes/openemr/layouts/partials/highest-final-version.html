@@ -1,0 +1,38 @@
+{{- /*
+  highest-final-version — returns the highest-version FINAL entry from
+  data/releases.json as a plain version string (e.g., "8.10.0"). Called
+  from two places that surface the "current stable" version:
+
+    - layouts/shortcodes/current-stable-version.html (demo page copy)
+    - themes/openemr/layouts/partials/homepage-announcement-bar.html
+      ("current-release" banner entry)
+
+  Sorts by a zero-padded major.minor.patch key so numeric ordering wins
+  over lexicographic (8.10.0 > 8.9.0). Prerelease-only versions
+  (status != FINAL) are ignored, so an aborted cut like v8_1_0 doesn't
+  briefly become the "current stable" between its cut and the next real
+  release.
+
+  Returns empty when no FINAL entries exist — a data-corruption case
+  that would be visibly broken on the calling page (e.g., "OpenEMR
+  Demo" with no version) and should surface fast rather than get
+  papered over with a fallback.
+
+  Call with `.` (the page context) so `.Site.Data.releases` resolves:
+    {{ partial "highest-final-version.html" . }}
+*/ -}}
+{{- $finals := slice -}}
+{{- range $version, $entry := .Site.Data.releases -}}
+  {{- if eq $entry.status "FINAL" -}}
+    {{- $parts := split $version "." -}}
+    {{- $key := $version -}}
+    {{- if ge (len $parts) 3 -}}
+      {{- $key = printf "%09d.%09d.%09d" (int (index $parts 0)) (int (index $parts 1)) (int (index $parts 2)) -}}
+    {{- end -}}
+    {{- $finals = $finals | append (dict "version" $version "sortKey" $key) -}}
+  {{- end -}}
+{{- end -}}
+{{- $finals = sort $finals "sortKey" "desc" -}}
+{{- if gt (len $finals) 0 -}}
+  {{- (index $finals 0).version -}}
+{{- end -}}

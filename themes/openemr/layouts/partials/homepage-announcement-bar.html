@@ -19,21 +19,15 @@
     <div class="announcement-item {{ if eq $index 0 }}active{{ end }}" data-index="{{ $index }}">
       {{- /*
         Resolve the title. When kind == "current-release", derive it from
-        the highest FINAL entry in data/releases.json (same logic as the
+        the highest FINAL entry in data/releases.json (via the shared
+        highest-final-version partial, which also backs the demo page's
         current-stable-version shortcode). Version display rule: show
         "major.minor" when patch == 0, else "major.minor.patch".
       */ -}}
       {{- $title := $announcement.title -}}
       {{- if eq $announcement.kind "current-release" -}}
-        {{- $finals := slice -}}
-        {{- range $version, $entry := $.Site.Data.releases -}}
-          {{- if eq $entry.status "FINAL" -}}
-            {{- $finals = $finals | append (dict "version" $version) -}}
-          {{- end -}}
-        {{- end -}}
-        {{- $finals = sort $finals "version" "desc" -}}
-        {{- if gt (len $finals) 0 -}}
-          {{- $v := (index $finals 0).version -}}
+        {{- $v := partial "highest-final-version.html" $ -}}
+        {{- if $v -}}
           {{- $parts := split $v "." -}}
           {{- $display := $v -}}
           {{- if and (ge (len $parts) 3) (eq (index $parts 2) "0") -}}
