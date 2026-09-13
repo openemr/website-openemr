@@ -668,5 +668,11 @@
         "sha": "ebb62eb3036a726314ab3e1c3e9263a41608b17b",
         "status": "FINAL",
         "released_at": "2026-08-18"
+    },
+    "8.4.0": {
+        "branch": "rel-840",
+        "sha": "53d885e56d4772b4e48810a1f98531c5d19a934d",
+        "status": "FINAL",
+        "released_at": "2026-09-13"
     }
 }
