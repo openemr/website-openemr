@@ -96,18 +96,27 @@ final class AcknowledgementsGenerator
     {
         // %aE gives the author email; %aN respects .mailmap so upstream
         // canonicalization (if any) is honored before we group.
-        // %(trailers:key=Co-authored-by,valueonly=true,separator=%x1e)
-        // gives the raw trailer values ("Name <email>" each), RS-
-        // separated within one line so a per-line split still works.
-        // Empty third field when the commit has no co-authors.
+        // %(trailers:key=Co-authored-by,valueonly=true,unfold=true,
+        // separator=%x1e) gives the raw trailer values ("Name <email>"
+        // each), RS-separated within one line so a per-line split still
+        // works. Empty third field when the commit has no co-authors.
         // Tab as field separator is safe because commit author name/
         // email + trailer values can't contain tabs.
+        //
+        // `unfold=true` collapses folded (multi-line-continuation)
+        // trailer values into a single line before emission -- without
+        // it, a trailer whose value happens to be folded in the commit
+        // would inject newlines into our per-line parse and split one
+        // co-author across multiple records. Git's trailer syntax
+        // permits folding on continuation lines starting with
+        // whitespace; rare in practice but the pre-fix format left it
+        // as a latent parse-corruption risk.
         $process = new Process([
             'git',
             '-C', $repoPath,
             'log',
             '--no-merges',
-            '--format=%aE%x09%aN%x09%(trailers:key=Co-authored-by,valueonly=true,separator=%x1e)',
+            '--format=%aE%x09%aN%x09%(trailers:key=Co-authored-by,valueonly=true,unfold=true,separator=%x1e)',
             "$fromRev..$toRev",
         ]);
         $process->mustRun();
