@@ -43,6 +43,111 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
+    public function testParseLogOutputExtractsCoauthorsFromTrailerField(): void
+    {
+        // New format: third tab-separated field carries RS-separated
+        // Co-authored-by trailer values ("Name <email>" each). Each
+        // co-author gets its own record for full per-commit credit.
+        $input = "alice@example.com\tAlice Smith\tBob Jones <bob@example.com>\x1eCarla Diaz <carla@example.com>\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [
+                ['email' => 'alice@example.com', 'name' => 'Alice Smith'],
+                ['email' => 'bob@example.com', 'name' => 'Bob Jones'],
+                ['email' => 'carla@example.com', 'name' => 'Carla Diaz'],
+            ],
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputBackwardCompatibleWithNoTrailerField(): void
+    {
+        // Lines missing the third field (pre-fix format) still parse
+        // as primary-author-only. Guards against accidentally breaking
+        // any external caller that fed a two-field log.
+        $input = "alice@example.com\tAlice Smith\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [['email' => 'alice@example.com', 'name' => 'Alice Smith']],
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputEmptyTrailerFieldEmitsPrimaryAuthorOnly(): void
+    {
+        // git emits an empty third field when the commit has no
+        // Co-authored-by trailers. Line looks like "email\tname\t\n".
+        // Primary author still emitted; no co-author records added.
+        $input = "alice@example.com\tAlice Smith\t\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [['email' => 'alice@example.com', 'name' => 'Alice Smith']],
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputMalformedCoauthorTrailerSkippedNotFatal(): void
+    {
+        // Trailer syntax expects "Name <email>". A malformed value in
+        // history shouldn't crash the page render -- skip that one,
+        // keep the rest.
+        $input = "alice@example.com\tAlice\tno-brackets-here\x1eBob Jones <bob@example.com>\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [
+                ['email' => 'alice@example.com', 'name' => 'Alice'],
+                ['email' => 'bob@example.com', 'name' => 'Bob Jones'],
+            ],
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputCoauthorWithWhitespaceIsTrimmed(): void
+    {
+        // Trailer values with leading/trailing whitespace still parse
+        // cleanly. Also covers the "  <email>" spacing convention.
+        $input = "alice@example.com\tAlice\t  Bob Jones   <bob@example.com>  \n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [
+                ['email' => 'alice@example.com', 'name' => 'Alice'],
+                ['email' => 'bob@example.com', 'name' => 'Bob Jones'],
+            ],
+            $commits,
+        );
+    }
+
+    public function testCoauthorContributionsFullyCredited(): void
+    {
+        // End-to-end: primary + co-author on the same commit both
+        // count 1 in the acknowledgements. Simulates the 8.4.1
+        // scenario that surfaced this gap (Brady primary + Stephen
+        // co-author on a single commit should produce two 1-count
+        // rows, not one 1-count Brady row).
+        $input = "brady@example.com\tBrady Miller\tStephen Waite <stephen@example.com>\n";
+        $generator = new AcknowledgementsGenerator();
+        $commits = $generator->parseLogOutput($input);
+        $grouped = $generator->groupByEmail($commits);
+
+        self::assertSame(
+            [
+                ['name' => 'Brady Miller', 'commits' => 1],
+                ['name' => 'Stephen Waite', 'commits' => 1],
+            ],
+            $grouped,
+        );
+    }
+
     public function testGroupByEmailCollapsesMultipleNameSpellings(): void
     {
         // Reproduces the #135 failure: Stephen Waite commits under

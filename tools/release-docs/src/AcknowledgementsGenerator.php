@@ -83,24 +83,31 @@ final class AcknowledgementsGenerator
     }
 
     /**
-     * One record per commit in the range, carrying the author's email
-     * (lowercased-later during grouping to give per-person identity)
-     * and the display name they used on that commit.
+     * One record per commit-contribution in the range: the primary
+     * author (%aE / %aN) plus one record per `Co-authored-by:` trailer
+     * line in the commit message. Co-authors get full credit -- one
+     * commit with N co-authors emits N+1 records total, so each named
+     * contributor's row in the rendered page counts every commit they
+     * contributed to. Matches GitHub's contribution-count semantics.
      *
      * @return list<array{email: string, name: string}>
      */
     public function logAuthors(string $repoPath, string $fromRev, string $toRev): array
     {
         // %aE gives the author email; %aN respects .mailmap so upstream
-        // canonicalization (if any) is honored before we group. Tab
-        // separator picked because commit author names/emails can't
-        // contain tabs.
+        // canonicalization (if any) is honored before we group.
+        // %(trailers:key=Co-authored-by,valueonly=true,separator=%x1e)
+        // gives the raw trailer values ("Name <email>" each), RS-
+        // separated within one line so a per-line split still works.
+        // Empty third field when the commit has no co-authors.
+        // Tab as field separator is safe because commit author name/
+        // email + trailer values can't contain tabs.
         $process = new Process([
             'git',
             '-C', $repoPath,
             'log',
             '--no-merges',
-            '--format=%aE%x09%aN',
+            '--format=%aE%x09%aN%x09%(trailers:key=Co-authored-by,valueonly=true,separator=%x1e)',
             "$fromRev..$toRev",
         ]);
         $process->mustRun();
@@ -109,6 +116,18 @@ final class AcknowledgementsGenerator
     }
 
     /**
+     * Parse the tab-delimited git log output produced by logAuthors().
+     * Each line = one commit: `email\tname[\tcoauthor1\x1ecoauthor2...]`.
+     * The third field is optional (absent on the pre-fix format; empty
+     * when the commit has no co-authors).
+     *
+     * Emits one record per contributor per commit (primary author +
+     * one per Co-authored-by trailer). Malformed trailer values that
+     * don't match the "Name <email>" shape are silently skipped --
+     * git normalizes trailer syntax on read, so a malformed value
+     * would indicate an upstream commit crafted with a broken trailer
+     * (rare; not worth failing the whole render).
+     *
      * @return list<array{email: string, name: string}>
      */
     public function parseLogOutput(string $logOutput): array
@@ -124,8 +143,8 @@ final class AcknowledgementsGenerator
                 continue;
             }
 
-            $parts = explode("\t", $line, 2);
-            if (count($parts) !== 2) {
+            $parts = explode("\t", $line, 3);
+            if (count($parts) < 2) {
                 continue;
             }
             $email = trim($parts[0]);
@@ -135,9 +154,55 @@ final class AcknowledgementsGenerator
             }
 
             $commits[] = ['email' => $email, 'name' => $name];
+
+            // Third field (optional) carries RS-separated Co-authored-by
+            // trailer values. Each looks like "Name <email>" -- parse
+            // and emit one record per co-author, giving them full
+            // per-commit credit alongside the primary author.
+            $coauthorField = $parts[2] ?? '';
+            if ($coauthorField === '') {
+                continue;
+            }
+            foreach ($this->parseCoauthorTrailers($coauthorField) as $coauthor) {
+                $commits[] = $coauthor;
+            }
         }
 
         return $commits;
+    }
+
+    /**
+     * Parse the raw `%(trailers:key=Co-authored-by,valueonly=true,
+     * separator=%x1e)` field into per-co-author records.
+     *
+     * Each value is expected to be a `Name <email>` string (git's
+     * standard trailer syntax; enforced by peter-evans/create-pull-
+     * request + GitHub's own commit-signature UI). Values that don't
+     * match are dropped rather than crashing the render -- a badly
+     * crafted trailer somewhere in history shouldn't fail the whole
+     * acknowledgements page.
+     *
+     * @return list<array{email: string, name: string}>
+     */
+    private function parseCoauthorTrailers(string $field): array
+    {
+        $records = [];
+        foreach (explode("\x1e", $field) as $value) {
+            $value = trim($value);
+            if ($value === '') {
+                continue;
+            }
+            if (preg_match('/^(?<name>.+?)\s*<(?<email>[^>]+)>\s*$/', $value, $m) !== 1) {
+                continue;
+            }
+            $name = trim($m['name']);
+            $email = trim($m['email']);
+            if ($name === '' || $email === '') {
+                continue;
+            }
+            $records[] = ['email' => $email, 'name' => $name];
+        }
+        return $records;
     }
 
     /**
