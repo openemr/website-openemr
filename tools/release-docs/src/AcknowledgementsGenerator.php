@@ -31,19 +31,101 @@ final class AcknowledgementsGenerator
      * GitHub App identities carry the `[bot]` suffix and are caught by
      * that rule; LLM assistants and IDE tools like Copilot commit under
      * a bare name with no `[bot]` marker and slip through unless listed
-     * here. Add new entries as new non-human commit-author strings appear
+     * here. `openemr-release-bot` (no `[bot]`) also appears as a
+     * Co-authored-by trailer value on some conductor-generated commits
+     * with a non-noreply email (`release-bot@openemr.invalid`) so the
+     * GitHubUserResolver canonicalization can't catch it either.
+     * Add new entries as new non-human commit-author strings appear
      * in the wild.
      *
      * @var list<string>
      */
-    private const NON_HUMAN_NAMES = ['Copilot'];
+    private const NON_HUMAN_NAMES = ['Copilot', 'openemr-release-bot'];
+
+    /**
+     * Pattern matching a GitHub noreply commit email. Two shapes:
+     *   - `<username>@users.noreply.github.com`           (older accounts)
+     *   - `<user-id>+<username>@users.noreply.github.com` (post-2017,
+     *      when GitHub started prefixing the user ID so username changes
+     *      don't break history)
+     * Named `username` group extracts the login for API lookup.
+     */
+    private const GITHUB_NOREPLY_PATTERN = '/^(?:\d+\+)?(?<username>[^@]+)@users\.noreply\.github\.com$/';
+
+    public function __construct(
+        private readonly ?GitHubUserResolver $resolver = null,
+    ) {
+    }
 
     public function generate(string $repoPath, string $fromRev, string $toRev, string $version): string
     {
         $commits = $this->logAuthors($repoPath, $fromRev, $toRev);
-        $grouped = $this->groupByEmail($commits);
+        $canonicalized = $this->canonicalizeGithubNoreplyNames($commits);
+        $grouped = $this->groupByEmail($canonicalized);
         $merged = $this->mergeSameNameEntries($grouped);
         return $this->render($this->filterAutomatedAuthors($merged), $version);
+    }
+
+    /**
+     * Rewrite the `name` on any per-commit record whose email is a
+     * GitHub noreply address to the account's real display name (from
+     * GitHub's public profile). Records with non-noreply emails pass
+     * through unchanged; there's no username to look up.
+     *
+     * Why: Co-authored-by trailers typically ship as `<github-username>
+     * <id+username@users.noreply.github.com>` (peter-evans + GitHub's
+     * PR-merge-with-suggestions flow both use this shape). That row's
+     * name (`bradymiller`) doesn't match the primary-author name
+     * (`Brady Miller`) so groupByEmail's later name-based tie-break
+     * plus mergeSameNameEntries's case-insensitive name merge both
+     * miss the connection. Canonicalizing to the profile display name
+     * lets mergeSameNameEntries collapse the two rows naturally.
+     *
+     * One API call per UNIQUE username (deduplicated at resolver-boundary
+     * via array_unique), then the returned map is applied as an
+     * in-process cache to every record needing it -- no re-lookups even
+     * when the same username co-authors dozens of commits in one range.
+     *
+     * When no resolver is injected (unit-test convenience default), this
+     * is a no-op -- records pass through unchanged, which preserves
+     * pre-canonicalization semantics for the test suite. Production
+     * builds inject HttpGitHubUserResolver::fromEnvironment().
+     *
+     * @param list<array{email: string, name: string}> $commits
+     * @return list<array{email: string, name: string}>
+     */
+    public function canonicalizeGithubNoreplyNames(array $commits): array
+    {
+        if ($this->resolver === null) {
+            return $commits;
+        }
+
+        $usernames = [];
+        foreach ($commits as $commit) {
+            if (preg_match(self::GITHUB_NOREPLY_PATTERN, $commit['email'], $m) === 1) {
+                $usernames[] = $m['username'];
+            }
+        }
+        if ($usernames === []) {
+            return $commits;
+        }
+
+        $nameMap = $this->resolver->resolveNames($usernames);
+
+        return array_map(
+            function (array $commit) use ($nameMap): array {
+                if (preg_match(self::GITHUB_NOREPLY_PATTERN, $commit['email'], $m) !== 1) {
+                    return $commit;
+                }
+                $username = $m['username'];
+                if (!isset($nameMap[$username])) {
+                    return $commit;
+                }
+                $commit['name'] = $nameMap[$username];
+                return $commit;
+            },
+            $commits,
+        );
     }
 
     /**
