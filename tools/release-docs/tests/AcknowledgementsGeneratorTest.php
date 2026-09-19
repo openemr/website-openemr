@@ -43,6 +43,202 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
+    public function testParseLogOutputExtractsCoauthorsFromTrailerField(): void
+    {
+        // New format: third tab-separated field carries RS-separated
+        // Co-authored-by trailer values ("Name <email>" each). Each
+        // co-author gets its own record for full per-commit credit.
+        $input = "alice@example.com\tAlice Smith\tBob Jones <bob@example.com>\x1eCarla Diaz <carla@example.com>\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [
+                ['email' => 'alice@example.com', 'name' => 'Alice Smith'],
+                ['email' => 'bob@example.com', 'name' => 'Bob Jones'],
+                ['email' => 'carla@example.com', 'name' => 'Carla Diaz'],
+            ],
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputBackwardCompatibleWithNoTrailerField(): void
+    {
+        // Lines missing the third field (pre-fix format) still parse
+        // as primary-author-only. Guards against accidentally breaking
+        // any external caller that fed a two-field log.
+        $input = "alice@example.com\tAlice Smith\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [['email' => 'alice@example.com', 'name' => 'Alice Smith']],
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputEmptyTrailerFieldEmitsPrimaryAuthorOnly(): void
+    {
+        // git emits an empty third field when the commit has no
+        // Co-authored-by trailers. Line looks like "email\tname\t\n".
+        // Primary author still emitted; no co-author records added.
+        $input = "alice@example.com\tAlice Smith\t\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [['email' => 'alice@example.com', 'name' => 'Alice Smith']],
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputMalformedCoauthorTrailerSkippedNotFatal(): void
+    {
+        // Trailer syntax expects "Name <email>". A malformed value in
+        // history shouldn't crash the page render -- skip that one,
+        // keep the rest.
+        $input = "alice@example.com\tAlice\tno-brackets-here\x1eBob Jones <bob@example.com>\n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [
+                ['email' => 'alice@example.com', 'name' => 'Alice'],
+                ['email' => 'bob@example.com', 'name' => 'Bob Jones'],
+            ],
+            $commits,
+        );
+    }
+
+    public function testParseLogOutputCoauthorWithWhitespaceIsTrimmed(): void
+    {
+        // Trailer values with leading/trailing whitespace still parse
+        // cleanly. Also covers the "  <email>" spacing convention.
+        $input = "alice@example.com\tAlice\t  Bob Jones   <bob@example.com>  \n";
+
+        $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
+
+        self::assertSame(
+            [
+                ['email' => 'alice@example.com', 'name' => 'Alice'],
+                ['email' => 'bob@example.com', 'name' => 'Bob Jones'],
+            ],
+            $commits,
+        );
+    }
+
+    public function testCoauthorContributionsFullyCredited(): void
+    {
+        // End-to-end: primary + co-author on the same commit both
+        // count 1 in the acknowledgements. Simulates the 8.4.1
+        // scenario that surfaced this gap (Brady primary + Stephen
+        // co-author on a single commit should produce two 1-count
+        // rows, not one 1-count Brady row).
+        $input = "brady@example.com\tBrady Miller\tStephen Waite <stephen@example.com>\n";
+        $generator = new AcknowledgementsGenerator();
+        $commits = $generator->parseLogOutput($input);
+        $grouped = $generator->groupByEmail($commits);
+
+        self::assertSame(
+            [
+                ['name' => 'Brady Miller', 'commits' => 1],
+                ['name' => 'Stephen Waite', 'commits' => 1],
+            ],
+            $grouped,
+        );
+    }
+
+    public function testLogAuthorsUnfoldsFoldedCoauthorTrailerFromRealRepo(): void
+    {
+        // Rabbit-caught corner (2026-09-18): git trailers can be
+        // folded (continuation line starts with whitespace).
+        // Without `unfold=true` on the format string, the newline
+        // inside a folded value would inject into our per-line parse
+        // and split one co-author across two records. Integration
+        // test creates a real repo with a folded-trailer commit and
+        // asserts logAuthors() returns the co-author whole.
+        $repoPath = sys_get_temp_dir() . '/openemr-ack-int-' . bin2hex(random_bytes(6));
+        mkdir($repoPath);
+        try {
+            $this->runGit($repoPath, ['init', '--quiet', '--initial-branch=main']);
+            $this->runGit($repoPath, ['config', 'commit.gpgsign', 'false']);
+            $this->runGit($repoPath, ['config', 'tag.gpgsign', 'false']);
+            $this->runGit($repoPath, ['config', 'user.name', 'Primary Author']);
+            $this->runGit($repoPath, ['config', 'user.email', 'primary@example.com']);
+
+            // Baseline commit -- provides the fromRev anchor.
+            $this->runGit($repoPath, ['commit', '--allow-empty', '-m', 'baseline']);
+            $fromRev = trim($this->runGit($repoPath, ['rev-parse', 'HEAD']));
+
+            // Commit with a FOLDED Co-authored-by trailer. Continuation
+            // line (starting with a single space) is git's fold syntax.
+            $foldedMessage = <<<'MSG'
+            feat: something
+
+            Body paragraph explaining the change.
+
+            Co-authored-by: Really Long Continuation Name
+             <folded@example.com>
+            MSG;
+            $this->runGit($repoPath, ['commit', '--allow-empty', '-m', $foldedMessage]);
+            $toRev = trim($this->runGit($repoPath, ['rev-parse', 'HEAD']));
+
+            $records = (new AcknowledgementsGenerator())->logAuthors($repoPath, $fromRev, $toRev);
+
+            // Expect 2 records: primary author + one unfolded co-author.
+            // If unfold=true weren't set, the co-author's name would
+            // parse as "Really Long Continuation Name" with no email
+            // (regex would fail on the malformed value) OR would emit
+            // one record with a truncated/broken name -- either way
+            // the assertion below would fail.
+            self::assertSame(
+                [
+                    ['email' => 'primary@example.com', 'name' => 'Primary Author'],
+                    ['email' => 'folded@example.com', 'name' => 'Really Long Continuation Name'],
+                ],
+                $records,
+            );
+        } finally {
+            $this->removeRecursive($repoPath);
+        }
+    }
+
+    /**
+     * @param list<string> $args
+     */
+    private function runGit(string $repoPath, array $args): string
+    {
+        $process = new \Symfony\Component\Process\Process(
+            array_merge(['git', '-C', $repoPath], $args),
+        );
+        $process->mustRun();
+        return $process->getOutput();
+    }
+
+    private function removeRecursive(string $path): void
+    {
+        if (!is_dir($path)) {
+            if (is_file($path) || is_link($path)) {
+                unlink($path);
+            }
+            return;
+        }
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::CHILD_FIRST,
+        );
+        /** @var \SplFileInfo $entry */
+        foreach ($iterator as $entry) {
+            $p = $entry->getPathname();
+            if ($entry->isDir() && !$entry->isLink()) {
+                rmdir($p);
+            } else {
+                unlink($p);
+            }
+        }
+        rmdir($path);
+    }
+
     public function testGroupByEmailCollapsesMultipleNameSpellings(): void
     {
         // Reproduces the #135 failure: Stephen Waite commits under
