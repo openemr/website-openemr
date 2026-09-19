@@ -18,6 +18,7 @@ declare(strict_types=1);
 
 use OpenEMR\ReleaseDocs\AcknowledgementsGenerator;
 use OpenEMR\ReleaseDocs\Cli\Options;
+use OpenEMR\ReleaseDocs\HttpGitHubUserResolver;
 use OpenEMR\ReleaseDocs\Cli\Outputs;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
@@ -49,7 +50,14 @@ $command = new class () extends Command {
         $outputPath = Options::requireString($input, 'output');
 
         $from = AcknowledgementsGenerator::tagForVersion($prevVersion);
-        $rendered = (new AcknowledgementsGenerator())->generate($repoPath, $from, $to, $version);
+        // Inject the real HTTP resolver so Co-authored-by trailers using
+        // GitHub-username + noreply email get canonicalized to the
+        // user's GitHub profile display name (fixes duplicate-row bug
+        // where "Brady Miller" primary commits + "bradymiller"
+        // co-author trailers appeared as two rows for the same person).
+        // Reads GITHUB_TOKEN from env for authenticated rate limits.
+        $rendered = (new AcknowledgementsGenerator(HttpGitHubUserResolver::fromEnvironment()))
+            ->generate($repoPath, $from, $to, $version);
 
         return Outputs::writeOrEcho($output, $outputPath, $rendered);
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEMR\ReleaseDocs\Tests;
 
 use OpenEMR\ReleaseDocs\AcknowledgementsGenerator;
+use OpenEMR\ReleaseDocs\GitHubUserResolver;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -480,6 +481,30 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
+    public function testFilterAutomatedAuthorsDropsOpenemrReleaseBotCoauthorVariant(): void
+    {
+        // The openemr-release-bot GitHub App commits under its
+        // primary-author name `openemr-release-bot[bot]` which is
+        // caught by the `[bot]`-suffix rule. But some conductor-
+        // generated commits carry a Co-authored-by trailer of
+        // `openemr-release-bot <release-bot@openemr.invalid>` -- no
+        // `[bot]` suffix, and a non-GitHub-noreply email so the
+        // GitHubUserResolver canonicalization pass can't catch it
+        // either. NON_HUMAN_NAMES gets the bare-name variant added
+        // to catch this case explicitly (surfaced on release-docs
+        // 8.4.1 acknowledgements page, 2026-09-19).
+        $authors = (new AcknowledgementsGenerator())->filterAutomatedAuthors([
+            ['name' => 'Brady Miller', 'commits' => 12],
+            ['name' => 'openemr-release-bot', 'commits' => 2],
+            ['name' => 'openemr-release-bot[bot]', 'commits' => 9],
+        ]);
+
+        self::assertSame(
+            [['name' => 'Brady Miller', 'commits' => 12]],
+            $authors,
+        );
+    }
+
     public function testFilterAutomatedAuthorsPreservesNamesThatMerelyContainNonHumanSubstring(): void
     {
         // A hypothetical human contributor whose display name is a
@@ -498,6 +523,182 @@ final class AcknowledgementsGeneratorTest extends TestCase
                 ['name' => 'copilot', 'commits' => 3],
             ],
             $authors,
+        );
+    }
+
+    public function testCanonicalizeGithubNoreplyNamesNoopWhenNoResolverInjected(): void
+    {
+        // Backward-compat guarantee: constructor with no resolver leaves
+        // records untouched. Preserves pre-canonicalization semantics
+        // for callers that don't wire an HTTP resolver (test suite +
+        // any lightweight consumer that doesn't need canonicalization).
+        $commits = [
+            ['email' => '278968+bradymiller@users.noreply.github.com', 'name' => 'bradymiller'],
+            ['email' => 'brady.g.miller@gmail.com', 'name' => 'Brady Miller'],
+        ];
+        $result = (new AcknowledgementsGenerator())->canonicalizeGithubNoreplyNames($commits);
+        self::assertSame($commits, $result);
+    }
+
+    public function testCanonicalizeGithubNoreplyNamesRewritesNamesForNoreplyEmails(): void
+    {
+        // Real 8.4.1 shape (see release-docs 8.4.1 acknowledgements
+        // 2026-09-19): `bradymiller <278968+bradymiller@users.noreply
+        // .github.com>` co-author trailer + `Brady Miller <brady.g.
+        // miller@gmail.com>` primary. Post-canonicalization, both
+        // rows use the same name string so mergeSameNameEntries later
+        // collapses them.
+        $resolver = new class implements GitHubUserResolver {
+            /** @param list<string> $usernames  @return array<string, string> */
+            public function resolveNames(array $usernames): array
+            {
+                $map = ['bradymiller' => 'Brady Miller', 'kojiromike' => 'Michael Smith'];
+                $out = [];
+                foreach (array_unique($usernames) as $u) {
+                    $out[$u] = $map[$u] ?? $u;
+                }
+                return $out;
+            }
+        };
+
+        $commits = [
+            ['email' => 'brady.g.miller@gmail.com', 'name' => 'Brady Miller'],
+            ['email' => '278968+bradymiller@users.noreply.github.com', 'name' => 'bradymiller'],
+            ['email' => '1566303+kojiromike@users.noreply.github.com', 'name' => 'kojiromike'],
+            ['email' => 'jerry@example.com', 'name' => 'Jerry Padgett'],
+        ];
+
+        $result = (new AcknowledgementsGenerator($resolver))->canonicalizeGithubNoreplyNames($commits);
+
+        self::assertSame(
+            [
+                // Primary-author record (non-noreply email) untouched.
+                ['email' => 'brady.g.miller@gmail.com', 'name' => 'Brady Miller'],
+                // Co-author records (noreply emails) get canonicalized names.
+                ['email' => '278968+bradymiller@users.noreply.github.com', 'name' => 'Brady Miller'],
+                ['email' => '1566303+kojiromike@users.noreply.github.com', 'name' => 'Michael Smith'],
+                // Non-noreply co-author (personal email) untouched.
+                ['email' => 'jerry@example.com', 'name' => 'Jerry Padgett'],
+            ],
+            $result,
+        );
+    }
+
+    public function testCanonicalizeGithubNoreplyNamesHandlesLegacyNoreplyFormat(): void
+    {
+        // Older GitHub accounts use `<username>@users.noreply.github.com`
+        // without the `<id>+` prefix. Both formats must be recognized.
+        $resolver = new class implements GitHubUserResolver {
+            /** @param list<string> $usernames  @return array<string, string> */
+            public function resolveNames(array $usernames): array
+            {
+                $out = [];
+                foreach (array_unique($usernames) as $u) {
+                    $out[$u] = $u === 'olduser' ? 'Old User Real Name' : $u;
+                }
+                return $out;
+            }
+        };
+
+        $commits = [
+            ['email' => 'olduser@users.noreply.github.com', 'name' => 'olduser'],
+        ];
+        $result = (new AcknowledgementsGenerator($resolver))->canonicalizeGithubNoreplyNames($commits);
+        self::assertSame(
+            [['email' => 'olduser@users.noreply.github.com', 'name' => 'Old User Real Name']],
+            $result,
+        );
+    }
+
+    public function testCanonicalizeGithubNoreplyNamesDedupsResolverCallsPerUniqueUsername(): void
+    {
+        // Hot-cache semantics: even if the same username co-authors N
+        // commits, the resolver is asked exactly once per unique
+        // username. Captures the resolver's input to assert the dedup.
+        $resolver = new class implements GitHubUserResolver {
+            /** @var list<list<string>> */
+            public array $capturedInputs = [];
+
+            /** @param list<string> $usernames  @return array<string, string> */
+            public function resolveNames(array $usernames): array
+            {
+                $this->capturedInputs[] = $usernames;
+                $out = [];
+                foreach (array_unique($usernames) as $u) {
+                    $out[$u] = 'Resolved ' . $u;
+                }
+                return $out;
+            }
+        };
+
+        // Same username appears 5x in different commits.
+        $commits = array_fill(
+            0,
+            5,
+            ['email' => '278968+bradymiller@users.noreply.github.com', 'name' => 'bradymiller'],
+        );
+        (new AcknowledgementsGenerator($resolver))->canonicalizeGithubNoreplyNames($commits);
+
+        self::assertCount(1, $resolver->capturedInputs, 'resolveNames called exactly once');
+        // The input list passed in HAS duplicates (dedup is the
+        // resolver's responsibility per its interface contract); the
+        // resolver's `array_unique` collapses them to one API call.
+        self::assertCount(5, $resolver->capturedInputs[0], 'generator hands full non-deduped list to resolver');
+        self::assertSame(['bradymiller'], array_values(array_unique($resolver->capturedInputs[0])));
+    }
+
+    public function testCanonicalizeGithubNoreplyNamesPreservesRecordsWhenResolverOmitsAUsername(): void
+    {
+        // Resolver contract allows returning missing keys (e.g. lookup
+        // failed for that username). Generator falls back to the
+        // original name string when the map has no entry.
+        $resolver = new class implements GitHubUserResolver {
+            /** @param list<string> $usernames  @return array<string, string> */
+            public function resolveNames(array $usernames): array
+            {
+                return []; // simulate: every lookup failed
+            }
+        };
+        $commits = [
+            ['email' => '278968+bradymiller@users.noreply.github.com', 'name' => 'bradymiller'],
+        ];
+        $result = (new AcknowledgementsGenerator($resolver))->canonicalizeGithubNoreplyNames($commits);
+        self::assertSame($commits, $result, 'missing map entry falls back to original record');
+    }
+
+    public function testCanonicalizedNamesEnableMergeSameNameEntriesToCollapseDuplicateRows(): void
+    {
+        // End-to-end assertion of the real 8.4.1 acknowledgements bug:
+        // Brady Miller primary + bradymiller co-author (via GitHub
+        // noreply email) should NOT produce two rows for the same
+        // person. Post-canonicalization -> mergeSameNameEntries
+        // collapses them into one row with the combined count.
+        $resolver = new class implements GitHubUserResolver {
+            /** @param list<string> $usernames  @return array<string, string> */
+            public function resolveNames(array $usernames): array
+            {
+                $out = [];
+                foreach (array_unique($usernames) as $u) {
+                    $out[$u] = $u === 'bradymiller' ? 'Brady Miller' : $u;
+                }
+                return $out;
+            }
+        };
+        $generator = new AcknowledgementsGenerator($resolver);
+
+        // Simulate 6 primary + 6 co-author records for the same person.
+        $commits = array_merge(
+            array_fill(0, 6, ['email' => 'brady.g.miller@gmail.com', 'name' => 'Brady Miller']),
+            array_fill(0, 6, ['email' => '278968+bradymiller@users.noreply.github.com', 'name' => 'bradymiller']),
+        );
+
+        $canonicalized = $generator->canonicalizeGithubNoreplyNames($commits);
+        $grouped = $generator->groupByEmail($canonicalized);
+        $merged = $generator->mergeSameNameEntries($grouped);
+
+        self::assertSame(
+            [['name' => 'Brady Miller', 'commits' => 12]],
+            $merged,
         );
     }
 
