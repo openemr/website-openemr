@@ -109,7 +109,7 @@ jobs:
           --health-retries=20
     steps:
       - name: Checkout this repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           # Defense in depth — we no longer push from this checkout, but
           # leaving GITHUB_TOKEN persisted as an http.extraheader would
@@ -193,7 +193,7 @@ jobs:
           fi
 
       - name: Sparse-checkout openemr/openemr at dispatched sha
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: openemr/openemr
           ref: ${{ steps.payload.outputs.sha }}
@@ -232,7 +232,7 @@ jobs:
 
       - name: Sparse-checkout EHI assets from openemr master (8.1.0 fallback)
         if: ${{ steps.ehi.outputs.enabled == 'true' && steps.ehi.outputs.fallback == 'true' }}
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: openemr/openemr
           ref: master

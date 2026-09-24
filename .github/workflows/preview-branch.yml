@@ -54,7 +54,7 @@ jobs:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           lfs: true
       - uses: peaceiris/actions-hugo@v3

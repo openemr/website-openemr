@@ -37,7 +37,7 @@ jobs:
       # previews-commit action only. Runs first because checkout cleans the
       # workspace; the untrusted artifact is downloaded into ./artifact after.
       # No git auth needed here — the action clones with its own token.
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Download preview artifact
