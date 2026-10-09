@@ -1,0 +1,15 @@
+{{- with .Site.Params.ga4_measurement_id -}}
+<div id="analytics-consent" class="analytics-consent" role="dialog" aria-live="polite" aria-label="Analytics consent" data-ga-id="{{ . }}" hidden>
+  <div class="container analytics-consent__inner">
+    <p class="analytics-consent__text">
+      We'd like to use Google Analytics cookies to understand how people use this site. They're off unless you accept.
+      <a href="{{ "privacy/" | relURL }}">Privacy Policy</a>
+    </p>
+    <div class="analytics-consent__actions">
+      <button type="button" class="btn btn-outline-light btn-sm" data-consent="denied">Decline</button>
+      <button type="button" class="btn btn-light btn-sm" data-consent="granted">Accept</button>
+    </div>
+  </div>
+</div>
+<script src="{{ "js/analytics-consent.js" | relURL }}" defer></script>
+{{- end -}}

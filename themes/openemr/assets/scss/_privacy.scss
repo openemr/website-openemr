@@ -1,0 +1,12 @@
+.privacy-policy {
+  h2 {
+    margin-top: 2rem;
+  }
+
+  table {
+    @extend .table;
+    @extend .table-sm;
+    display: block;
+    overflow-x: auto;
+  }
+}

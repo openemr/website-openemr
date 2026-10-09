@@ -1,10 +1,11 @@
 {{ define "main"}}
-<div style="margin-top: 98px">
+<div style="margin-top: 98px; margin-bottom: 50px">
   <div class="container page">
     <div class="row">
-      <div class="col-xs-12 col-md-8 offset-md-2">
-        <p>{{ .Content }}</p>
-        <a href="//www.iubenda.com/privacy-policy/54578274" class="iubenda-nostyle no-brand iub-body-embed iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "//cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+      <div class="col-xs-12 col-md-8 offset-md-2 privacy-policy">
+        <h1>{{ .Title }}</h1>
+        <p class="text-muted">Last updated: <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></p>
+        {{ .Content }}
       </div>
     </div>
   </div>

@@ -3,8 +3,6 @@ baseURL: https://www.open-emr.org/
 theme: openemr
 languageCode: en-us
 copyright: OpenEMR Foundation, Inc
-disqusShortname: openemr
-googleAnalytics: UA-8316288-7
 enableGitInfo: true
 ignoreFiles:
   - _files%
@@ -188,6 +186,8 @@ params:
   highlightJsLocalUrl: ""
   githubSponser: openemr
   openCollective: openemr
+  # GA4 "G-" measurement ID. Empty disables both analytics and the consent banner.
+  ga4_measurement_id: "G-6ZX96L7J8J"
   author:
     name: OpenEMR
     twitter: openemr
