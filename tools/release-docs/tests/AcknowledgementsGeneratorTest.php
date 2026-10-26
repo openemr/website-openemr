@@ -51,7 +51,8 @@ final class AcknowledgementsGeneratorTest extends TestCase
         // trailer values ("Name <email>" each). Each co-author gets its
         // own record for full per-commit credit, tagged with the same
         // commit SHA as the primary.
-        $input = "aaa1111\talice@example.com\tAlice Smith\tBob Jones <bob@example.com>\x1eCarla Diaz <carla@example.com>\n";
+        $input = "aaa1111\talice@example.com\tAlice Smith"
+            . "\tBob Jones <bob@example.com>\x1eCarla Diaz <carla@example.com>\n";
 
         $commits = (new AcknowledgementsGenerator())->parseLogOutput($input);
 
@@ -708,7 +709,11 @@ final class AcknowledgementsGeneratorTest extends TestCase
             $commits[] = ['sha' => "p$i", 'email' => 'brady.g.miller@gmail.com', 'name' => 'Brady Miller'];
         }
         for ($i = 1; $i <= 6; $i++) {
-            $commits[] = ['sha' => "co$i", 'email' => '278968+bradymiller@users.noreply.github.com', 'name' => 'bradymiller'];
+            $commits[] = [
+                'sha' => "co$i",
+                'email' => '278968+bradymiller@users.noreply.github.com',
+                'name' => 'bradymiller',
+            ];
         }
 
         $canonicalized = $generator->canonicalizeGithubNoreplyNames($commits);
@@ -913,7 +918,8 @@ final class AcknowledgementsGeneratorTest extends TestCase
         // Stephen Nielson is the primary author AND the Co-authored-by
         // trailer "Discover and Change AI Worker" aliases to Stephen.
         // Pre-fix this counted 2 for that commit; post-fix counts 1.
-        $input = "540334297\tsnielson@discoverandchange.com\tStephen Nielson\tDiscover and Change AI Worker <ai-worker@discoverandchange.com>\n";
+        $input = "540334297\tsnielson@discoverandchange.com\tStephen Nielson"
+            . "\tDiscover and Change AI Worker <ai-worker@discoverandchange.com>\n";
         $generator = new AcknowledgementsGenerator();
 
         $commits = $generator->parseLogOutput($input);
