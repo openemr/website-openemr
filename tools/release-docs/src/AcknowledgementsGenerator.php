@@ -57,11 +57,76 @@ final class AcknowledgementsGenerator
     ) {
     }
 
+    /**
+     * Automated/non-human authors identified by exact-match commit email.
+     * Dropped before any grouping (both primary-author and Co-authored-by
+     * trailer records are filtered). Compared case-insensitively; entries
+     * must be lowercase.
+     *
+     * Email is the stable identity for these authors; the display name
+     * changes often enough that the NON_HUMAN_NAMES list can't keep up
+     * (e.g. new Claude model names ship every few months, all under the
+     * same anthropic.com noreply address). Covers:
+     *   - LLM assistants committing under a vendor-wide noreply address
+     *     (Claude Opus/Sonnet/Fable variants, Cursor, Warp).
+     *   - OpenEMR's security sandbox automation, which runs regression
+     *     passes under its own commit identity.
+     *
+     * @var list<string>
+     */
+    private const NON_HUMAN_EMAILS = [
+        'noreply@anthropic.com',
+        'cursoragent@cursor.com',
+        'agent@warp.dev',
+        'security@open-emr.org',
+    ];
+
+    /**
+     * Identity rewrites applied before groupByEmail(). Keyed by source
+     * email (lowercase); value is the canonical (name, email) pair that
+     * replaces the record. One entry can do both jobs:
+     *   - Fold a secondary email into a canonical one (two keys mapping
+     *     to the same value email) merges a person's rows across both
+     *     identities.
+     *   - Normalize the display name on records that would otherwise win
+     *     the pickDisplayName tie-break with the "wrong" spelling (set
+     *     the key equal to value's email, override the name).
+     *
+     * @var array<string, array{name: string, email: string}>
+     */
+    private const IDENTITY_ALIASES = [
+        // Discover and Change's "AI worker" commits are credited to the
+        // maintainer the worker operates on behalf of.
+        'ai-worker@discoverandchange.com' => [
+            'name' => 'Stephen Nielson',
+            'email' => 'snielson@discoverandchange.com',
+        ],
+        // Craig Allen commits from a personal email with the full
+        // "Craig Allen" spelling and from the GitHub-noreply with the
+        // "craigrallen" login spelling. Fold both into the noreply
+        // email (the primary-author identity GitHub emits) and force
+        // the full-name display so the row reads "Craig Allen" even
+        // when the login spelling has more commits in a given range.
+        'craig@interconnected.au' => [
+            'name' => 'Craig Allen',
+            'email' => '56693437+craigrallen@users.noreply.github.com',
+        ],
+        '56693437+craigrallen@users.noreply.github.com' => [
+            'name' => 'Craig Allen',
+            'email' => '56693437+craigrallen@users.noreply.github.com',
+        ],
+    ];
+
     public function generate(string $repoPath, string $fromRev, string $toRev, string $version): string
     {
         $commits = $this->logAuthors($repoPath, $fromRev, $toRev);
-        $canonicalized = $this->canonicalizeGithubNoreplyNames($commits);
-        $grouped = $this->groupByEmail($canonicalized);
+        // Two-stage canonicalization. Order matters: the API-driven step
+        // runs first so the hardcoded aliases below have the final say
+        // for any email they match (an explicit maintainer decision
+        // beats whatever a GitHub profile lookup happens to return).
+        $noreplyResolved = $this->canonicalizeGithubNoreplyNames($commits);
+        $canonical = $this->canonicalizeIdentities($noreplyResolved);
+        $grouped = $this->groupByEmail($canonical);
         $merged = $this->mergeSameNameEntries($grouped);
         return $this->render($this->filterAutomatedAuthors($merged), $version);
     }
@@ -126,6 +191,38 @@ final class AcknowledgementsGenerator
             },
             $commits,
         );
+    }
+
+    /**
+     * Drop NON_HUMAN_EMAILS and apply IDENTITY_ALIASES to the flat
+     * per-contribution log. Runs after canonicalizeGithubNoreplyNames()
+     * so hardcoded maintainer aliases override whatever the GitHub
+     * profile lookup produced for the same email.
+     *
+     * Both constants key on the lowercased email; comparisons here
+     * lowercase the input email before lookup. Records with no match
+     * in either constant pass through unchanged, so downstream display-
+     * name resolution still sees the author's natural spellings.
+     *
+     * @param list<array{email: string, name: string}> $commits
+     * @return list<array{email: string, name: string}>
+     */
+    public function canonicalizeIdentities(array $commits): array
+    {
+        $out = [];
+        foreach ($commits as $commit) {
+            $emailKey = strtolower($commit['email']);
+            if (in_array($emailKey, self::NON_HUMAN_EMAILS, true)) {
+                continue;
+            }
+            if (isset(self::IDENTITY_ALIASES[$emailKey])) {
+                $alias = self::IDENTITY_ALIASES[$emailKey];
+                $out[] = ['email' => $alias['email'], 'name' => $alias['name']];
+                continue;
+            }
+            $out[] = $commit;
+        }
+        return $out;
     }
 
     /**

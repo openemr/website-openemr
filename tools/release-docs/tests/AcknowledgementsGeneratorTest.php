@@ -702,6 +702,109 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
+    public function testCanonicalizeDropsNonHumanEmails(): void
+    {
+        // Email-keyed drop runs before any grouping, so both primary-
+        // author records and Co-authored-by trailers tied to a known
+        // bot email are removed. Human records with other emails pass
+        // through unchanged.
+        $commits = [
+            ['email' => 'noreply@anthropic.com', 'name' => 'Claude Opus 5.5'],
+            ['email' => 'noreply@anthropic.com', 'name' => 'Claude Sonnet 5'],
+            ['email' => 'cursoragent@cursor.com', 'name' => 'Cursor'],
+            ['email' => 'agent@warp.dev', 'name' => 'Warp'],
+            ['email' => 'security@open-emr.org', 'name' => 'OpenEMR Security Sandbox'],
+            ['email' => 'alice@example.com', 'name' => 'Alice'],
+        ];
+
+        $canonical = (new AcknowledgementsGenerator())->canonicalizeIdentities($commits);
+
+        self::assertSame(
+            [['email' => 'alice@example.com', 'name' => 'Alice']],
+            $canonical,
+        );
+    }
+
+    public function testCanonicalizeNonHumanEmailMatchIsCaseInsensitive(): void
+    {
+        // Author emails are canonically lowercase, but a mixed-case
+        // variant in commit history (unusual but legal per RFC 5321)
+        // shouldn't slip past the filter.
+        $commits = [
+            ['email' => 'NoReply@Anthropic.COM', 'name' => 'Claude Opus 5.5'],
+        ];
+
+        $canonical = (new AcknowledgementsGenerator())->canonicalizeIdentities($commits);
+
+        self::assertSame([], $canonical);
+    }
+
+    public function testCanonicalizeAliasesAiWorkerToStephenNielson(): void
+    {
+        // The AI worker's commits are credited to Stephen Nielson's
+        // canonical identity -- same (name, email) that Stephen's
+        // own commits use -- so a later groupByEmail folds both into
+        // a single row.
+        $commits = [
+            ['email' => 'ai-worker@discoverandchange.com', 'name' => 'Discover and Change AI Worker'],
+            ['email' => 'snielson@discoverandchange.com', 'name' => 'Stephen Nielson'],
+        ];
+        $generator = new AcknowledgementsGenerator();
+
+        $canonical = $generator->canonicalizeIdentities($commits);
+
+        self::assertSame(
+            [
+                ['email' => 'snielson@discoverandchange.com', 'name' => 'Stephen Nielson'],
+                ['email' => 'snielson@discoverandchange.com', 'name' => 'Stephen Nielson'],
+            ],
+            $canonical,
+        );
+        self::assertSame(
+            [['name' => 'Stephen Nielson', 'commits' => 2]],
+            $generator->groupByEmail($canonical),
+        );
+    }
+
+    public function testCanonicalizeMergesCraigAllenAcrossTwoEmails(): void
+    {
+        // Both of Craig's committer identities map to the same canonical
+        // (name, email), so groupByEmail folds them into one row and the
+        // display name is the full-name spelling regardless of which
+        // identity contributed more commits.
+        $commits = array_merge(
+            array_fill(0, 3, [
+                'email' => '56693437+craigrallen@users.noreply.github.com',
+                'name' => 'craigrallen',
+            ]),
+            array_fill(0, 1, [
+                'email' => 'craig@interconnected.au',
+                'name' => 'Craig Allen',
+            ]),
+        );
+        $generator = new AcknowledgementsGenerator();
+
+        $grouped = $generator->groupByEmail($generator->canonicalizeIdentities($commits));
+
+        self::assertSame(
+            [['name' => 'Craig Allen', 'commits' => 4]],
+            $grouped,
+        );
+    }
+
+    public function testCanonicalizeLeavesUnknownIdentitiesUntouched(): void
+    {
+        // No match in either constant -> record passes through byte-exact.
+        $commits = [
+            ['email' => 'alice@example.com', 'name' => 'Alice Smith'],
+            ['email' => 'bob@example.com', 'name' => 'Bob Jones'],
+        ];
+
+        $canonical = (new AcknowledgementsGenerator())->canonicalizeIdentities($commits);
+
+        self::assertSame($commits, $canonical);
+    }
+
     public function testEndToEndPipelineMatchesFixtureSnapshot(): void
     {
         // Full pipeline: parseLogOutput -> groupByEmail -> filterAutomated
