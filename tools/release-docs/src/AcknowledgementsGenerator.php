@@ -126,7 +126,15 @@ final class AcknowledgementsGenerator
         // beats whatever a GitHub profile lookup happens to return).
         $noreplyResolved = $this->canonicalizeGithubNoreplyNames($commits);
         $canonical = $this->canonicalizeIdentities($noreplyResolved);
-        $grouped = $this->groupByEmail($canonical);
+        // Dedup per-commit: after both canonicalization passes, a single
+        // commit's primary-author record and one of its Co-authored-by
+        // trailers can resolve to the same (email, name) -- most often
+        // when an aliased identity lands on the same canonical email as
+        // the primary (Stephen Nielson's AI-worker trailer; Craig Allen's
+        // personal-email trailer on his own primary commit). Each real
+        // commit should count once per contributor, not once per record.
+        $deduped = $this->deduplicatePerCommit($canonical);
+        $grouped = $this->groupByEmail($deduped);
         $merged = $this->mergeSameNameEntries($grouped);
         return $this->render($this->filterAutomatedAuthors($merged), $version);
     }
@@ -156,8 +164,8 @@ final class AcknowledgementsGenerator
      * pre-canonicalization semantics for the test suite. Production
      * builds inject HttpGitHubUserResolver::fromEnvironment().
      *
-     * @param list<array{email: string, name: string}> $commits
-     * @return list<array{email: string, name: string}>
+     * @param list<array{sha: string, email: string, name: string}> $commits
+     * @return list<array{sha: string, email: string, name: string}>
      */
     public function canonicalizeGithubNoreplyNames(array $commits): array
     {
@@ -204,8 +212,8 @@ final class AcknowledgementsGenerator
      * in either constant pass through unchanged, so downstream display-
      * name resolution still sees the author's natural spellings.
      *
-     * @param list<array{email: string, name: string}> $commits
-     * @return list<array{email: string, name: string}>
+     * @param list<array{sha: string, email: string, name: string}> $commits
+     * @return list<array{sha: string, email: string, name: string}>
      */
     public function canonicalizeIdentities(array $commits): array
     {
@@ -217,10 +225,50 @@ final class AcknowledgementsGenerator
             }
             if (isset(self::IDENTITY_ALIASES[$emailKey])) {
                 $alias = self::IDENTITY_ALIASES[$emailKey];
-                $out[] = ['email' => $alias['email'], 'name' => $alias['name']];
+                $out[] = ['sha' => $commit['sha'], 'email' => $alias['email'], 'name' => $alias['name']];
                 continue;
             }
             $out[] = $commit;
+        }
+        return $out;
+    }
+
+    /**
+     * Collapse per-commit records that share the same canonical identity
+     * after upstream canonicalization. Key is (sha, strtolower(email)):
+     * two records on the same commit with the same email are the same
+     * contributor contributing once, not twice. The emitted record drops
+     * the sha field (downstream steps work on the flat identity shape).
+     *
+     * Why: logAuthors emits one record per primary + one per Co-authored-
+     * by trailer, giving co-authors full per-commit credit. When an alias
+     * folds a trailer identity onto the same email as the primary author
+     * (Stephen Nielson's AI-worker trailer; Craig Allen's personal-email
+     * trailer on his own commit), the real "one commit, one contributor"
+     * contribution ends up as two records and the ack-page count doubles.
+     * Dedup after both canonicalization passes so the full canonical
+     * email is in hand before matching.
+     *
+     * Name is not part of the dedup key: within one commit, two records
+     * with the same email but different name spellings are still the
+     * same person, so keep the first-seen spelling and discard the
+     * second (primary-author record wins by iteration order).
+     *
+     * @param list<array{sha: string, email: string, name: string}> $commits
+     * @return list<array{email: string, name: string}>
+     */
+    public function deduplicatePerCommit(array $commits): array
+    {
+        /** @var array<string, true> $seen keyed by "<sha>\x00<lower-email>" */
+        $seen = [];
+        $out = [];
+        foreach ($commits as $commit) {
+            $key = $commit['sha'] . "\x00" . strtolower($commit['email']);
+            if (isset($seen[$key])) {
+                continue;
+            }
+            $seen[$key] = true;
+            $out[] = ['email' => $commit['email'], 'name' => $commit['name']];
         }
         return $out;
     }
@@ -269,18 +317,23 @@ final class AcknowledgementsGenerator
      * contributor's row in the rendered page counts every commit they
      * contributed to. Matches GitHub's contribution-count semantics.
      *
-     * @return list<array{email: string, name: string}>
+     * Each record carries the commit's SHA so a downstream dedup step
+     * can collapse records that resolve to the same canonical identity
+     * on the same commit (primary + aliased co-author trailer).
+     *
+     * @return list<array{sha: string, email: string, name: string}>
      */
     public function logAuthors(string $repoPath, string $fromRev, string $toRev): array
     {
-        // %aE gives the author email; %aN respects .mailmap so upstream
-        // canonicalization (if any) is honored before we group.
+        // %H gives the full commit SHA. %aE gives the author email;
+        // %aN respects .mailmap so upstream canonicalization (if any)
+        // is honored before we group.
         // %(trailers:key=Co-authored-by,valueonly=true,unfold=true,
         // separator=%x1e) gives the raw trailer values ("Name <email>"
         // each), RS-separated within one line so a per-line split still
-        // works. Empty third field when the commit has no co-authors.
-        // Tab as field separator is safe because commit author name/
-        // email + trailer values can't contain tabs.
+        // works. Empty fourth field when the commit has no co-authors.
+        // Tab as field separator is safe because commit SHA + author
+        // name/email + trailer values can't contain tabs.
         //
         // `unfold=true` collapses folded (multi-line-continuation)
         // trailer values into a single line before emission -- without
@@ -295,7 +348,7 @@ final class AcknowledgementsGenerator
             '-C', $repoPath,
             'log',
             '--no-merges',
-            '--format=%aE%x09%aN%x09%(trailers:key=Co-authored-by,valueonly=true,unfold=true,separator=%x1e)',
+            '--format=%H%x09%aE%x09%aN%x09%(trailers:key=Co-authored-by,valueonly=true,unfold=true,separator=%x1e)',
             "$fromRev..$toRev",
         ]);
         $process->mustRun();
@@ -305,18 +358,19 @@ final class AcknowledgementsGenerator
 
     /**
      * Parse the tab-delimited git log output produced by logAuthors().
-     * Each line = one commit: `email\tname[\tcoauthor1\x1ecoauthor2...]`.
-     * The third field is optional (absent on the pre-fix format; empty
-     * when the commit has no co-authors).
+     * Each line = one commit: `sha\temail\tname[\tcoauthor1\x1ecoauthor2...]`.
+     * The fourth field is optional (empty when the commit has no co-authors).
      *
      * Emits one record per contributor per commit (primary author +
-     * one per Co-authored-by trailer). Malformed trailer values that
-     * don't match the "Name <email>" shape are silently skipped --
-     * git normalizes trailer syntax on read, so a malformed value
-     * would indicate an upstream commit crafted with a broken trailer
-     * (rare; not worth failing the whole render).
+     * one per Co-authored-by trailer), each carrying the commit SHA so
+     * a downstream dedup step can collapse same-identity contributions
+     * on the same commit. Malformed trailer values that don't match the
+     * "Name <email>" shape are silently skipped -- git normalizes
+     * trailer syntax on read, so a malformed value would indicate an
+     * upstream commit crafted with a broken trailer (rare; not worth
+     * failing the whole render).
      *
-     * @return list<array{email: string, name: string}>
+     * @return list<array{sha: string, email: string, name: string}>
      */
     public function parseLogOutput(string $logOutput): array
     {
@@ -331,27 +385,29 @@ final class AcknowledgementsGenerator
                 continue;
             }
 
-            $parts = explode("\t", $line, 3);
-            if (count($parts) < 2) {
+            $parts = explode("\t", $line, 4);
+            if (count($parts) < 3) {
                 continue;
             }
-            $email = trim($parts[0]);
-            $name = trim($parts[1]);
-            if ($email === '' || $name === '') {
+            $sha = trim($parts[0]);
+            $email = trim($parts[1]);
+            $name = trim($parts[2]);
+            if ($sha === '' || $email === '' || $name === '') {
                 continue;
             }
 
-            $commits[] = ['email' => $email, 'name' => $name];
+            $commits[] = ['sha' => $sha, 'email' => $email, 'name' => $name];
 
-            // Third field (optional) carries RS-separated Co-authored-by
+            // Fourth field (optional) carries RS-separated Co-authored-by
             // trailer values. Each looks like "Name <email>" -- parse
-            // and emit one record per co-author, giving them full
-            // per-commit credit alongside the primary author.
-            $coauthorField = $parts[2] ?? '';
+            // and emit one record per co-author tagged with this commit's
+            // SHA, giving them full per-commit credit alongside the
+            // primary author.
+            $coauthorField = $parts[3] ?? '';
             if ($coauthorField === '') {
                 continue;
             }
-            foreach ($this->parseCoauthorTrailers($coauthorField) as $coauthor) {
+            foreach ($this->parseCoauthorTrailers($sha, $coauthorField) as $coauthor) {
                 $commits[] = $coauthor;
             }
         }
@@ -361,7 +417,8 @@ final class AcknowledgementsGenerator
 
     /**
      * Parse the raw `%(trailers:key=Co-authored-by,valueonly=true,
-     * separator=%x1e)` field into per-co-author records.
+     * separator=%x1e)` field into per-co-author records tagged with
+     * the enclosing commit's SHA.
      *
      * Each value is expected to be a `Name <email>` string (git's
      * standard trailer syntax; enforced by peter-evans/create-pull-
@@ -370,9 +427,9 @@ final class AcknowledgementsGenerator
      * crafted trailer somewhere in history shouldn't fail the whole
      * acknowledgements page.
      *
-     * @return list<array{email: string, name: string}>
+     * @return list<array{sha: string, email: string, name: string}>
      */
-    private function parseCoauthorTrailers(string $field): array
+    private function parseCoauthorTrailers(string $sha, string $field): array
     {
         $records = [];
         foreach (explode("\x1e", $field) as $value) {
@@ -388,7 +445,7 @@ final class AcknowledgementsGenerator
             if ($name === '' || $email === '') {
                 continue;
             }
-            $records[] = ['email' => $email, 'name' => $name];
+            $records[] = ['sha' => $sha, 'email' => $email, 'name' => $name];
         }
         return $records;
     }
