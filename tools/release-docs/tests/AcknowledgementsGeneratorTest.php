@@ -933,6 +933,29 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
+    public function testEndToEndBradyMillerSelfCoauthorSameCommitCountedOnce(): void
+    {
+        // Real-world shape from commit 559fbdb04086 (openemr/openemr
+        // all-history): Brady Miller is the primary author under his
+        // personal email and the Co-authored-by trailer gives his
+        // GitHub-noreply identity -- a GitHub-squash-merge artifact
+        // on his own PR commits. The two identities must fold into
+        // one row counted once per commit, not twice.
+        $input = "559fbdb0\tbrady.g.miller@gmail.com\tBrady Miller"
+            . "\tbradymiller <278968+bradymiller@users.noreply.github.com>\n";
+        $generator = new AcknowledgementsGenerator();
+
+        $commits = $generator->parseLogOutput($input);
+        $canonical = $generator->canonicalizeIdentities($commits);
+        $deduped = $generator->deduplicatePerCommit($canonical);
+        $grouped = $generator->groupByEmail($deduped);
+
+        self::assertSame(
+            [['name' => 'Brady Miller', 'commits' => 1]],
+            $grouped,
+        );
+    }
+
     public function testEndToEndCraigAllenSelfCoauthorSameCommitCountedOnce(): void
     {
         // Real-world shape from commit 0d7b4c7737 (v8_4_0..HEAD):

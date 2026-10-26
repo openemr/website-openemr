@@ -115,6 +115,15 @@ final class AcknowledgementsGenerator
             'name' => 'Craig Allen',
             'email' => '56693437+craigrallen@users.noreply.github.com',
         ],
+        // Brady Miller commits as primary under his personal email but
+        // GitHub's squash-merge path annotates his own PR commits with
+        // a Co-authored-by trailer under his GitHub-noreply identity.
+        // Fold the noreply into the personal email so deduplicatePerCommit
+        // collapses the primary + self-coauthor pair into one contribution.
+        '278968+bradymiller@users.noreply.github.com' => [
+            'name' => 'Brady Miller',
+            'email' => 'brady.g.miller@gmail.com',
+        ],
     ];
 
     public function generate(string $repoPath, string $fromRev, string $toRev, string $version): string
