@@ -680,5 +680,11 @@
         "sha": "a43edad9ea6d969fcbcc1df7d8ccc50ad34fd872",
         "status": "FINAL",
         "released_at": "2026-09-20"
+    },
+    "8.5.0": {
+        "branch": "rel-850",
+        "sha": "c1b2b8bcbe91aa81858f7ba8b25c31d9a82639a5",
+        "status": "FINAL",
+        "released_at": "2026-10-27"
     }
 }
