@@ -933,6 +933,50 @@ final class AcknowledgementsGeneratorTest extends TestCase
         );
     }
 
+    public function testGenerateRendersStephenNielsonSelfCoauthorAsOneCommit(): void
+    {
+        // Pipeline-level regression gate: exercise the real generate()
+        // wiring (not individual steps) so a reorder or removal of
+        // canonicalizeIdentities / deduplicatePerCommit in generate()
+        // is caught here. Mirrors the shape of commit 540334297 from
+        // openemr/openemr: Stephen Nielson is primary, Discover and
+        // Change AI Worker is the Co-authored-by trailer on the same
+        // commit; both must fold into one "Stephen Nielson (1 commit)"
+        // row in the rendered output.
+        $repoPath = sys_get_temp_dir() . '/openemr-ack-gen-' . bin2hex(random_bytes(6));
+        mkdir($repoPath);
+        try {
+            $this->runGit($repoPath, ['init', '--quiet', '--initial-branch=main']);
+            $this->runGit($repoPath, ['config', 'commit.gpgsign', 'false']);
+            $this->runGit($repoPath, ['config', 'tag.gpgsign', 'false']);
+            $this->runGit($repoPath, ['config', 'user.name', 'Stephen Nielson']);
+            $this->runGit($repoPath, ['config', 'user.email', 'snielson@discoverandchange.com']);
+
+            // Baseline commit = fromRev anchor; excluded from the range.
+            $this->runGit($repoPath, ['commit', '--allow-empty', '-m', 'baseline']);
+            $fromRev = trim($this->runGit($repoPath, ['rev-parse', 'HEAD']));
+
+            // Stephen primary + AI-worker self-coauthor trailer on
+            // the same commit. The AI-worker email is in IDENTITY_
+            // ALIASES mapping to Stephen's canonical identity.
+            $message = <<<'MSG'
+            feat: something
+
+            Co-authored-by: Discover and Change AI Worker <ai-worker@discoverandchange.com>
+            MSG;
+            $this->runGit($repoPath, ['commit', '--allow-empty', '-m', $message]);
+            $toRev = trim($this->runGit($repoPath, ['rev-parse', 'HEAD']));
+
+            $rendered = (new AcknowledgementsGenerator())->generate($repoPath, $fromRev, $toRev, '8.5.0-test');
+
+            self::assertStringContainsString('- Stephen Nielson (1 commit)', $rendered);
+            self::assertStringNotContainsString('Discover and Change AI Worker', $rendered);
+            self::assertStringNotContainsString('(2 commits)', $rendered);
+        } finally {
+            $this->removeRecursive($repoPath);
+        }
+    }
+
     public function testEndToEndBradyMillerSelfCoauthorSameCommitCountedOnce(): void
     {
         // Real-world shape from commit 559fbdb04086 (openemr/openemr
